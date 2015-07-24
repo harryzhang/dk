@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+     <package name="guarant" extends="login-default" namespace="/">
+        <action name="guaranteeaindex" class="guaranteeAction" method="guaranteeaindexMethod">
+			<result name="success">/WEB-INF/page/usercenter/user_guarantee_list.jsp</result>
+		</action>
+		
+		 <action name="userMeg" class="guaranteeAction" method="userMegMethod">
+			<result name="success">/WEB-INF/page/usercenter/user_friend.jsp</result>
+		</action>
+		<!-- 查看用户的信用详情 -->
+		<action name="userCridit" class="guaranteeAction" method="userCriditMethod">
+			<result name="success">/WEB-INF/page/usercenter/user_credit.jsp</result>
+			<result name="login">index.jsp</result>
+		</action>
+		<!-- 合和年在线认证 -->
+		<action name="userrrjc" class="guaranteeAction" method="userRenRenMethod">
+			<result name="success">/WEB-INF/page/usercenter/user_approve.jsp</result>
+			<result name="login">index.jsp</result>
+		</action>
+		<!-- 合和年在线用户的好友列表 -->
+		<action name="userFrends" class="guaranteeAction" method="queryUserFriendList">
+			<result name="success">/WEB-INF/page/usercenter/user_frends.jsp</result>
+			<result name="attention">/WEB-INF/page/front/gzhy_info_list.jsp</result>
+		</action>
+		
+	    <!-- 合和年在线用户的好友列表 -->
+		<action name="deleteuserFrend" class="guaranteeAction" method="deleteUserFriend">
+			<result name="attention">/WEB-INF/page/front/gzhy_info_list.jsp</result>
+		</action>
+		<!-- 显示用户的借款列表 -->
+		<action name="myBorrowList" class="guaranteeAction" method="queryUserBorrowLists">
+			<result name="success">/WEB-INF/page/usercenter/user_myBorrowList.jsp</result>
+		</action>
+		<!-- 显示个人的投资记录 -->
+		<action name="queryBorrowRecode" class="guaranteeAction" method="queryMyborrowRecorde">
+			<result name="success">/WEB-INF/page/usercenter/user_myBorrowRecoredList.jsp</result>
+		</action>
+		<!-- 查询用户的动态记录 -->
+		<action name="queryUserRecoreIndex" class="guaranteeAction" method="queryUserRecore">
+			<result name="success">/WEB-INF/page/usercenter/user_myDynamicRecored.jsp</result>
+		</action>
+		<!-- 查询用户好友的动态记录 -->
+		<action name="queryfrendrecoredIndex" class="guaranteeAction" method="queryfrendsRecore">
+			<result name="success">/WEB-INF/page/usercenter/user_friendDynamicRecored.jsp</result>
+		</action>
+		
+     </package>
+     
+</struts>

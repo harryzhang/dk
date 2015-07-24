@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.dal.activity.IActivityOrderDao">
+	<resultMap type="activityOrderDo" id="activityOrderResultMap">
+		<result property="ordId" column="ordId" />
+		<result property="userId" column="userId" />
+		<result property="ordNo" column="ordNo" />
+		<result property="ordType" column="ordType" />
+		<result property="beginDate" column="beginDate" />
+		<result property="endDate" column="endDate" />
+		<result property="ordDate" column="ordDate" />
+		<result property="investAmount" column="investAmount" />
+		<result property="deductAmount" column="deductAmount" />
+		<result property="profit" column="profit" />
+		<result property="deductPerMonth" column="deductPerMonth" />
+		<result property="billingAddress" column="billingAddress" />
+		<result property="cId" column="cId" />
+		<result property="cName" column="cName" />
+		<result property="ordStatus" column="ordStatus" />
+		<result property="remark" column="remark" />
+		<result property="createTime" column="createTime" />
+		<result property="updateTime" column="updateTime" />
+		<result property="rechargeMoney" column="rechargeMoney" />
+		<result property="rateType" column="rateType" />
+		<result property="orderSubType" column="orderSubType" />
+		<result property="rate" column="rate" />
+		<result property="deductPerMonthText" column="deductPerMonthText" />
+		<result property="billingDateText" column="billingDateText" />
+		<result property="billingAddressText" column="billingAddressText" />
+		<result property="carNumber" column="carNumber" />
+	</resultMap>
+
+
+	<select id="queryOrderDetail" parameterType="map"
+		resultMap="activityOrderResultMap">
+		SELECT *
+		FROM t_activity_order
+		WHERE ordNo = #{ordNo}
+		and userId = #{userId}
+		and ordType = #{ordType}
+		and delStatus = 0
+	</select>
+
+	<select id="getById" parameterType="Long" resultMap="activityOrderResultMap">
+		SELECT *
+		FROM t_activity_order WHERE ordId = #{id} 
+	</select>
+	
+	<select id="getByUserId" parameterType="Long" resultMap="activityOrderResultMap">
+		SELECT *
+		FROM t_activity_order
+		WHERE userId = #{userId} and delStatus = 0
+	</select>
+
+	<select id="selectActivityOrder" parameterType="Map"
+		resultMap="activityOrderResultMap">
+		SELECT *
+		FROM t_activity_order
+		WHERE delStatus = 0
+		<if test="ordId != null">
+			AND ordId like #{ordId}
+		</if>
+		<if test="userId != null">
+			AND userId like #{userId}
+		</if>
+		<if test="ordNo != null">
+			AND ordNo like #{ordNo}
+		</if>
+		<if test="ordType != null">
+			AND ordType like #{ordType}
+		</if>
+		<if test="beginDate != null">
+			AND beginDate like #{beginDate}
+		</if>
+		<if test="endDate != null">
+			AND endDate like #{endDate}
+		</if>
+		<if test="ordDate != null">
+			AND ordDate like #{ordDate}
+		</if>
+		<if test="investAmount != null">
+			AND investAmount like #{investAmount}
+		</if>
+		<if test="deductAmount != null">
+			AND deductAmount like #{deductAmount}
+		</if>
+		<if test="billingAddress != null">
+			AND billingAddress like #{billingAddress}
+		</if>
+		<if test="ordStatus != null">
+			AND ordStatus like #{ordStatus}
+		</if>
+		<if test="remark != null">
+			AND remark like #{remark}
+		</if>
+		<if test="createTime != null">
+			AND createTime like #{createTime}
+		</if>
+		<if test="updateTime != null">
+			AND updateTime like #{updateTime}
+		</if>
+		<if test="rateType != null">
+			AND rateType like #{rateType}
+		</if>
+		<if test="orderSubType != null">
+			AND orderSubType like #{orderSubType}
+		</if>
+
+	</select>
+	
+	<update id="updateActivityOrderById" parameterType="activityOrderDo">
+		UPDATE t_activity_order
+
+        <trim prefix="SET" prefixOverrides=",">
+		<if test="userId != null">
+			userId = #{userId}
+		</if>
+		<if test="ordNo != null">
+			,ordNo = #{ordNo}
+		</if>
+		<if test="ordType != null">
+			,ordType = #{ordType}
+		</if>
+		<if test="beginDate != null">
+			,beginDate = #{beginDate}
+		</if>
+		<if test="endDate != null">
+			,endDate = #{endDate}
+		</if>
+		<if test="ordDate != null">
+			,ordDate = #{ordDate}
+		</if>
+		<if test="investAmount != null">
+			,investAmount = #{investAmount}
+		</if>
+		<if test="deductAmount != null">
+			,deductAmount = #{deductAmount}
+		</if>
+		<if test="billingAddress != null">
+			,billingAddress = #{billingAddress}
+		</if>
+		<if test="ordStatus != null">
+			,ordStatus = #{ordStatus}
+		</if>
+		<if test="remark != null">
+			,remark = #{remark}
+		</if>
+		<if test="rate != null">
+			,rate = #{rate}
+		</if>
+		<if test="deductPerMonthText != null">
+			,deductPerMonthText = #{deductPerMonthText}
+		</if>
+		<if test="billingDateText != null">
+			,billingDateText = #{billingDateText}
+		</if>
+		<if test="billingAddressText != null">
+			,billingAddressText = #{billingAddressText}
+		</if>
+		<if test="carNumber != null">
+			,carNumber = #{carNumber}
+		</if>
+		<if test="createTime != null">
+			,createTime = #{createTime}
+		</if>
+		<if test="updateTime != null">
+			,updateTime = #{updateTime}
+		</if>
+        </trim>
+		WHERE ordId = #{ordId}
+	</update>
+
+	<insert id="addActivityOrder" parameterType="activityOrderDo"
+		keyProperty="ordId" useGeneratedKeys="true">
+		INSERT INTO t_activity_order(
+		userId
+		,ordNo
+		,ordType
+		,beginDate
+		,endDate
+		,ordDate
+		,investAmount
+		,deductAmount
+		,deductPerMonth
+		,profit
+		,cName
+		,cId
+		,billingAddress
+		,ordStatus
+		,remark
+		,rateType
+		,orderSubType
+		,createTime
+		,updateTime
+		,rate
+		,deductPerMonthText
+		,billingDateText
+		,billingAddressText
+		,carNumber		
+		)
+		VALUES ( #{userId}
+		,#{ordNo}
+		,#{ordType}
+		,#{beginDate}
+		,#{endDate}
+		,#{ordDate}
+		,#{investAmount}
+		,#{deductAmount}
+		,#{deductPerMonth}
+		,#{profit}
+		,#{cName}
+		,#{cId}
+		,#{billingAddress}
+		,#{ordStatus}
+		,#{remark}
+		,#{rateType}
+		,#{orderSubType}
+		,#{createTime}
+		,#{updateTime}
+		,#{rate}
+		,#{deductPerMonthText}
+		,#{billingDateText}
+		,#{billingAddressText}
+		,#{carNumber}
+		);
+	</insert>
+
+	<delete id="deleteById" parameterType="Long">
+		DELETE FROM
+		t_activity_order WHERE ordId = #{id}
+	</delete>
+
+	<select id="getByOrdNo" parameterType="Map" resultMap="activityOrderResultMap">
+		select * from t_activity_order where ordNo=#{ordNo} and ordType=#{ordType}
+	</select>
+
+	<update id="updateStatus" parameterType="Map">
+		update t_activity_order set ordStatus=#{ordStatus} where ordId=#{ordId}
+	</update>
+    <select id="hasOrder" parameterType="Map" resultType="long">
+        select count(1) from t_activity_order where  ordType=#{ordType} and userId=#{userId} and delStatus=0
+    </select>
+    <update id="addRechargeMoney" parameterType="Map">
+        update t_activity_order set rechargeMoney=#{addMoney}+rechargeMoney,ordStatus=2 where ordId=#{ordId} and userId=#{userId}
+    </update>
+</mapper>
+

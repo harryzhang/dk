@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="team" extends="admin-default" namespace="/admin">
+		<!-- 团队介绍列表 -->
+		<action name="queryTeamListPage" class="teamAction" method="queryteamListPage">
+			<result name="success">/WEB-INF/page/admin/team_index_info.jsp</result>
+        </action>
+        <!-- 初始化团队介绍列表 -->
+        <action name="teamListinit" class="teamAction" method="queryTeamListInit">
+			<result name="success">/WEB-INF/page/admin/team_index.jsp</result>
+        </action>
+        
+        <!-- 初始化添加团队介绍 -->
+        <action name="addTeamInit" class="teamAction" method="addTeamInit">
+			<result name="success">/WEB-INF/page/admin/team_add.jsp</result>
+        </action>
+        
+        <!-- 添加团队介绍 -->
+        <action name="addTeam" class="teamAction" method="addTeam">
+            <result name="input">/WEB-INF/page/admin/team_add.jsp</result>
+			<result name="success" type="redirectAction">teamListinit.do</result>
+        </action>
+        
+        <!--根据Id获取团队介绍详情 -->
+        <action name="updateTeamInit" class="teamAction" method="updateTeamInit">
+            <result name="success">/WEB-INF/page/admin/team_update.jsp</result>
+        </action>
+        
+        <action name="previewTeamInit" class="teamAction" method="updateTeamInit">
+            <result name="success">/WEB-INF/page/admin/team_preview.jsp</result>
+        </action>
+        <!--更新团队介绍 -->
+        <action name="updateTeam" class="teamAction" method="updateTeam">   
+           <result name="input">/WEB-INF/page/admin/team_update.jsp</result>
+			<result name="success" type="redirect">teamListinit.do</result>
+        </action>
+        
+        <!--根据Id获取下载资料详情 -->
+        <action name="deleteTeam" class="teamAction" method="deleteTeam">             
+			<result name="success" type="redirect">teamListinit.do</result>
+        </action>
+        
+        <action name="isExistTeamSortId" class="teamAction" method="isExistSortId">   
+        </action>
+        
+        <action name="isExistTeamToUpdate" class="teamAction" method="isExistToUpdate">   
+        </action>
+
+	</package>
+</struts>

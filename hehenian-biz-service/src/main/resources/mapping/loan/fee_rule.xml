@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.IManagerFeeRuleDao">
+	<select id="queryBySchemeId" parameterType="long" resultType="feeRuleDo">
+		SELECT * FROM t_fee_rule
+		WHERE schemeId = #{schemeId}
+	</select>
+
+	<select id="getBySchemeIdAndRuleType" parameterType="map"
+		resultType="feeRuleDo">
+		SELECT * FROM t_fee_rule
+		WHERE schemeId = #{schemeId}
+		AND
+		ruleType = #{ruleType}
+		LIMIT 1;
+	</select>
+
+	<insert id="addFeeRule" parameterType="feeRuleDo">
+		INSERT INTO
+		t_fee_rule(schemeId, ruleName, ruleType, gatherWay, gatherRate,
+		feeAmount, createUserId, updateUserId, createTime, updateTime)
+		VALUES
+		(#{schemeId},#{ruleName},#{ruleType},#{gatherWay},#{gatherRate},#{feeAmount},#{createUserId},#{updateUserId},NOW(),NOW());
+	</insert>
+
+	<delete id="deleteBySchemeId" parameterType="long">
+		DELETE FROM
+		t_fee_rule
+		WHERE schemeId = #{schemeId}
+	</delete>
+</mapper>

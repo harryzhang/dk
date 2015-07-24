@@ -15,6 +15,7 @@ package com.hehenian.biz.common.loan;
 import java.util.List;
 import java.util.Map;
 
+import com.hehenian.biz.common.base.dataobject.PageDo;
 import com.hehenian.biz.common.loan.dataobject.LoanRepaymentDo;
 
 
@@ -65,4 +66,13 @@ public interface ILoanRepaymentService{
 	 * @return
 	 */
 	public List<LoanRepaymentDo> queryRepaymentByLoanId(Long loanId);
+	/**
+	 * 逾期、待还款、已还款、已还清 列表查询
+	 * @author huangzl QQ: 272950754
+	 * @date 2015年7月23日 下午4:24:37
+	 * @param searchItems
+	 * @param page
+	 * @return
+	 */
+	public PageDo<Map<String, Object>> getLoanRepaymentList(Map<String, Object> searchItems, PageDo<Map<String, Object>> page);
 }

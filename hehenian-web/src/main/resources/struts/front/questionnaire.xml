@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<package name="questionnaire" extends="login-default" namespace="/">
+		   <!-- 问卷调查 -->
+			<action name="queryAllQuestionnaire" class="questionnairesAction"
+			method="queryAllQuestionnaire">
+			<result name="success">
+				/WEB-INF/page/front/questions_survey.jsp
+			</result>
+		</action>
+		<action name="addScore" class="questionnairesAction"
+			method="addScore">
+		</action>
+</package>
+</struts>

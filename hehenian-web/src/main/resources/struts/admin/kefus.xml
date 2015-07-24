@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="kefus" extends="admin-default" namespace="/admin">
+		<!-- 团队客服列表 -->
+		<action name="querykefuListPage" class="kefusAction" method="queryKefuListPage">
+			<result name="success">/WEB-INF/page/admin/kefu_index_info.jsp</result>
+        </action>
+        <!-- 初始化客服介绍列表 -->
+        <action name="queryKefuListInit" class="kefusAction" method="queryKefuListInit">
+			<result name="success">/WEB-INF/page/admin/kefu_index.jsp</result>
+        </action>
+        
+        <!-- 初始化客服添加 -->
+        <action name="addKefuInit" class="kefusAction" method="addKefuInit">
+			<result name="success">/WEB-INF/page/admin/kefu_add.jsp</result>
+        </action>
+        
+        <!-- 添加客服-->
+        <action name="addKefu" class="kefusAction" method="addKefu">
+            <result name="input">/WEB-INF/page/admin/kefu_add.jsp</result>
+			<result name="success" type="redirectAction">queryKefuListInit.do</result>
+        </action>
+        
+        <!--根据Id获取团队介绍详情 -->
+        <action name="updateKefuInit" class="kefusAction" method="updateKefuInit">
+            <result name="success">/WEB-INF/page/admin/kefu_update.jsp</result>
+        </action>
+        <!--更新团队介绍 -->
+        <action name="updateKefu" class="kefusAction" method="updateKefu">   
+        </action>
+        
+        <!-- 删除客服 --> 
+        <action name="deleteKefu" class="kefusAction" method="deleteKefu">             
+			<result name="success" type="redirect">queryKefuListInit.do</result>
+        </action>
+
+
+        <!--  查看客服下的投资详情初始化 -->
+       	<action name="queryKefuOfInvestorInit" class="kefusAction" method="queryKefuOfInvestorInit">
+			<result name="success">/WEB-INF/page/admin/kefu_look_index.jsp</result>
+        </action>
+          <!--  查看客服下的投资详情 -->
+         <action name="queryKefuOfInvestorInfo" class="kefusAction" method="queryKefuOfInvestorInfo">
+			<result name="success">/WEB-INF/page/admin/kefu_look_info.jsp</result>
+        </action>
+        
+        
+                <!--  分配客服-->
+       	<action name="queryKefuForInit" class="kefusAction" method="queryKefuForInit">
+			<result name="success">/WEB-INF/page/admin/kefu_for_index.jsp</result>
+        </action>
+           <!--  分配客服-->
+         <action name="queryKefuForInfo" class="kefusAction" method="queryKefuForInfo">
+			<result name="success">/WEB-INF/page/admin/kefu_for_info.jsp</result>
+        </action>
+        
+           <action name="addUserForkefubyId" class="kefusAction" method="addUserForkefubyId">
+        </action>
+        
+              <action name="updatUserForkefubyId" class="kefusAction" method="updatUserForkefubyId">
+        </action>
+        
+        
+        <action name="addUserForkefu" class="kefusAction" method="addUserForkefu">
+        </action>
+        
+	</package>
+</struts>

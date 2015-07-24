@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="download" location="0,0" size="0,0">
+    <action name="downloadlist" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="download_index_info.jsp" />
+      </result>
+    </action>
+    <action name="downloadlistinit" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="download_index.jsp" />
+      </result>
+    </action>
+    <action name="adddownloadinit" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="download_add.jsp" />
+      </result>
+    </action>
+    <action name="adddownload" location="0,0" size="0,0">
+      <result name="input">
+        <resourceEdge source="input" routing="0" target="download_add.jsp" />
+      </result>
+      <result name="success" />
+    </action>
+    <action name="updateDownloadInit" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="download_update.jsp" />
+      </result>
+    </action>
+    <action name="updateDownload" location="0,0" size="0,0">
+      <result name="input">
+        <resourceEdge source="input" routing="0" target="download_update.jsp" />
+      </result>
+      <result name="success" />
+    </action>
+    <action name="deleteDownload" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+  </package>
+  <webResource name="download_index_info.jsp" path="/WEB-INF/page/admin/download_index_info.jsp" location="0,0" size="0,0" />
+  <webResource name="download_index.jsp" path="/WEB-INF/page/admin/download_index.jsp" location="0,0" size="0,0" />
+  <webResource name="download_add.jsp" path="/WEB-INF/page/admin/download_add.jsp" location="0,0" size="0,0" />
+  <webResource name="download_update.jsp" path="/WEB-INF/page/admin/download_update.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

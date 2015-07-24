@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="assignmentDebt" extends="admin-default" namespace="/admin">
+	
+	
+<!--		<action name="queryUserFundRepayDebt" class="userFundAction" method="queryUserFundRepayInit">-->
+<!--			<result name="success">/WEB-INF/page/admin/FI-userFund-repay-init.jsp</result>-->
+<!--		</action>-->
+	
+		<!-- 债权管理初始化 -->
+		<action name="queryAssignmentIndex" class="assignmentAction" method="queryAssignmentIndex">
+			<result name="success">/WEB-INF/page/admin/assignment_debt_list_index.jsp</result>
+			<result name="404">/error/404.jsp</result>
+		</action>
+		
+		<!-- 债权管理列表 -->
+		<action name="queryAssignmentList" class="assignmentAction" method="queryAssignmentList">
+			<result name="success" >/WEB-INF/page/admin/assignment_debt_list.jsp</result>
+			<result name="404">/error/404.jsp</result>
+		</action>
+		
+		<!-- 根据ID查询债权信息 -->
+		<action name="queryAssignmentById" class="assignmentAction" method="queryAssignmentById">
+			<result name="success" >/WEB-INF/page/admin/assignment_debt_show.jsp</result>
+			<result name="404">/error/404.jsp</result>
+		</action>
+		
+		<!-- 根据ID查询债权转让信息 -->
+		<action name="queryByAssignment" class="assignmentAction" method="queryAssignmentById">
+			<result name="success" >/WEB-INF/page/admin/assignment_by_show.jsp</result>
+			<result name="404">/error/404.jsp</result>
+		</action>
+		
+		<!-- 债权转让 -->
+		<action name="assignment" class="assignmentAction" method="assignment">
+			<result name="404">/error/404.jsp</result>
+		</action>
+		
+		<!-- 根据ID查询债权拆分信息 -->
+		<action name="queryAssignmentSplit" class="assignmentAction" method="queryAssignmentById">
+			<result name="success" >/WEB-INF/page/admin/assignment_split_show.jsp</result>
+			<result name="404">/error/404.jsp</result>
+		</action>
+		
+		<!-- 查询转让中的债权列表信息初始化 -->
+		<action name="queryTransferByIdIndex" class="assignmentAction" method="queryTransferByIdIndex">
+			<result name="success" >/WEB-INF/page/admin/assignment_transfer_list_index.jsp</result>
+			<result name="404">/error/404.jsp</result>
+		</action>
+		
+		<!-- 查询转让中的债权列表信息 -->
+		<action name="queryTransferById" class="assignmentAction" method="queryTransferById">
+			<result name="success" >/WEB-INF/page/admin/assignment_transfer_list.jsp</result>
+			<result name="404">/error/404.jsp</result>
+		</action>
+		
+		<!-- 更新转让状态 -->
+		<action name="udadateDebtStatus" class="assignmentAction" method="udadateDebtStatus">
+			<result name="404">/error/404.jsp</result>
+		</action>
+		
+		<!-- 根据ID查询出债权总额 -->
+		<action name="queryDebtSumById" class="assignmentAction" method="queryDebtSumById">
+			<result name="404">/error/404.jsp</result>
+		</action>
+		
+		<!-- 根据ID查询出债权总额 -->
+		<action name="assignmentSplit" class="assignmentAction" method="assignmentSplit">
+			<result name="404">/error/404.jsp</result>
+		</action>
+		
+		<!-- 还款中的债权初始化 -->
+		<action name="queryReturnDebtIndex" class="assignmentAction" method="queryReturnDebtIndex">
+			<result name="success" >/WEB-INF/page/admin/assignment_return_index.jsp</result>
+			<result name="404">/error/404.jsp</result>
+		</action>
+		
+		<!-- 还款中的债权列表 -->
+		<action name="queryReturnDebtList" class="assignmentAction" method="queryReturnDebtList">
+			<result name="success" >/WEB-INF/page/admin/assignment_return_list.jsp</result>
+			<result name="404">/error/404.jsp</result>
+		</action>
+		
+		<!-- 还款中的债权  查看还款详情 -->
+		<action name="queryRepaymentAssignmentById" class="assignmentAction" method="queryRepaymentAssignmentById">
+			<result name="success" >/WEB-INF/page/admin/assignment_repayed_list.jsp</result>
+			<result name="input" >/error/404.jsp</result>
+		</action>
+		
+		<!-- 导出还款中的债权列表 -->
+		<action name="exportReturnDebtList" class="assignmentAction" method="exportReturnDebtList">
+			
+		</action>
+		
+		<!-- 查询总额与用户输入的金额比较 -->
+		<action name="queryRealAmount" class="assignmentAction" method="queryRealAmount">
+			<result name="input">/error/404.jsp</result>
+		</action>
+		<action name="queryAuditDebt" class="assignmentAction" method="queryAuditDebt">
+			<result name="success" >/WEB-INF/page/admin/assignment_audit_debt_list.jsp</result>
+		</action>
+		<!--	审核债权初始化	-->
+		<action name="queryAuditDebtInit" class="assignmentAction" method="queryAuditDebtInit">
+			<result name="success" >/WEB-INF/page/admin/assignment_audit_debt_index.jsp</result>
+		</action>
+		<action name="showAuditDebt" class="assignmentAction" method="showAuditDebt">
+			<result name="success" >/WEB-INF/page/admin/assignment_audit_debt_show.jsp</result>
+		</action>
+		
+		<!-- 
+		<action name="auditDebt" class="assignmentAction" method="auditDebt">
+		</action>
+		 -->
+		
+	</package>
+</struts>

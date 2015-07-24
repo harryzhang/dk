@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.component.notify.sms.dao.ISMSNotifyManagerDao">
+
+	<resultMap type="smsManagerDo" id="smsManagerResultMap">
+		<result property="id" column="id" />
+		<result property="orgId" column="org_id" />
+		<result property="userId" column="user_id" />
+		<result property="pwd" column="pwd" />
+		<result property="wsdlUrl" column="wsdl_url" />
+		<result property="sendMethod" column="send_method" />
+		<result property="validate" column="is_validate" />
+		<result property="wsdlType" column="wsdl_type" />
+		<result property="smsType" column="sms_type" />
+		<result property="smsSupplier" column="sms_supplier" />
+		<result property="groupSendMethod" column="group_send_method" />
+		<result property="managerHomeUrl" column="manager_home_url" />
+	</resultMap>
+
+	<delete id="deleteById" parameterType="int">
+		DELETE FROM
+		t_sms_manager
+		WHERE id = #{id}
+	</delete>
+
+	<select id="getById" parameterType="int" resultMap="smsManagerResultMap">
+		SELECT *
+		FROM
+		t_sms_manager
+		WHERE id = #{id}
+	</select>
+
+	<select id="listSMSSupplierBySmsType" parameterType="String"
+		resultMap="smsManagerResultMap">
+		SELECT
+		*
+		FROM t_sms_manager
+		WHERE sms_type=#{smsType} and is_validate='T' limit 1
+	</select>
+
+	<insert id="addSMSManager" parameterType="smsManagerDo"
+		keyProperty="messageId" useGeneratedKeys="true">
+		INSERT INTO
+		t_sms_manager(org_id,user_id,pwd,wsdl_url,send_method,is_validate,wsdl_type,sms_type,sms_supplier,group_send_method,manager_home_url,create_time,update_time)
+		VALUES(#{orgId},#{userId},#{pwd},#{wsdlUrl},#{sendMethod},#{validate},#{wsdlType},#{smsType},#{smsSupplier},#{groupSendMethod},#{managerHomeUrl},NOW(),NOW());
+	</insert>
+
+	<update id="updateSMSManager" parameterType="smsManagerDo">
+		UPDATE t_sms_manager
+		SET
+		org_id=#{orgId}
+		,user_id=#{userId}
+		,pwd=#{pwd}
+		,wsdl_url=#{wsdlUrl}
+		,send_method=#{sendMethod}
+		,is_validate=#{validate}
+		,wsdl_type=#{wsdlType}
+		,sms_type=#{smsType}
+		,sms_supplier=#{smsSupplier}
+		,group_send_method=#{groupSendMethod}
+		,manager_home_url=#{managerHomeUrl}
+		,update_time = NOW()
+		WHERE id = #{id}
+	</update>
+
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="adminInfo" extends="admin-default" namespace="/admin">
+		<action name="logging" class="adminAction" method="logging">
+		</action>
+		<action name="queryAdminInit" class="adminAction" method="queryAdminInit">
+			<result name="success" >/WEB-INF/page/admin/admin_index.jsp</result>
+		</action>
+		
+		<action name="queryAdminInfo" class="adminAction" method="queryAdminInfo" >
+			<result name="success" >/WEB-INF/page/admin/admin_index_info.jsp</result>
+		</action>
+		
+		<action name="addAdminInit" class="adminAction" method="addAdminInit" >
+			<result name="success" >/WEB-INF/page/admin/admin_add.jsp</result>
+		</action>
+		
+		<action name="addAdmin" class="adminAction" method="addAdmin" >
+			<result name="input" >/WEB-INF/page/admin/admin_add.jsp</result>
+			<result name="success" type="redirect">queryAdminInit.do</result>
+		</action>
+		
+		<action name="updateAdminInit" class="adminAction" method="updateAdminInit" >
+			<result name="success" >/WEB-INF/page/admin/admin_update.jsp</result>
+		</action>
+		
+		<action name="updateAdmin" class="adminAction" method="updateAdmin" >
+			<result name="input" >/WEB-INF/page/admin/admin_update.jsp</result>
+			<result name="success" type="redirect">queryAdminInit.do</result>
+		</action>
+		
+		<action name="deleteAdmin" class="adminAction" method="deleteAdmin" >
+			<result name="success" type="redirect">queryAdminInit.do</result>
+		</action>
+		<action name="isenableAdmin" class="adminAction" method="isenableAdmin" >
+			<result name="success" type="redirect">queryAdminInit.do</result>
+		</action>
+		<action name="adminLoginOut" class="adminAction" method="adminLoginOut" >
+			<result name="success" >/WEB-INF/page/admin/frame/login.jsp</result>
+		</action>
+		
+		<action name="updatePasswordInit" class="adminAction" method="updatePasswordInit" >
+			<result name="success" >/WEB-INF/page/admin/admin_update_password.jsp</result>
+		</action>
+		
+		<action name="updatePassword" class="adminAction" method="updatePassword" >
+			<result name="input" >/WEB-INF/page/admin/admin_update_password.jsp</result>
+			<result name="success" type="redirect" >queryAdminInit.do</result>
+		</action>
+		
+		<action name="virutalLogin" class="adminAction" method="virutalLogin" >
+			<result name="input" >/WEB-INF/page/admin/userManage_index.jsp</result>
+			<result name="success" type="redirect" >/home.do</result>
+		</action>
+		
+		<action name="syncBBSUser" class="adminAction" method="syncBBSUser" >
+		</action>
+		
+		
+	</package>
+</struts>

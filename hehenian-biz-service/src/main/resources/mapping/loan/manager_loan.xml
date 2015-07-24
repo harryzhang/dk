@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.IManagerLoanDao">
+
+	<resultMap id="loanSbResult" type="loanPersonDo">
+		<association property="propertyDo" column="loanId" select="getPropertyByIds" />
+		<association property="jobDo" column="loanId" select="getjobByIds" />
+		<association property="loanDo" column="loanId" select="getLoanByLoanId" />
+	</resultMap>
+	
+	<!-- 放款 -->
+	<resultMap id="loanFkResult" type="loanPersonDo">
+		<association property="loanDo" column="loanId" select="getLoanByLoanId" />
+	</resultMap>
+	
+	<resultMap id="loanResult" type="loanPersonDo">
+		<association property="loanDo" column="loanId" select="getLoanByLoanId" />
+	</resultMap>
+	
+	<update id="updateLoanStatus" parameterType="loanDo">
+		UPDATE t_loan SET loanStatus = #{loanStatus},
+		<if test="processNextStep != null">
+			processNextStep = #{processNextStep},
+		</if>
+		<if test="processCurrentStep != null">
+			processCurrentStep = #{processCurrentStep},
+		</if>
+		<if test="loanId != null">
+			loanId = #{loanId}
+		</if>
+		WHERE loanId = #{loanId}
+	</update>
+	
+	<update id="updateLoanStatusByMap" parameterType="map">
+		UPDATE t_loan SET loanStatus = #{loanStatus},auditUserId=#{auditUserId},auditUser=#{auditUser}
+		,auditTime=now(),processNextStep='NULL',processCurrentStep='NULL'
+		WHERE loanId = #{loanId}
+	</update>
+	
+	<update id="updateLoanForRepayPlan" parameterType="loanDo">
+		UPDATE t_loan SET loanAmount = #{loanAmount}
+		,loanTime = #{loanTime}
+		,investAnnualRate = #{investAnnualRate}
+		<if test="loanStatus != null and loanStatus != ''">  
+			, loanStatus = #{loanStatus}
+		</if>
+		WHERE loanId = #{loanId}
+	</update>
+	
+	<!-- liminglong 20150520 -->
+	<select id="getLoanListPage" parameterType="map" resultType="loanDo">
+	select
+		A.loanId ,A.loanType,A.userId,A.schemeId,A.annualRate, A.borrowId,A.loanTitle,A.loanUsage,A.applyAmount ,
+		A.loanPeriod,A.loanTime,A.loanAmount, A.remark,A.loanStatus,A.auditUserId,A.auditUser,A.auditTime,A.createTime,
+		A.updateTime,A.productCode,A.orderCode,A.investAnnualRate,A.processCurrentStep,A.processNextStep,A.auditAmount
+		,A.channel_id as channelId, A.subjectType
+		,C.realName ,C.mobile , C.referenceMobile 
+		,(select B.name from t_loan_product B where B.code = A.productCode) as productName
+		,(select D.schemeName  from t_sett_scheme D where D.schemeId = A.schemeId) as schemeName
+		from t_loan A ,t_loan_person C 
+		WHERE A.loanId = C.loanId
+		
+		<if test="orderCode != null and orderCode != ''">
+			AND	A.orderCode like '%${orderCode}%'
+		</if>
+		<if test="realName != null and realName != ''">
+			AND	C.realName like '%${realName}%'
+		</if>
+		<if test="mobile != null and mobile != ''">
+			AND	C.mobile like '%${mobile}%'
+		</if>
+		<if test="productCode != null and productCode != ''">
+			AND	A.productCode = '${productCode}'
+		</if>
+		<if test="loanType != null and loanType != ''">
+			AND	A.loanType = #{loanType}
+		</if>
+		<if test="loanStatus != null and loanStatus != ''">
+			AND	A.loanStatus = '${loanStatus}'
+		</if>
+		<if test="startDate != null and startDate != ''">
+			AND	DATE_FORMAT(A.createTime,'%Y-%m-%d') >= '${startDate}'
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND	'${endDate}' >= DATE_FORMAT(A.createTime,'%Y-%m-%d') 
+		</if>
+		<if test="loanStatus == null or loanStatus == ''">
+			AND	A.loanStatus  != 'INVALID'
+		</if>
+		
+		<if test="processNextStep != null and processNextStep != ''">
+			AND	A.processNextStep  = #{processNextStep}
+		</if>
+		
+		
+		    
+		ORDER BY A.createTime DESC
+	</select>
+	
+	<select id="getLoanPage" parameterType="map" resultType="Map">
+		SELECT a.loanId,a.orderCode,a.productCode,a.productName,b.realName,b.mobile,a.applyAmount,a.loanPeriod,a.annualRate
+		,a.schemeId, ss.schemeName ,b.referenceMobile,a.loanStatus,a.auditUser,a.createTime,a.auditAmount,a.channel_id as channelId, a.subjectType
+		FROM (
+			SELECT l.* , t.name as productName FROM t_loan l
+			LEFT JOIN t_loan_product t on l.productCode = t.code 
+		) a,t_loan_person b, t_sett_scheme ss
+		WHERE a.loanId = b.loanId and a.schemeId = ss.schemeId
+		
+		<if test="orderCode != null and orderCode != ''">
+			AND	a.orderCode like '%${orderCode}%'
+		</if>
+		<if test="realName != null and realName != ''">
+			AND	b.realName like '%${realName}%'
+		</if>
+		<if test="mobile != null and mobile != ''">
+			AND	b.mobile like '%${mobile}%'
+		</if>
+		<if test="productCode != null and productCode != ''">
+			AND	a.productCode = '${productCode}'
+		</if>
+		<if test="loanType != null and loanType != ''">
+			AND	a.loanType = #{loanType}
+		</if>
+		<if test="loanStatus != null and loanStatus != ''">
+			AND	a.loanStatus = '${loanStatus}'
+		</if>
+		<if test="startDate != null and startDate != ''">
+			AND	DATE_FORMAT(a.createTime,'%Y%m%d') >= '${startDate}'
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND	'${endDate}' >= DATE_FORMAT(a.createTime,'%Y%m%d') 
+		</if>
+		ORDER BY a.createTime DESC
+	</select>
+	
+	<select id="getLabelExportData" parameterType="map" resultType="Map">
+		SELECT a.loanId,b.realName,IFNULL(b.sex,'') AS sex ,IFNULL(b.age,'') AS age ,'已婚' AS hyzk,'买房' AS jzzk,'本科及以上' AS xl,0 AS xykzzs,0 AS xykzed,
+		b.idNo,0 AS clzsl,'深圳市xxxxx公司' AS gsmc,'深圳市xx区xxxxxx' AS gsdz,'经理' AS zwjb,'私营企业' AS qyxz,'5年' AS xgsgznx,'网络媒体' AS gshy,
+		IFNULL(b.jobIncome,0) AS jobIncome,5000 AS zchj,IFNULL(a.applyAmount,0) AS applyAmount ,IFNULL(a.loanPeriod,0) AS loanPeriod,1 AS cplx,7 AS hkfs,
+		a.annualRate,5 AS cbqx ,'购房' AS hkzjyt,'合和年在线' AS jkzxf,'合和年在线' AS zxffh,0 AS sszq,a.orderCode,a.channel_id as channelId, a.subjectType
+		FROM (SELECT l.* , t.name AS productName FROM t_loan l LEFT JOIN t_loan_product t ON l.productCode = t.code) a,t_sett_scheme ss,		
+		(SELECT d.*,c.jobIncome FROM  t_loan_person d LEFT JOIN t_loan_job c ON c.loanPersonId=d.loanPersonId) b
+		WHERE a.loanId = b.loanId AND a.schemeId = ss.schemeId 
+		
+		<if test="realName != null and realName != ''">
+			AND	b.realName like '%${realName}%'
+		</if>
+		<if test="mobile != null and mobile != ''">
+			AND	b.mobile like '%${mobile}%'
+		</if>
+		<if test="productCode != null and productCode != ''">
+			AND	a.productCode = '${productCode}'
+		</if>
+		<if test="loanType != null and loanType != ''">
+			AND	a.loanType = #{loanType}
+		</if>
+		<if test="loanStatus != null and loanStatus != ''">
+			AND	a.loanStatus = '${loanStatus}'
+		</if>
+		<if test="startDate != null and startDate != ''">
+			AND	DATE_FORMAT(a.createTime,'%Y-%m-%d') >= '${startDate}'
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND	'${endDate}' >= DATE_FORMAT(a.createTime,'%Y-%m-%d') 
+		</if>
+		<if test="loanStatus == null or loanStatus == ''">
+			AND	a.loanStatus  != 'INVALID'
+		</if>
+		<if test="processNextStep != null and processNextStep != ''">
+			AND	a.processNextStep  = #{processNextStep}
+		</if>
+		ORDER BY a.createTime DESC
+	</select>
+	
+	<select id="getLoanDetailByLoanId" parameterType="long" resultMap="loanResult">
+	   SELECT * FROM t_loan_person WHERE
+		loanId = #{loanId}
+		ORDER BY createTime DESC
+		LIMIT
+		1
+	</select>
+	<!-- liminglong 20150522 -->
+	<resultMap id="CertifiResMap" type="certificateDo">
+	</resultMap>
+	
+	<select id="getCertByIds" parameterType="string" resultMap="CertifiResMap">
+	   SELECT * FROM t_loan_certificate WHERE
+		loanId = #{loanId}
+		ORDER BY createTime DESC
+	</select>
+	
+	<!-- liminglong 20150520 -->
+	<resultMap type="loanPersonDo" id="personResult">
+		<result property="loanId" column="loanId" />
+		<association property="propertyDo" column="loanId" select="getPropertyByIds" />
+		<association property="jobDo" column="loanId" select="getjobByIds" />
+		<association property="certificateDoList" column="loanId" select="getCertByIds" /> 
+	</resultMap>
+	<!-- liminglong 20150520 -->
+	<select id="getLoanPersonByLoanId" parameterType="long" resultMap="personResult">
+	   SELECT * FROM t_loan_person WHERE
+		loanId = #{loanId}
+		ORDER BY createTime DESC
+		LiMIT 1;
+	</select>
+	
+	<select id="getLoanInfoForSbByLoanId" parameterType="long" resultMap="loanSbResult">
+		SELECT * FROM t_loan_person
+		WHERE loanId = #{loanId}
+		ORDER BY createTime DESC
+		LIMIT 1;
+	</select>
+	
+	<select id="getLoanInfoForFkByOrderCode" parameterType="string" resultMap="loanFkResult">
+		SELECT a.* FROM t_loan_person a,t_loan b
+		WHERE b.orderCode = #{orderCode} and a.loanId = b.loanId 
+		ORDER BY a.createTime DESC
+		LIMIT 1;
+	</select>
+	<resultMap type="loanDo" id="ResLoan">
+		<result column="channel_id" property="channelId" />
+		
+	</resultMap>
+	<select id="getLoanByLoanId" parameterType="Long" resultMap="ResLoan">
+		select A.*,C.schemeName,B.`name` as productName from t_loan A,t_loan_product B,t_sett_scheme C where A.productCode = B.`code`
+		and A.schemeId = C.schemeId
+		and loanId = #{loanId}
+		ORDER BY createTime DESC
+		LIMIT
+		1;
+	</select>
+	
+	<select id="getDetailById" parameterType="Long" resultType="loanDo">
+		select
+			A.loanId ,A.loanType,A.userId,A.schemeId,A.annualRate, A.borrowId,A.loanTitle,A.loanUsage,A.applyAmount ,
+			A.loanPeriod,A.loanTime,A.loanAmount, A.remark,A.loanStatus,A.auditUserId,A.auditUser,A.auditTime,A.createTime,
+			A.updateTime,A.productCode,A.orderCode,A.investAnnualRate,A.auditAmount
+			,C.realName ,C.mobile , C.referenceMobile 
+			,(select B.name from t_loan_product B where B.code = A.productCode) as productName
+			,(select D.schemeName  from t_sett_scheme D where D.schemeId = A.schemeId) as schemeName
+			from t_loan A ,t_loan_person C 
+			WHERE A.loanId = C.loanId
+			and A.loanId = #{loanId}
+		ORDER BY createTime DESC
+		LIMIT
+		1;
+	</select>
+	
+	<select id="getPropertyByIds" parameterType="string" resultType="propertyDo">
+		SELECT
+		* FROM t_loan_property
+		WHERE loanId = #{loanId}
+		ORDER BY
+		createTime DESC
+		LIMIT
+		1;
+	</select>
+	<select id="getjobByIds" parameterType="string" resultType="jobDo">
+		SELECT
+		* FROM t_loan_job
+		WHERE loanId = #{loanId}
+		ORDER BY createTime
+		DESC
+		LIMIT
+		1;
+	</select>
+	
+	<select id="getBankAccountForHF" parameterType="string" resultType="Map">
+		SELECT a.userId, a.bankName,a.cardno AS cardNo FROM t_bankcard a,t_person b WHERE
+		a.userId = b.userId AND a.cardStatus = 1 AND b.idNo = #{idNo}
+	</select>
+	
+	<select id="getBankAccountForTL" parameterType="string" resultType="Map">
+		SELECT a.user_id AS userId, a.bank_name AS bankName, a.card_no AS cardNo 
+		FROM td_fund_bank_card a,t_person b WHERE
+		a.user_id = b.userId AND a.bank_status = 3 AND b.idNo = #{idNo}
+	</select>
+	
+	<select id="getSbNameForHF" parameterType="string" resultType="Map">
+		SELECT p.userId,p.realName FROM t_invest inv ,t_borrow b ,t_person p 
+		WHERE inv.borrowId = b.id AND inv.investor = p.userId AND b.businessNo=#{orderCode}
+	</select>
+	
+	<select id="getSbNameForTL" parameterType="string" resultType="Map">
+		SELECT p.userId,p.realName FROM td_fund_investment_detail inv ,td_fund_product pro 
+		, td_loan_detail loandetail,t_person p 
+		WHERE inv.product_id = pro.product_id AND loandetail.loan_id = pro.loan_id AND inv.user_id = p.userId
+		AND inv.status = '1'  AND loandetail.business_num=#{orderCode}
+	</select>
+	
+	<update id="update" parameterType="loanDo">
+		update t_loan
+		set 	
+      
+		<if test="applyAmount != null"> 
+			applyAmount = #{applyAmount},
+		</if>
+		<if test="annualRate != null"> 
+			annualRate = #{annualRate},
+		</if>
+		<if test="loanPeriod != null"> 
+			loanPeriod = #{loanPeriod},
+		</if>
+		<if test="loanUsage != null"> 
+			loanUsage = #{loanUsage},
+		</if>
+		<if test="loanTitle != null"> 
+			loanTitle = #{loanTitle},
+		</if>
+		<if test="loanType != null"> 
+			loanType = #{loanType},
+		</if>
+		<if test="loanAmount != null"> 
+			loanAmount = #{loanAmount},
+		</if>
+		<if test="loanTime != null"> 
+			loanTime = #{loanTime},
+		</if>
+		<if test="investAnnualRate != null"> 
+			investAnnualRate = #{investAnnualRate},
+		</if>
+		<if test="schemeId != null"> 
+			schemeId = #{schemeId},
+		</if>
+
+		<if test="loanStatus != null"> 
+			loanStatus = #{loanStatus},
+		</if>
+		<if test="subjectType != null"> 
+			subjectType = #{subjectType},
+		</if>
+		
+
+		
+		updateTime  = now()
+		where loanId = #{loanId}
+	</update>
+	 
+	<select id="getTbcInfo" parameterType="Long" resultType="loanUserBankDo">
+		select A.cardUserName as userName,A.cardNo as cardNo,A.bankName as bankName,
+			 A.cardStatus as cardStatus,A.isDefault as isDefault,A.isExpress as isExpress
+				from t_bankcard A  where A.cardStatus = 1 and A.userId = #{userId}
+	</select>
+	
+	<select id="getTdbcInfo" parameterType="Long" resultType="loanUserBankDo">
+		select B.account_name as userName,B.card_no as cardNo,B.bank_name as bankName,
+       		B.bank_status as cardStatus,B.is_default as isDefault from td_fund_bank_card B 
+					where B.bank_status = 3 and  B.user_id = #{userId}
+	</select>
+	
+	<select id="getLoanforUpdate" parameterType="map" resultType="loanDo">
+		select A.*,C.schemeName,B.mobile,B.caddress 
+		from t_loan A,t_loan_person B,t_sett_scheme C 
+		where A.loanId = B.loanId and A.schemeId = C.schemeId 
+		<if test="realName != null">
+			And B.realName = #{realName}
+		</if>
+		
+		<if test="idNo != null">
+			And B.idNo = #{idNo}
+		</if>
+		<if test="orderCode != null">
+			And A.orderCode = #{orderCode}
+		</if>
+		<if test="mobile != null">
+			And B.mobile =#{mobile}
+		</if>
+		<if test="productCode != null">
+			And A.productCode =#{productCode}
+		</if>
+		<if test=" status != null ">
+		    And A.loanStatus in
+			 <foreach item="item" index="index" collection="status" 
+                         open="(" separator="," close=")">
+                        #{item}
+                </foreach>
+		</if>
+		ORDER BY A.createTime
+		DESC
+		LIMIT
+		1;
+	</select>
+	
+	<select id="getChannelTypeList" resultType="Map" >
+		SELECT * FROM t_loan_channel_type
+	</select>
+	
+	<!-- ljc  -->
+	<select id="getLoanRelationDoList" parameterType="Long" resultType="loanRelationDo">
+		select ralationId, loanId, loanPersonId, ralationName, relationship, mobile, createTime, updateTime, relationType
+		from  t_loan_relation where loanId=#{loanId}
+	</select>
+	<select id="getPropertyDo" parameterType="Long" resultType="propertyDo">
+		SELECT propertyId, loanId, loanPersonId, houseAddress, purchaseWay, purchaseDate, carNo, carBrand, houseStatus, createTime, updateTime, housePrice, coveredArea, advisedPeople, houseDy, houseReDur, houseMthOwing, houseReMtg, carPrice, carDate, carWay, carDy, carReDur, carMthOwing, carReMtg, remark, isDy
+		FROM t_loan_property WHERE loanId=#{loanId}
+	</select>
+	
+	<select id="getCertificateDoList" parameterType="Long" resultType="certificateDo">
+		SELECT certificateId, loanId, loanPersonId, certificateType, certificateName, filePath, fileType, createUser, createTime, updateTime, destFilePath
+		FROM t_loan_certificate WHERE loanId=#{loanId}
+	</select>
+	
+</mapper>

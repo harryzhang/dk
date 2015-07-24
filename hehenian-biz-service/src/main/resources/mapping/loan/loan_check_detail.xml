@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanCheckDetailDao">
+	<resultMap type="loanCheckDetailDo" id="loanCheckDetailResultMap">
+		<result property="checkId" column="check_id" />
+		<result property="itemCheckId" column="item_check_id" />
+		<result property="valType" column="val_type" />
+		<result property="checkVal" column="check_val" />
+		<result property="startItemVal" column="start_item_val" />
+		<result property="endItemVal" column="end_item_val" />
+		<result property="fixItemVal" column="fix_item_val" />
+		<result property="coefficient" column="coefficient" />
+		<result property="remark" column="remark" />
+		<result property="checkItemName" column="checkItem_name" />
+		<result property="status" column="status" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="loanCheckDetailResultMap">
+		SELECT * 
+		  FROM t_loan_check_detail WHERE item_check_id = #{itemCheckId}
+	</select>
+
+	<select id="selectLoanCheckDetail" parameterType="Map" resultMap="loanCheckDetailResultMap">
+		SELECT * 
+		  FROM t_loan_check_detail
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="checkId != null">  
+				AND check_id = #{checkId}
+			</if>
+			<if test="itemCheckId != null">  
+				AND item_check_id = #{itemCheckId}
+			</if>
+			<if test="valType != null">  
+				AND val_type = #{valType}
+			</if>
+			<if test="checkVal != null">  
+				AND check_val like '%${checkVal}%'
+			</if>
+			<if test="startItemVal != null">  
+				AND start_item_val like '%${startItemVal}%'
+			</if>
+			<if test="endItemVal != null">  
+				AND end_item_val like '%${endItemVal}%'
+			</if>
+			<if test="fixItemVal != null">  
+				AND fix_item_val like '%${fixItemVal}%'
+			</if>
+			<if test="coefficient != null">  
+				AND coefficient like '%${coefficient}%'
+			</if>
+			<if test="remark != null">  
+				AND remark like '%${remark}%'
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateLoanCheckDetailById" parameterType="loanCheckDetailDo">
+		UPDATE t_loan_check_detail 
+		   SET 		<if test="checkId != null">  
+				check_id = #{checkId}
+		</if>		
+		<if test="valType != null">  
+				,val_type = #{valType}
+		</if>		
+		<if test="checkVal != null">  
+				,check_val = #{checkVal}
+		</if>		
+		<if test="startItemVal != null">  
+				,start_item_val = #{startItemVal}
+		</if>		
+		<if test="endItemVal != null">  
+				,end_item_val = #{endItemVal}
+		</if>		
+		<if test="fixItemVal != null">  
+				,fix_item_val = #{fixItemVal}
+		</if>		
+		<if test="coefficient != null">  
+				,coefficient = #{coefficient}
+		</if>		
+		<if test="remark != null">  
+				,remark = #{remark}
+		</if>		
+
+		WHERE item_check_id = #{itemCheckId} 
+	</update>	
+	
+	<insert id="addLoanCheckDetail" parameterType="loanCheckDetailDo" keyProperty="itemCheckId"
+		useGeneratedKeys="true" >
+		INSERT INTO t_loan_check_detail(		check_id
+		,val_type
+		,check_val
+		,start_item_val
+		,end_item_val
+		,fix_item_val
+		,coefficient
+		,remark
+)
+		     VALUES (		#{checkId}
+		,#{valType}
+		,#{checkVal}
+		,#{startItemVal}
+		,#{endItemVal}
+		,#{fixItemVal}
+		,#{coefficient}
+		,#{remark}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM t_loan_check_detail WHERE item_check_id = #{itemCheckId}
+	</delete>
+	<!-- 分页 -->
+	<select id="getCheckDetailPage" parameterType="Map" resultMap="loanCheckDetailResultMap">
+		SELECT A.*,B.checkItem_name,B.`status`
+		  FROM t_loan_check_detail A,t_loan_check_item B
+		  <trim prefix="WHERE" prefixOverrides="AND |OR ">
+		  		AND A.check_id = B.check_id
+			<if test="checkId != null">  
+				AND check_id = #{checkId}
+			</if>
+			<if test="itemCheckId != null">  
+				AND item_check_id = #{itemCheckId}
+			</if>
+			<if test="valType != null">  
+				AND val_type = #{valType}
+			</if>
+			<if test="checkVal != null">  
+				AND check_val like '%${checkVal}%'
+			</if>
+			<if test="startItemVal != null">  
+				AND start_item_val like '%${startItemVal}%'
+			</if>
+			<if test="endItemVal != null">  
+				AND end_item_val like '%${endItemVal}%'
+			</if>
+			<if test="fixItemVal != null">  
+				AND fix_item_val like '%${fixItemVal}%'
+			</if>
+			<if test="coefficient != null">  
+				AND coefficient like '%${coefficient}%'
+			</if>
+			<if test="remark != null">  
+				AND remark like '%${remark}%'
+			</if>
+			<if test="checkItemName != null">  
+				AND B.checkItem_name like '%${checkItemName}%'
+			</if>
+			<if test="status != null">  
+				AND B.status = #{status}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<!-- 多选删除 -->
+	<delete id="deleteByIds" parameterType="map" >
+		<if test="ids.size() > 0"> 
+		 delete 
+	    from t_loan_check_detail
+	    where item_check_id in  
+            <foreach close=")" collection="ids" item="id" open="(" separator=",">
+				#{id}
+			</foreach>
+        </if>  
+	    
+	</delete>
+	
+	
+	<select id="countDetailByCheckId" parameterType="Long" resultType="Integer">
+		SELECT count(item_check_id)
+		  FROM t_loan_check_detail WHERE check_id = #{checkId}
+	</select>
+	
+</mapper>
+

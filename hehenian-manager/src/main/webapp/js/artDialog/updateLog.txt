@@ -1,0 +1,3 @@
+文件：artDialog.js 
+内容："zIndex:1987" -> "zIndex:9201"
+原因：优先级低于ligerWindow，会被盖住

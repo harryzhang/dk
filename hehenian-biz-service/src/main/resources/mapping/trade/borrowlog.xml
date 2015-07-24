@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.trade.IBorrowTypeLogDao">
+	<resultMap type="borrowTypeLogDo" id="borrowTypeLogResultMap">
+		<result property="id" column="id" />
+		<result property="nid" column="nid" />
+		<result property="status" column="status" />
+		<result property="name" column="name" />
+		<result property="title" column="title" />
+		<result property="description" column="description" />
+		<result property="accountMultiple" column="account_multiple" />
+		<result property="passwordStatus" column="password_status" />
+		<result property="amountType" column="amount_type" />
+		<result property="amountFirst" column="amount_first" />
+		<result property="amountEnd" column="amount_end" />
+		<result property="frostScaleVip" column="frost_scale_vip" />
+		<result property="aprFirst" column="apr_first" />
+		<result property="aprEnd" column="apr_end" />
+		<result property="checkFirst" column="check_first" />
+		<result property="checkEnd" column="check_end" />
+		<result property="tenderAccountMin" column="tender_account_min" />
+		<result property="tenderAccountMax" column="tender_account_max" />
+		<result property="periodMonth" column="period_month" />
+		<result property="periodDay" column="period_day" />
+		<result property="validate" column="validate" />
+		<result property="awardStatus" column="award_status" />
+		<result property="awardScaleFirst" column="award_scale_first" />
+		<result property="awardScaleEnd" column="award_scale_end" />
+		<result property="awardAccountFirst" column="award_account_first" />
+		<result property="awardAccountEnd" column="award_account_end" />
+		<result property="subscribeStatus" column="subscribe_status" />
+		<result property="verifyAutoStatus" column="verify_auto_status" />
+		<result property="verifyAutoRemark" column="verify_auto_remark" />
+		<result property="styles" column="styles" />
+		<result property="vipFrostScale" column="vip_frost_scale" />
+		<result property="lateDaysMonth" column="late_days_month" />
+		<result property="lateDaysDay" column="late_days_day" />
+		<result property="vipLateScale" column="vip_late_scale" />
+		<result property="allLateScale" column="all_late_scale" />
+		<result property="allFrostScale" column="all_frost_scale" />
+		<result property="userId" column="user_id" />
+		<result property="updateTime" column="update_time" />
+		<result property="updateIp" column="update_ip" />
+		<result property="identifier" column="identifier" />
+		<result property="counterGuarantee" column="counter_guarantee" />
+		<result property="institution" column="institution" />
+		<result property="locanFee" column="locan_fee" />
+		<result property="locanMonth" column="locan_month" />
+		<result property="locanFeeMonth" column="locan_fee_month" />
+		<result property="dayFee" column="day_fee" />
+	</resultMap>
+
+	<select id="getById" parameterType="int" resultMap="borrowTypeLogResultMap">
+		SELECT * 
+		  FROM t_borrow_type_log WHERE id = #{id}
+	</select>
+
+	<select id="selectBorrowTypeLog" parameterType="Map" resultMap="borrowTypeLogResultMap">
+		SELECT * 
+		  FROM t_borrow_type_log
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="id != null">  
+				AND id like #{id}
+			</if>
+			<if test="nid != null">  
+				AND nid like #{nid}
+			</if>
+			<if test="status != null">  
+				AND status like #{status}
+			</if>
+			<if test="name != null">  
+				AND name like #{name}
+			</if>
+			<if test="title != null">  
+				AND title like #{title}
+			</if>
+			<if test="description != null">  
+				AND description like #{description}
+			</if>
+			<if test="accountMultiple != null">  
+				AND account_multiple like #{accountMultiple}
+			</if>
+			<if test="passwordStatus != null">  
+				AND password_status like #{passwordStatus}
+			</if>
+			<if test="amountType != null">  
+				AND amount_type like #{amountType}
+			</if>
+			<if test="amountFirst != null">  
+				AND amount_first like #{amountFirst}
+			</if>
+			<if test="amountEnd != null">  
+				AND amount_end like #{amountEnd}
+			</if>
+			<if test="frostScaleVip != null">  
+				AND frost_scale_vip like #{frostScaleVip}
+			</if>
+			<if test="aprFirst != null">  
+				AND apr_first like #{aprFirst}
+			</if>
+			<if test="aprEnd != null">  
+				AND apr_end like #{aprEnd}
+			</if>
+			<if test="checkFirst != null">  
+				AND check_first like #{checkFirst}
+			</if>
+			<if test="checkEnd != null">  
+				AND check_end like #{checkEnd}
+			</if>
+			<if test="tenderAccountMin != null">  
+				AND tender_account_min like #{tenderAccountMin}
+			</if>
+			<if test="tenderAccountMax != null">  
+				AND tender_account_max like #{tenderAccountMax}
+			</if>
+			<if test="periodMonth != null">  
+				AND period_month like #{periodMonth}
+			</if>
+			<if test="periodDay != null">  
+				AND period_day like #{periodDay}
+			</if>
+			<if test="validate != null">  
+				AND validate like #{validate}
+			</if>
+			<if test="awardStatus != null">  
+				AND award_status like #{awardStatus}
+			</if>
+			<if test="awardScaleFirst != null">  
+				AND award_scale_first like #{awardScaleFirst}
+			</if>
+			<if test="awardScaleEnd != null">  
+				AND award_scale_end like #{awardScaleEnd}
+			</if>
+			<if test="awardAccountFirst != null">  
+				AND award_account_first like #{awardAccountFirst}
+			</if>
+			<if test="awardAccountEnd != null">  
+				AND award_account_end like #{awardAccountEnd}
+			</if>
+			<if test="subscribeStatus != null">  
+				AND subscribe_status like #{subscribeStatus}
+			</if>
+			<if test="verifyAutoStatus != null">  
+				AND verify_auto_status like #{verifyAutoStatus}
+			</if>
+			<if test="verifyAutoRemark != null">  
+				AND verify_auto_remark like #{verifyAutoRemark}
+			</if>
+			<if test="styles != null">  
+				AND styles like #{styles}
+			</if>
+			<if test="vipFrostScale != null">  
+				AND vip_frost_scale like #{vipFrostScale}
+			</if>
+			<if test="lateDaysMonth != null">  
+				AND late_days_month like #{lateDaysMonth}
+			</if>
+			<if test="lateDaysDay != null">  
+				AND late_days_day like #{lateDaysDay}
+			</if>
+			<if test="vipLateScale != null">  
+				AND vip_late_scale like #{vipLateScale}
+			</if>
+			<if test="allLateScale != null">  
+				AND all_late_scale like #{allLateScale}
+			</if>
+			<if test="allFrostScale != null">  
+				AND all_frost_scale like #{allFrostScale}
+			</if>
+			<if test="userId != null">  
+				AND user_id like #{userId}
+			</if>
+			<if test="updateTime != null">  
+				AND update_time like #{updateTime}
+			</if>
+			<if test="updateIp != null">  
+				AND update_ip like #{updateIp}
+			</if>
+			<if test="identifier != null">  
+				AND identifier like #{identifier}
+			</if>
+			<if test="counterGuarantee != null">  
+				AND counter_guarantee like #{counterGuarantee}
+			</if>
+			<if test="institution != null">  
+				AND institution like #{institution}
+			</if>
+			<if test="locanFee != null">  
+				AND locan_fee like #{locanFee}
+			</if>
+			<if test="locanMonth != null">  
+				AND locan_month like #{locanMonth}
+			</if>
+			<if test="locanFeeMonth != null">  
+				AND locan_fee_month like #{locanFeeMonth}
+			</if>
+			<if test="dayFee != null">  
+				AND day_fee like #{dayFee}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateBorrowTypeLogById" parameterType="borrowTypeLogDo">
+		UPDATE t_borrow_type_log 
+		   SET 		nid = #{nid}
+		,status = #{status}
+		,name = #{name}
+		,title = #{title}
+		,description = #{description}
+		,account_multiple = #{accountMultiple}
+		,password_status = #{passwordStatus}
+		,amount_type = #{amountType}
+		,amount_first = #{amountFirst}
+		,amount_end = #{amountEnd}
+		,frost_scale_vip = #{frostScaleVip}
+		,apr_first = #{aprFirst}
+		,apr_end = #{aprEnd}
+		,check_first = #{checkFirst}
+		,check_end = #{checkEnd}
+		,tender_account_min = #{tenderAccountMin}
+		,tender_account_max = #{tenderAccountMax}
+		,period_month = #{periodMonth}
+		,period_day = #{periodDay}
+		,validate = #{validate}
+		,award_status = #{awardStatus}
+		,award_scale_first = #{awardScaleFirst}
+		,award_scale_end = #{awardScaleEnd}
+		,award_account_first = #{awardAccountFirst}
+		,award_account_end = #{awardAccountEnd}
+		,subscribe_status = #{subscribeStatus}
+		,verify_auto_status = #{verifyAutoStatus}
+		,verify_auto_remark = #{verifyAutoRemark}
+		,styles = #{styles}
+		,vip_frost_scale = #{vipFrostScale}
+		,late_days_month = #{lateDaysMonth}
+		,late_days_day = #{lateDaysDay}
+		,vip_late_scale = #{vipLateScale}
+		,all_late_scale = #{allLateScale}
+		,all_frost_scale = #{allFrostScale}
+		,user_id = #{userId}
+		,update_time = #{updateTime}
+		,update_ip = #{updateIp}
+		,identifier = #{identifier}
+		,counter_guarantee = #{counterGuarantee}
+		,institution = #{institution}
+		,locan_fee = #{locanFee}
+		,locan_month = #{locanMonth}
+		,locan_fee_month = #{locanFeeMonth}
+		,day_fee = #{dayFee}
+
+		WHERE id = #{id}
+	</update>	
+	
+	<insert id="addBorrowTypeLog" parameterType="borrowTypeLogDo" keyProperty="id"
+		useGeneratedKeys="true" >
+		INSERT INTO t_borrow_type_log(		nid
+		,status
+		,name
+		,title
+		,description
+		,account_multiple
+		,password_status
+		,amount_type
+		,amount_first
+		,amount_end
+		,frost_scale_vip
+		,apr_first
+		,apr_end
+		,check_first
+		,check_end
+		,tender_account_min
+		,tender_account_max
+		,period_month
+		,period_day
+		,validate
+		,award_status
+		,award_scale_first
+		,award_scale_end
+		,award_account_first
+		,award_account_end
+		,subscribe_status
+		,verify_auto_status
+		,verify_auto_remark
+		,styles
+		,vip_frost_scale
+		,late_days_month
+		,late_days_day
+		,vip_late_scale
+		,all_late_scale
+		,all_frost_scale
+		,user_id
+		,update_time
+		,update_ip
+		,identifier
+		,counter_guarantee
+		,institution
+		,locan_fee
+		,locan_month
+		,locan_fee_month
+		,day_fee
+)
+		     VALUES (		#{nid}
+		,#{status}
+		,#{name}
+		,#{title}
+		,#{description}
+		,#{accountMultiple}
+		,#{passwordStatus}
+		,#{amountType}
+		,#{amountFirst}
+		,#{amountEnd}
+		,#{frostScaleVip}
+		,#{aprFirst}
+		,#{aprEnd}
+		,#{checkFirst}
+		,#{checkEnd}
+		,#{tenderAccountMin}
+		,#{tenderAccountMax}
+		,#{periodMonth}
+		,#{periodDay}
+		,#{validate}
+		,#{awardStatus}
+		,#{awardScaleFirst}
+		,#{awardScaleEnd}
+		,#{awardAccountFirst}
+		,#{awardAccountEnd}
+		,#{subscribeStatus}
+		,#{verifyAutoStatus}
+		,#{verifyAutoRemark}
+		,#{styles}
+		,#{vipFrostScale}
+		,#{lateDaysMonth}
+		,#{lateDaysDay}
+		,#{vipLateScale}
+		,#{allLateScale}
+		,#{allFrostScale}
+		,#{userId}
+		,#{updateTime}
+		,#{updateIp}
+		,#{identifier}
+		,#{counterGuarantee}
+		,#{institution}
+		,#{locanFee}
+		,#{locanMonth}
+		,#{locanFeeMonth}
+		,#{dayFee}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="int" >
+		DELETE FROM t_borrow_type_log WHERE id = #{id}
+	</delete>
+	
+</mapper>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.account.IWorkAuthDao">
+	
+	<update id="updateWorkAuth" parameterType="WorkAuth">
+		update t_workauth
+		<set>
+			<if test="moredStatus != null and moredStatus != 0">
+				moredStatus = #{moredStatus},
+			</if>
+			<if test="directedStatus != null and directedStatus != 0">
+				directedStatus = #{directedStatus},
+			</if>
+			<if test="otherStatus != null and otherStatus != 0">
+				otherStatus = #{otherStatus},
+			</if>
+			<if test="auditStatus != null and auditStatus != 0">
+				auditStatus = #{auditStatus}
+			</if>
+			<!-- add more ... -->			
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+
+	<update id="updateWorkAuthByUserId" parameterType="WorkAuth">
+		update t_workauth
+		<set>
+			<if test="moredStatus != null and moredStatus != 0">
+				moredStatus = #{moredStatus},
+			</if>
+			<if test="directedStatus != null and directedStatus != 0">
+				directedStatus = #{directedStatus},
+			</if>
+			<if test="otherStatus != null and otherStatus != 0">
+				otherStatus = #{otherStatus},
+			</if>
+			<if test="auditStatus != null and auditStatus != 0">
+				auditStatus = #{auditStatus}
+			</if>
+			<!-- add more ... -->			
+		</set>
+		<where>
+			userId = #{userId}
+		</where>
+	</update>
+	
+</mapper>

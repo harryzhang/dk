@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:beans_*.xml,classpath:hehenian/service/hehenian-*.xml,classpath:hehenian/service/spring-*.xml
+		</param-value>
+	</context-param>
+	
+	<session-config>   
+		<session-timeout>30</session-timeout>   
+	</session-config>
+	
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	
+   	<listener>
+		<listener-class>
+			com.sp2p.system.listener.CloseNetWorkConfigiListener
+		</listener-class>
+	</listener>
+	 	<listener>
+		<listener-class>
+			com.sp2p.system.listener.ApplicationListener
+		</listener-class>
+	</listener>
+	
+	<filter>
+        <filter-name>session</filter-name>
+        <filter-class>com.hehenian.common.memcache.MemcachedSessionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>session</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>activityOrderServlet</servlet-name>
+		<servlet-class>com.hehenian.sevlet.activity.ActivityOrderServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>activityUserIncomeServlet</servlet-name>
+		<servlet-class>com.hehenian.sevlet.activity.ActivityUserIncomeServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>userRegisterServlet</servlet-name>
+		<servlet-class>com.hehenian.sevlet.user.UserRegisterServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>eFinancialServlet</servlet-name>
+		<servlet-class>com.hehenian.sevlet.financial.EFinancialServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>activityUserIncomeServlet</servlet-name>
+		<url-pattern>/activity/colorlife/userincome</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>activityOrderServlet</servlet-name>
+		<url-pattern>/activity/colorlife/orderdetail</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>userRegisterServlet</servlet-name>
+		<url-pattern>/user/register</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>eFinancialServlet</servlet-name>
+		<url-pattern>/efinancial/getInvestData</url-pattern>
+	</servlet-mapping>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/500.jsp</location>
+	</error-page>
+	
+	
+	<welcome-file-list>
+	  <welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<jsp-config>
+        <taglib>
+            <taglib-uri>http://www.hehenian.com</taglib-uri>
+            <taglib-location>/WEB-INF/hehenian.tld</taglib-location>
+        </taglib>
+	</jsp-config>
+</web-app>

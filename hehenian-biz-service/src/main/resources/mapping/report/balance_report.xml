@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.activity.ICapitalAccountDao">
+
+	<insert id="addCapitalAccount" parameterType="capitalAccountDo" keyProperty="accountId"
+		useGeneratedKeys="true" >
+		INSERT INTO t_capital_account(		rechargeMoney
+		,investAmount
+		,tradeAmount
+		,hbBuyMoney
+		,jxbBuyMoney
+		,jzbBuyMoney
+		,platformInvestAmount
+		,platformTradeAmount
+		,borrowAmount
+		,withdrawal
+		,tlAvailableMoney
+		,hfAvailableMoney
+		,createTime
+)
+		     VALUES (		
+		 #{rechargeMoney}
+		,#{investAmount}
+		,#{tradeAmount}
+		,#{hbBuyMoney}
+		,#{jxbBuyMoney}
+		,#{jzbBuyMoney}
+		,#{platformInvestAmount}
+		,#{platformTradeAmount}
+		,#{borrowAmount}
+		,#{withdrawal}
+		,#{tlAvailableMoney}
+		,#{hfAvailableMoney}
+		,#{createTime}
+);
+	</insert>
+	
+</mapper>
+

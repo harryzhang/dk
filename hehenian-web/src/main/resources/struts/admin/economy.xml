@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="economy" extends="admin-default" namespace="/admin">
+	
+		<action name="queryEconomyInit" class="economyAction" method="queryEconomyInit">
+			<result name="success" >/WEB-INF/page/admin/economy_index.jsp</result>
+		</action>
+		
+		<action name="queryEconomyInfo" class="economyAction" method="queryEconomyInfo" >
+			<result name="success" >/WEB-INF/page/admin/economy_index_info.jsp</result>
+		</action>
+		<action name="queryEconomyList" class="economyAction" method="queryEconomyList" >
+			<result name="success" >/WEB-INF/page/admin/economy_index_info.jsp</result>
+		</action>
+		<action name="addEconomyInit" class="economyAction" method="addEconomyInit" >
+			<result name="success" >/WEB-INF/page/admin/economy_add.jsp</result>
+		</action>
+		
+		<action name="addEconomy" class="economyAction" method="addEconomy" >
+			<result name="input" >/WEB-INF/page/admin/economy_add.jsp</result>
+			<result name="success" type="redirect">queryEconomyInit.do</result>
+		</action>
+		
+		<action name="updateEconomyInit" class="economyAction" method="updateEconomyInit" >
+			<result name="success" >/WEB-INF/page/admin/economy_update.jsp</result>
+		</action>
+		
+		<action name="updateEconomy" class="economyAction" method="updateEconomy" >
+		</action>
+		
+		<action name="deleteEconomy" class="economyAction" method="deleteEconomy" >
+			<result name="success" type="redirect">queryEconomyInit.do</result>
+		</action>
+		<action name="economyAwardInit" class="economyAction" method="economyAwardInit" >
+			<result name="success" >/WEB-INF/page/admin/award_level2_load.jsp</result>
+		</action>
+		
+		<action name="queryEconomyAward" class="economyAction" method="queryEconomyAward" >
+			<result name="success" >/WEB-INF/page/admin/award_level2_load_info.jsp</result>
+		</action>
+
+		<action name="updateRelationParentId" class="economyAction" method="updateRelationParentId" ></action>
+		<action name="updateAgentParentId" class="economyAction" method="updateAgentParentId" ></action>
+		<action name="updateInvestorParentId" class="economyAction" method="updateInvestorParentId" ></action>
+	</package>
+</struts>

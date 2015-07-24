@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanPersonCheckDao">
+	<resultMap type="loanPersonCheckDo" id="loanPersonCheckResultMap">
+		<result property="id" column="id" />
+		<result property="loanId" column="loanId" />
+		<result property="name" column="name" />
+		<result property="idno" column="idno" />
+		<result property="cname" column="cname" />
+		<result property="caddress" column="caddress" />
+		<result property="houseAddress" column="houseAddress" />
+		<result property="mngfee" column="mngfee" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="loanPersonCheckResultMap">
+		SELECT * 
+		  FROM t_loan_person_check WHERE id = #{id}
+	</select>
+
+	<select id="selectLoanPersonCheck" parameterType="Map" resultMap="loanPersonCheckResultMap">
+		SELECT * 
+		  FROM t_loan_person_check
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="id != null">  
+				AND id like #{id}
+			</if>
+			<if test="loanId != null">  
+				AND loanId like #{loanId}
+			</if>
+			<if test="name != null">  
+				AND name like #{name}
+			</if>
+			<if test="idno != null">  
+				AND idno like #{idno}
+			</if>
+			<if test="cname != null">  
+				AND cname like #{cname}
+			</if>
+			<if test="caddress != null">  
+				AND caddress like #{caddress}
+			</if>
+			<if test="houseAddress != null">  
+				AND houseAddress like #{houseAddress}
+			</if>
+			<if test="mngfee != null">  
+				AND mngfee like #{mngfee}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateLoanPersonCheckById" parameterType="loanPersonCheckDo">
+		UPDATE t_loan_person_check 
+		   SET 		<if test="loanId != null">  
+				loanId = #{loanId}
+		</if>		
+		<if test="name != null">  
+				,name = #{name}
+		</if>		
+		<if test="idno != null">  
+				,idno = #{idno}
+		</if>		
+		<if test="cname != null">  
+				,cname = #{cname}
+		</if>		
+		<if test="caddress != null">  
+				,caddress = #{caddress}
+		</if>		
+		<if test="houseAddress != null">  
+				,houseAddress = #{houseAddress}
+		</if>		
+		<if test="mngfee != null">  
+				,mngfee = #{mngfee}
+		</if>		
+
+		WHERE id = #{id} and version =  #{version}
+	</update>	
+	
+	<insert id="addLoanPersonCheck" parameterType="loanPersonCheckDo" keyProperty="id"
+		useGeneratedKeys="true" >
+		INSERT INTO t_loan_person_check(		loanId
+		,name
+		,idno
+		,cname
+		,caddress
+		,houseAddress
+		,mngfee
+)
+		     VALUES (		#{loanId}
+		,#{name}
+		,#{idno}
+		,#{cname}
+		,#{caddress}
+		,#{houseAddress}
+		,#{mngfee}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM t_loan_person_check WHERE id = #{id}
+	</delete>
+	
+</mapper>
+

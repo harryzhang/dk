@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.system.ISettSchemeDao">
+
+	<select id="countSettSchemes" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM t_sett_scheme
+		<where>
+			<if test="schemeCode != null and schemeCode != ''">
+				AND schemeCode = #{schemeCode}
+			</if>
+			<if test="repayWay != null">
+				AND repayWay = #{repayWay}
+			</if>
+			<if test="receiptWay != null">
+				AND receiptWay = #{receiptWay}
+			</if>
+			<if test="schemeStatus != null">
+				AND schemeStatus = #{schemeStatus}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectList" parameterType="map" resultType="settSchemeDo">
+		SELECT  schemeId,schemeCode,schemeName FROM t_sett_scheme 
+		ORDER BY createTime DESC;
+	</select>
+	
+	<select id="getSettSchemesList" parameterType="map" resultType="settSchemeDo">
+		SELECT * FROM t_sett_scheme
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="schemeCode != null and schemeCode != ''">
+				AND schemeCode = #{schemeCode}
+			</if>
+			<if test="repayWay != null">
+				AND repayWay = #{repayWay}
+			</if>
+			<if test="receiptWay != null">
+				AND receiptWay = #{receiptWay}
+			</if>
+			<if test="schemeStatus != null">
+				AND schemeStatus = #{schemeStatus}
+			</if>
+			<if test="productCode != null">
+			    AND productCode = #{productCode}
+			</if>
+		</trim>
+		ORDER BY createTime DESC
+	</select>
+	
+	<select id="querySettSchemes" parameterType="map" resultType="settSchemeDo">
+		SELECT * FROM t_sett_scheme
+		<where>
+			<if test="schemeCode != null and schemeCode != ''">
+				AND schemeCode = #{schemeCode}
+			</if>
+			<if test="repayWay != null">
+				AND repayWay = #{repayWay}
+			</if>
+			<if test="receiptWay != null">
+				AND receiptWay = #{receiptWay}
+			</if>
+			<if test="schemeStatus != null">
+				AND schemeStatus = #{schemeStatus}
+			</if>
+		</where>
+		ORDER BY createTime DESC
+		LIMIT #{beginCount},#{pageSize}
+	</select>
+
+	<select id="getBySchemeId" parameterType="long" resultType="settSchemeDo">
+		SELECT * FROM t_sett_scheme
+		WHERE schemeId = #{schemeId}
+	</select>
+
+	<select id="getBySchemeCode" parameterType="string" resultType="settSchemeDo">
+		SELECT * FROM t_sett_scheme
+		WHERE schemeCode = #{schemeCode}
+	</select>
+
+	<insert id="addSettScheme" parameterType="settSchemeDo">
+		INSERT INTO
+		t_sett_scheme
+		(schemeCode, schemeName, repayWay, defaultAnnualRate,receiptWay,aheadSettlePeriod, schemeStatus,productCode, createUserId,updateUserId,createTime, updateTime)
+		VALUES(#{schemeCode},#{schemeName},#{repayWay},#{defaultAnnualRate},#{receiptWay},#{aheadSettlePeriod},#{schemeStatus},#{productCode},#{createUserId},#{updateUserId}, NOW(),NOW());
+	</insert>
+
+	<update id="updateSettScheme" parameterType="settSchemeDo">
+		UPDATE t_sett_scheme
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="schemeCode != null">
+				schemeCode = #{schemeCode},
+			</if>
+			<if test="schemeName != null">
+				schemeName = #{schemeName},
+			</if>
+			<if test="repayWay != null">
+				repayWay = #{repayWay},
+			</if>
+			<if test="productCode != null">
+				productCode = #{productCode},
+			</if>
+			<if test="defaultAnnualRate != null">
+				defaultAnnualRate = #{defaultAnnualRate},
+			</if>
+			<if test="receiptWay != null">
+				receiptWay = #{receiptWay},
+			</if>
+			<if test="aheadSettlePeriod != null">
+				aheadSettlePeriod = #{aheadSettlePeriod},
+			</if>
+			<if test="schemeStatus != null">
+				schemeStatus = #{schemeStatus},
+			</if>
+			<if test="updateUserId != null">
+				updateUserId = #{updateUserId},
+			</if>
+			updateTime = NOW(),
+		</trim>
+		WHERE schemeId = #{schemeId}
+	</update>
+
+	<delete id="deleteBySchemeId" parameterType="long">
+		DELETE FROM
+		t_sett_scheme WHERE schemeId = #{schemeId}
+	</delete>
+</mapper>

@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.system.ICliftQueryDao">
+	
+	<!-- 注册人数-->
+	<select id="getRegisterNumber" parameterType="map" resultType="map">
+		SELECT count(1) as registerNumber 
+		FROM  t_user u 
+		WHERE u.colorid IS NOT NULL AND
+		 u.createTime BETWEEN #{startTime}  AND #{endTime}
+	</select>
+	
+	<!-- 累计注册人数 -->
+	<select id="getRegisterTotalNumber" parameterType="map" resultType="map">
+		 <![CDATA[
+		SELECT
+		   count(1) as totalRegisterNumber
+ 		  FROM  t_user u 
+		 WHERE  u.colorid IS NOT NULL AND
+ 		  u.createTime <= #{endTime}
+ 		 ]]>
+	</select>
+
+	<!--今日登陆人数-->
+	<select id="getLoginNumber" parameterType="map" resultType="map">
+		SELECT
+		   COUNT(DISTINCT l.operation_user) as loginNumber
+ 		  FROM  t_operation_log l
+		LEFT JOIN t_user u on l.operation_user = u.username 
+ 		 WHERE  u.colorid IS NOT NULL AND
+			l.operation_time BETWEEN  #{startTime}  AND #{endTime}
+ 		   AND l.operation_remarks = '用户登录';
+	</select>	
+	
+	<!-- 今日投资人数 -->
+	<select id="getInvestNumber" parameterType="map" resultType="map">	   
+		   SELECT count(investor) as investor
+			  FROM(
+			SELECT DISTINCT t1.investor as investor
+						  FROM  t_invest t1 
+				     LEFT JOIN  t_borrow t2 ON t1.borrowId=t2.id
+			       LEFT JOIN  t_user u ON t1.investor = u.id 
+						 WHERE  u.colorid IS NOT NULL AND 
+								t1.investTime BETWEEN #{startTime}  AND #{endTime}
+						   AND  t2.borrowStatus != '6'
+			UNION 
+			SELECT DISTINCT userId as investor
+				  FROM t_activity_order
+					  WHERE rechargeMoney>0 and ordStatus=1 AND 
+					  updatetime BETWEEN #{startTime}  AND #{endTime}
+			) t
+	</select>
+	
+	<!--散标今日投资金额-->
+	<select id="getInvestAmount" parameterType="map" resultType="map">
+		SELECT  SUM(t1.investAmount) as investAmount,
+				count(1) as sbInvestNumber
+		  FROM  t_invest t1 
+     LEFT JOIN  t_borrow t2 ON t1.borrowId=t2.id 
+     LEFT JOIN  t_user t3 ON t1.investor=t3.id 
+		 WHERE  t1.investTime BETWEEN #{startTime}  AND #{endTime}
+		   AND t3.colorid IS NOT NULL and t2.borrowStatus != '6'and t1.investor not in
+		( 
+		SELECT  userid from t_activity_order where ordStatus=1
+		)  
+	</select>
+	
+	<!--散标总投资金额-->
+	<select id="getTotalInvestAmount" parameterType="map" resultType="map">
+		<![CDATA[
+			SELECT  SUM(t1.investAmount) as totalInvestAmount,
+			count(1) as totalSbInvestNumber
+			  FROM  t_invest t1 
+	     LEFT JOIN  t_borrow t2 ON t1.borrowId=t2.id 
+	     LEFT JOIN  t_user t3 ON t1.investor=t3.id 
+			 WHERE  t1.investTime <= #{endTime}
+			   AND t3.colorid IS NOT NULL and t2.borrowStatus != '6'and t1.investor not in
+			( 
+			SELECT  userid from t_activity_order where ordStatus=1
+			) 
+			]]>
+	</select>
+	
+	<!--彩富人生 每天的充值金额-->
+	<select id="getRechargeMoney" parameterType="map" resultType="map">
+		SELECT sum(rechargeMoney) as rechargeMoney,
+		 	   count(1) as ordNumber
+		  FROM t_activity_order
+		  WHERE rechargeMoney>0 and ordStatus=1 AND 
+		  updatetime BETWEEN #{startTime}  AND #{endTime}
+	</select>
+	
+	<!--彩富人生购买单数-->
+	<select id="getOrdNumber" parameterType="map" resultType="map">
+		<![CDATA[
+			SELECT count(1) as tatolOrdNumber,
+				   sum(rechargeMoney) as totalRechargeMoney
+			  FROM t_activity_order
+			  WHERE rechargeMoney>0 and ordStatus=1 AND 
+			  updatetime <= #{endTime}
+		]]>
+	</select>
+	
+	<!--定期理财今日交易笔数和今日购买金额-->
+	<select id="getTradeAmount" parameterType="map" resultType="map">
+		SELECT   SUM(trade.trade_amount) as tradeAmount,count(1) as tradeNumber
+	      FROM   td_fund_trade trade
+	 LEFT JOIN   t_user u ON trade.user_id = u.id 
+	     WHERE   u.source IN (2,4,6) AND trade.trade_type='INVESTMENT' AND  trade.rate_id in (1,2,4) AND
+	      <![CDATA[
+	      	trade.trade_status <>'FAILURE' 
+	      ]]>
+	     AND trade.trade_time  BETWEEN #{startTime}  AND #{endTime}
+	</select>
+	
+	<!--定期理财累计交易笔数-->
+	<select id="getTotalTradeAmount" parameterType="map" resultType="map">
+		    <![CDATA[
+				SELECT   count(1) as totalTradeNumber,
+						SUM(trade.trade_amount) as totalTradeAmount
+			      FROM   td_fund_trade trade
+			 LEFT JOIN   t_user u ON trade.user_id = u.id 
+			     WHERE   u.source IN (2,4,6) AND trade.trade_type='INVESTMENT' AND trade.rate_id in (1,2,4) AND
+			      	trade.trade_status <>'FAILURE' 
+			     AND trade.trade_time  <= #{endTime}
+	       ]]>
+	</select>
+	
+	
+	<!-- 红包理财 -->
+	<select id="getHbBuyMoney" parameterType="map" resultType="map">
+			<![CDATA[
+			
+			SELECT count(1) as hbCount,sum(buy_money) as hbBuyMoney
+			from 
+					  t_color_life_buy_info cl 
+	      	left join td_product_rate p on cl.product_id = p.product_rate_id
+	      	left join t_user u on cl.user_id = u.id	
+			where  u.source IN (2,4,6) AND  cl.product_id in (11,12,13) and 
+				cl.status <> '3' AND cl.buy_time BETWEEN #{startTime}  AND #{endTime}
+			]]>
+	</select>
+	
+	<!-- 红包理财总金额 -->
+	<select id="getToTalHbBuyMoney" parameterType="map" resultType="map">
+	 <![CDATA[
+			SELECT count(1) as totalHbCount,sum(buy_money) as totalHbBuyMoney
+			from 
+					 t_color_life_buy_info cl 
+		      	left join td_product_rate p on cl.product_id = p.product_rate_id
+		      	left join t_user u on cl.user_id = u.id	
+			where  u.source IN (2,4,6) AND cl.status <> 3  and cl.product_id in (11,12,13)
+			and cl.buy_time <= #{endTime}
+	     ]]>
+	</select>
+	
+	
+	<!-- 彩富人生 -->
+	<select id="getCfOrderData" parameterType="map" resultType="map"> 
+    		SELECT ord.ordId as bh,u.username,p.realName,u.mobilePhone,t7.realName refferee,t6.mobilePhone,ord.cName,
+    		c.bname,ord.billingAddress as caddress, rechargeMoney as investAmount,date_format(ord.updateTime,'%Y-%m-%d') as investTime,
+    		(case when ord.rateType = 2 then '6'  
+					 when ord.rateType = 3 then '24'
+					 else '12' end) as rate
+		from t_activity_order ord 
+		 join t_user u on ord.userId = u.id 
+		 join t_person p on ord.userId = p.userId
+		left join cb c on c.cid = ord.cId 
+		left join t_user t6 on ord.userid=t6.id
+	    left join t_person t7 on u.refferee=t7.userId
+		<trim prefix="WHERE" prefixOverrides="AND"> 
+			<if test="endTime != null">  
+				AND ord.updateTime BETWEEN #{startTime}  AND #{endTime}
+			</if>
+			<if test="buniess != null and buniess != ''">  
+				AND c.bname = #{buniess}
+			</if>
+			<![CDATA[
+				AND ord.rechargeMoney>0 and ord.ordStatus=1 
+			 ]]>
+         </trim>
+	</select>
+	
+	<!-- 彩富人生 -->
+	<select id="getCfTotalCount" parameterType="map" resultType="map"> 
+    		SELECT 
+    		count(ord.ordId) as orderDs,sum(ord.rechargeMoney) as totalMoney
+		from t_activity_order ord 
+		 join t_user u on ord.userId = u.id 
+		 join t_person p on ord.userId = p.userId
+		left join cb c on c.cid = ord.cId 
+		left join t_user t6 on ord.userid=t6.id
+	    left join t_person t7 on u.refferee=t7.userId
+		<trim prefix="WHERE" prefixOverrides="AND"> 
+			<if test="endTime != null">  
+				AND ord.updateTime BETWEEN #{startTime}  AND #{endTime}
+			</if>
+			<if test="buniess != null and buniess != ''">  
+				AND c.bname = #{buniess}
+			</if>
+			<![CDATA[
+				AND ord.rechargeMoney>0 and ord.ordStatus=1 
+			 ]]>
+         </trim>
+	</select>
+	
+	<!-- 散标 -->
+	<select id="getSbInvestData" parameterType="map" resultType="map">
+	    			SELECT 
+						t1.id as bh,t3.username,t4.realName,t3.mobilePhone,t7.realName as refferee,t6.mobilePhone,t5.cname as cName,t5.caddress,c.bname,
+						t1.investAmount,date_format(t1.investTime,'%Y-%m-%d') as investTime,t2.deadline as rate
+					FROM t_invest t1
+				LEFT JOIN t_borrow t2 ON t1.borrowId=t2.id 
+				LEFT JOIN t_user t3 ON t1.investor=t3.id 
+				LEFT JOIN t_person t4 ON t3.id=t4.userId
+				LEFT JOIN t_colourlife_info t5 ON t5.userId = t3.id
+				LEFT JOIN cb c ON t5.cid = c.cid
+				left join t_user t6 on t3.refferee=t6.id
+				left join t_person t7 on t3.refferee=t7.userId
+				<trim prefix="WHERE" prefixOverrides="AND"> 
+					<if test="endTime != null">  
+						AND t1.investTime BETWEEN #{startTime}  AND #{endTime}
+					</if>
+					<if test="buniess != null and buniess != ''" >  
+						AND c.bname = #{buniess}
+					</if>
+					<![CDATA[
+						  AND t3.colorid IS NOT NULL and t2.borrowStatus != '6'and t1.investor not in
+							( 
+							SELECT  userid from t_activity_order where ordStatus=1
+							) 
+					 ]]>
+		         </trim>
+	</select>
+	
+	
+	<select id="getSbTotalCount" parameterType="map" resultType="map">
+	    			SELECT 
+	    				count(t1.id) as orderDs,sum(t1.investAmount) as totalMoney
+					FROM t_invest t1
+				LEFT JOIN t_borrow t2 ON t1.borrowId=t2.id 
+				LEFT JOIN t_user t3 ON t1.investor=t3.id 
+				LEFT JOIN t_person t4 ON t3.id=t4.userId
+				LEFT JOIN t_colourlife_info t5 ON t5.userId = t3.id
+				LEFT JOIN cb c ON t5.cid = c.cid
+				left join t_user t6 on t3.refferee=t6.id
+				left join t_person t7 on t3.refferee=t7.userId
+				<trim prefix="WHERE" prefixOverrides="AND"> 
+					<if test="endTime != null">  
+						AND t1.investTime BETWEEN #{startTime}  AND #{endTime}
+					</if>
+					<if test="buniess != null and buniess != ''" >  
+						AND c.bname = #{buniess}
+					</if>
+					<![CDATA[
+						  AND t3.colorid IS NOT NULL and t2.borrowStatus != '6'and t1.investor not in
+							( 
+							SELECT  userid from t_activity_order where ordStatus=1
+							) 
+					 ]]>
+		         </trim>
+	</select>
+	
+	<!-- 定期理财 -->
+	<select id="getDqlcInvestData" parameterType="map" resultType="map">
+	    			SELECT   t1.trade_id as bh,t3.username,t4.realName,t3.mobilePhone,t7.realName as refferee,t1.recomment_tel as tMobilePhone,t5.cname as cName,t5.caddress,c.bname,
+					t1.trade_amount as investAmount,date_format(t1.trade_time,'%Y-%m-%d') as investTime,t2.period as rate
+				      FROM   td_fund_trade t1
+				LEFT JOIN td_product_rate t2 on t1.rate_id = t2.product_rate_id
+				LEFT JOIN t_user t3 ON t1.user_id=t3.id 
+				LEFT JOIN t_person t4 ON t3.id=t4.userId
+				LEFT JOIN t_colourlife_info t5 ON t5.userId = t3.id
+				LEFT JOIN cb c ON t5.cid = c.cid
+				left join t_user t6 on t1.recomment_tel = t6.mobilePhone
+				left join t_person t7 on t6.id=t7.userId
+				<trim prefix="WHERE" prefixOverrides="AND"> 
+					<if test="endTime != null  and endTime != ''">  
+						 AND t1.trade_time  BETWEEN #{startTime}  AND #{endTime}
+					</if>
+					<if test="buniess != null  and buniess != ''">  
+						AND c.bname = #{buniess}
+					</if>
+					<![CDATA[
+						AND t3.source IN (2,4,6) AND t1.trade_type='INVESTMENT' AND  t1.rate_id in (1,2,4)  AND
+				      	t1.trade_status <>'FAILURE' 
+					 ]]>
+		         </trim>
+	</select>
+	
+	<select id="getDqlcTotalCount" parameterType="map" resultType="map">
+	    			SELECT   
+	    			count(t1.trade_id) as orderDs,sum(t1.trade_amount) as totalMoney
+				      FROM   td_fund_trade t1
+				LEFT JOIN td_product_rate t2 on t1.rate_id = t2.product_rate_id
+				LEFT JOIN t_user t3 ON t1.user_id=t3.id 
+				LEFT JOIN t_person t4 ON t3.id=t4.userId
+				LEFT JOIN t_colourlife_info t5 ON t5.userId = t3.id
+				LEFT JOIN cb c ON t5.cid = c.cid
+				left join t_user t6 on t1.recomment_tel = t6.mobilePhone
+				left join t_person t7 on t6.id=t7.userId
+				<trim prefix="WHERE" prefixOverrides="AND"> 
+					<if test="endTime != null  and endTime != ''">  
+						 AND t1.trade_time  BETWEEN #{startTime}  AND #{endTime}
+					</if>
+					<if test="buniess != null  and buniess != ''">  
+						AND c.bname = #{buniess}
+					</if>
+					<![CDATA[
+						AND t3.source IN (2,4,6) AND t1.trade_type='INVESTMENT' AND  t1.rate_id in (1,2,4)  AND
+				      	t1.trade_status <>'FAILURE' 
+					 ]]>
+		         </trim>
+	</select>
+	
+	<!-- 红包理财-->
+	<select id="getHbbuyMoneyData" parameterType="map" resultType="map">
+	    			SELECT   t1.order_id as bh,t3.username,t4.realName,t3.mobilePhone,t7.realName as refferee,t6.mobilePhone as tMobilePhone,t5.cname as cName,t5.caddress,c.bname,
+					t1.buy_money as investAmount,date_format(t1.buy_time,'%Y-%m-%d') as investTime,t2.period as rate
+				      FROM   t_color_life_buy_info t1
+				LEFT JOIN td_product_rate t2 on t1.product_id = t2.product_rate_id
+				LEFT JOIN t_user t3 ON t1.user_id=t3.id 
+				LEFT JOIN t_person t4 ON t3.id=t4.userId
+				LEFT JOIN t_colourlife_info t5 ON t5.userId = t3.id
+				LEFT JOIN cb c ON t5.cid = c.cid
+				left join t_user t6 on t3.refferee=t6.id
+				left join t_person t7 on t3.refferee=t7.userId
+				<trim prefix="WHERE" prefixOverrides="AND"> 
+					<if test="endTime != null  and endTime != ''">  
+						 AND t1.buy_time  BETWEEN  #{startTime}  AND #{endTime}
+					</if>
+					<if test="buniess != null  and buniess != ''">  
+						AND c.bname = #{buniess}
+					</if>
+					<![CDATA[
+						AND t3.source IN (2,4,6) AND  t1.product_id in (11,12,13) and 
+						t1.status <> '3'
+					 ]]>
+		         </trim>
+	</select>
+	
+	<select id="getHbTotalCount" parameterType="map" resultType="map">
+	    			SELECT   
+	    			count(t1.order_id) as orderDs,sum(t1.buy_money) as totalMoney
+				      FROM   t_color_life_buy_info t1
+				LEFT JOIN td_product_rate t2 on t1.product_id = t2.product_rate_id
+				LEFT JOIN t_user t3 ON t1.user_id=t3.id 
+				LEFT JOIN t_person t4 ON t3.id=t4.userId
+				LEFT JOIN t_colourlife_info t5 ON t5.userId = t3.id
+				LEFT JOIN cb c ON t5.cid = c.cid
+				left join t_user t6 on t3.refferee=t6.id
+				left join t_person t7 on t3.refferee=t7.userId
+				<trim prefix="WHERE" prefixOverrides="AND"> 
+					<if test="endTime != null  and endTime != ''">  
+						 AND t1.buy_time  BETWEEN  #{startTime}  AND #{endTime}
+					</if>
+					<if test="buniess != null  and buniess != ''">  
+						AND c.bname = #{buniess}
+					</if>
+					<![CDATA[
+						AND t3.source IN (2,4,6) AND  t1.product_id in (11,12,13) and 
+						t1.status <> '3'
+					 ]]>
+		         </trim>
+	</select>
+	
+	<select id="getSyb" parameterType="map" resultType="map">
+		SELECT DISTINCT bname from cb
+	</select>
+
+</mapper>

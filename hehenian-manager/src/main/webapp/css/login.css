@@ -1,0 +1,147 @@
+/* CSS Document */
+p,ul,li {
+	padding:0;
+	margin:0;
+}
+ul {
+	list-style:none;
+}
+.login {
+	margin:0 auto;
+	font-size:12px;
+	background:#187cc7;
+}
+.login_top {
+	width:100%;
+	height:64px;
+	margin:0 auto;
+	background: url(../images/login1_01.gif) repeat-x;
+}
+.login_width {
+	width:1003px;
+	margin:0 auto;
+}
+.login_top_l {
+	width:363px;
+	height:64px;
+	float:left;
+	background: url(../images/login1_02.gif) no-repeat;
+}
+.login_logo {
+	padding-top:8px;
+	width:73px;
+	height:33px;
+	float:left;
+	background-repeat:no-repeat;
+	background:url(../images/logo-w.png) right bottom no-repeat;
+}
+.login_name {
+	padding-left:10px;
+	width:270px;
+	height:40px;
+	line-height:40px;
+	color:#fff;
+	font-size:20px;
+	font-family:"Microsoft YaHei";
+	margin-top:5px;
+	float:left;
+	background-repeat:no-repeat;
+}
+.login_top_c {
+	width:324px;
+	height:64px;
+	float:left;
+	background: url(../images/login1_03.gif) no-repeat;
+}
+.login_top_r {
+	width:314px;
+	height:64px;
+	float:left;
+	background:url(../images/login1_04.gif) no-repeat;
+}
+.login_top_r p {
+	margin:19px 0 0 64px;
+	color:#fff;
+	font-size:12px;
+}
+.login_main {
+	width:100%;
+	height:480px;
+}
+.login_border {
+	width:467px;
+	height:300px;
+	margin:100px auto;
+}
+.login_border_h {
+	width:100%;
+	height:53px;
+	background:url(../images/login1_07.gif) no-repeat;
+}
+.login_border_c {
+	width:100%;
+	height:76px;
+	background:url(../images/login1_09.gif) no-repeat;
+}
+.username,.password {
+	height:18px;
+	border:none;
+	background:transparent;
+	
+}
+.username {
+	margin:3px 0 0 238px;
+}
+.password {
+	margin:22px 0 0 238px;
+}
+.login_border_b {
+	width:100%;
+	height:268px;
+	text-align:left;
+	position:relative;
+	background:url(../images/login1_10.gif) no-repeat;
+}
+.login_border_b table {
+	width:200px;
+	position:absolute;
+	left:185px;
+	top:15px;
+	float:left;
+}
+
+.login_border_b a {
+	color:#fff;
+	font-size: 12px;
+	line-height:24px;
+	text-decoration:none;
+}
+.login_border_b a {
+	text-decoration:underline;
+}
+.errorInfo{ display: none; padding-left: 206px; color: #c00;}
+.button1 {
+	float:right;
+	margin:8px 108px 0 0;
+	width:75px;
+	height:50px;
+	display:block;
+	background:url(../images/button.png) no-repeat;
+}
+.button1:hover {
+	background: url(../images/button_hover.png) no-repeat;
+}
+.login_bottom {
+	width:1003px;
+	height:45px;
+	margin:0 auto;
+	margin-bottom:0;
+	background:url(../images/login1_11.gif) no-repeat;
+}
+
+.login_bottom p {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align:center;
+	padding-top:15px;
+	color:#fff;
+}

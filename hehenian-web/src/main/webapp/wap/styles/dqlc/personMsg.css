@@ -1,0 +1,119 @@
+html,body{
+	height: 100%;
+	background: #f5f5f5;
+	overflow: hidden;
+}
+.notice{
+	padding: 10px;
+	line-height: 20px;
+	color: #ff9833;
+	font-size: 12px;
+}
+.inputBox{
+	position: relative;
+	background: #ffffff;
+	height: 44px;
+	border-top: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+	margin-bottom: 10px;
+}
+.inputBox span{
+	line-height: 44px;
+	font-size: 15px;
+	color: #333333;
+	display: inline-block;
+	padding-left: 10px;
+	padding-right: 25px;
+}
+.inputBox input{
+	width: 200px;
+	height: 37px;
+	border: 0;
+	outline: none;
+	font-size: 15px;
+    vertical-align: baseline;
+}
+.submit{
+	height: 44px;
+	width: 299px;
+	background: #ff9833;
+	border: 1px solid #dddddd;
+	line-height: 44px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 17px;
+	display: block;
+	margin:10px;
+	margin-top: 20px;
+    margin: 0 auto;
+	border-radius: 3px;
+}
+.submit.disable{
+	color: #999999;
+	background: #f0f0f0;
+}
+.mt30{
+	margin-top: 15px;
+}
+.yanzhengBtn{
+	position: absolute;
+	height: 29px;
+	width: 83px;
+	border: 1px solid #dddddd;
+	top:7px;
+	right: 10px;
+	line-height: 29px;
+	text-align: center;
+	color: #999999;
+	font-size: 13px;
+	border-radius: 3px;
+	background:  #f0f0f0;
+}
+.sendBtn{
+    position: absolute;
+    height: 29px;
+    width: 83px;
+    border: 1px solid #dddddd;
+    top:7px;
+    right: 10px;
+    line-height:29px;
+    text-align: center;
+    color: #999999;
+    font-size:13px;
+    border-radius: 3px;
+    background:  #f0f0f0;
+}
+.sendBtn1{
+    position: absolute;
+    height:29px;
+    width: 112px;
+    border: 1px solid #dddddd;
+    top:7px;
+    right: 10px;
+    line-height: 29px;
+    text-align: center;
+    color: #999999;
+    font-size: 13px;
+    border-radius: 3px;
+    background:  #f0f0f0;
+}
+/*mark*/
+.mask { position:fixed; left:0; top:0; background:#333; opacity:0.2; z-index:9999; }
+.popup { border-radius:3px; display:inline-block; padding:5px 10px; background:#fff; position:absolute; left:50%; top:50%; width:80%; margin-left:-40%; z-index:99999; text-align:center; overflow:hidden; color:#4d4d4; font-size:0.875em; display:none; }
+.popup-load { width:auto; padding-right:17px; }
+.popup-loading { display:block; width:40px; height:40px; overflow:hidden; float:left; }
+.popup-loading img { border:none; width:40px; height:40px; }
+.popup-loading-text { height:40px; line-height:40px; float:left; padding-left:2px; color:#666; text-align:center; }
+.popup-title { height:30px; line-height:30px; border-bottom:#ddd solid 2px; }
+.popup-title span { float:left; display:block; width:75%; overflow:hidden; text-align:left; text-indent:10px; font-weight:bold; }
+.popup-title a.close { border-left:#ddd solid 1px; display:block; float:right; width:20%; color:#cc0000 }
+.popup-content { padding:0; }
+.popup-main { display:block; width:100%; height:100%; overflow-y:auto; }
+.popup-text .popup-main p { margin-bottom:10px; }
+.popup-text .popup-main {  line-height:22px; text-align:left;padding:10px; }
+
+.popup-list { }
+.popup-list li { height:50px; line-height:50px; overflow:hidden; border-bottom:#e0e0e0 solid 1px; }
+.popup-list li a { display:block; height:50px; line-height:50px; overflow:hidden; border-radius:3px; }
+.popup-list li a:hover { background-color:#fdfee8; }
+.alert { background:#ff0000; padding:7px 5px; color:#fff; width:auto; box-shadow:-1px 2px 5px rgba(102,102,102,0.5);font-size: 26px; }

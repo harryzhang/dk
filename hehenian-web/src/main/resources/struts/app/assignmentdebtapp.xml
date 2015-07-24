@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="assignmentdebtapp" extends="app-default" namespace="/app">
+		<action name="queryFrontAllDebt" class="debtAppAction"
+			method="queryFrontAllDebt">
+		</action>
+		<action name="queryDebtDetail" class="debtAppAction"
+			method="queryDebtDetail">
+		</action>
+		
+		<action name="debtMSGInit" class="debtAppAction"
+			method="debtMSGInit">
+		</action>
+		<action name="queryAcutionRecordInfo" class="debtAppAction"
+			method="queryAcutionRecordInfo">
+		</action>
+		<action name="queryFrontSuccessDebt" class="debtAppAction"
+			method="queryFrontSuccessDebt">
+		</action>
+		
+		<action name="addDebtMSG" class="debtAppAction"
+			method="addDebtMSG">
+		</action>
+		<action name="auctingDebtInit" class="debtAppAction"
+			method="auctingDebtInit">
+			
+		</action>
+		<action name="addAuctingDebt" class="debtAppAction"
+			method="addAuctingDebt">
+		</action>
+		
+	</package>
+	
+</struts>

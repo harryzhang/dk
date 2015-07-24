@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+
+
+
+<bean name="parentDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" abstract="true">
+		<property name="initialPoolSize" value="1" />
+		<property name="maxPoolSize" value="50" />
+		<property name="minPoolSize" value="1" />
+		<property name="acquireIncrement" value="3" />
+		<property name="idleConnectionTestPeriod" value="180" />
+		<property name="maxIdleTime" value="180" />
+		<property name="autoCommitOnClose" value="false" />
+		<property name="preferredTestQuery" value="select 1" />
+		<property name="testConnectionOnCheckout" value="false" />
+		<property name="testConnectionOnCheckin" value="true" />
+		<property name="acquireRetryAttempts" value="30" />
+		<property name="acquireRetryDelay" value="1000" />
+		<property name="breakAfterAcquireFailure" value="false" />
+		<property name="checkoutTimeout" value="30000" />
+		<property name="automaticTestTable" value="test_c3p0" />
+		<property name="maxStatements" value="0" />
+		<property name="maxStatementsPerConnection" value="0" />
+		<property name="numHelperThreads" value="3" />
+		<property name="propertyCycle" value="300" />
+	</bean>	
+	
+	<bean id="dataSource" parent="parentDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:mysql://${db.host}:3306/${db.dbname}?characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;noAccessToProcedureBodies=true" />
+		<property name="user" value="${db.user}" />
+		<property name="password" value="${db.pwd}" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mapping/configuration.xml"></property>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- spring-jdbc begin -->
+	<bean id="sp2pJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<bean id="sp2pNameJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg index="0" ref="sp2pJdbcTemplate"/>
+	</bean>
+	
+	<bean id="hhn_userDataSource" parent="parentDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:mysql://${db.hhn_user.host}:3306/${db_hhn_user.dbname}?characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;noAccessToProcedureBodies=true" />
+		<property name="user" value="${db.hhn_user.user}" />
+		<property name="password" value="${db.hhn_user.pwd}" />
+	</bean>
+	<bean id="hhn_userMJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="hhn_userDataSource"/>
+	</bean>
+	<bean id="hhn_userSJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="hhn_userDataSource"/>
+	</bean>
+	<bean id="hhn_userSNameJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg index="0" ref="hhn_userSJdbcTemplate"/>
+	</bean>
+	<!-- spring-jdbc end -->
+	
+	<!-- ================= Declarative transaction configuration start ======================= -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:advice id="methodAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="merge*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="put*" propagation="REQUIRED" />
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="count*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="query*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="list*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	
+<!-- ================= properties file configuration start ============================== -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>file:${catalina.home}/conf/hehenian.properties</value> 
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+	
+	<!-- pool配置 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxActive" value="500" />
+		<property name="maxIdle" value="100" />
+		<property name="maxWait" value="5000" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+	</bean>
+
+	<!-- jedis pool配置 -->
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="jedisPoolConfig" />
+		<constructor-arg index="1" value="${redis.user.address}" />
+		<constructor-arg index="2" value="${redis.user.port}" />
+	</bean>
+
+	<bean id="localCacheService" class="com.hehenian.common.redis.SpringRedisCacheService">
+		<property name="jedisPool" ref="jedisPool" />
+		<property name="serverName" value="${redis.user.address}" />
+	</bean>
+
+	<!-- 包装类 -->
+	<bean id="redisCacheService" class="com.hehenian.common.redis.CacheService">
+		<property name="cacheService">
+			<map>
+				<entry>
+					<key>
+						<value>local</value>
+					</key>
+					<ref bean="localCacheService"></ref>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>

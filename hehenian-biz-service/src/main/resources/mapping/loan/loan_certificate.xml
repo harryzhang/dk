@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.ICertificateDao">
+
+    <select id="getCertificateByLoanId" parameterType="string" resultType="certificateDo">
+		SELECT
+		* FROM t_loan_certificate
+		WHERE loanId = #{loanId}
+		ORDER BY certificateId DESC;
+	</select>
+
+	<insert id="addCertificate" parameterType="certificateDo"
+		keyProperty="certificateId" useGeneratedKeys="true">
+		INSERT INTO
+			t_loan_certificate( loanId,loanPersonId,certificateType,certificateName,filePath,destFilePath,fileType,createUser,createTime,updateTime)
+		VALUES (#{loanId}, #{loanPersonId}, #{certificateType}, #{certificateName},
+			#{filePath},#{destFilePath},#{fileType},#{createUser},NOW(),NOW());
+	</insert>
+
+	<update id="updateCertificate" parameterType="certificateDo">
+		UPDATE t_loan_certificate
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="loanId != null">
+				loanId = #{loanId},
+			</if>
+			<if test="loanPersonId != null">
+				loanPersonId = #{loanPersonId},
+			</if>
+			<if test="certificateType != null">
+				certificateType = #{certificateType},
+			</if>
+			<if test="certificateName != null">
+				certificateName = #{certificateName},
+			</if>
+			<if test="filePath != null">
+				filePath = #{filePath},
+			</if>
+			<if test="destFilePath != null">
+				destFilePath = #{destFilePath},
+			</if>
+			<if test="fileType != null">
+				fileType = #{fileType},
+			</if>
+			<if test="createUser != null">
+				createUser = #{createUser},
+			</if>
+			updateTime = NOW(),
+		</trim>
+		WHERE certificateId = #{certificateId};
+	</update>
+	
+	<delete id="deleteCertificateById" parameterType="long">
+		DELETE FROM
+		t_loan_certificate WHERE certificateId = #{certificateId}
+	</delete>
+	
+</mapper>

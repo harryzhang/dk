@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+	<bean name="/userService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="userService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.account.IUserService" />
+	</bean>
+	<bean name="/userInfoService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="userInfoService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.account.IUserInfoService" />
+	</bean>
+	<bean name="/personService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="personService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.account.IPersonService" />
+	</bean>
+	<bean name="/colorLifeBuyService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="colorLifeBuyService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.colorlife.ColorLifeBuyService" />
+	</bean>
+
+	<bean name="/inviteFriendService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="inviteFriendService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.invite.InviteFriendService" />
+	</bean>
+
+	<bean name="/inviteDetailService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="inviteDetailService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.invite.InviteDetailService" />
+	</bean>
+	
+	<bean name="/bankCardService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="bankCardService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.account.IBankCardService" />
+	</bean>
+	<!-- 借款申请 -->
+	<bean name="/loanDetailService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanDetailService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.loan.ILoanDetailService" />
+	</bean>
+	<!-- 提现交易 -->
+	<bean name="/WithdrawService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="withdrawService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.trade.IWithdrawService" />
+	</bean>
+
+
+	<!-- 短信管理 -->
+	<bean name="/SMSNotifyService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="smsManagerService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.notify.ISMSManagerService" />
+	</bean>
+	<!-- 消息管理 -->
+	<bean name="/notifyManagerService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="notifyManagerService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.notify.INotifyManagerService" />
+	</bean>
+	<!-- 消息发送 -->
+	<bean name="/notifyService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="notifyService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.notify.INotifyService" />
+	</bean>
+	<!-- 融资端站内通知发送 -->
+	<bean name="/notifyLoanService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="notifyLoanService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.notify.INotifyLoanService" />
+	</bean>
+
+	<!-- 还款 -->
+	<bean name="/repaymentService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="repaymentService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.trade.IRepaymentService" />
+	</bean>
+	<!-- 投资回款 -->
+	<bean name="/investRepaymentService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="investRepaymentService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.trade.IInvestRepaymentService" />
+	</bean>
+	<bean name="/BorrowService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="borrowService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.trade.IBorrowService" />
+	</bean>
+	<bean name="/AssignmentDebtService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="assignmentDebtService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.trade.IAssignmentDebtService" />
+	</bean>
+	<bean name="/riskDetailService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="riskDetailService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.trade.IRiskDetailService" />
+	</bean>
+	<bean name="/guaranteeInstitutionsService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="guaranteeInstitutionsService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.trade.IGuaranteeInstitutionsService" />
+	</bean>
+	<bean name="/borrowTypeLogService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="borrowTypeLogService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.trade.IBorrowTypeLogService" />
+	</bean>
+	<bean name="/newRechargeService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="newRechargeService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.trade.INewRechargeService" />
+	</bean>
+	<bean name="/investService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="investService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.trade.IInvestService" />
+	</bean>
+	<bean name="/settleCalculatorService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="settleCalculatorService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.trade.ISettleCalculatorService" />
+	</bean>
+	<bean name="/parameterLogService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="parameterLogService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.trade.IParameterLogService" />
+	</bean>
+	<!-- 操作日志 -->
+	<bean name="/operationLogService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="operationLogServiceImpl" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.trade.IOperationLogService" />
+	</bean>
+
+	<!-- 报表 -->
+	<bean name="/colorReportService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="colorReportService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.report.IColorReportService" />
+	</bean>
+	<!-- 债权认购 -->
+	<bean name="/auctionDebtService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="auctionDebtService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.trade.IAuctionDebtService" />
+	</bean>
+	<bean name="/activityOrderService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="activityOrderService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.activity.IActivityOrderService" />
+	</bean>
+	<bean name="/activityAuthService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="activityAuthService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.activity.IActivityAuthService" />
+	</bean>
+	<bean name="/activityTradeService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="activityTradeService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.activity.IActivityTradeService" />
+	</bean>
+	<bean name="/autoBidService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="AutoBidService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.bid.IAutoBidService" />
+	</bean>
+
+	<!-- 个人中心 -->
+	<bean name="/userIncomeService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="userIncomeService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.userhome.IUserIncomeService" />
+	</bean>
+
+	<bean name="/reconciliationService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="reconciliationService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.trade.IReconciliationService" />
+	</bean>
+
+	<bean name="/identifyCodeService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="identifyCodeService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.identifycode.IIdentifyCodeService" />
+	</bean>
+
+	<bean name="/phoneVerifyService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="phoneVerifyService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.account.IPhoneVerifyService" />
+	</bean>
+
+	<bean name="/dqlcService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="dqlcService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.dqlc.IDqlcService" />
+	</bean>
+
+	<!-- 结算方案管理 -->
+	<bean name="/settSchemeService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="settSchemeService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.system.ISettSchemeService" />
+	</bean>
+	
+	<!-- e贷款  -->
+	<bean name="/loanPersonService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanPersonService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanPersonService" />
+	</bean>
+	<bean name="/loanApplyService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanApplyService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanApplyService" />
+	</bean>
+	<bean name="/loanUserService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanUserService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanUserService" />
+	</bean>
+	<bean name="/loanChannelService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanChannelService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanChannelService" />
+	</bean>
+	<bean name="/loanRepaymentService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanRepaymentService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanRepaymentService" />
+	</bean>
+	<bean name="/loanRepaymentFeeService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanRepaymentFeeService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanRepaymentFeeService" />
+	</bean>
+	
+	<!--  admin account  -->
+	<bean name="/adminService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="adminService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.account.IAdminService" />
+	</bean>
+	
+	
+	<!-- 查询通用功能 -->
+	<bean name="/commonQueryService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="commonQueryService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.system.ICommonQueryService" />
+	</bean>
+	<bean name="/commonService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="commonService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ICommonService" />
+	</bean>
+	
+
+	<!-- 菜单  -->
+	<bean name="/roleService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="roleService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.account.IRoleService" />
+	</bean>
+	
+
+	<!-- 账户 -->
+	<bean name="/individualService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="individualService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.individualCenter.IIndividualService" />
+	</bean>
+	
+	<bean name="/userThirdPartyService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="userThirdPartyService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.account.IUserThirdPartyService" />
+	</bean>
+
+	
+	<bean name="/loanInfoService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanInfoService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanInfoService" />
+	</bean>
+
+
+	<bean name="/parkingFeeService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="parkingFeeService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.wygj.IParkingFeeService" />
+	</bean>
+
+	<bean name="/offsetService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="offsetService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.wygj.IOffsetService" />
+	</bean>
+
+	
+	<bean name="/propertyManagementFeeService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="propertyManagementFeeService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.wygj.IPropertyManagementFeeService" />
+	</bean>
+	
+	<bean name="/sysCodeService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="sysCodeService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.wygj.SysCodeService" />
+	</bean>
+
+
+
+	
+	<bean name="/businessService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="businessService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.colorlife.IBusinessService" />
+	</bean>
+	<!-- 抽奖业务 -->
+	<bean name="/lotteryService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="lotteryService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.wygj.ILotteryService" />
+	</bean>
+
+	<!-- 推荐人 奖励记录 -->
+	<bean name="/recommandRewardService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="recommandRewardService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.invite.IRecommandRewardService" />
+	</bean>
+	<bean name="/recommandRateService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="recommandRateService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.invite.IRecommandRateService" />
+	</bean>
+
+	<!-- 授信 -->
+	<bean name="/loanPersonCreditService"
+			class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanPersonCreditService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.loan.ILoanPersonCreditService" />
+	</bean>
+	
+	<bean name="/loanCheckItemService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanCheckItemService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.loan.ILoanCheckItemService" />
+	</bean>
+	
+	<bean name="/loanProtocolService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanProtocolService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.loan.ILoanProtocolService" />
+	</bean>
+	
+	<bean name="/colorResourceHttpService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="colorResourceService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.colorlife.IColorHttpService" />
+	</bean>
+	
+	<!-- manager 合并进来的 -->
+	
+	<bean name="/loanCMobileService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanCMobileService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanCMobileService" />
+	</bean>
+	
+	<bean name="/loanLogService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanLogService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanLogService" />
+	</bean>
+	
+	<bean name="/managerLoanService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="managerLoanService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.IManagerLoanService" />
+	</bean>
+	
+	<bean name="/managerLoanUserService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="managerLoanUserService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.IManagerLoanUserService" />
+	</bean>
+	
+	<bean name="/managerLoanRepaymentService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="managerLoanRepaymentService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.IManagerLoanRepaymentService" />
+	</bean>
+	
+	<bean name="/loanProductService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanProductService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanProductService" />
+	</bean>
+	
+	<bean name="/loanProvidedService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanProvidedService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanProvidedService" />
+	</bean>
+	
+	<bean name="/loanDictService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanDictService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanDictService" />
+	</bean>
+	
+	<bean name="/loanDictDtlService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanDictDtlService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanDictDtlService" />
+	</bean>
+	
+	<bean name="/loanPersonCheckService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loanPersonCheckService" />
+		<property name="serviceInterface"
+			value="com.hehenian.biz.common.loan.ILoanPersonCheckService" />
+	</bean>
+
+	
+</beans>

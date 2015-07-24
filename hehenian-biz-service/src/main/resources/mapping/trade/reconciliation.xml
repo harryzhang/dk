@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.trade.IReconciliationDao">
+
+	<select id="getByOrdIdAndReconciliationType" parameterType="map"
+		resultType="reconciliationDo">
+		SELECT * FROM t_reconciliation
+		WHERE ordId = #{ordId}
+		AND
+		reconciliationType = #{reconciliationType}
+	</select>
+
+	<select id="countReconciliations" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*) FROM t_reconciliation
+		WHERE
+		reconciliationType = #{reconciliationType}
+		AND reconciliationStatus =
+		#{reconciliationStatus}
+	</select>
+
+	<select id="queryReconciliations" parameterType="map"
+		resultType="reconciliationDo">
+		SELECT * FROM t_reconciliation
+		WHERE reconciliationType =
+		#{reconciliationType}
+		AND reconciliationStatus =
+		#{reconciliationStatus}
+		ORDER BY createTime
+		LIMIT 0,#{count}
+	</select>
+
+	<select id="countRecon" parameterType="map" resultType="long">
+		SELECT COUNT(*) FROM t_reconciliation re
+		LEFT JOIN 
+		t_user u  ON re.usrcustid = u.usrcustid
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="username != null and username != ''">
+				AND u.username = #{username}
+			</if>
+			<if test="ordId != null and ordId != ''">
+				AND re.ordId = #{ordId}
+			</if>
+			<if test="ordDate != null and ordDate != ''">
+				AND re.ordDate = #{ordDate}
+			</if>
+			<if test="reconciliationType != null and reconciliationType != ''">
+				AND re.reconciliationType = #{reconciliationType}
+			</if>
+			<if test="reconciliationStatus != null and reconciliationStatus != ''">
+				AND re.reconciliationStatus = #{reconciliationStatus}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getReconciliations" parameterType="map" resultType="reconciliationDo">
+		SELECT re.* FROM  t_reconciliation  re
+		LEFT JOIN 
+		t_user u  ON re.usrcustid = u.usrcustid
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="username != null and username != ''">
+				AND u.username = #{username}
+			</if>
+			<if test="ordId != null and ordId != ''">
+				AND re.ordId = #{ordId}
+			</if>
+			<if test="ordDate != null and ordDate != ''">
+				AND re.ordDate = #{ordDate}
+			</if>
+			<if test="reconciliationType != null and reconciliationType != ''">
+				AND re.reconciliationType = #{reconciliationType}
+			</if>
+			<if test="reconciliationStatus != null and reconciliationStatus != ''">
+				AND re.reconciliationStatus = #{reconciliationStatus}
+			</if>
+		</trim>
+		ORDER BY re.createTime DESC
+		LIMIT #{beginCount},#{pageSize}
+	</select>
+	
+	<select id="getMaxPnrDate" parameterType="map" resultType="date">
+		SELECT MAX(pnrDate) FROM t_reconciliation
+		WHERE reconciliationType =
+		#{reconciliationType}
+	</select>
+
+	<select id="getMaxOrdDate" parameterType="map" resultType="date">
+		SELECT MAX(ordDate) FROM t_reconciliation
+		WHERE reconciliationType =
+		#{reconciliationType}
+	</select>
+
+	<insert id="addReconciliation" parameterType="reconciliationDo">
+		INSERT INTO
+		t_reconciliation(reconciliationType,reconciliationStatus,ordId,merCustId,usrCustId,cardId,transAmt,transStat,pnrDate,pnrSeqId
+		,ordDate,investCustId,borrCustId,gateBusiId,openBankId,openAcctId,feeAmt,feeCustId,feeAcctId,sellCustId,creditAmt,creditDealAmt,fee,buyCustId,createTime,updateTime)
+		VALUES(#{reconciliationType},#{reconciliationStatus},#{ordId},#{merCustId},#{usrCustId},#{cardId},#{transAmt},#{transStat},#{pnrDate},#{pnrSeqId}
+		,#{ordDate},#{investCustId},#{borrCustId},#{gateBusiId},#{openBankId},#{openAcctId},#{feeAmt},#{feeCustId},#{feeAcctId},#{sellCustId},#{creditAmt},#{creditDealAmt}
+		,#{fee},#{buyCustId},NOW(),NOW());
+	</insert>
+
+	<update id="updateReconciliation" parameterType="reconciliationDo">
+		UPDATE t_reconciliation
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="reconciliationType != null">
+				reconciliationType = #{reconciliationType},
+			</if>
+			<if test="reconciliationStatus != null">
+				reconciliationStatus = #{reconciliationStatus},
+			</if>
+			<if test="ordId != null">
+				ordId = #{ordId},
+			</if>
+			<if test="merCustId != null">
+				merCustId = #{merCustId},
+			</if>
+			<if test="usrCustId != null">
+				usrCustId = #{usrCustId},
+			</if>
+			<if test="cardId != null">
+				cardId = #{cardId},
+			</if>
+			<if test="transAmt != null">
+				transAmt = #{transAmt},
+			</if>
+			<if test="transStat != null">
+				transStat = #{transStat},
+			</if>
+			<if test="pnrDate != null">
+				pnrDate = #{pnrDate},
+			</if>
+			<if test="pnrSeqId != null">
+				pnrSeqId = #{pnrSeqId},
+			</if>
+			<if test="ordDate != null">
+				ordDate = #{ordDate},
+			</if>
+			<if test="investCustId != null">
+				investCustId = #{investCustId},
+			</if>
+			<if test="borrCustId != null">
+				borrCustId = #{borrCustId},
+			</if>
+			<if test="gateBusiId != null">
+				gateBusiId = #{gateBusiId},
+			</if>
+			<if test="openBankId != null">
+				openBankId = #{openBankId},
+			</if>
+			<if test="openAcctId != null">
+				openAcctId = #{openAcctId},
+			</if>
+			<if test="feeAmt != null">
+				feeAmt = #{feeAmt},
+			</if>
+			<if test="feeCustId != null">
+				feeCustId = #{feeCustId},
+			</if>
+			<if test="feeAcctId != null">
+				feeAcctId = #{feeAcctId},
+			</if>
+			<if test="sellCustId != null">
+				sellCustId = #{sellCustId},
+			</if>
+			<if test="creditAmt != null">
+				creditAmt = #{creditAmt},
+			</if>
+			<if test="creditDealAmt != null">
+				creditDealAmt = #{creditDealAmt},
+			</if>
+			<if test="fee != null">
+				fee = #{fee},
+			</if>
+			<if test="buyCustId != null">
+				buyCustId = #{buyCustId},
+			</if>
+			updateTime = NOW(),
+		</trim>
+		WHERE reconciliationId = #{reconciliationId}
+	</update>
+
+	<update id="updateReconciliationStatus" parameterType="reconciliationDo">
+		UPDATE
+		t_reconciliation SET reconciliationStatus = #{reconciliationStatus}
+		,reconciliationDesc = #{reconciliationDesc}
+		WHERE reconciliationId = #{reconciliationId}
+	</update>
+
+</mapper>

@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<bean id="kindEditorAction" class="com.shove.web.action.KindEditorAction" scope="prototype"></bean>
+
+	<bean id="showSubMenuAction" class="com.sp2p.action.admin.ShowSubMenuAction" scope="prototype" parent="basePageAction">
+		<property name="roleRightsService" ref="roleRightsService" />
+		<property name="adminService" ref="adminService" />
+	</bean>
+	<bean id="commonAction" class="com.shove.web.action.CommonAction" scope="prototype"></bean>
+
+	<bean id="uploadCommonentsAction" class="com.shove.web.action.UploadCommonentsAction" scope="prototype"></bean>
+	<!-- userAction -->
+	<bean id="userAction" class="com.sp2p.action.admin.UserAction" scope="prototype" parent="basePageAction">
+		<property name="userService" ref="userService" />
+		<property name="regionService" ref="regionService" />
+		<property name="validateService" ref="validateService" />
+		<property name="awardMoneyService" ref="awardMoneyService" />
+		<property name="recommendUserService" ref="recommendUserService" />
+		<property name="costManagerService" ref="costManagerService" />
+		<property name="sMsService" ref="sMSInterfaceService" />
+		<property name="iDCardValidateService" ref="iDCardValidateService" />
+		<property name="beVipService" ref="beVipService" />
+		<property name="jobTaskService" ref="jobTaskService" />
+		<property name="agreementService" ref="publicModelService" />
+		<property name="shoveBorrowTypeService" ref="shoveBorrowTypeService" />
+	</bean>
+
+	<bean id="userFundAction" class="com.sp2p.action.admin.UserFundRecordAction" scope="prototype" parent="basePageAction">
+		<property name="userService" ref="userService" />
+		<property name="fundManagementService" ref="fundManagementService"></property>
+		<property name="adminService" ref="adminService"></property>
+		<property name="operationLogService" ref="operationLogService"></property>
+	</bean>
+
+	<!-- 个人账户的 个人设置 -->
+	<bean id="FrontMyInformation" class="com.sp2p.action.front.FrontMyInformation" scope="prototype">
+		<property name="userService" ref="userService" />
+		<property name="regionService" ref="regionService" />
+		<property name="validateService" ref="validateService" />
+		<property name="beVipService" ref="beVipService" />
+		<property name="iDCardValidateService" ref="iDCardValidateService" />
+		<property name="phoneVerifyService" ref="phoneVerifyService" />
+		<property name="inviteFriendService" ref="inviteFriendService" />
+		<property name="inviteDetailService" ref="inviteDetailService" />
+		<property name="personService" ref="personService" />
+		<property name="recommandRewardService" ref="recommandRewardService" />
+	</bean>
+
+
+
+	<!-- 用户注册 -->
+	<bean id="frontLongRegisterAction" class="com.sp2p.action.front.FrontLongRegisterAction" scope="prototype">
+		<property name="mailSendService" ref="mailSendService"></property>
+		<property name="userService" ref="userService" />
+		<property name="sendMailService" ref="sendMailService"></property>
+		<property name="recommendUserService" ref="recommendUserService"></property>
+		<property name="relationService" ref="relationService"></property>
+		<property name="homeInfoSettingService" ref="homeInfoSettingService"></property>
+		<property name="userIntegralService" ref="userIntegralService"></property>
+		<property name="bbsRegisterService" ref="bbsRegisterService"></property>
+		<property name="adminService" ref="adminService"></property>
+		<property name="sMsService" ref="sMSInterfaceService"></property>
+	</bean>
+	<bean id="frontUserAction" class="com.sp2p.action.usercenter.FrontUserAction" scope="prototype">
+		<property name="userService" ref="userService" />
+		<property name="regionService" ref="regionService" />
+	</bean>
+	<!-- 我要理财 -->
+	<bean id="frontMyFinanceAction" class="com.sp2p.action.front.FrontMyFinanceAction" scope="prototype">
+		<property name="financeService" ref="financeService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="newsService" ref="newsAndMediaReportService"></property>
+		<property name="borrowService" ref="borrowService"></property>
+		<property name="shoveBorrowTypeService" ref="shoveBorrowTypeService"></property>
+		<property name="borrowManageService" ref="borrowManageService"></property>
+		<property name="publicModelService" ref="publicModelService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="regionService" ref="regionService"></property>
+		<property name="myHomeService" ref="myHomeService"></property>
+	</bean>
+
+
+
+	<bean id="onlinePaymentAction" class="com.sp2p.action.front.OnlinePaymentAction" scope="prototype">
+		<property name="rechargeService" ref="rechargeService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="sendMessageService" ref="sendMessageService" />
+		<property name="fundManagementService" ref="fundManagementService" />
+		<property name="userService" ref="userService" />
+	</bean>
+
+	<!-- 客服中心 -->
+	<bean id="callCenterAction" class="com.sp2p.action.front.CallCenterAction" scope="prototype">
+		<property name="callCenterService" ref="helpAndServicerService"></property>
+	</bean>
+
+	<!-- 客服中心后台帮助问题管理 -->
+	<bean id="helpAction" class="com.sp2p.action.admin.HelpAction" scope="prototype" parent="basePageAction">
+		<property name="callCenterService" ref="helpAndServicerService"></property>
+	</bean>
+
+	<!-- 客服中心后台帮助问题类型管理 -->
+	<bean id="helpCategoryAction" class="com.sp2p.action.admin.HelpCategoryAction" scope="prototype" parent="basePageAction">
+		<property name="callCenterService" ref="helpAndServicerService"></property>
+	</bean>
+
+	<!-- 客服中心债权转让 -->
+	<bean id="frontCreditorTransferAction" class="com.sp2p.action.front.FrontCreditorTransferAction" scope="prototype">
+		<property name="callCenterService" ref="helpAndServicerService"></property>
+	</bean>
+
+	<!-- 后台客服管理 -->
+	<bean id="kefusAction" class="com.sp2p.action.admin.KefuAction" scope="prototype" parent="basePageAction">
+		<property name="kefusService" ref="helpAndServicerService"></property>
+	</bean>
+
+
+	<!-- 我要理财-工具箱 -->
+	<bean id="financeToolsAction" class="com.sp2p.action.front.FinanceToolsAction" scope="prototype">
+		<property name="financeToolsService" ref="financeToolsService"></property>
+	</bean>
+	<!-- 本金保障 -->
+	<bean id="capitalEnsureAction" class="com.sp2p.action.front.CapitalEnsureAction" scope="prototype">
+		<property name="capitalEnsureService" ref="capitalEnsureService"></property>
+		<property name="financeService" ref="financeService"></property>
+	</bean>
+	<!-- 我的帐户 个人设置 -->
+	<bean id="homeInfoSettingAction" class="com.sp2p.action.front.HomeInfoSettingAction" scope="prototype">
+		<property name="homeInfoSettingService" ref="homeInfoSettingService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="adminService" ref="adminService"></property>
+		<property name="becomeFinanceService" ref="becomeFinanceService"></property>
+		<property name="beVipService" ref="beVipService"></property>
+		<property name="bbsRegisterService" ref="bbsRegisterService"></property>
+		<property name="sendMailService" ref="sendMailService"></property>
+		<property name="fundManagementService" ref="fundManagementService" />
+		<property name="operationLogService" ref="operationLogService"></property>
+		<property name="regionService" ref="regionService" />
+	</bean>
+	<!-- 我的帐户 充值提现 -->
+	<bean id="rechargeAction" class="com.sp2p.action.front.RechargeAction" scope="prototype" parent="basePageAction">
+		<property name="rechargeService" ref="rechargeService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="financeService" ref="financeService"></property>
+		<property name="homeInfoSettingService" ref="homeInfoSettingService"></property>
+		<property name="rechargebankService" ref="rechargebankService"></property>
+		<property name="adminService" ref="adminService"></property>
+	</bean>
+	<!-- 我的帐户 还款管理 -->
+	<bean id="frontpayAction" class="com.sp2p.action.front.FrontMyPaymentAction" scope="prototype">
+		<property name="frontpayService" ref="frontpayService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+
+
+	<!-- 后台 财务管理 -->
+	<bean id="fiManageAction" class="com.sp2p.action.admin.FIManageAction" scope="prototype" parent="basePageAction">
+		<property name="fundManagementService" ref="fundManagementService" />
+		<property name="userService" ref="userService"/>
+		<property name="adminService" ref="adminService" />
+		<property name="selectedService" ref="selectedService"/>
+		<property name="sendMessageService" ref="sendMessageService" />
+		<property name="frontpayService" ref="frontpayService" />
+		<property name="myHomeSerivce" ref="myHomeService" />
+	</bean>
+	<!-- 后台友情链接管理 -->
+	<bean id="linksAction" class="com.sp2p.action.admin.LinksAction" scope="prototype" parent="basePageAction">
+		<property name="linksService" ref="publicModelService"></property>
+	</bean>
+	<!-- 后台条款编辑管理 -->
+	<bean id="clauseAction" class="com.sp2p.action.admin.ClauseAction" scope="prototype" parent="basePageAction">
+		<property name="clauseService" ref="publicModelService"></property>
+	</bean>
+	<!-- 我要借款 -->
+	<bean id="frontMyBorrowAction" class="com.sp2p.action.front.FrontMyBorrowAction" scope="prototype">
+		<property name="borrowService" ref="borrowService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="dataApproveService" ref="dataApproveService"></property>
+		<property name="shoveBorrowTypeService" ref="shoveBorrowTypeService"></property>
+		<property name="shoveBorrowStyleService" ref="shoveBorrowStyleService"></property>
+		<property name="platformCostService" ref="platformCostService"></property>
+		<property name="userService" ref="userService"></property>
+
+	</bean>
+	<!-- 我的主页 -->
+	<bean id="frontMyHomeAction" class="com.sp2p.action.front.FrontMyHomeAction" scope="prototype">
+		<property name="userService" ref="userService" />
+		<property name="relationService" ref="relationService"></property>
+		<property name="myHomeService" ref="myHomeService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+	</bean>
+
+	<!-- 首页 -->
+	<bean id="frontHomePageAction" class="com.sp2p.action.front.FrontHomePageAction" scope="prototype">
+	</bean>
+	<!--后台基本基料验证 -->
+	<bean id="financialAction" class="com.sp2p.action.admin.FinancialAction" scope="prototype" parent="basePageAction">
+		<property name="validateService" ref="validateService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<!-- 后台下载资料列表 -->
+	<bean id="downloadAction" class="com.sp2p.action.admin.DownloadAction" scope="prototype" parent="basePageAction">
+		<property name="downloadService" ref="downloadService"></property>
+	</bean>
+	<!-- 前台下载资料列表 -->
+	<bean id="frontDownloadAction" class="com.sp2p.action.front.FrontDownloadAction" scope="prototype">
+		<property name="downloadService" ref="downloadService"></property>
+		<property name="operationLogService" ref="operationLogService"></property>
+	</bean>
+	<!-- 后台借款管理模块 -->
+	<bean id="borrowManageAction" class="com.sp2p.action.admin.BorrowManageAction" scope="prototype" parent="basePageAction">
+		<property name="borrowManageService" ref="borrowManageService"></property>
+		<property name="borrowService" ref="borrowService"></property>
+		<!-- add by houli -->
+		<property name="dataApproveService" ref="dataApproveService"></property>
+		<property name="shoveBorrowTypeService" ref="shoveBorrowTypeService"></property>
+		<property name="financeService" ref="financeService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="platformCostService" ref="platformCostService"></property>
+		<property name="sendMessageService" ref="sendMessageService"></property>
+
+	</bean>
+	<bean id="validateAction" class="com.sp2p.action.admin.ValidateAction" scope="prototype" parent="basePageAction">
+		<property name="validateService" ref="validateService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="regionService" ref="regionService" />
+		<property name="countWorkStatusService" ref="countWorkStatusService" />
+		<property name="beVipService" ref="beVipService" />
+	</bean>
+
+	<!-- 后台团队管理模块 -->
+	<bean id="teamAction" class="com.sp2p.action.admin.TeamAction" scope="prototype" parent="basePageAction">
+		<property name="teamService" ref="publicModelService"></property>
+	</bean>
+
+	<!-- 后台媒体报道管理模块 -->
+	<bean id="mediaReportAction" class="com.sp2p.action.admin.MediaReportAction" scope="prototype" parent="basePageAction">
+		<property name="mediaReportService" ref="newsAndMediaReportService"></property>
+		<!-- <property name="mediaReportService" ref="mediaReportService"></property> -->
+	</bean>
+
+	<!-- 前台媒体报道 -->
+	<bean id="frontMediaReportAction" class="com.sp2p.action.front.FrontMediaReportdAction" scope="prototype">
+		<property name="mediaReportService" ref="newsAndMediaReportService"></property>
+	</bean>
+
+	<!-- 后台网站公告管理模块 -->
+	<bean id="newsAction" class="com.sp2p.action.admin.NewsAction" scope="prototype" parent="basePageAction">
+		<property name="newsService" ref="newsAndMediaReportService"></property>
+	</bean>
+
+	<!-- 前台网站公告管理模块 -->
+	<bean id="frontNewsAction" class="com.sp2p.action.front.FrontNewsdAction" scope="prototype">
+		<property name="newsService" ref="newsAndMediaReportService"></property>
+	</bean>
+
+	<!-- 后台信息管理模块 -->
+	<bean id="messageAction" class="com.sp2p.action.admin.MessageAction" scope="prototype" parent="basePageAction">
+		<property name="messageService" ref="publicModelService"></property>
+	</bean>
+
+
+	<!-- 前台平台原理，关于我们，资费说明等等信息管理模块的功能 -->
+	<bean id="frontMessageAction" class="com.sp2p.action.front.FrontMessageAction" scope="prototype">
+		<!-- <property name="messageService" ref="messageService"></property> -->
+		<property name="borrowManageService" ref="borrowManageService"></property>
+		<property name="financeService" ref="financeService"></property>
+		<property name="publicModelService" ref="publicModelService"></property>
+		<property name="assignmentDebtService" ref="assignmentDebtService"></property>
+	</bean>
+
+	<!-- 后台管理员 -->
+	<bean id="adminAction" class="com.sp2p.action.admin.AdminAction" scope="prototype" parent="basePageAction">
+		<property name="adminService" ref="adminService" />
+		<property name="roleService" ref="roleService" />
+		<property name="roleRightsService" ref="roleRightsService" />
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+	<!-- 贷后管理 -->
+	<bean id="afterCreditManageAction" class="com.sp2p.action.admin.AfterCreditManageAction" scope="prototype" parent="basePageAction">
+		<property name="afterCreditManageService" ref="afterCreditManageService" />
+		<property name="selectedService" ref="selectedService" />
+	</bean>
+	<!-- 担保人列表 -->
+	<bean id="guaranteeAction" class="com.sp2p.action.front.GuaranteeAction" scope="prototype">
+		<property name="guaranteeService" ref="guaranteeService"></property>
+	</bean>
+
+	<!-- 好友管理 -->
+	<bean id="friendManagerAction" class="com.sp2p.action.front.FrontFriendMannagerAction" scope="prototype">
+		<property name="recommendUserService" ref="recommendUserService"></property>
+	</bean>
+	<!-- 前台好友管理 -->
+	<bean id="approveAction" class="com.sp2p.action.front.ApproveAction" scope="prototype">
+		<property name="approveService" ref="approveService"></property>
+		<property name="sendMailService" ref="sendMailService"></property>
+	</bean>
+
+	<!-- 后台奖励设置 -->
+	<bean id="costManagerAction" class="com.sp2p.action.admin.CostManagerAction" scope="prototype" parent="basePageAction">
+		<property name="costManagerService" ref="costManagerService"></property>
+	</bean>
+	<!-- 邮件 短信 -->
+	<bean id="emalAndMessageAction" class="com.sp2p.action.admin.EmalAndMessageAction" scope="prototype" parent="basePageAction">
+		<property name="emalAndMessageService" ref="emalAndMessageService"></property>
+	</bean>
+
+	<!-- 后台网站关闭设置 -->
+	<bean id="closeNetWorkAction" class="com.sp2p.action.admin.CloseNetWorkAction" scope="prototype" parent="basePageAction">
+		<property name="closeNetWorkService" ref="closeNetWorkService"></property>
+	</bean>
+
+
+	<!-- 后台好友奖励设置 -->
+	<bean id="referralBonusesAction" class="com.sp2p.action.admin.ReferralBonusesAction" scope="prototype" parent="basePageAction">
+		<property name="referralBonusesService" ref="referralBonusesService"></property>
+	</bean>
+
+	<!-- 后台成功故事 -->
+	<bean id="successStoryAction" class="com.sp2p.action.admin.SuccessStoryAction" scope="prototype" parent="basePageAction">
+		<!-- <property name="successStoryService" ref="successStoryService"></property> -->
+		<property name="successStoryService" ref="publicModelService"></property>
+	</bean>
+
+
+	<!-- 前台成功故事 -->
+	<bean id="frontSuccessStoryAction" class="com.sp2p.action.front.FrontSuccessStorydAction" scope="prototype">
+		<property name="successStoryService" ref="publicModelService"></property>
+	</bean>
+
+	<!-- 前台友情链接 -->
+	<bean id="frontLinkService" class="com.sp2p.action.front.FrontLinksAction" scope="prototype">
+		<property name="linksService" ref="publicModelService"></property>
+	</bean>
+
+	<!-- 后台财务管理 银行卡管理 -->
+	<bean id="userBankAction" class="com.sp2p.action.admin.UserBankManagerAction" scope="prototype" parent="basePageAction">
+		<property name="adminService" ref="adminService"></property>
+		<property name="fundManagementService" ref="fundManagementService" />
+	</bean>
+
+	<!-- 前台协议 -->
+	<bean id="agreementAction" class="com.sp2p.action.admin.AgreementAction" scope="prototype" parent="basePageAction">
+		<property name="agreementService" ref="publicModelService" />
+	</bean>
+
+	<!-- 后台短信接口 -->
+	<bean id="SMSAction" class="com.sp2p.action.admin.SMSAction" scope="prototype" parent="basePageAction">
+		<property name="sMSInterfaceService" ref="sMSInterfaceService"></property>
+	</bean>
+
+	<!-- 后台站内信设置 -->
+	<bean id="mailBoxManagerAction" class="com.sp2p.action.admin.MailBoxManagerAction" scope="prototype" parent="basePageAction">
+		<property name="mailBoxManagerService" ref="mailBoxManagerService"></property>
+		<property name="adminService" ref="adminService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="homeInfoSettingService" ref="homeInfoSettingService"></property>
+	</bean>
+
+	<!-- 统计管理 -->
+	<bean id="statisManageAction" class="com.sp2p.action.admin.StatisManageAction" scope="prototype" parent="basePageAction">
+		<property name="statisManageService" ref="statisManageService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+	</bean>
+
+	<!--黑名单用户 -->
+	<bean id="blacklistAction" class="com.sp2p.action.admin.BlacklistAction" scope="prototype" parent="basePageAction">
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+
+	<!--用户举报 -->
+	<bean id="reportAction" class="com.sp2p.action.admin.ReportAction" scope="prototype" parent="basePageAction">
+		<property name="reportService" ref="reportService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="userIntegralService" ref="userIntegralService"></property>
+	</bean>
+
+	<!-- 后台用户管理 - 用户基本信息管理 -->
+	<bean id="userManageAction" class="com.sp2p.action.admin.UserManageAction" scope="prototype" parent="basePageAction">
+		<property name="userManageServic" ref="userManageServic"></property>
+		<property name="regionService" ref="regionService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="validateService" ref="validateService"></property>
+		<property name="financeService" ref="financeService"></property>
+	</bean>
+
+
+
+	<!-- 用户组管理 -->
+	<bean id="roleAction" class="com.sp2p.action.admin.RoleAction" scope="prototype" parent="basePageAction">
+		<property name="rightsService" ref="rightsService"></property>
+		<property name="roleService" ref="roleService"></property>
+		<property name="roleRightsService" ref="roleRightsService"></property>
+	</bean>
+
+
+	<!--短信发送 -->
+	<bean id="sendSMSAction" class="com.sp2p.action.admin.SendSMSAction" scope="prototype" parent="basePageAction">
+		<property name="sendSMSService" ref="sendSMSService"></property>
+		<property name="sMSInterfaceService" ref="sMSInterfaceService"></property>
+	</bean>
+
+
+
+	<!-- 锁定用户管理 -->
+	<bean id="lockUserManageAction" class="com.sp2p.action.admin.LockUserManageAction" scope="prototype" parent="basePageAction">
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+
+	<!-- 团队长 -->
+	<bean id="groupCaptainAction" class="com.sp2p.action.admin.GroupCaptainAction" scope="prototype" parent="basePageAction">
+		<property name="adminService" ref="adminService"></property>
+		<property name="regionService" ref="regionService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+
+	<!-- 用户组管理 -->
+	<bean id="groupManageAction" class="com.sp2p.action.admin.GroupManageAction" scope="prototype" parent="basePageAction">
+		<property name="groupService" ref="groupService"></property>
+		<property name="sMsService" ref="sMSInterfaceService" />
+		<property name="sendMailService" ref="sendMailService" />
+
+	</bean>
+
+
+	<!-- 经纪人 -->
+	<bean id="economyAction" class="com.sp2p.action.admin.EconomyAction" scope="prototype" parent="basePageAction">
+		<property name="adminService" ref="adminService"></property>
+		<property name="regionService" ref="regionService"></property>
+		<property name="relationService" ref="relationService"></property>
+	</bean>
+
+	<!-- 角色关系 -->
+	<bean id="relationAction" class="com.sp2p.action.admin.RelationAction" scope="prototype" parent="basePageAction">
+		<property name="relationService" ref="relationService"></property>
+		<property name="adminService" ref="adminService"></property>
+	</bean>
+
+
+	<!-- 后台风险保障金 -->
+	<!--<bean id="riskManageAction" class="com.sp2p.action.admin.RiskManageAction" scope="prototype"> <property name="riskManageService" ref="riskManageService"></property> </bean> -->
+	<bean id="riskManageAction" class="com.sp2p.action.admin.RiskManageAction" scope="prototype" parent="basePageAction">
+		<property name="fundManagementService" ref="fundManagementService"></property>
+	</bean>
+	<!-- 后台推荐统计 -->
+	<bean id="awardAction" class="com.sp2p.action.admin.AwardAction" scope="prototype" parent="basePageAction">
+		<property name="awardService" ref="awardService"></property>
+		<property name="awardDetailService" ref="awardDetailService"></property>
+		<property name="adminService" ref="adminService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+	<!-- 债权转让 -->
+	<bean id="frontDebtAction" class="com.sp2p.action.front.FrontDebtAction" scope="prototype">
+		<property name="assignmentDebtService" ref="assignmentDebtService"></property>
+		<property name="auctionDebtService" ref="auctionDebtService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="myHomeService" ref="myHomeService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+	<!-- 我的帐户 债权管理 -->
+	<bean id="homeDebtAction" class="com.sp2p.action.front.HomeDebtAction" scope="prototype">
+		<property name="assignmentDebtService" ref="assignmentDebtService"></property>
+		<property name="auctionDebtService" ref="auctionDebtService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+	</bean>
+	<bean id="debtManageAction" class="com.sp2p.action.admin.DebtManageAction" scope="prototype" parent="basePageAction">
+		<property name="assignmentDebtService" ref="assignmentDebtService"></property>
+	</bean>
+
+
+	<bean id="sendmsgAction" class="com.sp2p.action.admin.SendmsgAction" scope="prototype" parent="basePageAction">
+		<property name="sendmsgService" ref="sendmsgService"></property>
+	</bean>
+
+	<bean id="showShipinAction" class="com.sp2p.action.front.ShowShipinAction" scope="prototype">
+		<property name="showShipinService" ref="showShipinService"></property>
+	</bean>
+	<bean id="showShipinAdminAction" class="com.sp2p.action.admin.ShowShipinAdminAction" scope="prototype" parent="basePageAction">
+		<property name="showShipinAdminService" ref="showShipinAdminService"></property>
+		<property name="validateService" ref="validateService"></property>
+	</bean>
+	<bean id="userAdminAction" class="com.sp2p.action.admin.UserAdminAction" scope="prototype" parent="basePageAction">
+		<property name="userAdminService" ref="userAdminService"></property>
+		<property name="regionService" ref="regionService"></property>
+	</bean>
+	<bean id="beVipAction" class="com.sp2p.action.front.BeVipAction" scope="prototype">
+		<property name="beVipService" ref="beVipService"></property>
+		<property name="costManagerService" ref="costManagerService"></property>
+		<property name="recommendUserService" ref="recommendUserService"></property>
+		<property name="awardMoneyService" ref="awardMoneyService"></property>
+		<property name="iDCardValidateService" ref="iDCardValidateService"></property>
+		<property name="jobTaskService" ref="jobTaskService"></property>
+	</bean>
+
+	<bean id="userIntegralAction" class="com.sp2p.action.front.UserIntegralAction" scope="prototype">
+		<property name="guaranteeService" ref="guaranteeService"></property>
+		<property name="userIntegralService" ref="userIntegralService"></property>
+		<property name="myHomeService" ref="myHomeService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<!-- 后台未激活的用户 -->
+	<bean id="unactivatedAction" class="com.sp2p.action.admin.UnactivatedAction" scope="prototype" parent="basePageAction">
+		<property name="unactivatedService" ref="unactivatedService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="operationLogService" ref="operationLogService"></property>
+	</bean>
+	<!-- 平台收费标准 -->
+	<bean id="platformCostAction" class="com.sp2p.action.admin.PlatformCostAction" scope="prototype" parent="basePageAction">
+		<property name="platformCostService" ref="platformCostService"></property>
+	</bean>
+	<!-- 还款方式 -->
+	<bean id="shoveBorrowStyleAction" class="com.sp2p.action.admin.ShoveBorrowStyleAction" scope="prototype" parent="basePageAction">
+		<property name="shoveBorrowStyleService" ref="shoveBorrowStyleService"></property>
+	</bean>
+	<!-- 标种类型 -->
+	<bean id="shoveBorrowTypeAction" class="com.sp2p.action.admin.ShoveBorrowTypeAction" scope="prototype" parent="basePageAction">
+		<property name="shoveBorrowTypeService" ref="shoveBorrowTypeService"></property>
+		<property name="shoveBorrowStyleService" ref="shoveBorrowStyleService"></property>
+		<property name="shoveBorrowAmountTypeService" ref="shoveBorrowAmountTypeService"></property>
+		<property name="emalAndMessageService" ref="emalAndMessageService"></property>
+	</bean>
+	<!-- 自动投标 -->
+	<bean id="automaticBidAction" class="com.sp2p.action.admin.AutomaticBidAction" scope="prototype" parent="basePageAction">
+		<property name="automaticBidService" ref="automaticBidService"></property>
+	</bean>
+	<!-- 借款额度类型 -->
+	<bean id="shoveBorrowAmountTypeAction" class="com.sp2p.action.admin.ShoveBorrowAmountTypeAction" scope="prototype" parent="basePageAction">
+		<property name="shoveBorrowAmountTypeService" ref="shoveBorrowAmountTypeService"></property>
+	</bean>
+	<!-- 提醒方式 -->
+	<bean id="shoveApproveNoticeStyleAction" class="com.sp2p.action.admin.ShoveApproveNoticeStyleAction" scope="prototype" parent="basePageAction">
+		<property name="shoveApproveNoticeStyleService" ref="shoveApproveNoticeStyleService"></property>
+		<property name="shoveApproveNoticeTemplateService" ref="shoveApproveNoticeTemplateService"></property>
+	</bean>
+	<!-- 前台底部 -->
+	<bean id="siteInformationAction" class="com.sp2p.action.admin.SiteInformationAction" scope="prototype" parent="basePageAction">
+		<property name="siteInformationService" ref="siteInformationService"></property>
+	</bean>
+
+	<!-- 国付宝 -->
+	<bean id="goPaymentAction" class="com.shove.web.action.GoPaymentAction" scope="prototype">
+		<property name="rechargeDetailService" ref="rechargeDetailService"></property>
+		<property name="rechargeService" ref="rechargeService"></property>
+	</bean>
+	<!-- 环迅支付 -->
+	<bean id="iPaymentAction" class="com.shove.web.action.IPaymentAction" scope="prototype">
+		<property name="rechargeDetailService" ref="rechargeDetailService"></property>
+		<property name="rechargeService" ref="rechargeService"></property>
+	</bean>
+
+	<!-- 汇付天下 -->
+	<bean id="chinaPnrmentAction" class="com.shove.web.action.ChinaPnrmentAction" scope="prototype">
+		<property name="rechargeService" ref="rechargeService"></property>
+		<property name="chinaPnRInterfaceService" ref="chinaPnRInterfaceService"></property>
+		<property name="chinaService" ref="chinaPnRInterfaceService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="uService" ref="userService"></property>
+		<property name="financeService" ref="financeService"></property>
+		<property name="financeinvestService" ref="financeService"></property>
+		<property name="auctionDebtService" ref="auctionDebtService"></property>
+		<property name="merService" ref="merService"></property>
+	</bean>
+
+	<!-- 支付方式 -->
+	<bean id="accountPaymentAction" class="com.sp2p.action.admin.AccountPaymentAction" scope="prototype" parent="basePageAction">
+		<property name="fundManagementService" ref="fundManagementService"></property>
+	</bean>
+	<!-- 后台网站SEO设置 -->
+	<bean id="seoconfigaction" class="com.sp2p.action.admin.SEOConfigAction" scope="prototype" parent="basePageAction">
+		<property name="SEOConfigService" ref="SEOConfigService"></property>
+	</bean>
+	<!-- 文章管管理 -->
+	<bean id="articleManageAction" class="com.sp2p.action.admin.ArticleManageAction" scope="prototype" parent="basePageAction">
+		<property name="articleManageService" ref="articleManageService"></property>
+	</bean>
+	<!-- 手机支付 -->
+	<bean id="cellPhoneAction" class="com.sp2p.action.front.CellPhoneAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="relationService" ref="relationService"></property>
+		<property name="homeInfoSettingService" ref="homeInfoSettingService"></property>
+		<property name="recommendUserService" ref="recommendUserService"></property>
+		<property name="cellPhoneService" ref="cellPhoneService"></property>
+		<property name="beVipService" ref="beVipService"></property>
+		<property name="bbsRegisterService" ref="bbsRegisterService"></property>
+		<property name="adminService" ref="adminService"></property>
+	</bean>
+	<!-- 资金记录 -->
+	<bean id="fundrecordAction" class="com.sp2p.action.admin.FundrecordAction" scope="prototype" parent="basePageAction">
+		<property name="fundrecordService" ref="fundrecordService"></property>
+	</bean>
+
+
+	<!-- 线下充值银行编辑 -->
+	<bean id="rechargebankAction" class="com.sp2p.action.admin.RechargebankAction" scope="prototype" parent="basePageAction">
+		<property name="rechargebankService" ref="rechargebankService"></property>
+	</bean>
+
+
+	<bean id="basePageAction" class="com.shove.web.action.BasePageAction" scope="prototype" abstract="true">
+		<property name="operationLogService" ref="operationLogService"></property>
+	</bean>
+	<!-- 操作记录 -->
+	<bean id="operationLogAction" class="com.sp2p.action.admin.OperationLogAction" scope="prototype" parent="basePageAction">
+		<property name="operationLogService" ref="operationLogService"></property>
+	</bean>
+	<!-- 后台线下充值管理 -->
+	<bean id="rechargeAdminAction" class="com.sp2p.action.admin.RechargeAdminAction" scope="prototype" parent="basePageAction">
+		<property name="rechargeService" ref="rechargeService"></property>
+	</bean>
+	<!-- 团队长/经纪人月结 -->
+	<bean id="awardMonthAction" class="com.sp2p.action.front.AwardMonthAction" scope="prototype" parent="basePageAction">
+		<property name="awardMonthService" ref="awardMonthService"></property>
+	</bean>
+
+	<!-- 用户评论管理 -->
+	<bean id="userReviewAction" class="com.sp2p.action.admin.UserReviewAction" scope="prototype" parent="basePageAction">
+		<property name="userReviewService" ref="userReviewService"></property>
+	</bean>
+
+
+	<!-- 债权管理 -->
+	<bean id="assignmentAction" class="com.sp2p.action.admin.AssignmentDebtAction" scope="prototype" parent="basePageAction">
+		<property name="assignmentService" ref="assignmentService"></property>
+	</bean>
+	<!-- 短消息 -->
+	<bean id="shortMassegeAction" class="com.sp2p.action.admin.ShortMassegeAction" scope="prototype" parent="basePageAction">
+		<property name="userManageServic" ref="userManageServic" />
+		<property name="shortMaseegeService" ref="shortMaseegeService" />
+	</bean>
+	<bean id="questionnaireAction" class="com.sp2p.action.admin.QuestionnaireAction" scope="prototype" parent="basePageAction">
+		<property name="questionnaireService" ref="questionnaireService"></property>
+	</bean>
+	<!-- 用户提问 -->
+	<bean id="questionAction" class="com.sp2p.action.admin.QuestionAction" scope="prototype" parent="basePageAction">
+		<property name="questionService" ref="questionService"></property>
+	</bean>
+
+	<!-- 彩生活资料导入 -->
+	<bean id="colorLifeInfoAction" class="com.sp2p.action.admin.ColorLifeInfoAction" scope="prototype">
+		<property name="beVipService" ref="beVipService" />
+		<property name="iDCardValidateService" ref="iDCardValidateService" />
+		<property name="colorLifeService" ref="colorLifeService" />
+		<property name="colorLifeBuyService" ref="colorLifeBuyService" />
+		<property name="accountUserService" ref="accountUserService" />
+		<property name="hhnPersonService" ref="personService"/>
+		<property name="hhnInvestService" ref="investService" />
+	</bean>
+	<!-- 问卷得分 -->
+	<bean id="scoreAction" class="com.sp2p.action.admin.ScoreAction" scope="prototype" parent="basePageAction">
+		<property name="scoreService" ref="scoreService"></property>
+	</bean>
+	<bean id="questionnairesAction" class="com.sp2p.action.front.QuestionnaireAction" scope="prototype" parent="basePageAction">
+		<property name="scoreService" ref="scoreService"></property>
+		<property name="questionnaireService" ref="questionnaireService"></property>
+	</bean>
+
+	<!--汇付接口 -->
+	<bean id="hfPaymentAction" class="com.sp2p.action.front.HFPayAction" scope="prototype">
+		<property name="chinaPnRInterfaceService" ref="chinaPnRInterfaceService"></property>
+	</bean>
+	
+	<!--汇付商户管理 -->
+	<bean id="merAction" class="com.sp2p.action.admin.merAction" scope="prototype">
+		<property name="merService" ref="merService"></property>
+	</bean>
+	
+	<bean id="sjbAction" class="com.sp2p.action.front.SjbAction" scope="prototype">
+		<property name="financeService" ref="financeService"></property>
+	</bean>
+	
+	<bean id="cfAction" class="com.sp2p.action.front.CfAction" scope="prototype">
+		
+	</bean>
+<bean id="colourLifeAction" class="com.sp2p.action.front.ColourLifeAction" scope="prototype">
+		
+	</bean>
+	<bean id="activityAction" class="com.sp2p.action.front.ActivityAction" scope="prototype">
+		<property name="activityService" ref="activityService" />
+	</bean>
+
+    <bean id="closeNetWorkInterceptor" class="com.sp2p.system.interceptor.CloseNetWorkInterceptor" scope="prototype">
+        <property name="userService" ref="userService" />
+    </bean>
+    <bean id="wyfAction" class="com.sp2p.action.front.WyfAction" scope="prototype">
+        <property name="myHomeService" ref="myHomeService" />
+    </bean>
+    
+    <!-- 会员中心-邀请好友-奖励记录 -->
+	<bean id="recommandRewardAction" class="com.sp2p.action.front.FrontRecommandRewardAction" scope="prototype">
+		
+	</bean>
+</beans>

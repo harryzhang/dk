@@ -1,0 +1,20 @@
+body {
+	font-size: 14px;
+}
+table {
+	border: thin;
+	border-collapse: collapse;
+}
+td, th {
+	padding: 5px;
+	border: solid 1px silver;
+}
+h3 {
+	margin-left: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+pre {
+	padding: 0px;
+	margin: 0px;
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="news" extends="admin-default" namespace="/admin">
+		<!-- 团队介绍列表 -->
+		<action name="queryNewsListPage" class="newsAction" method="queryNewsListPage">
+			<result name="success">/WEB-INF/page/admin/news_index_info.jsp</result>
+        </action>
+        <!-- 初始化团队介绍列表 -->
+        <action name="queryNewsListInit" class="newsAction" method="queryNewsListInit">
+			<result name="success">/WEB-INF/page/admin/news_index.jsp</result>
+        </action>
+        
+        <!-- 初始化添加团队介绍 -->
+        <action name="addNewsInit" class="newsAction" method="addNewsInit">
+			<result name="success">/WEB-INF/page/admin/news_add.jsp</result>
+        </action>
+        
+        <!-- 添加团队介绍 -->
+        <action name="addNews" class="newsAction" method="addNews">
+            <result name="input">/WEB-INF/page/admin/news_add.jsp</result>
+			<result name="success" type="redirectAction">queryNewsListInit.do</result>
+        </action>
+        
+        <!--根据Id获取团队介绍详情 -->
+        <action name="updateNewsInit" class="newsAction" method="updateNewsInit">
+            <result name="success">/WEB-INF/page/admin/news_update.jsp</result>
+        </action>
+        
+        <!--网站公告预览 -->
+        <action name="previewNewsInit" class="newsAction" method="updateNewsInit">
+            <result name="success">/WEB-INF/page/admin/news_preview.jsp</result>
+        </action>
+        <!--更新团队介绍 -->
+        <action name="updateNews" class="newsAction" method="updateNews">   
+        </action>
+        
+        <!--根据Id获取下载资料详情 -->
+        <action name="deleteNews" class="newsAction" method="deleteNews">             
+			<result name="success" type="redirect">queryNewsListInit.do</result>
+        </action>
+        
+        <!--添加和修改时的网站公告预览 -->
+        <action name="PreviewNews" class="newsAction" method="PreviewNews">             
+			<result name="success">/WEB-INF/page/admin/news_add_preview.jsp</result>
+        </action>
+        
+        <!--网站公告排序 -->
+        <action name="updateNewsIndex" class="newsAction" method="updateNewsIndex">   
+        </action>
+        
+        <action name="isExistSortId" class="newsAction" method="isExistSortId">   
+        </action>
+        
+        <action name="isExistToUpdate" class="newsAction" method="isExistToUpdate">   
+        </action>
+
+	</package>
+</struts>

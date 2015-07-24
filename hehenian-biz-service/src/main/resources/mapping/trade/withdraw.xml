@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.trade.IWithdrawDao">
+	<resultMap type="withdrawDo" id="withdrawResultMap">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="cellPhone" column="cellPhone" />
+		<result property="acount" column="acount" />
+		<result property="sum" column="sum" />
+
+		<result property="poundage" column="poundage" />
+		<result property="applyTime" column="applyTime" />
+		<result property="status" column="status" />
+		<result property="bankId" column="bankId" />
+		<result property="userId" column="userId" />
+
+		<result property="remark" column="remark" />
+		<result property="checkId" column="checkId" />
+		<result property="checkTime" column="checkTime" />
+		<result property="ipAddress" column="ipAddress" />
+		<result property="versoin" column="versoin" />
+
+		<result property="trxId" column="trxId" />
+	</resultMap>
+
+	<select id="getById" parameterType="long" resultMap="withdrawResultMap">
+		SELECT *
+		FROM t_withdraw WHERE id = #{id}
+	</select>
+
+	<select id="countWithdrawQty" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM t_withdraw
+		WHERE STATUS = 2
+		AND userId = #{userId}
+		AND applyTime BETWEEN #{beginDate} AND #{endDate}
+	</select>
+	
+	<select id="queryByIds" parameterType="map" resultMap="withdrawResultMap">
+		SELECT *
+		FROM t_withdraw 
+		WHERE id IN
+		<foreach collection="withdrawIdList" item="withdrawId" open="(" close=")" separator=",">
+			#{withdrawId}
+		</foreach>
+	</select>
+
+	<insert id="addWithdraw" parameterType="withdrawDo" keyProperty="id"
+		useGeneratedKeys="true">
+		INSERT INTO
+		t_withdraw(name,cellPhone,acount,sum,poundage,applyTime,status,bankId,userId,ipAddress)
+		VALUES(#{name},#{cellPhone},#{acount},#{sum},#{poundage},NOW(),#{status},#{bankId},#{userId},#{ipAddress});
+	</insert>
+
+	<update id="updateWithdraw" parameterType="withdrawDo">
+		UPDATE t_withdraw
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="sum != null">
+				sum = #{sum},
+			</if>
+			<if test="poundage != null">
+				poundage = #{poundage},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="checkId != null">
+				checkId = #{checkId},
+			</if>
+			<if test="checkTime != null">
+				checkTime = #{checkTime},
+			</if>
+			<if test="trxId != null">
+				trxId = #{trxId},
+			</if>
+			versoin = versoin + 1,
+		</trim>
+		WHERE id = #{id} AND versoin = #{versoin}
+	</update>
+
+	<update id="updateWithdrawApply" parameterType="withdrawDo">
+		UPDATE t_withdraw
+		SET acount = #{acount} ,SUM = #{sum} ,poundage = #{poundage},status = #{status},trxId =
+		#{trxId},versoin = versoin + 1
+		WHERE id = #{id} AND versoin =
+		#{versoin} AND status = 0
+	</update>
+
+	<update id="updateStatus" parameterType="map">
+		UPDATE t_withdraw SET
+		status = #{status} WHERE id = #{id} AND status = #{origStatus}
+	</update>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM t_withdraw
+		WHERE id = #{id}
+	</delete>
+
+</mapper>

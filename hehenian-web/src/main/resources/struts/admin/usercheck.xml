@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="usercheck" extends="admin-default" namespace="/admin">
+
+
+		<action name="queryPersonworkmsg" class="validateAction"
+			method="queryWork">
+			<result name="success">
+				/WEB-INF/page/admin/ususer_workInf_admin.jsp
+			</result>
+		</action>
+		<action name="updateworkAdmin" class="validateAction" method="updateworkStatus">
+		</action>
+		<action name="updataServiceMan" class="validateAction" method="updataUserServiceMan">
+		</action>
+		<action name="queryPerUserCreditAction" class="validateAction"
+			method="queryPerUserCredit">
+			<result>/WEB-INF/page/admin/user_user_credit_msg.jsp</result>
+		</action>
+
+		<action name="queryPersonInfolistindex" class="validateAction"
+			method="queryPersonInfoindex">
+			<result name="success">
+				/WEB-INF/page/admin/user_list_index.jsp
+			</result>
+		</action>
+
+
+		<action name="queryPersonInfolist" class="validateAction"
+			method="queryPersonInfo">
+			<result name="success">
+				/WEB-INF/page/admin/user_info_list.jsp
+			</result>
+		</action>
+
+		<action name="queryPersonAuditStatusInfo" class="validateAction"
+			method="queryPersonAuditStatusInfo">
+			<result name="success">
+				/WEB-INF/page/admin/realNameAuthentication_info.jsp
+			</result>
+		</action>
+		<!-- -->
+		<!-- 批量确认审核人员 -->
+		<action name="updateUserServiceMans" class="validateAction"
+			method="updateUserServiceMans">
+			<result name="input">/WEB-INF/page/admin/user_newInfo_admin_index.jsp
+			</result>
+		</action>
+
+		<action name="querynewindex" class="validateAction" method="querynewUserCheckindex">
+			<result name="success">
+				/WEB-INF/page/admin/user_newInfo_admin_index.jsp
+			</result>
+		</action>
+
+		<action name="querynew" class="financialAction" method="querynewUserCheck">
+			<result>/WEB-INF/page/admin/user_newinfo_admin.jsp</result>
+		</action>
+
+		<!-- -->
+		<action name="querpictureuser" class="validateAction" method="queryPerUserPicturMsg">
+			<result>/WEB-INF/page/admin/user_user_picture_msg.jsp</result>
+		</action>
+
+
+		<action name="queryPerUserPicturMsginitindex" class="validateAction"
+			method="queryPerUserPicturMsginit">
+			<result>/WEB-INF/page/admin/user_picture_index.jsp</result>
+		</action>
+		<!-- 点击可选证件查看单个的审核查询 -->
+		<action name="queryPersonPictureDateindex" class="validateAction"
+			method="queryPersonPictureDate">
+			<result>/WEB-INF/page/admin/user_person_picture_msg.jsp</result>
+		</action>
+		<!-- 点击基本证件查看单个的审核查询 -->
+		<action name="querybasepicture" class="validateAction" method="queryPersonPictureDate">
+			<result>/WEB-INF/page/admin/user-base-picture.jsp</result>
+		</action>
+
+
+
+		<!-- 点击可选证件查看单个的审核查询 -->
+		<action name="queryPersonPictureDateindex" class="validateAction"
+			method="queryPersonSelectPictureDate">
+			<result>/WEB-INF/page/admin/user_person_picture_msg_select.jsp
+			</result>
+		</action>
+
+		<!-- 删除单个证件 -->
+		<action name="delcertificate" class="validateAction" method="delcertificate">
+		</action>
+
+
+		<action name="queryPersonPictureDateindex_" class="validateAction"
+			method="queryPersonPictureDate_">
+			<result>/WEB-INF/page/admin/user_person_picture_msg_.jsp</result>
+		</action>
+
+
+		<!-- 审核个人的资料 -->
+		<action name="Updatematerialsauthindex" class="validateAction"
+			method="Updatematerialsauth">
+		</action>
+
+		<!-- 展示所有用户的图片资料情况 -->
+		<action name="queryDateCountInitindex" class="validateAction"
+			method="queryPictureDateCount">
+			<result>/WEB-INF/page/admin/user_count_index.jsp</result>
+		</action>
+		<action name="queryDateCountInitinfo" class="validateAction"
+			method="queryDateCountinfo">
+			<result>/WEB-INF/page/admin/user_count_info.jsp</result>
+		</action>
+		<!-- 可选资料用户验证 -->
+		<!-- 展示所有用户的图片资料情况 -->
+		<action name="queryselectInitindex" class="validateAction"
+			method="queryselectInit">
+			<result>/WEB-INF/page/admin/user_select_index.jsp</result>
+		</action>
+		<action name="queryselectinfo" class="validateAction" method="queryselect">
+			<result>/WEB-INF/page/admin/user_select_info.jsp</result>
+		</action>
+		<!-- 手机变更 -->
+		<action name="updatephoneIndex" class="validateAction" method="updatephonex">
+			<result>/WEB-INF/page/admin/user_telephone_index.jsp</result>
+		</action>
+		<!-- excle导出手机绑定 -->
+		<action name="exportupdatephonex" class="validateAction"
+			method="exportupdatephonex">
+
+		</action>
+
+		<action name="updatephoneinfo" class="validateAction" method="updatephonexf">
+			<result>/WEB-INF/page/admin/user_telephone_info.jsp</result>
+		</action>
+		<action name="updatephoneIndexChange" class="validateAction"
+			method="updatephonexChange">
+			<result>/WEB-INF/page/admin/user_telephone_index_change.jsp</result>
+		</action>
+		<action name="updatephoneinfoChange" class="validateAction"
+			method="updatephonexfChange">
+			<result>/WEB-INF/page/admin/user_telephone_info_chage.jsp</result>
+		</action>
+
+		<!-- 导出手机变更列表 -->
+		<action name="exportupdatephonexfChange" class="validateAction"
+			method="exportupdatephonexfChange">
+
+		</action>
+
+		<action name="updateUserTel" class="validateAction" method="queryUserTelMethod">
+			<result>/WEB-INF/page/admin/user_telephone_detail.jsp</result>
+		</action>
+
+
+		<action name="updateUserPhone" class="validateAction" method="updateUserPhoneMethod">
+		</action>
+
+
+
+
+		<!--可选认证查看个人认证信息 -->
+		<action name="queryselect" class="validateAction" method="queryselectMethod">
+			<result>/WEB-INF/page/admin/user_select_detail.jsp</result>
+		</action>
+		<!-- 审核所有 -->
+		<action name="updateallcheck" class="validateAction" method="updateallcheckMethod">
+		</action>
+		<!-- 合和年审核可选认证  (单个) -->
+		<action name="updateCheckByType" class="validateAction" method="updateCheckByType">
+		</action>
+
+		<!-- 可选认证 -->
+		<action name="queryselectindex" class="validateAction" method="queryselectindexMethod">
+			<result>/WEB-INF/page/admin/user_picture_select_index.jsp</result>
+		</action>
+		<action name="queryselectinofor" class="validateAction"
+			method="queryselectinoforMethod">
+			<result>/WEB-INF/page/admin/user_select_picture_msg.jsp</result>
+		</action>
+		<!-- 申请信用额度 -->
+		<!-- 可选认证 -->
+		<action name="querycreditindex" class="validateAction" method="querycreditindexMethod">
+			<result>/WEB-INF/page/admin/user_credit_apply_index.jsp</result>
+		</action>
+		<action name="querycreditinofor" class="validateAction"
+			method="querycreditinoforMethod">
+			<result>/WEB-INF/page/admin/user_credit_apply_info.jsp</result>
+		</action>
+		<!-- 额度申请详情 -->
+		<action name="querycreditMsg" class="validateAction" method="querycreditMsgMethod">
+			<result>/WEB-INF/page/admin/user_credit_Apply_detail.jsp</result>
+		</action>
+
+		<action name="updateUserCreditLimit" class="validateAction"
+			method="updateUserCreditLimitMethod">
+		</action>
+
+		<action name="dataInfo" class="validateAction" method="dataInfoM">
+		</action>
+
+		<!--和合年 财富认证信息 -->
+		<action name="queryFinanceById" class="validateAction" method="queryFinanceById">
+			<result>/WEB-INF/page/admin/user_finance_admin.jsp</result>
+		</action>
+		<!--和合年 必填认证信息 -->
+		<action name="queryUserMustMsg" class="validateAction" method="queryUserMustMsg">
+			<result>/WEB-INF/page/admin/user_mustInfo_admin.jsp</result>
+		</action>
+		<!--和合年 查询认证信息图片 -->
+		<action name="queryMaterialsauthImg" class="validateAction" method="queryMaterialsauthImg">
+			<result>/WEB-INF/page/admin/user_select_img_admin.jsp</result>
+		</action>
+
+
+	</package>
+</struts>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="links" extends="admin-default" namespace="/admin">
+		
+		<!-- 友情链接action配置 -->
+		<action name="addLinksInit" class="linksAction" method="addLinksInit">
+			<result name="success">/WEB-INF/page/admin/links_add.jsp</result>
+		</action>
+		
+		<action name="addLinks" class="linksAction" method="addLinks">
+			<result name="input">/WEB-INF/page/admin/links_add.jsp</result>
+			<result name="success" type="redirect">queryLinksListPageInit.do</result>
+		</action>
+		
+		<action name="updateLinksInit" class="linksAction" method="updateLinksInit">
+			<result name="success">/WEB-INF/page/admin/links_update.jsp</result>
+		</action>
+		
+		<action name="updateLinks" class="linksAction" method="updateLinks">
+		</action>
+		
+		<action name="deleteLinks" class="linksAction" method="deleteLinks">
+			<result name="success" type="redirect">queryLinksListPageInit.do</result>
+		</action>
+		
+		<action name="queryLinksListPageInit" class="linksAction" method="queryLinksListPageInit">
+			<result name="success">/WEB-INF/page/admin/links_index.jsp</result>
+		</action>
+		
+		<action name="queryLinksListPage" class="linksAction" method="queryLinksListPage">
+			<result name="success">/WEB-INF/page/admin/links_index_info.jsp</result>
+		</action>
+		
+		
+		<!-- 条款编辑action配置 -->
+		<action name="queryClauseListPageInit" class="clauseAction" method="queryClauseListPageInit">
+			<result name="success">/WEB-INF/page/admin/clause_index.jsp</result>
+		</action>
+		
+		<action name="addClauseInit" class="clauseAction" method="addClauseInit">
+			<result name="success">/WEB-INF/page/admin/clause_add.jsp</result>
+		</action>
+		
+		<action name="addClause" class="clauseAction" method="addClause">
+			<result name="input">/WEB-INF/page/admin/clause_add.jsp</result>
+			<result name="success" type="redirect">queryClauseListPageInit.do</result>
+		</action>
+		
+		<action name="updateClauseInit" class="clauseAction" method="updateClauseInit">
+			<result name="success">/WEB-INF/page/admin/clause_update.jsp</result>
+		</action>
+		
+		<action name="updateClause" class="clauseAction" method="updateClause">
+			<result name="input">/WEB-INF/page/admin/clause_update.jsp</result>
+			<result name="success" type="redirect">queryClauseListPageInit.do</result>
+		</action>
+		
+		<action name="deleteClause" class="clauseAction" method="deleteClause">
+			<result name="success" type="redirect">queryClauseListPageInit.do</result>
+		</action>
+		
+		<action name="queryClauseListPage" class="clauseAction" method="queryClauseListPage">
+			<result name="success">/WEB-INF/page/admin/clause_index_info.jsp</result>
+		</action>
+		
+	</package>
+</struts>

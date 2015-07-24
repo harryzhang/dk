@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="recharge" extends="login-default" namespace="/">
+
+		<!-- 充值提现 -->
+		<action name="rechargePageInit" class="rechargeAction" method="rechargePageInit">
+			<result name="success">/WEB-INF/page/front/wdzh-cztx-index.jsp</result>
+		</action>
+
+		<action name="rechargeInit" class="rechargeAction" method="rechargeInit">
+			<result name="success">/WEB-INF/page/front/wdzh-cztx-cz-index.jsp</result>
+		</action>
+
+		<action name="withdrawLoad" class="rechargeAction" method="withdrawLoad">
+			<result name="success">/WEB-INF/page/front/wdzh-cztx-tx-index.jsp</result>
+			<result name="personal" type="redirect">owerInformationInit.do</result>
+		</action>
+
+		<action name="queryWithdrawList" class="rechargeAction" method="queryWithdrawList">
+			<result name="success">/WEB-INF/page/front/wdzh-withdraw-index.jsp</result>
+		</action>
+		<!-- 
+		<action name="addWithdraw" class="rechargeAction" method="addWithdraw">
+			<result name="success" type="redirect">queryWithdrawList.do</result>
+		</action>
+		 -->
+		<action name="deleteWithdraw" class="rechargeAction" method="deleteWithdraw">
+			<result name="success" type="redirect">queryWithdrawList.do</result>
+		</action>
+
+		<!-- 查询资金记录 -->
+		<action name="queryFundrecordList" class="rechargeAction" method="queryFundrecordList">
+			<result name="success">/WEB-INF/page/front/wdzh-cztx-zjjl-list.jsp</result>
+		</action>
+
+		<action name="addRechargeInfo" class="rechargeAction" method="addRechargeInfo">
+			<result name="success" type="redirect">queryRechargeInfo.do</result>
+		</action>
+
+		<action name="queryRechargeInfo" class="rechargeAction" method="queryRechargeInfo">
+			<result name="success">/WEB-INF/page/front/wdzh-cztx-cz.jsp</result>
+		</action>
+
+		<action name="queryFundrecordInit" class="rechargeAction" method="queryFundrecordInit">
+			<result name="success">/WEB-INF/page/front/wdzh-cztx-zjjl.jsp</result>
+		</action>
+
+		<!-- 手机验证码 -->
+		<action name="sendPhoneCode" class="rechargeAction" method="sendPhoneCode">
+		</action>
+
+
+		<!-- 添加线下充值记录 -->
+		<action name="addRechargeoutline" class="rechargeAction" method="addRechargeoutline">
+		</action>
+		<!-- 合和年 资金管理 -->
+		<action name="fundManager">
+			<result type="chain">allRecord</result>
+		</action>
+		<!-- 合和年 资金管理 所有记录 -->
+		<action name="allRecord" class="rechargeAction" method="queryFundrecordList">
+			<result>/WEB-INF/page/front/allRecord.jsp</result>
+		</action>
+		<!-- 合和年 会员中心 资金管理 回收本息 -->
+		<action name="queryFontFundrecordReback" class="rechargeAction" method="queryFontFundrecordReback">
+			<result>/WEB-INF/page/front/fund-back-record.jsp</result>
+		</action>
+		<!-- 合和年 会员中心 资金管理 投资 -->
+		<action name="queryFontFundrecordInvest" class="rechargeAction" method="queryFontFundrecordInvest">
+			<result>/WEB-INF/page/front/fund-invest-record.jsp</result>
+		</action>
+		<!-- 合和年 会员中心 资金管理 冻结 -->
+		<action name="queryFontFundrecordFreeze" class="rechargeAction" method="queryFontFundrecordFreeze">
+			<result>/WEB-INF/page/front/fund-freeze-record.jsp</result>
+		</action>
+		<!-- 合和年 会员中心 资金管理 充值记录 -->
+		<action name="queryFontRechargeHistory" class="rechargeAction" method="queryRechargeInfo">
+			<result name="success">/WEB-INF/page/front/wdzh-cztx-cz.jsp</result>
+		</action>
+		<!-- 合和年 会员中心 资金管理 汇付开户-->
+		<action name="registerChinaPnr" class="rechargeAction" method="registerChinaPnr">
+		</action>
+	</package>
+</struts>

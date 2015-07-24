@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanLogDao">
+	
+	<insert id="addLoanLog" parameterType="loanLogDo">
+		INSERT INTO t_loan_log(logType,loanId,orderCode,logStatus,logMsg,logTime)
+		VALUES(#{logType},#{loanId},#{orderCode},#{logStatus},#{logMsg},now())
+	</insert>
+	
+	<select id="getLoanLogPage" parameterType="map" resultType="loanLogDo">
+		SELECT * FROM t_loan_log
+		WHERE 1=1 
+		<if test="logType != null">
+			AND	logType = '${logType}'
+		</if>
+		<if test="loanId != null">
+			AND	loanId = '${loanId}'
+		</if>
+		<if test="logStatus != null">
+			AND	logStatus = '${logStatus}'
+		</if>
+		<if test="logMsg != null and logMsg != ''">
+			AND	logMsg like '%${logMsg}%'
+		</if>
+		ORDER BY id DESC
+	</select>
+	
+	<update id="updateLoanLog" parameterType="loanLogDo">
+		update t_loan_log
+		set 	
+		<if test="logType != null"> 
+			logType = #{logType},
+		</if>
+		<if test="loanId != null"> 
+			loanId = #{loanId},
+		</if>
+		<if test="orderCode != null"> 
+			orderCode = #{orderCode},
+		</if>
+		<if test="logStatus != null"> 
+			logStatus = #{logStatus},
+		</if>
+		<if test="logMsg != null"> 
+			logMsg = #{logMsg},
+		</if>
+		<if test="logTime != null"> 
+			logTime = #{logTime},
+		</if>
+		<if test="id != null"> 
+			id = #{id}
+		</if>
+		where id = #{id}
+	</update>
+	
+	<select id="countLoanLog" parameterType="map" resultType="Integer">
+		SELECT count(id) FROM t_loan_log
+		WHERE 1=1 
+		<if test="logType != null">
+			AND	logType = '${logType}'
+		</if>
+		<if test="loanId != null">
+			AND	loanId = '${loanId}'
+		</if>
+		<if test="logStatus != null">
+			AND	logStatus = '${logStatus}'
+		</if>
+		<if test="logMsg != null and logMsg != ''">
+			AND	logMsg like '%${logMsg}%'
+		</if>
+		<if test="orderCode != null"> 
+			AND orderCode = #{orderCode},
+		</if>
+		ORDER BY id DESC
+	</select>
+	
+	
+	
+</mapper>
+

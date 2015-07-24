@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="messageapp" extends="app-default" namespace="/app">
+		<action name="querySendMsgList" class="MessageAppAction" method="querySendMsgList">
+		</action>
+		
+		<action name="queryReviceMsgList" class="MessageAppAction" method="queryReviceMsgList">
+		</action>
+		
+		<action name="deleteMsg" class="MessageAppAction" method="deleteMsg">
+		</action>
+		
+		<action name="updateMsgReadStatus" class="MessageAppAction" method="updateMsgReadStatus">
+		</action>
+		
+		<action name="sendMsg" class="MessageAppAction" method="sendMsg">
+		</action>
+		
+		<action name="queryMsgDetail" class="MessageAppAction" method="queryMsgDetail">
+		</action>
+		
+	</package>
+</struts>

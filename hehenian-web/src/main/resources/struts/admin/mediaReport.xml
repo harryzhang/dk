@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="mediaReport" extends="admin-default" namespace="/admin">
+		<!-- 媒体报道列表 -->
+		<action name="queryMediaReportListPage" class="mediaReportAction" method="queryMediaReportListPage">
+			<result name="success">/WEB-INF/page/admin/mediaReport_index_info.jsp</result>
+        </action>
+        <!-- 初始化媒体报道列表 -->
+        <action name="mediaReportListinit" class="mediaReportAction" method="queryMediaReportListInit">
+			<result name="success">/WEB-INF/page/admin/mediaReport_index.jsp</result>
+        </action>
+        
+        <!-- 初始化添加媒体报道 -->
+        <action name="addMediaReportInit" class="mediaReportAction" method="addMediaReportInit">
+			<result name="success">/WEB-INF/page/admin/mediaReport_add.jsp</result>
+        </action>
+        
+        <!-- 添加媒体报道 -->
+        <action name="addMediaReport" class="mediaReportAction" method="addMedaiReport">
+            <result name="input">/WEB-INF/page/admin/mediaReport_add.jsp</result>
+			<result name="success" type="redirectAction">mediaReportListinit.do</result>
+        </action>
+        
+        <!--根据Id获取媒体报道详情 -->
+        <action name="updateMediaReportInit" class="mediaReportAction" method="updateMediaReportInit">
+            <result name="success">/WEB-INF/page/admin/mediaReport_update.jsp</result>
+        </action>
+        
+        <!--根据Id获取媒体报道详情   houli   用户数据预览-->
+        <action name="preViewMediaReportInit" class="mediaReportAction" method="updateMediaReportInit">
+            <result name="success">/WEB-INF/page/admin/mediaReport_preview.jsp</result>
+        </action>
+        
+        <!--更新媒体报道 -->
+        <action name="updateMediaReport" class="mediaReportAction" method="updateMediaReport">   
+           <result name="input">/WEB-INF/page/admin/mediaReport_update.jsp</result>
+			<result name="success" type="redirect">mediaReportListinit.do</result>
+        </action>
+        
+        <!--删除媒体报道 -->
+        <action name="deleteMediaReport" class="mediaReportAction" method="deleteMediaReprot">             
+			<result name="success" type="redirect">mediaReportListinit.do</result>
+        </action>
+        <action name="updateMediaStick" class="mediaReportAction" method="updateMediaStick">
+			<result name="success">/WEB-INF/page/admin/mediaReport_index.jsp</result>
+        </action>
+
+	</package>
+</struts>

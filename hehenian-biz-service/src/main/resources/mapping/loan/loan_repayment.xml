@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.loan.IManagerLoanRepaymentDao">
+	<resultMap type="loanRepaymentDo" id="loanRepaymentResultMap">
+		<result property="repaymentId" column="repaymentId" />
+		<result property="loanId" column="loanId" />
+		<result property="repayPeriod" column="repayPeriod" />
+		<result property="stillPrincipal" column="stillPrincipal" />
+		<result property="stillInterest" column="stillInterest" />
+		<result property="lateFi" column="lateFI" />
+		<result property="realPrincipal" column="realPrincipal" />
+		<result property="realInterest" column="realInterest" />
+		<result property="realFi" column="realFI" />
+		<result property="principalBalance" column="principalBalance" />
+		<result property="interestBalance" column="interestBalance" />
+		<result property="repayDate" column="repayDate" />
+		<result property="realRepayDate" column="realRepayDate" />
+		<result property="lateDay" column="lateDay" />
+		<result property="repayStatus" column="repayStatus" />
+		<result property="repayStyle" column="repayStyle" />
+		<result property="createDate" column="create_date" />
+		<result property="lastUpdateDate" column="last_update_date" />
+	</resultMap>
+	
+	<select id="listRepayment" parameterType="Map" resultType="Map">
+		SELECT  b.orderCode,c.realName,b.loanType,b.productCode,d.name,c.mobile,b.loanId,b.loanTime,b.applyAmount,b.annualRate,b.loanPeriod,a.repaymentId,a.repayDate
+			   ,DATEDIFF(now(),a.repayDate) as overdue,a.repayStyle
+               ,a.repayPeriod,a.stillPrincipal from t_loan_repayment a
+            left join t_loan b   on a.loanId = b.loanId 
+			left join t_loan_person c  on a.loanId = c.loanId 
+			left join t_loan_product d  on b.productCode = d.code
+        WHERE 1=1        
+        <if test="queryStatus != null and queryStatus == 1  ">  
+        	AND a.repayStatus = 1 AND DATE_FORMAT(now(),"%Y%m%d") > DATE_FORMAT(a.repayDate,"%Y%m%d") 
+        </if>
+		<if test="queryStatus != null and queryStatus == 2  ">  
+        	AND a.repayStatus = 1 AND DATE_FORMAT(a.repayDate,"%Y%m%d") >= DATE_FORMAT(now(),"%Y%m%d")   
+        	AND 1>TIMESTAMPDIFF(MONTH,a.repayDate,now()) 
+        </if>
+        <if test="queryStatus != null and queryStatus == 3  ">  
+        	AND a.repayStatus = 2 
+        </if>
+		<if test="cname != null and cname != ''">  
+			AND c.cname like '%${cname}%'
+		</if>
+		<if test="loanCidList != null">
+		 	AND c.cid in 
+		   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+ 					#{item}  
+				</foreach>
+		</if>
+        <if test="realName != null and realName != ''">  
+			AND c.realName like '%${realName}%' 
+		</if>
+		<if test="mobile != null and mobile != ''">  
+			AND c.mobile like '%${mobile}%' 
+		</if>
+        <if test="queryStatus != null and queryStatus == 1  ">  
+        	ORDER BY overdue DESC 
+        </if>
+        <if test="queryStatus != null and (queryStatus == 2 || queryStatus == 3)  ">  
+        	ORDER BY b.loanTime DESC 
+        </if>
+       
+        LIMIT #{beginCount},#{pageSize}
+      
+	</select>
+
+	<select id="listRepaymentPage" parameterType="Map" resultType="Map">
+        	SELECT 
+        		a.loanId,a.orderCode,c.realName,a.loanTime,b.repayDate,b.repayStatus,
+        		d.name,a.loanType,c.mobile,a.applyAmount,a.loanPeriod,a.annualRate,
+        		b.repayStyle,b.stillRepayAll,a.loanAmount 
+        	FROM t_loan a 
+			LEFT JOIN t_loan_repayment  b ON a.loanId=b.loanId 
+			LEFT JOIN t_loan_person c ON a.loanId=c.loanId
+			LEFT JOIN t_loan_product d  ON a.productCode = d.code
+			WHERE a.loanStatus='REPAYING' 
+        	<if test="searchType != null and searchType =='loanToday' ">  
+        		AND  DATEDIFF(now(),b.repayDate)=0
+			</if>
+        	<if test="searchType != null and searchType =='loanToday3' ">
+        	<![CDATA[  
+        		AND DATEDIFF(now(),b.repayDate)<0 AND DATEDIFF(now(),b.repayDate)>=-3
+        		]]>
+			</if>
+        	<if test="searchType != null and searchType =='loanAdd3' ">  
+        	<![CDATA[ 
+        		AND DATEDIFF(now(),b.repayDate)>0 AND DATEDIFF(now(),b.repayDate)<=3
+        		]]>
+			</if>
+        	<if test="searchType != null and searchType =='loanAdd' ">  
+        	<![CDATA[ 
+        		AND DATEDIFF(now(),b.repayDate)>4
+        		]]>
+			</if>
+			ORDER BY a.loanTime DESC ,a.loanId
+	</select>
+	<select id="getByLoanStatus" parameterType="Map" resultType="Map">
+		SELECT a.* FROM t_loan a LEFT JOIN t_loan_person p ON a.loanId=p.loanId WHERE 1=1 
+		<if test="loanStatus != null">  
+        	AND loanStatus = #{loanStatus}
+        </if>
+        <if test="loanCidList != null">
+		 	AND p.cid in 
+		   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+ 				#{item}  
+			</foreach>
+		</if>
+		ORDER BY loanTime DESC LIMIT #{beginCount},#{pageSize}
+	</select>
+	
+	<select id="getRepayDetail" parameterType="Map" resultType="Map">
+		SELECT a.loanId,b.realName,b.mobile,a.applyAmount,a.loanPeriod,c.repayPeriod
+		,c.repayDate,c.stillPrincipal,c.stillInterest,c.lateFI 
+		FROM t_loan a, t_loan_person b, t_loan_repayment c
+		WHERE a.loanId = #{loanId} and a.loanId = b.loanId and a.loanId = c.loanId and c.repayPeriod = #{repayPeriod}
+	</select>
+	
+	<select id="getById" parameterType="Long" resultMap="loanRepaymentResultMap">
+		SELECT * 
+		  FROM t_loan_repayment WHERE id = #{id}
+	</select>
+
+    <select id="queryRepaymentByLoanId" parameterType="Long" resultMap="loanRepaymentResultMap">
+        select * from t_loan_repayment  where loanId=#{loanId}
+		ORDER BY repayPeriod ASC
+    </select>
+	<select id="selectLoanRepayment" parameterType="Map" resultMap="loanRepaymentResultMap">
+		SELECT * 
+		  FROM t_loan_repayment
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="repaymentId != null">  
+				AND repaymentId like #{repaymentId}
+			</if>
+			<if test="loanId != null">  
+				AND loanId like #{loanId}
+			</if>
+			<if test="repayPeriod != null">  
+				AND repayPeriod like #{repayPeriod}
+			</if>
+			<if test="stillPrincipal != null">  
+				AND stillPrincipal like #{stillPrincipal}
+			</if>
+			<if test="stillInterest != null">  
+				AND stillInterest like #{stillInterest}
+			</if>
+			<if test="lateFi != null">  
+				AND lateFI like #{lateFi}
+			</if>
+			<if test="realPrincipal != null">  
+				AND realPrincipal like #{realPrincipal}
+			</if>
+			<if test="realInterest != null">  
+				AND realInterest like #{realInterest}
+			</if>
+			<if test="realFi != null">  
+				AND realFI like #{realFi}
+			</if>
+			<if test="principalBalance != null">  
+				AND principalBalance like #{principalBalance}
+			</if>
+			<if test="interestBalance != null">  
+				AND interestBalance like #{interestBalance}
+			</if>
+			<if test="repayDate != null">  
+				AND repayDate like #{repayDate}
+			</if>
+			<if test="realRepayDate != null">  
+				AND realRepayDate like #{realRepayDate}
+			</if>
+			<if test="lateDay != null">  
+				AND lateDay like #{lateDay}
+			</if>
+			<if test="repayStatus != null">  
+				AND repayStatus like #{repayStatus}
+			</if>
+			<if test="repayStyle != null">  
+				AND repayStyle like #{repayStyle}
+			</if>
+			<if test="createDate != null">  
+				AND create_date like #{createDate}
+			</if>
+			<if test="lastUpdateDate != null">  
+				AND last_update_date like #{lastUpdateDate}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateLoanRepaymentById" parameterType="loanRepaymentDo">
+		UPDATE t_loan_repayment 
+		   SET 		<if test="loanId != null">  
+				loanId = #{loanId}
+		</if>		
+		<if test="repayPeriod != null">  
+				,repayPeriod = #{repayPeriod}
+		</if>		
+		<if test="stillPrincipal != null">  
+				,stillPrincipal = #{stillPrincipal}
+		</if>		
+		<if test="stillInterest != null">  
+				,stillInterest = #{stillInterest}
+		</if>		
+		<if test="lateFi != null">  
+				,lateFI = #{lateFi}
+		</if>		
+		<if test="realPrincipal != null">  
+				,realPrincipal = #{realPrincipal}
+		</if>		
+		<if test="realInterest != null">  
+				,realInterest = #{realInterest}
+		</if>		
+		<if test="realFi != null">  
+				,realFI = #{realFi}
+		</if>		
+		<if test="principalBalance != null">  
+				,principalBalance = #{principalBalance}
+		</if>		
+		<if test="interestBalance != null">  
+				,interestBalance = #{interestBalance}
+		</if>		
+		<if test="repayDate != null">  
+				,repayDate = #{repayDate}
+		</if>		
+		<if test="realRepayDate != null">  
+				,realRepayDate = #{realRepayDate}
+		</if>		
+		<if test="lateDay != null">  
+				,lateDay = #{lateDay}
+		</if>		
+		<if test="repayStatus != null">  
+				,repayStatus = #{repayStatus}
+		</if>		
+		<if test="repayStyle != null">  
+				,repayStyle = #{repayStyle}
+		</if>		
+		<if test="createDate != null">  
+				,create_date = #{createDate}
+		</if>		
+		<if test="lastUpdateDate != null">  
+				,last_update_date = #{lastUpdateDate}
+		</if>		
+
+		WHERE id = #{id} and version =  #{version}
+	</update>	
+	
+	
+	<insert id="addLoanRepayment" parameterType="loanRepaymentDo" keyProperty="repaymentId"
+		useGeneratedKeys="true" >
+		INSERT INTO t_loan_repayment(		loanId
+		,orderCode
+		,repayPeriod
+		,stillPrincipal
+		,stillInterest
+		,lateFI
+		,realPrincipal
+		,realInterest
+		,realFI
+		,principalBalance
+		,interestBalance
+		,stillRepayAll		
+		,repayDate
+		,realRepayDate
+		,lateDay
+		,repayStatus
+		,repayStyle
+		,create_date
+)
+		     VALUES (		
+		 #{loanId}
+		,#{orderCode}
+		,#{repayPeriod}
+		,#{stillPrincipal}
+		,#{stillInterest}
+		,#{lateFi}
+		,#{realPrincipal}
+		,#{realInterest}
+		,#{realFi}
+		,#{principalBalance}
+		,#{interestBalance}
+		,#{stillRepayAll}
+		,#{repayDate}
+		,#{realRepayDate}
+		,#{lateDay}
+		,#{repayStatus}
+		,#{repayStyle}
+		,now()
+);
+	</insert>
+	
+	<update id="updateRepayStatus" parameterType="Map">
+		UPDATE t_loan_repayment set realPrincipal = #{realPrincipal}
+		,realInterest = #{realInterest}
+		,realFI = #{realFI}
+		,realRepayDate = #{realRepayDate}
+		,repayStatus = #{repayStatus} 
+		,realRepayAll = #{realRepayAll} 		
+		WHERE orderCode = #{orderCode} and repayPeriod = #{repayPeriod}
+	</update>
+	
+	<update id="updateRepayment" parameterType="Map">
+		UPDATE t_loan_repayment set realPrincipal = #{realPrincipal}
+		,realInterest = #{realInterest}
+		,realFI = #{realFI}
+		,realRepayDate = #{realRepayDate}
+		,repayStatus = #{repayStatus} 
+		,realRepayAll = #{realRepayAll} 		
+		WHERE orderCode = #{orderCode} and repayPeriod = #{repayPeriod}
+	</update>
+	
+	<select id="selectRepaymentByOrderCodeAndPeriod" parameterType="Map" resultType="loanRepaymentDo">
+		SELECT * FROM t_loan_repayment
+		WHERE orderCode = #{orderCode}
+		AND repayPeriod = #{repayPeriod}
+	</select>
+	
+	<select id="selectRepaymentByLoanId" parameterType="Long" resultType="loanRepaymentDo">
+		SELECT * FROM t_loan_repayment
+		WHERE loanId = #{loanId}
+		order by repayPeriod
+	</select>
+	
+	<delete id="deleteRepaymentByLoanId"  parameterType="Long">
+		delete from t_loan_repayment
+		WHERE loanId = #{loanId} 
+	</delete>
+</mapper>
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="automaticBid" extends="admin-default" namespace="/admin">
+	
+		<!-- 自动投标页面初始化 -->
+		<action name="automaticBidInit" class="automaticBidAction" method="automaticBidInit">
+			<result name="success" >/WEB-INF/page/admin/automaticBid_index.jsp</result>
+		</action>
+		
+		<!-- 自动投标列表展示 -->
+		<action name="automaticBidList" class="automaticBidAction" method="automaticBidList">
+			<result name="success" >/WEB-INF/page/admin/automaticBid_info.jsp</result>
+		</action>
+		
+		<!-- 显示关闭用户自动投标界面 -->
+		<action name="displayCloseBid" class="automaticBidAction" method="displayCloseBid">
+			<result name="success" >/WEB-INF/page/admin/closeAutomaticBid.jsp</result>
+		</action>
+		
+		<!-- 关闭用户自动投标 -->
+		<action name="closeAutomaticBid" class="automaticBidAction" method="closeAutomaticBid">
+			<result name="success" >/WEB-INF/page/admin/automaticBid_index.jsp</result>
+		</action>
+	</package>
+</struts>

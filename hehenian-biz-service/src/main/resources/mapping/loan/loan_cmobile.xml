@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanCMobileDao">
+
+	<insert id="addLoanCMobile" parameterType="loanCMobileDo"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		t_loan_cmobile(cid,cname,cuserId,cusername,cmobile,createDate,lastUpdateDate)
+		VALUES (#{cid}, #{cname}, #{cuserId}, #{cusername},#{cmobile},NOW(),
+		NOW());
+	</insert>
+
+	<update id="updateLoanCMoblie" parameterType="loanCMobileDo">
+		UPDATE t_loan_cmobile
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="cid != null">
+				cid = #{cid},
+			</if>
+			<if test="cname != null">
+				cname = #{cname},
+			</if>
+			<if test="cuserId != null">
+				cuserId = #{cuserId},
+			</if>
+			<if test="cusername != null">
+				cusername = #{cusername},
+			</if>
+			<if test="cmobile != null">
+				cmobile = #{cmobile},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			lastUpdateDate = NOW(),
+		</trim>
+		WHERE id = #{id};
+	</update>
+
+	<select id="getAllBusinessDept" resultType="loanCMobileDo">
+		SELECT
+			DISTINCT cname as cname
+		FROM t_loan_cid
+		WHERE type = 'S' and status='T'
+	</select>
+	<select id="getById" parameterType="Integer" resultType="loanCMobileDo">
+		SELECT
+		*
+		FROM t_loan_cmobile
+		WHERE id = #{id};
+	</select>
+
+	<select id="getLoanCMobilePage" parameterType="Map" resultType="loanCMobileDo">
+		SELECT
+		* FROM t_loan_cmobile
+		WHERE 1=1 
+		<if test="cname != null and cname != ''">
+			AND cname like '%${cname}%' 
+		</if>
+		<if test="status != null and status != ''">
+			AND status = #{status}
+		</if>
+		<if test="cusername != null and cusername != ''">
+			AND cusername = like '%${cusername}%'
+		</if>
+		ORDER BY  cname
+	</select>
+	
+	<select id="getLoanCMobileMapPage" parameterType="Map" resultType="Map">
+		SELECT
+		* FROM t_loan_cmobile
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="cname != null and cname != ''">
+				AND #{cname} like CONCAT('%',cname,'%')
+			</if>
+			<if test="cusername != null and cusername != ''">
+				AND #{cusername} like CONCAT('%',cusername,'%')
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status}
+			</if>
+		</trim>
+		ORDER BY id DESC
+	</select>
+	
+	<delete id="deleteLoanCMobileById" parameterType="String">
+		DELETE FROM t_loan_cmobile WHERE id = #{id}
+	</delete>
+</mapper>

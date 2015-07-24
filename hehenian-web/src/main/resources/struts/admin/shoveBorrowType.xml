@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="shoveBorrowtype" extends="admin-default" namespace="/admin">
+	
+		<action name="shoveTypeAllInit" class="shoveBorrowTypeAction" method="shoveTypeAllInit">
+			<result name="success" >/WEB-INF/page/admin/shove_borrow_type_index.jsp</result>
+		</action>
+		
+		<action name="shoveTypeAllList" class="shoveBorrowTypeAction" method="shoveTypeAllList">
+			<result name="success" >/WEB-INF/page/admin/shove_borrow_type_info.jsp</result>
+		</action>
+		
+		<action name="addShoveTypeInit" class="shoveBorrowTypeAction" method="addShoveTypeInit">
+			<result name="success" >/WEB-INF/page/admin/add_shove_borrow_type.jsp</result>
+		</action>
+		
+		<action name="validateAddShoveType" class="shoveBorrowTypeAction" method="validateAddShoveType" />
+		
+		<action name="addShoveTypeInfo" class="shoveBorrowTypeAction" method="addShoveTypeInfo">
+			<result name="success" >/WEB-INF/page/admin/shove_borrow_type_index.jsp</result>
+		</action>
+		
+		<action name="updateShoveTypeInit" class="shoveBorrowTypeAction" method="updateShoveTypeInit">
+			<result name="success" >/WEB-INF/page/admin/update_shove_borrow_type.jsp</result>
+		</action>
+		
+		<action name="updateShoveTypeInfo" class="shoveBorrowTypeAction" method="updateShoveTypeInfo">
+			<result name="success" >/WEB-INF/page/admin/shove_borrow_type_index.jsp</result>
+		</action>
+		<action name="updateBorrowType" class="shoveBorrowTypeAction" method="updateBorrowType">
+		</action>
+		
+		<action name="deleteShoveType" class="shoveBorrowTypeAction" method="deleteShoveType">
+			<result name="success" >/WEB-INF/page/admin/shove_borrow_type_index.jsp</result>
+		</action>
+	</package>
+</struts>

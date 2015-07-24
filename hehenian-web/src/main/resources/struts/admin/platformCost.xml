@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="platformCost" extends="admin-default" namespace="/admin">
+	
+		<action name="showPlatformCostInit" class="platformCostAction" method="showPlatformCostInit">			
+     		   <result name="success">/WEB-INF/page/admin/charge_index.jsp</result>
+      	</action>
+		<action name="showPlatformCostList" class="platformCostAction" method="showPlatformCostList">			
+        	 <result name="success">/WEB-INF/page/admin/charge_info.jsp</result>
+    	</action>
+    	<action name="updatePlatformCostbyIdInit" class="platformCostAction" method="updatePlatformCostbyIdInit">			
+        	 <result name="success">/WEB-INF/page/admin/updatecharge_index.jsp</result>
+    	</action>
+        <action name="updatePlatformCostbyIdInfo" class="platformCostAction" method="updatePlatformCostbyIdInfo">
+        	<result name="success">/WEB-INF/page/admin/updatecharge_info.jsp</result>
+        </action>
+         <action name="updatePlatformCost" class="platformCostAction" method="updatePlatformCost">
+        </action>
+         <action name="updateShow_view" class="platformCostAction" method="updateShow_view">
+           <result name="success">/WEB-INF/page/admin/charge_index.jsp</result>
+        </action>
+
+	</package>
+</struts>

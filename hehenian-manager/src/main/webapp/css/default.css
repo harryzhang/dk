@@ -1,0 +1,33 @@
+﻿*{font-size:12px; font-family:Tahoma,Verdana,'微软雅黑',arial}
+body{background:#D2E0F2;color:#31556D;}
+a{ color:#31556D; text-decoration:none; outline:none;}
+a:hover{ text-decoration:underline;}
+.textbox03 {border: #878787 1px solid;padding: 4px 3px;font:Verdana, Geneva, sans-serif,'宋体';line-height: 14px; background-color: #fff;  height: auto; font-size: 14px;  font-weight: bold; width: 190px; }
+
+.txt01{font:Verdana, Geneva, sans-serif,'宋体';padding:3px 2px 2px 2px; border-width:1px; border-color:#ddd;  color:#000;}
+.txt {border: #878787 1px solid;padding: 4px 3px;font:Verdana, Geneva, sans-serif,'宋体';line-height: 14px; background-color: #fff;  height: auto; font-size: 14px;}
+.footer{text-align:center;color:#15428B; margin:0px; padding:0px;line-height:23px; font-weight:bold;}
+
+.head a{color:white;text-decoration:underline;}
+
+.easyui-accordion ul{list-style-type:none;margin:0px; padding:10px;}
+.easyui-accordion ul li{ padding:0px;}
+.easyui-accordion ul li a{ display: block; line-height:24px;}
+.easyui-accordion ul li a:hover{text-decoration: none;}
+.easyui-accordion ul li div{margin:2px 0px;padding:2px 0 2px 10px;border:1px solid #fff;}
+.easyui-accordion ul li div.hover{border:1px dashed #99BBE8; background:#E0ECFF;}
+.easyui-accordion ul li div.hover a{color:#416AA3;}
+.easyui-accordion ul li div.selected{border-color:#99BBE8; background:#E0ECFF;}
+.easyui-accordion ul li div.selected a{color:#416AA3; font-weight:bold;}
+
+
+
+.icon{padding:2px 9px; background:url(../images/tabicons.png) no-repeat;}
+.icon-sys{ background:url(../images/directory.png) no-repeat;}
+.icon-add{background-position: -19px 0px;}
+.icon-nav{background-position: -100px -18px;}
+.icon-users{background-position: -100px -480px;}
+.icon-role{background-position: -360px -200px;}
+.icon-set{background-position: -380px -200px;}
+.icon-log{background-position: -380px -80px;}
+

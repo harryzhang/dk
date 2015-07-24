@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+	<!-- APP接口Action -->
+	<bean id="userAppAction" class="com.sp2p.action.app.UserAppAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="userIntegralService"
+			ref="userIntegralService">
+		</property>
+		<property name="homeInfoSettingService"
+			ref="homeInfoSettingService">
+		</property>
+		<property name="sMSInterfaceService"
+			ref="sMSInterfaceService">
+		</property>
+	</bean>
+
+	<bean id="personAppAction"
+		class="com.sp2p.action.app.PersonAppAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="beVipService" ref="beVipService"></property>
+	</bean>
+
+	<bean id="workAppAction" class="com.sp2p.action.app.WorkAppAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="beVipService" ref="beVipService"></property>
+		<property name="validateService" ref="validateService"></property>
+	</bean>
+
+	<bean id="homeAppAction" class="com.sp2p.action.app.HomeAppAction"
+		scope="prototype">
+		<property name="myHomeService" ref="myHomeService"></property>
+		<property name="homeInfoSettingService"
+			ref="homeInfoSettingService">
+		</property>
+		<property name="fundManagementService" ref="fundManagementService"></property>
+	</bean>
+
+	<bean id="investAppAction"
+		class="com.sp2p.action.app.InvestAppAction" scope="prototype">
+		<property name="financeService" ref="financeService"></property>
+		<property name="shoveBorrowTypeService"
+			ref="shoveBorrowTypeService">
+		</property>
+		<property name="userService" ref="userService"></property>
+		<property name="borrowManageService" ref="borrowManageService"></property>
+	</bean>
+	
+	<bean id="rechargeWithdrawAppAction"
+		class="com.sp2p.action.app.RechargeWithdrawAppAction"
+		scope="prototype">
+		<property name="rechargeService" ref="rechargeService"></property>
+		<property name="homeInfoSettingService"
+			ref="homeInfoSettingService">
+		</property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<bean id="messageAppAction"
+		class="com.sp2p.action.app.MessageAppAction"
+		scope="prototype">
+		<property name="homeInfoSettingService"
+			ref="homeInfoSettingService">
+		</property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<bean id="borrowAppAction"
+		class="com.sp2p.action.app.BorrowAppAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="borrowService" ref="borrowService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="shoveBorrowStyleService" ref="shoveBorrowStyleService"></property>
+		<property name="shoveBorrowTypeService" ref="shoveBorrowTypeService"></property>
+		<property name="platformCostService" ref="platformCostService"></property>
+	</bean>
+	
+	<bean id="beVipAppAction"
+		class="com.sp2p.action.app.BeVipAppAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="awardMoneyService" ref="awardMoneyService"></property>
+		<property name="recommendUserService" ref="recommendUserService"></property>
+		<property name="jobTaskService" ref="jobTaskService"></property>
+		<property name="beVipService" ref="beVipService"></property>
+	</bean>
+	
+	<!-- app我的帐户  还款管理 -->
+	<bean id="appPayAction" class="com.sp2p.action.app.MyPaymentAppAction"
+		scope="prototype">
+		<property name="frontpayService" ref="frontpayService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<!-- app信息管理模块 -->
+	<bean id="MessageAppAction" class="com.sp2p.action.app.MessageAppAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="homeInfoSettingService" ref="homeInfoSettingService"></property>
+	</bean>
+	
+	
+	
+	<!-- app我要理财 -->
+	<bean id="myFinanceAction" class="com.sp2p.action.app.MyFinanceAction"
+		scope="prototype">
+		<property name="financeService" ref="financeService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+	<!-- 	<property name="newsService" ref="newsService"></property> -->
+	<!-- 	<property name="successStoryService" ref="successStoryService"></property> 
+			<property name="linksService" ref="linksService"></property>-->
+			<property name="publicModelService" ref="publicModelService"></property>
+		<property name="borrowService" ref="borrowService"></property>
+		<property name="shoveBorrowTypeService" ref="shoveBorrowTypeService"></property>
+		<property name="borrowManageService" ref="borrowManageService"></property>
+		
+	<!-- 	<property name="mediaReportService" ref="mediaReportService"></property> -->
+		<property name="newsAndMediaReportService" ref="newsAndMediaReportService"></property>
+		<property name="userService" ref="userService"></property>
+		
+	</bean>
+		
+	
+	<!-- 我的主页 -->
+	<bean id="myHomeAppAction" class="com.sp2p.action.app.MyHomeAppAction"
+		scope="prototype">
+		<property name="myHomeService" ref="myHomeService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+	</bean>
+	
+	<!-- 我的帐户 债权管理-->
+	<bean id="homeDebtAppAction" class="com.sp2p.action.app.HomeDebtAppAction"
+		scope="prototype">
+		<property name="assignmentDebtService" ref="assignmentDebtService"></property>
+		<property name="auctionDebtService" ref="auctionDebtService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+	</bean>
+
+	<!-- 债权管理-->
+	<bean id="debtAppAction" class="com.sp2p.action.app.DebtAppAction"
+		scope="prototype">
+		<property name="assignmentDebtService" ref="assignmentDebtService"></property>
+		<property name="auctionDebtService" ref="auctionDebtService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="financeService" ref="financeService"></property>
+	</bean>
+	
+	<!-- 好友管理 -->
+	<bean id="friendManagerAppAction" class="com.sp2p.action.app.FriendMannagerAppAction"
+		scope="prototype">
+		<property name="recommendUserService" ref="recommendUserService"></property>
+	</bean>
+	
+	<!-- 我要理财-工具箱 -->
+	<bean id="financeToolsActionapp" class="com.sp2p.action.app.FinanceToolsAppAction"
+		scope="prototype">
+		<property name="financeToolsService" ref="financeToolsService"></property>
+	</bean>
+	
+	
+	<!-- 前台友情链接-->
+	<bean id="linkAppAction" class="com.sp2p.action.app.LinksAppAction"
+		scope="prototype">
+	<!-- 	<property name="linksService" ref="linksService"></property> -->
+	<property name="publicModelService" ref="publicModelService"></property>
+	</bean>
+	
+	<!-- 前台网站公告管理模块 -->
+	<bean id="newsAppAction" class="com.sp2p.action.app.NewsdAppAction"
+		scope="prototype">
+		<!-- 
+		<property name="newsService" ref="newsService"></property>
+		 -->
+		<property name="newsAndMediaReportService" ref="newsAndMediaReportService"></property>
+	</bean>
+	<!-- 担保人列表 -->
+	<bean id="guaranteeAppAction" class="com.sp2p.action.app.GuaranteeAppAction"
+		scope="prototype">
+		<property name="guaranteeService" ref="guaranteeService"></property>
+	</bean>
+	
+	
+	<!-- app前台成功故事-->
+	<bean id="successStoryAppAction" class="com.sp2p.action.app.SuccessStorydAppAction"
+		scope="prototype">
+		<!-- <property name="successStoryService" ref="successStoryService"></property>-->
+		<property name="publicModelService" ref="publicModelService"></property>
+	</bean>
+	
+	
+	<!-- app前台媒体报道-->
+	<bean id="mediaReportAppAction" class="com.sp2p.action.app.MediaReportdAppAction"
+		scope="prototype">
+	<!-- 	<property name="mediaReportService" ref="mediaReportService"></property> -->
+	<property name="newsAndMediaReportService" ref="newsAndMediaReportService"></property>
+	</bean>
+	
+	
+	<!-- 个人账户的 个人设置 -->
+	<bean id="myInformationAppAction" class="com.sp2p.action.app.MyInformationAppAction"
+		scope="prototype">
+		<property name="userService" ref="userService" />
+		<property name="regionService" ref="regionService" />
+		<property name="validateService" ref="validateService" />
+		<property name="beVipService" ref="beVipService" />
+		<property name="iDCardValidateService" ref="iDCardValidateService" />
+	</bean>
+	
+	<bean id="uploadCommonentsAppAction" class="com.sp2p.action.app.UploadCommonentsAppAction"
+		scope="prototype">
+		
+		</bean>
+		
+		
+	<!-- 客服中心 -->
+	<bean id="callCenterAppAction" class="com.sp2p.action.app.CallCenterAppAction"
+		scope="prototype">
+		<!-- 
+		<property name="callCenterService" ref="callCenterService"></property>
+		<property name="kefuService" ref="kefuService"></property>
+		 -->
+		 <property name="helpAndServicerService" ref="helpAndServicerService"></property>
+	</bean>
+	
+		<!-- 意见反馈 -->
+	<bean id="feedbackAppAction" class="com.sp2p.action.app.FeedbackAppAction"
+		scope="prototype">
+		<property name="feedbackService" ref="feedbackService"></property>
+	</bean>
+		
+	<bean id="userIntegralAppAction" class="com.sp2p.action.app.UserIntegralAppAction"
+		scope="prototype">
+		<property name="guaranteeService" ref="guaranteeService"></property>
+		<property name="userIntegralService" ref="userIntegralService"></property>
+		<property name="myHomeService" ref="myHomeService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<bean id="onlinePaymentAppAction" class="com.sp2p.action.app.OnlinePaymentAppAction"
+		scope="prototype">
+		<property name="rechargeService" ref="rechargeService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="sendMessageService" ref="sendMessageService" />
+		<property name="fundManagementService" ref="fundManagementService" />
+		<property name="userService" ref="userService" />
+	</bean>
+</beans>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="homedebt" extends="login-default" namespace="/">
+		<action name="queryCanAssignmentDebt" class="homeDebtAction" method="queryCanAssignmentDebt">
+			<result name="success">
+				/WEB-INF/page/front/debt-manger-index.jsp
+			</result>
+		</action>
+		<action name="queryAuctingDebt" class="homeDebtAction" method="queryAuctingDebt">
+			<result name="success">
+				/WEB-INF/page/front/debt-manger-aucting.jsp
+			</result>
+		</action>
+		<action name="queryAuctedDebt" class="homeDebtAction" method="queryAuctedDebt">
+			<result name="success">
+				/WEB-INF/page/front/debt-manger-aucted.jsp
+			</result>
+		</action>
+		<action name="queryAuctionFailDebt" class="homeDebtAction" method="queryAuctionFailDebt">
+			<result name="success">
+				/WEB-INF/page/front/debt-manger-fail.jsp
+			</result>
+		</action>
+		<!-- 
+		<action name="addAssignmentDebt" class="homeDebtAction" method="addAssignmentDebt">
+			<result name="input">
+				/WEB-INF/page/front/debt-manger-add.jsp
+			</result>
+		</action>
+		-->
+		<action name="querySucessBuyedDebt" class="homeDebtAction" method="querySucessBuyedDebt">
+			<result name="success">
+				/WEB-INF/page/front/debt-manger-success-index.jsp
+			</result>
+		</action>
+		<action name="queryBuyingDebt" class="homeDebtAction" method="queryBuyingDebt">
+			<result name="success">
+				/WEB-INF/page/front/debt-manger-buying-index.jsp
+			</result>
+		</action>
+
+		<action name="cancelApplyDebt" class="homeDebtAction" method="cancelApplyDebt">
+			<result name="success" type="redirectAction">
+				investSuccessedRecord.do
+			</result>
+		</action>
+
+		<action name="auctingDebtEnd" class="homeDebtAction" method="auctingDebtEnd">
+			<result name="success" type="redirectAction">
+				queryAuctedDebt.do
+			</result>
+		</action>
+
+	</package>
+</struts>

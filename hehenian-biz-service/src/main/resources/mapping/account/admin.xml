@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.dal.account.IAdminDao">
+	<resultMap type="adminDo" id="adminResultMap">
+		<result property="id" column="id" />
+		<result property="userName" column="userName" />
+		<result property="password" column="password" />
+		<result property="enable" column="enable" />
+		<result property="lastTime" column="lastTime" />
+		<result property="lastIp" column="lastIP" />
+		<result property="roleId" column="roleId" />
+		<result property="realName" column="realName" />
+		<result property="telphone" column="telphone" />
+		<result property="qq" column="qq" />
+		<result property="email" column="email" />
+		<result property="img" column="img" />
+		<result property="isLeader" column="isLeader" />
+		<result property="sex" column="sex" />
+		<result property="card" column="card" />
+		<result property="summary" column="summary" />
+		<result property="nativePlacePro" column="nativePlacePro" />
+		<result property="nativePlaceCity" column="nativePlaceCity" />
+		<result property="address" column="address" />
+		<result property="addDate" column="addDate" />
+		<result property="moneys" column="moneys" />
+		<result property="usrCustId" column="usrCustId" />
+		<result property="subAcct" column="subAcct" />
+		<result property="subAcctMoney" column="subAcctMoney" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="adminResultMap">
+		SELECT *
+		FROM t_admin WHERE id = #{id}
+	</select>
+
+	<select id="selectAdmin" parameterType="Map" resultMap="adminResultMap">
+		SELECT *
+		FROM t_admin
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != null">
+				AND id like #{id}
+			</if>
+			<if test="userName != null">
+				AND userName like #{userName}
+			</if>
+			<if test="password != null">
+				AND password like #{password}
+			</if>
+			<if test="enable != null">
+				AND enable like #{enable}
+			</if>
+			<if test="lastTime != null">
+				AND lastTime like #{lastTime}
+			</if>
+			<if test="lastIp != null">
+				AND lastIP like #{lastIp}
+			</if>
+			<if test="roleId != null">
+				AND roleId like #{roleId}
+			</if>
+			<if test="realName != null">
+				AND realName like #{realName}
+			</if>
+			<if test="telphone != null">
+				AND telphone like #{telphone}
+			</if>
+			<if test="qq != null">
+				AND qq like #{qq}
+			</if>
+			<if test="email != null">
+				AND email like #{email}
+			</if>
+			<if test="img != null">
+				AND img like #{img}
+			</if>
+			<if test="isLeader != null">
+				AND isLeader like #{isLeader}
+			</if>
+			<if test="sex != null">
+				AND sex like #{sex}
+			</if>
+			<if test="card != null">
+				AND card like #{card}
+			</if>
+			<if test="summary != null">
+				AND summary like #{summary}
+			</if>
+			<if test="nativePlacePro != null">
+				AND nativePlacePro like #{nativePlacePro}
+			</if>
+			<if test="nativePlaceCity != null">
+				AND nativePlaceCity like #{nativePlaceCity}
+			</if>
+			<if test="address != null">
+				AND address like #{address}
+			</if>
+			<if test="addDate != null">
+				AND addDate like #{addDate}
+			</if>
+			<if test="moneys != null">
+				AND moneys like #{moneys}
+			</if>
+			<if test="usrCustId != null">
+				AND usrCustId like #{usrCustId}
+			</if>
+			<if test="subAcct != null">
+				AND subAcct like #{subAcct}
+			</if>
+			<if test="subAcctMoney != null">
+				AND subAcctMoney like #{subAcctMoney}
+			</if>
+		</trim>
+
+	</select>
+
+	<update id="updateAdminById" parameterType="adminDo">
+		UPDATE t_admin
+		SET
+		<if test="userName != null">
+			userName = #{userName}
+		</if>
+		<if test="password != null">
+			,password = #{password}
+		</if>
+		<if test="enable != null">
+			,enable = #{enable}
+		</if>
+		<if test="lastTime != null">
+			,lastTime = #{lastTime}
+		</if>
+		<if test="lastIp != null">
+			,lastIP = #{lastIp}
+		</if>
+		<if test="roleId != null">
+			,roleId = #{roleId}
+		</if>
+		<if test="realName != null">
+			,realName = #{realName}
+		</if>
+		<if test="telphone != null">
+			,telphone = #{telphone}
+		</if>
+		<if test="qq != null">
+			,qq = #{qq}
+		</if>
+		<if test="email != null">
+			,email = #{email}
+		</if>
+		<if test="img != null">
+			,img = #{img}
+		</if>
+		<if test="isLeader != null">
+			,isLeader = #{isLeader}
+		</if>
+		<if test="sex != null">
+			,sex = #{sex}
+		</if>
+		<if test="card != null">
+			,card = #{card}
+		</if>
+		<if test="summary != null">
+			,summary = #{summary}
+		</if>
+		<if test="nativePlacePro != null">
+			,nativePlacePro = #{nativePlacePro}
+		</if>
+		<if test="nativePlaceCity != null">
+			,nativePlaceCity = #{nativePlaceCity}
+		</if>
+		<if test="address != null">
+			,address = #{address}
+		</if>
+		<if test="addDate != null">
+			,addDate = #{addDate}
+		</if>
+		<if test="moneys != null">
+			,moneys = #{moneys}
+		</if>
+		<if test="usrCustId != null">
+			,usrCustId = #{usrCustId}
+		</if>
+		<if test="subAcct != null">
+			,subAcct = #{subAcct}
+		</if>
+		<if test="subAcctMoney != null">
+			,subAcctMoney = #{subAcctMoney}
+		</if>
+
+		WHERE id = #{id}
+	</update>
+
+	<insert id="addAdmin" parameterType="adminDo" keyProperty="id"
+		useGeneratedKeys="true">
+		INSERT INTO t_admin( userName
+		,password
+		,enable
+		,lastTime
+		,lastIP
+		,roleId
+		,realName
+		,telphone
+		,qq
+		,email
+		,img
+		,isLeader
+		,sex
+		,card
+		,summary
+		,nativePlacePro
+		,nativePlaceCity
+		,address
+		,addDate
+		,moneys
+		,usrCustId
+		,subAcct
+		,subAcctMoney
+		)
+		VALUES ( #{userName}
+		,#{password}
+		,#{enable}
+		,#{lastTime}
+		,#{lastIp}
+		,#{roleId}
+		,#{realName}
+		,#{telphone}
+		,#{qq}
+		,#{email}
+		,#{img}
+		,#{isLeader}
+		,#{sex}
+		,#{card}
+		,#{summary}
+		,#{nativePlacePro}
+		,#{nativePlaceCity}
+		,#{address}
+		,#{addDate}
+		,#{moneys}
+		,#{usrCustId}
+		,#{subAcct}
+		,#{subAcctMoney}
+		);
+	</insert>
+
+	<delete id="deleteById" parameterType="Long">
+		DELETE FROM t_admin
+		WHERE
+		id = #{id}
+	</delete>
+
+</mapper>
+

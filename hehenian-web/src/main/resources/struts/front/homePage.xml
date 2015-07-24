@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="homepage" extends="injectionInterceptor-0" namespace="/">
+	    <action name="platform" class="frontHomePageAction" method="platformInit">
+			<result name="success">/WEB-INF/page/front/platform-index.jsp</result>
+		</action>
+		<action name="team" class="frontHomePageAction" method="teamInit">
+			<result name="success">/WEB-INF/page/front/team-index.jsp</result>
+		</action>
+		<action name="legalPolicy" class="frontHomePageAction" method="legalPolicyInit">
+			<result name="success">/WEB-INF/page/front/legalpolicy-index.jsp</result>
+		</action>
+		<action name="aboutUs" class="frontHomePageAction" method="aboutUsInit">
+			<result name="success">/WEB-INF/page/front/aboutus-index.jsp</result>
+		</action>
+		<action name="download" class="frontHomePageAction" method="downloadInit">
+			<result name="success">/WEB-INF/page/front/download-index.jsp</result>
+		</action>
+	</package>
+</struts>

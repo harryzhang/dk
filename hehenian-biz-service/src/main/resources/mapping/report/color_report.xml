@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.dal.report.IColorReportDao">
+
+
+	<select id="queryColorInvestorPage" parameterType="map" resultType="java.util.Map">
+		
+			SELECT u.id AS userId
+			       ,u.username 
+			       ,p.realName
+			       ,p.telephone
+			       ,ci.busGroupName
+			       ,ci.cname 
+			       ,ref_u.username AS refUsername 
+			       ,ref_p.realName AS refRealName
+			       ,ref_p.telephone AS refTelephone
+			       ,ref_ci.busGroupName AS refBusGroupName
+			       ,ref_ci.cname AS refCname
+			       ,inv_u.investTime 
+			  FROM t_user u 
+			       LEFT OUTER JOIN t_person p ON p.userId = u.id
+			       LEFT OUTER JOIN t_colourlife_info ci ON u.id = ci.userId 
+			       LEFT OUTER JOIN t_user ref_u ON ref_u.id =  u.refferee
+			       LEFT OUTER JOIN t_person ref_p ON ref_p.userId = ref_u.id
+			       LEFT OUTER JOIN t_colourlife_info ref_ci ON ref_u.id = ref_ci.userId
+			       LEFT OUTER JOIN (SELECT MAX(inv.investTime) investTime, inv.investor FROM t_invest inv   GROUP BY inv.investor) inv_u ON inv_u.investor = u.id
+			  WHERE u.colorid IS NOT NULL
+			  <if test="registerStartDate != null">  
+			  	<![CDATA[
+			  		AND u.createTime >= #{registerStartDate}
+			  	]]>
+			  </if>
+			  <if test="registerEndDate != null">  
+			  	<![CDATA[
+			  		AND u.createTime <= #{registerEndDate}
+			  	]]>
+			  </if>
+			  <if test="investStartDate != null">  
+			  	<![CDATA[
+			  		AND inv_u.investTime >= #{investStartDate}
+			  	]]>
+			  </if>
+			  <if test="investEndDate != null">  
+			  	<![CDATA[
+			  		AND inv_u.investTime <= #{investEndDate}
+			  	]]>
+			  </if>
+			  <if test="cName != null">  
+			  	<![CDATA[
+			  		AND ci.cname = #{cName}
+			  	]]>
+			  </if>
+			  <if test="refcName != null">  
+			  	<![CDATA[
+			  		AND ref_ci.cname = #{refcName}
+			  	]]>
+			  </if>
+			  <if test="busGroupName != null">  
+			  	<![CDATA[
+			  		 AND ci.busGroupName = #{busGroupName}
+			  	]]>
+			  </if>
+			  <if test="refBusGroupName != null">  
+			  	<![CDATA[
+			  		AND ref_ci.busGroupName = #{refBusGroupName}
+			  	]]>
+			  </if>
+			ORDER BY u.createTime 
+	</select>
+	
+	<!-- 
+	<select id="queryInvestTotalAmount" parameterType="map" resultType="java.util.Map">
+			SELECT SUM(inv.realAmount) AS investAmount
+			,inv.investor
+			,SUM(IF(inv_rep.repayStatus = 1, inv_rep.recivedPrincipal,0)) AS recivedPrincipal
+			,SUM(IF(inv_rep.repayStatus=2,(inv_rep.recivedInterest+inv_rep.recivedFI),0))	AS hasInterest
+			FROM t_invest inv
+			LEFT OUTER JOIN t_invest_repayment inv_rep ON inv_rep.invest_id = inv.id
+			AND inv_rep.owner = inv.investor
+			LEFT OUTER JOIN t_borrow bo ON inv.borrowId = bo.id
+			WHERE inv.investor IN 
+			 <foreach collection="userIdList" item="userId" index="index"
+	             open="(" close=")" separator=",">
+	             #{userId}
+	         </foreach>
+			AND bo.borrowStatus IN (4,5)
+			<if test="investStartDate != null">  
+			  	<![CDATA[
+			  		AND inv.investTime >= #{investStartDate}
+			  	]]>
+			  </if>
+			  <if test="investEndDate != null">  
+			  	<![CDATA[
+			  		AND inv.investTime <= #{investEndDate}
+			  	]]>
+			  </if>
+			GROUP BY inv.investor
+	</select>
+	 -->
+	 
+	 <select id="queryInvestTotalAmount" parameterType="map" resultType="java.util.Map">
+			SELECT SUM(inv_rep.recivedPrincipal) AS investAmount
+			,inv.investor
+			,SUM(IF(inv_rep.repayStatus=2,(inv_rep.hasInterest),0))	AS hasInterest
+			FROM t_invest inv
+			LEFT OUTER JOIN t_invest_repayment inv_rep ON inv_rep.invest_id = inv.id AND inv_rep.repayStatus IN (1,2) AND inv_rep.owner = inv.investor
+			AND inv_rep.owner = inv.investor
+			LEFT OUTER JOIN t_borrow bo ON inv.borrowId = bo.id
+			WHERE inv.investor IN 
+			 <foreach collection="userIdList" item="userId" index="index"
+	             open="(" close=")" separator=",">
+	             #{userId}
+	         </foreach>
+			AND bo.borrowStatus IN (4,5)
+			<if test="investStartDate != null">  
+			  	<![CDATA[
+			  		AND inv.investTime >= #{investStartDate}
+			  	]]>
+			  </if>
+			  <if test="investEndDate != null">  
+			  	<![CDATA[
+			  		AND inv.investTime <= #{investEndDate}
+			  	]]>
+			  </if>
+			GROUP BY inv.investor
+	</select>
+	 
+	<!-- 在库投资额 -->
+	<select id="queryInStockInvestAmount" parameterType="list" resultType="java.util.Map">
+			SELECT SUM(r.recivedPrincipal) AS recivedPrincipal , r.owner as investor
+			FROM t_invest i 
+			JOIN t_invest_repayment r ON r.invest_id = i.id AND r.repayStatus = 1  AND r.owner = i.investor
+			JOIN t_borrow b ON i.borrowid = b.id 
+			WHERE  r.owner  IN 
+			<foreach collection="userIdList" item="userId" index="index"
+	             open="(" close=")" separator=",">
+	             #{userId}
+	         </foreach> 
+	         <if test="inStockDate != null">
+	         <![CDATA[
+			     AND b.auditTime <= #{inStockDate}
+			     AND r.repayDate > #{inStockDate}
+			  ]]>
+			 </if>
+			GROUP BY r.owner 
+	</select>
+	
+	
+	<!--  
+	<select id="queryFirstMonthInvestAmount" parameterType="list" resultType="java.util.Map">
+						
+			SELECT SUM(inv.investAmount ) AS firstMonthInvestAmount
+ 			,inv.investor
+			FROM t_invest inv
+			LEFT JOIN t_user u ON inv.investor = u.id
+			INNER JOIN t_borrow bo ON inv.borrowId = bo.id
+			INNER JOIN ( SELECT MIN(first_inv.investTime) AS investTime , first_inv.investor AS investor  
+			              FROM  t_invest first_inv 
+			          GROUP BY first_inv.investor   ) user_first_inv ON ( EXTRACT(YEAR_MONTH FROM inv.investTime) = EXTRACT(YEAR_MONTH FROM user_first_inv.investTime ) 
+			                                                              AND user_first_inv.investor = inv.investor )
+			WHERE inv.investor IN 
+			<foreach collection="userIdList" item="userId" index="index"
+	             open="(" close=")" separator=",">
+	             #{userId}
+	         </foreach>
+			AND bo.borrowStatus IN (4,5)		
+			GROUP BY inv.investor
+			
+			
+	</select>
+	-->
+	<select id="queryFKByDate" parameterType="String" resultType="java.util.Map">
+	   <![CDATA[
+       SELECT t2.auditTime date,IFNULL(SUM(t1.investAmount),0) jer,COUNT(1) shul
+            		 FROM t_invest t1 join t_borrow t2 on t1.borrowId=t2.id join t_user t3 on t1.investor=t3.id
+            		 where t3.colorid is not null and t3.via='' and t1.investAmount>0 and t2.auditTime =#{date}
+        ]]>
+	</select>
+    <select id="queryInvestByDate" parameterType="String" resultType="java.util.Map">
+        <![CDATA[
+       SELECT date(t1.investTime) date,IFNULL(SUM(t1.investAmount),0) jer,COUNT(1) shul
+             FROM t_invest t1 join t_user t3 on t1.investor=t3.id join t_borrow t4 on t1.borrowId=t4.id
+            where t3.colorid is not null and t3.via='' and t1.investAmount>0 and date(t1.investTime) =#{date} and t4.borrowstatus IN (2,3,4,5)
+        ]]>
+    </select>
+    <select id="queryUserByDate" parameterType="String" resultType="java.util.Map">
+       <![CDATA[
+      select COUNT(1) rs,DATE(createTime) date from t_user where colorid is not null and via=''
+      and date(createTime) =#{date}
+         ]]>
+    </select>
+    <select id="queryFK"  resultType="java.util.Map">
+         <![CDATA[
+        SELECT IFNULL(SUM(t1.investAmount),0) jer FROM t_invest t1 join t_borrow t2 on t1.borrowId=t2.id
+        join t_user t3 on t1.investor=t3.id
+        where t3.colorid is not null and t3.via='' and t1.investAmount>0 and t2.auditTime >20140626
+         ]]>
+    </select>
+    <select id="queryInvest" resultType="java.util.Map">
+       <![CDATA[
+      SELECT IFNULL(SUM(t1.investAmount),0) jer,COUNT(1) shul
+      FROM t_invest t1  join t_user t3 on t1.investor=t3.id join t_borrow t4 on t1.borrowId=t4.id
+      where t3.colorid is not null and t3.via='' and t1.investAmount>0 and t1.investTime>20140627 and t4.borrowstatus IN (2,3,4,5)
+        ]]>
+    </select>
+    <select id="queryUser" resultType="java.util.Map">
+        <![CDATA[
+        select COUNT(1) rs from t_user where colorid is not null and via='' and createTime >20140627
+         ]]>
+    </select>
+</mapper>
+

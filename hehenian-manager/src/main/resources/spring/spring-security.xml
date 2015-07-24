@@ -1,0 +1,56 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+	
+	<!-- 不要过滤图片等静态资源 -->
+    <http pattern="/**/*.jpg" security="none"/>
+    <http pattern="/**/*.png" security="none"/>
+    <http pattern="/**/*.gif" security="none"/>
+    <http pattern="/**/*.css" security="none"/>
+    <http pattern="/**/*.js" security="none"/>
+    <!-- 登录页面和忘记密码页面不过滤 --> 
+	<http pattern="/auth/loginfailed.html" security="none" />
+	<http pattern="/auth/login.html" security="none"/>
+	<http pattern="/auth/accessDenied.html" security="none"/>
+	<global-method-security jsr250-annotations="enabled"/>
+	<http access-denied-page="/auth/accessDenied.html">
+		<form-login login-page="/auth/login.html" default-target-url="/menu/index.html" authentication-failure-url="/auth/loginfailed.html" />
+
+		<logout logout-success-url="/auth/logout.html" />
+		<!-- 检测失效的sessionId,超时时定位到另外一个URL -->
+		<session-management invalid-session-url="/auth/login.html" />
+		<intercept-url pattern="/feedback/delete.html" access="ROLE_FEEDMANAGER"/>
+		<intercept-url pattern="/verify/credit/pass.html" access="ROLE_CREDIT"/>
+		<!-- 增加一个自定义的filter，放在FILTER_SECURITY_INTERCEPTOR之前， 实现用户、角色、权限、资源的数据库管理。 11/3/23 -->
+		<custom-filter ref="customFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+	</http>
+
+	<!-- 用户的密码加密或解密 -->
+	<beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+
+	<!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源。11/3/23 -->
+	<beans:bean id="customAccessDecisionManager" class="com.hehenian.manager.springsecurity.CustomAccessDecisionManager" />
+
+	<!-- 注意能够为authentication-manager 设置alias别名 -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userService">
+			<password-encoder ref="passwordEncoder">
+				<!-- 用户名做为盐值 -->
+				<salt-source user-property="salt" />
+			</password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+	
+	<!-- 一个自定义的filter，必须包含authenticationManager, accessDecisionManager,securityMetadataSource三个属性。 -->
+	<beans:bean id="customFilter" class="com.hehenian.manager.springsecurity.CustomFilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="accessDecisionManager" ref="customAccessDecisionManager" />
+		<beans:property name="securityMetadataSource" ref="customSecurityMetadataSource" />
+	</beans:bean>
+	
+	<!-- 资源源数据定义，将所有的资源和权限对应关系建立起来，即定义某一资源可以被哪些角色去访问。11/3/23 -->
+	<beans:bean id="customSecurityMetadataSource" class="com.hehenian.manager.springsecurity.CustomInvocationSecurityMetadataSourceService" />
+</beans:beans>

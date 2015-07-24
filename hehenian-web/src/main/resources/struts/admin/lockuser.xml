@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="lockUserManage" extends="admin-default" namespace="/admin">
+		
+		<action name="queryLockedUsersInit" class="lockUserManageAction" method="queryLockedUsersInit">
+			<result name="success">/WEB-INF/page/admin/lockeduser_index.jsp</result>
+        </action>
+       <action name="queryLockedUsersInfo" class="lockUserManageAction" method="queryLockedUsersInfo">
+			<result name="success">/WEB-INF/page/admin/lockeduser_index_info.jsp</result>
+        </action>
+        <!-- 导出锁定用户列表 -->
+        <action name="exportLockedUsersInfo" class="lockUserManageAction" method="exportLockedUsersInfo">
+			
+        </action>
+        
+   		<action name="unLockedUsers" class="lockUserManageAction" method="unLockedUsers">
+			<result name="success">/WEB-INF/page/admin/lockeduser_index.jsp</result>
+        </action>
+		
+		<action name="queryLockingUsersInit" class="lockUserManageAction" method="queryLockingUsersInit">
+			<result name="success">/WEB-INF/page/admin/unlockeduser_index.jsp</result>
+        </action>
+		 <action name="queryLockingUsersInfo" class="lockUserManageAction" method="queryLockingUsersInfo">
+			<result name="success">/WEB-INF/page/admin/unlockeduser_index_info.jsp</result>
+        </action>
+        <action name="lockingUsers" class="lockUserManageAction" method="lockingUsers">
+			<result name="success">/WEB-INF/page/admin/unlockeduser_index.jsp</result>
+        </action>
+        
+	</package>
+</struts>

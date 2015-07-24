@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="myInformationapp" extends="app-default" namespace="/app">
+	
+		<action name="owerInformationInit" class="FrontMyInformation"
+			method="queryBaseData">
+		</action>
+		
+		
+		<action name="addInformationDetail" class="FrontMyInformation"
+			method="updateUserBaseData">			
+		</action>
+		
+		<action name="addWorkDetail" class="FrontMyInformation"
+			method="updateUserWorkData">			
+		</action>
+		
+		<action name="queryWorkInit" class="FrontMyInformation"
+			method="queryWorkInit">	
+		</action>
+		
+		<action name="queryBasicInit" class="FrontMyInformation"
+			method="queryBasicInit">	
+		</action>
+		
+		<action name="updatexgmm" class="FrontMyInformation"
+			method="updatexgmm">	
+		</action>
+		<action name="boundcellphone" class="FrontMyInformation"
+			method="updatexgmm">	
+		</action>
+		<action name="szform" class="FrontMyInformation"
+			method="updatexgmm">	
+		</action>
+		<action name="yhbound" class="FrontMyInformation"
+			method="updatexgmm">	
+		</action>
+		
+				<!-- 添加邮箱 -->
+		<action name="addEmails" class="myInformationAppAction" method="addEmails">
+		</action>
+		 		<!-- 邮箱管理 left menu -->
+		<action name="emailManagerInit" class="myInformationAppAction"
+			method="emailManagerInit">
+		</action>
+				 		<!-- 邮箱管理 left menu -->
+		<action name="SendUserEmailSet" class="myInformationAppAction"
+			method="SendUserEmailSet">
+		</action>
+		<!-- 得到省市资料 -->
+		<action name="getProCity" class="myInformationAppAction"
+			method="getProCity">
+		</action>
+	</package>
+</struts>

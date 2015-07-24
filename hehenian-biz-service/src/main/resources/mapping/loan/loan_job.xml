@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.IJobDao">
+
+	<select id="getJobByIds" parameterType="string" resultType="jobDo">
+		SELECT
+		* FROM t_loan_job
+		WHERE loanId = #{loanId}
+		ORDER BY createTime DESC
+		LIMIT
+		1;
+	</select>
+
+	<insert id="addJob" parameterType="jobDo"
+		keyProperty="jobId" useGeneratedKeys="true">
+		INSERT INTO
+			t_loan_job( loanId,loanPersonId,companyName,position,jobYear,jobIncome ,companyPhone ,jobType,companyInTime,companyAddr,certNo , createTime,updateTime)
+		VALUES (#{loanId}, #{loanPersonId}, #{companyName}, #{position},
+			#{jobYear},#{jobIncome}, #{companyPhone}, #{jobType},#{companyInTime},#{companyAddr},#{certNo},  NOW(),NOW());
+	</insert>
+
+	<update id="updateJob" parameterType="jobDo">
+		UPDATE t_loan_job
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="loanId != null">
+				loanId = #{loanId},
+			</if>
+			<if test="loanPersonId != null">
+				loanPersonId = #{loanPersonId},
+			</if>
+			<if test="companyName != null">
+				companyName = #{companyName},
+			</if>
+			<if test="position != null">
+				position = #{position},
+			</if>
+			<if test="jobYear != null">
+				jobYear = #{jobYear},
+			</if>
+			<if test="jobIncome != null">
+				jobIncome = #{jobIncome},
+			</if>
+			<if test="companyPhone != null">
+				companyPhone = #{companyPhone},
+			</if>
+			<if test="jobType != null">
+				jobType = #{jobType},
+			</if>
+			<if test="companyInTime!=null">
+			    companyInTime = #{companyInTime},
+			</if>
+			<if test="companyAddr!=null">
+			    companyAddr= #{companyAddr},
+			</if>
+			<if test="certNo!=null">
+			    certNo=#{certNo},
+			</if>
+			
+			updateTime = NOW(),
+		</trim>
+		WHERE jobId = #{jobId};
+	</update>
+</mapper>

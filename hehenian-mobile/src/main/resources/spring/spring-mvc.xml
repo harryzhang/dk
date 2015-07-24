@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="true"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="  
+       http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+       http://www.springframework.org/schema/mvc   
+       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd   
+       http://www.springframework.org/schema/context  
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+       
+	<!-- controller -->
+	<context:component-scan base-package="com.hehenian.mobile.web" />
+    <!-- <mvc:annotation-driven /> -->
+    <context:annotation-config/>
+    <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+    <bean id="mappingJacksonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="mappingJacksonHttpMessageConverter"/>
+                <!-- json转换器 -->
+            </list>
+        </property>
+    </bean>
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/page/" />
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+	
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="contextInterceptor" />
+				<ref bean="loginInterceptor" />
+			</list>
+		</property>
+	</bean>
+	 
+	<!-- <mvc:interceptors>
+		<mvc:interceptor><mvc:mapping path="/**"/><bean class="com.hehenian.mobile.common.web.interceptors.ContextInterceptor"/></mvc:interceptor>
+		<mvc:interceptor><mvc:mapping path="/**"/><bean class="com.hehenian.mobile.common.web.interceptors.LoginInterceptor"/></mvc:interceptor>
+	</mvc:interceptors> -->
+	
+	<bean id="contextInterceptor" class="com.hehenian.mobile.common.web.interceptors.ContextInterceptor" />
+	<bean id="loginInterceptor" class="com.hehenian.mobile.common.web.interceptors.LoginInterceptor" />
+
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.springframework.web.bind.MissingServletRequestParameterException">errors/403</prop>
+				<prop key="org.springframework.beans.TypeMismatchException">errors/404</prop>
+				<prop key="org.springframework.web.bind.ServletRequestBindingException">errors/500</prop>
+			</props>
+		</property>
+	</bean>
+</beans>  

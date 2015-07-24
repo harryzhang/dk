@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanPersonDao">
+
+	<resultMap id="loanPersonDoResult" type="loanPersonDo">
+		<association property="propertyDo" column="loanId" select="getPropertyByIds" />
+		<association property="jobDo" column="loanId" select="getjobByIds" />
+		<association property="loanDo" column="loanId" select="getLoanByIds" />
+		<collection property="loanRelationDoList" column="loanId" select="getRelationByIds" />
+		<collection property="certificateDoList" column="loanId" select="getcertificateByloanIds" />
+	</resultMap>
+   
+    <resultMap id="loanBorrowOrderResult" type="loanPersonDo">
+        <association property="loanDo" column="loanId" select="getLoanByIds" />
+        
+    </resultMap>
+
+	<resultMap id="loanTreatyResult" type="loanPersonDo">
+		<association property="loanDo" column="loanId" select="getLoanByIds" />
+		<collection property="certificateDoList" column="loanId"
+			select="getcertificateByPro" />
+	</resultMap>
+
+	<resultMap id="loanBorrowResult" type="loanPersonDo">
+		<association property="loanDo" column="loanId" select="getLoanByIds" />
+		<association property="borrowDo" column="loanId" select="getBorrow" />
+		<association property="repaymentDo" column="loanId"
+			select="getRepaymentDo" />
+	</resultMap>
+
+	<resultMap type="borrowDo" id="borrowResult">
+		<result property="id" column="id" />
+		<result property="borrowTitle" column="borrowTitle" />
+		<result property="borrowStatus" column="borrowStatus" />
+		<result property="imgPath" column="imgPath" />
+		<result property="borrowWay" column="borrowWay" />
+		<result property="borrowInfo" column="borrowInfo" />
+		<result property="deadline" column="deadline" />
+		<result property="paymentMode" column="paymentMode" />
+		<result property="borrowAmount" column="borrowAmount" />
+		<result property="annualRate" column="annualRate" />
+		<result property="minTenderedSum" column="minTenderedSum" />
+		<result property="maxTenderedSum" column="maxTenderedSum" />
+		<result property="raiseTerm" column="raiseTerm" />
+		<result property="detail" column="detail" />
+		<result property="visitors" column="visitors" />
+		<result property="remainTimeStart" column="remainTimeStart" />
+		<result property="tradeType" column="tradeType" />
+		<result property="auditOpinion" column="auditOpinion" />
+		<result property="publisher" column="publisher" />
+		<result property="excitationType" column="excitationType" />
+		<result property="excitationSum" column="excitationSum" />
+		<result property="excitationMode" column="excitationMode" />
+		<result property="hasInvestAmount" column="hasInvestAmount" />
+		<result property="investNum" column="investNum" />
+		<result property="purpose" column="purpose" />
+		<result property="hasPwd" column="hasPWD" />
+		<result property="investPwd" column="investPWD" />
+		<result property="publishTime" column="publishTime" />
+		<result property="publishIp" column="publishIP" />
+		<result property="remainTimeEnd" column="remainTimeEnd" />
+		<result property="auditTime" column="auditTime" />
+		<result property="hasDeadline" column="hasDeadline" />
+		<result property="isAutoBid" column="isAutoBid" />
+		<result property="manageFee" column="manageFee" />
+		<result property="isDayThe" column="isDayThe" />
+		<result property="autoBidEnableTime" column="autoBidEnableTime" />
+		<result property="version" column="version" />
+		<result property="frozenMargin" column="frozen_margin" />
+		<result property="smallestFlowUnit" column="smallestFlowUnit" />
+		<result property="circulationNumber" column="circulationNumber" />
+		<result property="hasCirculationNumber" column="hasCirculationNumber" />
+		<result property="nidLog" column="nid_log" />
+		<result property="sort" column="sort" />
+		<result property="feestate" column="feestate" />
+		<result property="feelog" column="feelog" />
+		<result property="businessDetail" column="businessDetail" />
+		<result property="assets" column="assets" />
+		<result property="moneyPurposes" column="moneyPurposes" />
+		<result property="circulationMode" column="circulationMode" />
+		<result property="circulationStatus" column="circulationStatus" />
+		<result property="undertaker" column="undertaker" />
+		<result property="borrowShow" column="borrowShow" />
+		<result property="hasRepoNumber" column="hasRepoNumber" />
+		<result property="agent" column="agent" />
+		<result property="counterAgent" column="counterAgent" />
+		<result property="amountScale" column="amount_scale" />
+		<result property="windControl" column="windControl" />
+		<result property="firstTrial" column="firstTrial" />
+		<result property="recheck" column="recheck" />
+		<result property="number" column="number" />
+		<result property="isTimes" column="isTimes" />
+		<result property="maxInvest" column="maxInvest" />
+		<result property="guaranteeId" column="guaranteeId" />
+		<result property="loansOk" column="loansOk" />
+		<result property="unfreeOk" column="unfreeOk" />
+		<result property="borrowadvisory" column="borrowadvisory" />
+		<result property="advisorybranch" column="advisorybranch" />
+		<result property="borrowGroup" column="borrowGroup" />
+	</resultMap>
+
+	<select id="getByLoanId" parameterType="string" resultType="loanPersonDo">
+		SELECT * FROM t_loan_person
+		WHERE loanId = #{loanId}
+	</select>
+
+	<select id="getRepayMentByBwId" parameterType="string"
+		resultType="repaymentDo">
+		SELECT * FROM t_repayment
+		WHERE borrowId = #{borrowId} and
+		repayStatus!= 4
+
+	</select>
+
+	<select id="getRepaymentDo" parameterType="string" resultType="repaymentDo">
+		SELECT repayDate,(SELECT IF( loan.loanPeriod = 1, re.repayDate,
+		date_add(re.repayDate, interval-1 month))
+		FROM t_repayment re left join
+		t_loan loan on loan.borrowId = re.borrowId
+		where loan.loanId = #{loanId}
+		ORDER BY re.repayDate limit 1) realRepayDate FROM t_repayment t
+		WHERE borrowId IN (SELECT borrowId FROM t_loan WHERE loanId = #{loanId})
+		ORDER BY repayDate DESC limit 1;
+	</select>
+
+	<select id="getBorrow" parameterType="string" resultMap="borrowResult">
+		SELECT *
+		FROM t_borrow
+		WHERE id IN (
+		SELECT borrowId FROM t_loan WHERE loanId =
+		#{loanId})
+		ORDER BY publishTime DESC;
+	</select>
+
+	<select id="getYqsl" parameterType="map" resultType="map">
+		select
+		truncate(sum(t.applyAmount)*0.02/(12*2),2) as slExpectedEarnings,truncate(sum(t.loanAmount)*0.02/(12*2),2) as
+		hyExpectedEarnings
+		from t_loan_person p
+		LEFT JOIN
+		t_loan t on p.loanId = t.loanId
+		<if test="loanStatus != null and loanStatus != ''">
+				AND t.loanStatus = #{loanStatus}
+			</if>
+			<if test="realName != null and realName != ''">
+				AND p.realName = #{realName}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND p.mobile = #{mobile}
+			</if>
+			<if test="cname != null and cname != ''">
+				AND p.cname !="" AND #{cname} like
+				CONCAT('%',p.cname,'%')
+			</if>
+			<if test="loanCidList != null">
+			 	AND p.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		LIMIT
+		1;
+	</select>
+
+	<select id="getdLYqsl" parameterType="map" resultType="map">
+		select
+		truncate(sum(b.borrowAmount)*0.02/(12*2),2) as dhExpectedEarnings
+		from t_loan t
+		LEFT JOIN t_loan_person p on p.loanId = t.loanId
+		LEFT JOIN t_borrow b on b.id = t.borrowId
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="loanStatus != null and loanStatus != ''">
+				AND t.loanStatus = #{loanStatus}
+			</if>
+			<if test="realName != null and realName != ''">
+				AND p.realName = #{realName}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND p.mobile = #{mobile}
+			</if>
+			<if test="cname != null and cname != ''">
+				AND p.cname !="" AND #{cname} like CONCAT('%',p.cname,'%') AND
+				t.applyAmount !="" AND t.borrowId !=""
+			</if>
+			<if test="loanCidList != null">
+			 	AND p.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		</trim>
+		LIMIT 1;
+	</select>
+	<!-- 借款订单汇总(新订单 已拒绝订单) -->
+	<select id="getSumLoan" parameterType="map" resultType="map">
+		SELECT COUNT(t.loanId) sumIds,SUM(t.applyAmount) AS sumApplyAmount
+		FROM t_loan_person p LEFT JOIN t_loan t ON p.loanId = t.loanId
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="productCode != null and productCode != ''">
+				AND t.productCode = #{productCode}
+			</if>
+			<if test="loanStatus != null and loanStatus != ''">
+				AND t.loanStatus = #{loanStatus}
+			</if>
+			<if test="loanStatusList!=null ">
+			   AND t.loanStatus in 
+			   <foreach item="item" index="index" collection="loanStatusList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+			<if test="realName != null and realName != ''">
+				and (p.realName like '%${realName}%' or p.mobile like
+				'%${realName}%')
+			</if>
+			<if test="cname != null and cname != ''">
+				AND p.cname !="" AND #{cname} like CONCAT('%',p.cname,'%') AND
+				t.applyAmount !="" 
+			</if>
+			<if test="loanCidList != null">
+			 	AND p.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		</trim>
+		LIMIT 1
+	</select>
+	
+	
+	<!-- 还款中  -->
+	<select id="getSumBorrowing" parameterType="map" resultType="map">
+       SELECT COUNT(a.sumIds) sumIds,SUM(a.borrowAmount) borrowAmount  
+      FROM (
+		SELECT  COUNT(t.loanId) sumIds, SUM(stillPrincipal) borrowAmount 
+		FROM  t_loan t 
+		LEFT JOIN t_loan_repayment lr  ON t.loanId=lr.loanId
+		LEFT JOIN t_loan_person l ON l.loanId=t.loanId
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="1==1">AND  t.loanStatus='REPAYING' </if>
+			<if test="productCode != null and productCode != ''">
+				AND t.productCode = #{productCode}
+			</if>
+			<if test="repayStatus!=null ">
+			   AND lr.repayStatus=#{repayStatus}
+			</if>
+			<if test="realName != null and realName != ''">
+				and (l.realName like '%${realName}%' or l.mobile like
+				'%${realName}%')
+			</if>
+			<if test="cname != null and cname != ''">
+				AND l.cname !="" AND #{cname} like CONCAT('%',l.cname,'%')
+			</if>
+			<if test="loanCidList != null">
+			 	AND l.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		</trim>
+		GROUP BY  t.loanId 
+		)a
+	</select>
+
+	<!-- 已还款 -->
+	<select id="getSumBorrowed" parameterType="map" resultType="map">
+		SELECT COUNT(t.loanId) sumIds,SUM(t.loanAmount) sumBorrowAmount
+		  FROM  t_loan t 
+		LEFT JOIN t_loan_person p ON t.loanId=p.loanId
+		
+		<trim prefix="WHERE" prefixOverrides="AND">
+           <if test="1==1">
+              AND t.loanStatus='REPAYED' 
+           </if>
+           	<if test="productCode != null and productCode != ''">
+				AND t.productCode = #{productCode}
+			</if>
+			<if test="realName != null and realName != ''">
+				AND (p.realName like '%${realName}%' or p.mobile like
+				'%${realName}%')
+			</if>
+			<if test="cname != null and cname != ''">
+				AND p.cname !="" AND #{cname} like CONCAT('%',p.cname,'%')
+			</if>
+			<if test="loanCidList != null">
+			 	AND p.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		</trim>
+		limit 1
+	</select>
+
+	<select id="getPropertyByIds" parameterType="string" resultType="propertyDo">
+		SELECT
+		* FROM t_loan_property
+		WHERE loanId = #{loanId}
+		ORDER BY
+		createTime DESC
+		LIMIT
+		1;
+	</select>
+
+	<select id="getLoanByIds" parameterType="string" resultType="loanDo">
+		SELECT
+		* FROM t_loan
+		WHERE loanId = #{loanId}
+		ORDER BY createTime DESC
+		LIMIT
+		1;
+	</select>
+
+	<select id="getjobByIds" parameterType="string" resultType="jobDo">
+		SELECT
+		* FROM t_loan_job
+		WHERE loanId = #{loanId}
+		ORDER BY createTime
+		DESC
+		LIMIT
+		1;
+	</select>
+
+	<select id="getRelationByIds" parameterType="string" resultType="loanRelationDo">
+		SELECT
+		* FROM t_loan_relation
+		WHERE loanId = #{loanId};
+	</select>
+
+	<select id="getcertificateByloanIds" parameterType="string"
+		resultType="certificateDo">
+		SELECT
+		* FROM t_loan_certificate
+		WHERE loanId = #{loanId};
+	</select>
+
+	<select id="getcertificateByPro" parameterType="string"
+		resultType="certificateDo">
+		SELECT
+		* FROM t_loan_certificate
+		WHERE loanId = #{loanId} and
+		certificateType ='PROTOCOL';
+	</select>
+
+
+	<select id="getCountByIds" parameterType="string" resultType="int">
+		SELECT count(*) FROM t_loan_person
+		WHERE loanId = #{loanId}
+		ORDER BY
+		createTime DESC
+		LIMIT
+		1;
+	</select>
+
+	<select id="initTreatyData" parameterType="map" resultMap="loanTreatyResult">
+		SELECT * FROM t_loan_person
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="loanId != null and loanId != ''">
+				AND loanId = #{loanId}
+			</if>
+		</trim>
+		ORDER BY createTime DESC
+		LIMIT
+		1;
+	</select>
+
+	<select id="getLoanPersonByIds" parameterType="long"
+		resultMap="loanPersonDoResult">
+		SELECT * FROM t_loan_person
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="loanId != null and loanId != ''">
+				AND loanId = #{loanId}
+			</if>
+		</trim>
+		ORDER BY createTime DESC
+		LIMIT
+		1;
+	</select>
+
+	<select id="getTotalCount" parameterType="map" resultType="int">
+		select count(*) from t_loan_person p
+		LEFT JOIN t_loan t on p.loanId =
+		t.loanId
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="productCode != null and productCode != ''">
+				AND t.productCode = #{productCode}
+			</if>
+			<if test="loanId != null and loanId != ''">
+				AND p.loanId = #{loanId}
+			</if>
+			<if test="realName != null and realName != ''">
+				AND p.realName = #{realName}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND p.mobile = #{mobile}
+			</if>
+			<if test="loanStatus != null and loanStatus != ''">
+				AND t.loanStatus = #{loanStatus}
+			</if>
+			<if test="cname != null and cname != ''">
+				AND p.cname !="" AND #{cname} like
+				CONCAT('%',p.cname,'%') AND t.applyAmount !=""
+			</if>
+			<if test="loanCidList != null">
+			 	AND p.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		</trim>
+		ORDER BY p.createTime DESC
+	</select>
+
+	<select id="queryLoanPersons" parameterType="map" resultMap="loanPersonDoResult">
+		select p.*,t.loanStatus as loanStatus,t.applyAmount as
+		applyAmount,t.loanUsage as loanUsage from t_loan_person p
+		LEFT JOIN
+		t_loan t on p.loanId = t.loanId
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="realName != null and realName != ''">
+				AND p.realName = #{realName}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND p.mobile = #{mobile}
+			</if>
+			<if test="loanStatus != null and loanStatus != ''">
+				AND t.loanStatus = #{loanStatus}
+			</if>
+			<if test="cname != null and cname != ''">
+				AND p.cname !="" AND #{cname} like
+				CONCAT('%',p.cname,'%') AND t.applyAmount !=""
+			</if>
+			<if test="loanCidList != null">
+			 	AND p.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		</trim>
+		ORDER BY p.createTime DESC
+		LIMIT #{beginCount},#{pageSize}
+	</select>
+	<select id="queryLoanPersonsByApp" parameterType="map"
+		resultMap="loanBorrowOrderResult">
+		select p.*,t.loanStatus as loanStatus,t.applyAmount as
+		applyAmount,t.loanUsage as loanUsage , t.loanPeriod as loanPeriod from
+		t_loan_person p
+		LEFT JOIN
+		t_loan t on p.loanId = t.loanId
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="realName != null and realName != ''">
+				and (p.realName like '%${realName}%' or p.mobile like
+				'%${realName}%')
+			</if>
+			<if test="loanStatusList!=null ">
+			   AND t.loanStatus in 
+			   <foreach item="item" index="index" collection="loanStatusList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+			
+			<if test="productCode != null and productCode != ''">
+				AND t.productCode = #{productCode}
+			</if>
+			
+			<if test="loanStatus != null and loanStatus != ''">
+				AND t.loanStatus = #{loanStatus}
+			</if>
+			<if test="cname != null and cname != ''">
+				AND p.cname !="" AND #{cname} like
+				CONCAT('%',p.cname,'%') AND t.applyAmount !=""
+			</if>
+			<if test="loanCidList != null">
+			 	AND p.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		</trim>
+		ORDER BY p.createTime DESC
+		LIMIT #{beginCount},#{pageSize}
+	</select>
+	<select id="queryLoanBorrowByApp" parameterType="map"
+		resultType="loanPersonDo">
+		   SELECT p.*,t.loanStatus AS loanStatus,t.loanAmount AS
+			loanAmount,t.loanUsage AS loanUsage , t.loanPeriod AS loanPeriod,t.loanTime AS loanTime ,r.lateDay
+			FROM t_loan_person p
+			LEFT JOIN t_loan t ON p.loanId = t.loanId
+			LEFT JOIN ( SELECT SUM(lr.lateDay) lateDay,lr.`loanId` FROM t_loan_repayment  lr  
+			GROUP BY lr.loanId )r ON r.loanId=t.loanId 
+		<trim prefix="WHERE" prefixOverrides="AND">
+		  	<if test="realName != null and realName != ''">
+				and (p.realName like '%${realName}%' or p.mobile like '%${realName}%')
+			</if>
+			<if test="loanStatus != null and loanStatus != ''">
+				AND t.loanStatus = #{loanStatus}
+			</if>
+			<if test="productCode != null and productCode != ''">
+				AND t.productCode = #{productCode}
+			</if>
+			<if test="cname != null and cname != ''">
+				AND p.cname !="" AND #{cname} like
+				CONCAT('%',p.cname,'%') AND t.applyAmount !=""
+			</if>
+			<if test="loanCidList != null">
+			 	AND p.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		</trim>
+		ORDER BY p.createTime DESC
+		LIMIT #{beginCount},#{pageSize}
+	</select>
+
+
+	<select id="getAuditedTotalCount" parameterType="map"
+		resultType="int">
+		select count(*) from t_loan_person p
+		LEFT JOIN t_loan t on p.loanId =t.loanId
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="loanId != null and loanId != ''">
+				AND p.loanId = #{loanId}
+			</if>
+			<if test="realName != null and realName != ''">
+				AND p.realName = #{realName}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND p.mobile = #{mobile}
+			</if>
+			<if test="loanStatus != null and loanStatus != ''">
+				AND (t.loanStatus = 'PROCESSING' OR t.loanStatus =
+				'NOPASS')
+			</if>
+			<if test="flagStatus != null and flagStatus != ''">
+				AND (t.loanStatus = 'SUBJECTED' OR t.loanStatus =
+				'TREATY')
+			</if>
+			<if test="cname != null and cname != ''">
+				AND p.cname !="" AND #{cname} like
+				CONCAT('%',p.cname,'%') AND t.applyAmount !=""
+			</if>
+			<if test="loanCidList != null">
+			 	AND p.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		</trim>
+		ORDER BY p.createTime DESC
+	</select>
+
+	<select id="queryLoanAuditeds" parameterType="map"
+		resultMap="loanPersonDoResult">
+		select p.*,t.loanStatus as loanStatus,t.applyAmount as
+		applyAmount,t.loanUsage as loanUsage from t_loan_person p
+		LEFT JOIN
+		t_loan t on p.loanId = t.loanId
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="realName != null and realName != ''">
+				AND p.realName = #{realName}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND p.mobile = #{mobile}
+			</if>
+			<if test="loanStatus != null and loanStatus != ''">
+				AND (t.loanStatus = 'PROCESSING' OR t.loanStatus =
+				'NOPASS')
+			</if>
+			<if test="flagStatus != null and flagStatus != ''">
+				AND (t.loanStatus = 'SUBJECTED' OR t.loanStatus =
+				'TREATY')
+			</if>
+			<if test="cname != null and cname != ''">
+				AND p.cname !="" AND #{cname} like
+				CONCAT('%',p.cname,'%') AND t.applyAmount !=""
+			</if>
+			<if test="loanCidList != null">
+			 	AND p.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		</trim>
+		ORDER BY p.createTime DESC
+		LIMIT #{beginCount},#{pageSize}
+	</select>
+
+	<select id="getManagerTotalCount" parameterType="map"
+		resultType="int">
+		select count(*) from t_loan t
+		LEFT JOIN
+		t_loan_person p on p.loanId = t.loanId
+		LEFT JOIN t_borrow b on b.id = t.borrowId
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="loanId != null and loanId != ''">
+				AND p.loanId = #{loanId}
+			</if>
+			<if test="realName != null and realName != ''">
+				AND p.realName = #{realName}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND p.mobile = #{mobile}
+			</if>
+			<if test="flagStatus != null and flagStatus != ''">
+				AND t.loanStatus = #{flagStatus}
+			</if>
+			<if test="cname != null and cname != ''">
+				AND p.cname !="" AND #{cname} like
+				CONCAT('%',p.cname,'%') AND t.applyAmount !="" AND t.borrowId !=""
+			</if>
+			<if test="loanCidList != null">
+			 	AND p.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		</trim>
+		ORDER BY p.createTime DESC
+	</select>
+
+	<select id="getLoanManager" parameterType="map" resultMap="loanBorrowResult">
+		select p.*,t.loanStatus as loanStatus,t.applyAmount as
+		applyAmount,t.loanUsage as loanUsage from t_loan t
+		LEFT JOIN
+		t_loan_person p on p.loanId = t.loanId
+		LEFT JOIN t_borrow b on b.id = t.borrowId
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="realName != null and realName != ''">
+				AND p.realName = #{realName}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND p.mobile = #{mobile}
+			</if>
+			<if test="flagStatus != null and flagStatus != ''">
+				AND t.loanStatus = #{flagStatus}
+			</if>
+			<if test="cname != null and cname != ''">
+				AND p.cname !="" AND #{cname} like
+				CONCAT('%',p.cname,'%') AND t.applyAmount !="" AND t.borrowId !=""
+			</if>
+			<if test="loanCidList != null">
+			 	AND p.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		</trim>
+		ORDER BY p.createTime DESC
+		LIMIT #{beginCount},#{pageSize}
+	</select>
+
+	<select id="getIncomeManager" parameterType="map" resultType="map">
+		select count(t.borrowId) as successDs,sum(b.borrowAmount) as
+		borrowAmount,
+		(SELECT sum(re.stillPrincipal) from t_loan tl
+		LEFT JOIN t_repayment re on
+		tl.borrowId=re.borrowId and re.repayStatus = 2
+		LEFT JOIN t_loan_person
+		pr on pr.loanId = tl.loanId WHERE #{cname} like
+		CONCAT('%',pr.cname,'%')) as hasPI, (
+		SELECT sum(re.stillPrincipal)
+		FROM t_loan tl
+		LEFT JOIN t_repayment re on tl.borrowId=re.borrowId and re.repayStatus = 1
+		LEFT JOIN t_loan_person pr on pr.loanId = tl.loanId WHERE #{cname}
+		like
+		CONCAT('%',pr.cname,'%')) as stillPI
+		FROM t_loan t
+		LEFT JOIN
+		t_loan_person p on p.loanId = t.loanId LEFT JOIN t_borrow b on
+		b.id =
+		t.borrowId
+		and (b.borrowStatus = 4 or b.borrowStatus = 5)
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="realName != null and realName != ''">
+				AND p.realName = #{realName}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND p.mobile = #{mobile}
+			</if>
+			<if test="flagStatus != null and flagStatus != ''">
+				AND t.loanStatus = #{flagStatus}
+			</if>
+			<if test="cname != null and cname != ''">
+				AND p.cname !="" AND #{cname} like CONCAT('%',p.cname,'%') AND
+				t.applyAmount !="" AND t.borrowId !=""
+			</if>
+			<if test="loanCidList != null">
+			 	AND p.cid in 
+			   	<foreach item="item" index="index" collection="loanCidList" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+			</if>
+		</trim>
+	</select>
+
+	<insert id="addLoanPerson" parameterType="loanPersonDo"
+		keyProperty="loanPersonId" useGeneratedKeys="true">
+		INSERT INTO
+		t_loan_person(
+		loanId,realName,idNo,mobile,referenceMobile,age,sex,colorId,cid,cname,caddress,marriaged,education,familyPhone,email,applyTime,hasHouse,remark,updateUser,createTime,updateTime)
+		VALUES (#{loanId}, #{realName}, #{idNo},#{mobile},#{referenceMobile},
+		#{age},
+		#{sex},#{colorId},#{cid},#{cname},#{caddress},#{marriaged},
+		#{education},#{familyPhone},#{email},NOW(),#{hasHouse},#{remark},#{updateUser},NOW(),NOW());
+	</insert>
+
+	<update id="updateLoanPerson" parameterType="loanPersonDo">
+		UPDATE t_loan_person
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="loanId != null">
+				loanId = #{loanId},
+			</if>
+			<if test="realName != null">
+				realName = #{realName},
+			</if>
+			<if test="idNo != null">
+				idNo = #{idNo},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="referenceMobile != null">
+				referenceMobile = #{referenceMobile},
+			</if>
+			<if test="age != null">
+				age = #{age},
+			</if>
+			<if test="sex != null">
+				sex = #{sex},
+			</if>
+			<if test="colorId != null">
+				colorId = #{colorId},
+			</if>
+			<if test="cid != null">
+				cid = #{cid},
+			</if>
+			<if test="cname != null">
+				cname = #{cname},
+			</if>
+			<if test="caddress != null">
+				caddress = #{caddress},
+			</if>
+			<if test="marriaged != null">
+				marriaged = #{marriaged},
+			</if>
+			<if test="education != null">
+				education = #{education},
+			</if>
+			<if test="familyPhone != null">
+				familyPhone = #{familyPhone},
+			</if>
+			<if test="email != null">
+				email = #{email},
+			</if>
+			<if test="hasHouse != null">
+				hasHouse = #{hasHouse},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="updateUser != null">
+				updateUser = #{updateUser},
+			</if>
+			updateTime = NOW(),
+		</trim>
+		WHERE loanPersonId = #{loanPersonId};
+	</update>
+	
+	<select id="getLoanPersonById" parameterType="Long" resultMap="loanBorrowOrderResult">
+	     SELECT p.*  
+ 			FROM t_loan_person p
+ 		  where p.loanId=#{loanId}
+	</select>
+</mapper>

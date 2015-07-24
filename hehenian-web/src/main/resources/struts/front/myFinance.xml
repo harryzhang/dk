@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="finance" extends="defaults" namespace="/">
+		<action name="finance" class="frontMyFinanceAction" method="financeList">
+			<result name="success">
+				/WEB-INF/page/front/finance-index.jsp
+			</result>
+			<result name="network">
+				weihui.jsp
+			</result>
+		</action>
+		<action name="soonPublishList" class="frontMyFinanceAction" method="soonPublishList">
+			<result name="success">
+				/WEB-INF/page/front/finance-soon-index.jsp
+			</result>
+			<result name="network">
+				weihui.jsp
+			</result>
+		</action>
+		<action name="financeLastestList" class="frontMyFinanceAction" method="financeLastestList">
+			<result name="success">
+				/WEB-INF/page/front/finance-last-list.jsp
+			</result>
+		</action>
+		<action name="investRank" class="frontMyFinanceAction" method="investRank">
+			<result name="success">
+				/WEB-INF/page/front/investrank-list.jsp
+			</result>
+		</action>
+		<action name="index" class="frontMyFinanceAction" method="index">
+			<result name="success">
+				/WEB-INF/page/front/index-list.jsp
+			</result>
+			<result name="network">
+				weihui.jsp
+			</result>
+		</action>
+		<action name="financeDetail" class="frontMyFinanceAction" method="financeDetail">
+			<result name="success">
+				/WEB-INF/page/front/finance-borrow-detail.jsp
+			</result>
+			<result name="cicuration">
+				/WEB-INF/page/front/finance-circulation-borrow-detail.jsp
+			</result>
+			<result name="404" >
+				/error/404.jsp
+			</result>
+		</action>
+		<action name="queryDebtBorrowDetail" class="frontMyFinanceAction" method="queryDebtBorrowDetail">
+			<result name="success">
+				/WEB-INF/page/front/debt-borrow-detail.jsp
+			</result>
+			<result name="cicuration">
+				/WEB-INF/page/front/debt-circulation-detail.jsp
+			</result>
+			<result name="404" >
+				/error/404.jsp
+			</result>
+		</action>
+		<action name="ajaxqueryRegions" class="frontMyFinanceAction" method="ajaxqueryRegions">
+		</action>
+		<!-- 和合年查询地区 -->
+		<action name="ajaxqueryRegionsHHN" class="frontMyFinanceAction" method="ajaxqueryRegionsHHN">
+		</action>
+		
+		<action name="financeAudit" class="frontMyFinanceAction" method="financeAudit">
+			<result name="success">
+				/WEB-INF/page/front/finance-audit-list.jsp
+			</result>
+		</action>
+		<action name="financeRepay" class="frontMyFinanceAction" method="financeRepay">
+			<result name="success">
+				/WEB-INF/page/front/finance-repay-list.jsp
+			</result>
+		</action>
+		<action name="financeCollection" class="frontMyFinanceAction" method="financeCollection">
+			<result name="success">
+				/WEB-INF/page/front/finance-collection-list.jsp
+			</result>
+		</action>
+		<action name="borrowmessage" class="frontMyFinanceAction" method="borrowMSGInit">
+			<result name="success">/WEB-INF/page/front/message-list.jsp</result>
+			<result name="404" >/error/404.jsp</result>
+		</action>
+		<action name="financetool" class="frontMyFinanceAction" method="financeToolInit">
+			<result name="success">/WEB-INF/page/front/finance-tool.jsp</result>
+		</action>
+
+		<!-- 还款详情 -->
+		<action name="queryRepaymentById" class="frontMyFinanceAction" method="queryRepaymentById">
+			<result name="success"></result>
+		</action>
+
+		<!-- 催收详情 -->
+		<action name="queryCollectionById" class="frontMyFinanceAction" method="queryCollectionById">
+			<result name="success"></result>
+		</action>
+
+	</package>
+	<package name="financeinvests" extends="login-default" namespace="/">
+<!-- 		<action name="financeInvestInit" class="frontMyFinanceAction" method="financeInvestInit"> -->
+<!-- 			<result name="success">/WEB-INF/page/front/finance-invest.jsp</result> -->
+<!-- 			<result name="pwdBorrow">/WEB-INF/page/front/finance-pwd.jsp</result> -->
+<!-- 			<result name="nologin">/index.jsp</result> -->
+<!-- 			<result name="404" >/error/404.jsp</result> -->
+<!-- 			<result name="querBaseData" type="chain"> -->
+<!-- 				<param name="adminUser">/</param> -->
+<!-- 				<param name="actionName">querBaseData</param> -->
+<!-- 			</result> -->
+<!-- 			<result name="querWorkData" type="chain"> -->
+<!-- 				<param name="adminUser">/</param> -->
+<!-- 				<param name="actionName">querWorkData</param> -->
+<!-- 			</result> -->
+<!-- 			<result name="quervipData" type="chain"> -->
+<!-- 				<param name="adminUser">/</param> -->
+<!-- 				<param name="actionName">quervipData</param> -->
+<!-- 			</result> -->
+<!-- 			<result name="userPassData" type="chain"> -->
+<!-- 				<param name="adminUser">/</param> -->
+<!-- 				<param name="actionName">userPassData</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
+		<action name="financeInvestLoad" class="frontMyFinanceAction" method="financeInvestLoad">
+			<result name="success">/WEB-INF/page/front/finance-invest.jsp</result>
+			<result name="input">/WEB-INF/page/front/finance-pwd.jsp</result>
+			<result name="nologin">/index.jsp</result>
+			<result name="404" >/error/404.jsp</result>
+		</action>
+		<action name="financeInvest" class="frontMyFinanceAction" method="financeInvest">
+			<result name="success">/WEB-INF/page/front/finance-invest-submit.jsp</result>
+			<result name="input">/WEB-INF/page/front/finance-invest-submit.jsp</result>
+			<result name="nologin">/index.jsp</result>
+		</action>
+
+		<action name="investBorrow" class="newInvestAction" method="borrowInvest">
+            <result name="msg">/WEB-INF/jsp/message.jsp</result>
+		</action>
+
+		<action name="addBorrowMSG" class="frontMyFinanceAction" method="addBorrowMSG">
+			<result name="success">/WEB-INF/page/front/message-submit.jsp</result>
+			<result name="input">/WEB-INF/page/front/message-submit.jsp</result>
+			<result name="nologin">/index.jsp</result>
+		</action>
+		<action name="focusonBorrow" class="frontMyFinanceAction" method="focusOnBorrow" />
+		<action name="focusonUser" class="frontMyFinanceAction" method="focusOnUser" />
+		<action name="mailInit" class="frontMyFinanceAction" method="mailInit">
+			<result name="success">/WEB-INF/page/front/mail-index.jsp</result>
+		</action>
+		<action name="mailAdd" class="frontMyFinanceAction" method="mailAdd">
+			<result name="input">/WEB-INF/page/front/mail-index.jsp</result>
+		</action>
+		<action name="reportInit" class="frontMyFinanceAction" method="reportInit">
+			<result name="success">/WEB-INF/page/front/report-index.jsp</result>
+		</action>
+		<action name="reportAdd" class="frontMyFinanceAction" method="reportAdd">
+			<result name="input">/WEB-INF/page/front/report-index.jsp</result>
+		</action>
+
+		<!-- 用户举报修改版 -->
+		<action name="reportUserAdd" class="frontMyFinanceAction" method="reportUserAdd">
+			<result name="input"></result>
+		</action>
+
+		<action name="showImg" class="frontMyFinanceAction" method="showImg">
+			<result name="success">/WEB-INF/page/front/img-index.jsp</result>
+		</action>
+		<action name="subscribe" class="frontMyFinanceAction" method="subscribe">
+		</action>
+		<!-- 跳转到流转标购买窗口 -->
+		<action name="subscribeinit" class="frontMyFinanceAction" method="subscribeinit">
+			<result name="success">/WEB-INF/page/front/Circulation-index.jsp</result>
+		</action>
+		<!-- 一键投标 -->
+<action name="onekeybid" class="frontMyFinanceAction" method="oneKeyBid">
+		
+		</action>
+
+
+	</package>
+</struts>

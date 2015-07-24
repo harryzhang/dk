@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="appcomm" extends="defaults" namespace="/appcomm" >
+	    <action name="app-index" class="cfAction" method="appComm" >
+			<result type="chain">app-login</result>
+            <result name="index" type="redirect">/webapp/index.do</result>
+		</action>
+		<action name="app-reg" class="cfAction" method="appComm">
+			<result>/WEB-INF/page/appcomm/zhuce.jsp</result>
+		</action>
+		
+		<action name="app-login-index" class="cfAction" method="appComm">
+		<result>/WEB-INF/page/appcomm/login.jsp</result>
+            <result name="index" type="redirect">index.do</result>
+		</action>
+		
+		<action name="app-login" class="frontLongRegisterAction" method="appBindUser">
+			<result type="redirect">/webapp/index.do</result>
+			<result name="fail">/fail.jsp</result>
+			<result name="colourlife-bind-hhn">/WEB-INF/page/webapp/colourlife-bind-hhn.jsp</result>
+			<result name="register">/WEB-INF/page/appcomm/zhuce.jsp</result>
+			<result name="msg" type="redirect">/index.jsp</result>
+		</action> 
+	<action name="app-bind-hhnuser" class="frontLongRegisterAction" method="colourlifeBindHhnUser">
+			<result name="success">/WEB-INF/page/appcomm/user.jsp</result>
+			<result name="nologin">/index.jsp</result>
+		</action>
+		<action name="home" class="FrontMyInformation" method="queryBaseData">
+			<result name="success">/WEB-INF/page/appcomm/user.jsp</result>
+		</action>
+		<action name="userinfo" class="FrontMyInformation" method="queryBaseData">
+			<result name="success"> /WEB-INF/page/appcomm/user.jsp </result>
+		</action>
+		<action name="wszl" class="FrontMyInformation" method="queryBaseData">
+			<result name="success"> /WEB-INF/page/appcomm/wszl.jsp </result>
+		</action>
+		<action name="money" class="frontMyHomeAction" method="homeInit">
+			<result name="success">/WEB-INF/page/appcomm/capital.jsp</result>
+			<result name="nologin">/index.jsp</result>
+		</action>
+		<action name="investDetailCount" class="frontMyHomeAction" method="investDetailCount">
+			<result name="success">/WEB-INF/page/appcomm/investment.jsp</result>
+		</action>
+		<action name="invest-records" class="frontMyHomeAction" method="moreInvestRecords">
+			<result name="success">/WEB-INF/page/appcomm/invest-records.jsp</result>
+		</action>
+		<action name="more-investrecord" class="frontMyHomeAction" method="moreInvestRecords">
+			<result name="success">/WEB-INF/page/appcomm/more-invest-records.jsp</result>
+		</action>
+		<action name="index" class="frontMyHomeAction" method="homeInit">
+			<result>/WEB-INF/page/appcomm/index.jsp</result>
+		</action>
+		
+		<action name="recharge" class="rechargeAction" method="rechargeInit">
+			<result name="success">/WEB-INF/page/appcomm/recharge.jsp</result>
+		</action>
+		<action name="cash" class="rechargeAction" method="withdrawLoad">
+			<result name="success">/WEB-INF/page/appcomm/cash.jsp</result>
+		</action>
+		
+		<action name="qa"  class="cfAction" method="faq">
+		<result name="success">/WEB-INF/page/appcomm/qa.jsp</result>
+		</action>
+		<action name="huodong"  class="cfAction" method="faq">
+		<result name="success">/WEB-INF/page/appcomm/huodong.jsp</result>
+		</action>
+		<action name="automaticbid"  class="frontMyHomeAction" method="automaticBidInit">
+		<result name="success">/WEB-INF/page/appcomm/automaticbid.jsp</result>
+		</action>
+		
+		<action name="finance" class="frontMyFinanceAction" method="financeList">
+			<result name="success">
+				/WEB-INF/page/appcomm/tp-list.jsp
+			</result>
+			
+		</action>
+		
+		<action name="financeDetail" class="frontMyFinanceAction" method="financeDetail">
+			<result name="success">
+				/WEB-INF/page/appcomm/tp-intro.jsp
+			</result>
+		</action>
+	</package>
+</struts>

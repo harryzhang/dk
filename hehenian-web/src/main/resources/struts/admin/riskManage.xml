@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="riskManager" extends="admin-default" namespace="/admin">
+		<!--风险保证金 -->
+		<action name="queryRiskInit" class="riskManageAction" method="queryRiskInit">
+			<result name="success">/WEB-INF/page/admin/financial-risk-index.jsp</result>
+		</action>
+		<action name="queryRiskList" class="riskManageAction" method="queryRiskList">
+			<result name="success">/WEB-INF/page/admin/financial-risk-list.jsp</result>
+		</action>
+		<!-- 导出风险金记录 -->
+		<action name="exportRiskList" class="riskManageAction" method="exportRiskList">
+			
+		</action>
+		<action name="queryRiskDetail" class="riskManageAction" method="queryRiskDetail">
+			<result name="success">/WEB-INF/page/admin/financial-risk-detail.jsp</result>
+		</action>
+		<action name="addRiskInit" class="riskManageAction" method="addRiskInit">
+		    <result name="success">/WEB-INF/page/admin/financial-risk-add.jsp</result>
+		</action>
+		<action name="deductedRiskInit" class="riskManageAction" method="deductedRiskInit">
+		    <result name="success">/WEB-INF/page/admin/financial-risk-deducted.jsp</result>
+		</action>
+		<action name="addRisk" class="riskManageAction" method="addRisk">
+		    <result name="input">/WEB-INF/page/admin/financial-risk-add.jsp</result>
+			<result name="success" type="redirect">queryRiskInit.do</result>
+		</action>
+		<action name="deductedRisk" class="riskManageAction" method="deductedRisk">
+		    <result name="input">/WEB-INF/page/admin/financial-risk-deducted.jsp</result>
+			<result name="success" type="redirect">queryRiskInit.do</result>
+		</action>
+	</package>
+</struts>

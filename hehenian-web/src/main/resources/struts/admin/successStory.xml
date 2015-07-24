@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="successStory" extends="admin-default" namespace="/admin">
+		<!-- 成功故事列表 -->
+		<action name="querySuccessStoryListPage" class="successStoryAction" method="querySuccessStoryListPage">
+			<result name="success">/WEB-INF/page/admin/story_index_info.jsp</result>
+        </action>
+        <!-- 初始化成功故事列表 -->
+        <action name="querySuccessStoryListInit" class="successStoryAction" method="querySuccessStoryListInit">
+			<result name="success">/WEB-INF/page/admin/story_index.jsp</result>
+        </action>
+        
+        <!-- 初始化添加成功故事 -->
+        <action name="addSuccessStoryInit" class="successStoryAction" method="addSuccessStoryInit">
+			<result name="success">/WEB-INF/page/admin/story_add.jsp</result>
+        </action>
+        
+        <!-- 添加成功故事 -->
+        <action name="addSuccessStory" class="successStoryAction" method="addSuccessStory">
+            <result name="input">/WEB-INF/page/admin/story_add.jsp</result>
+			<result name="success" type="redirectAction">querySuccessStoryListInit.do</result>
+        </action>
+        
+        <!--根据Id获取成功故事详情 -->
+        <action name="updateSuccessStoryInit" class="successStoryAction" method="updateSuccessStoryInit">
+            <result name="success">/WEB-INF/page/admin/story_update.jsp</result>
+        </action>
+        
+        <action name="previewSuccessStoryInit" class="successStoryAction" method="updateSuccessStoryInit">
+            <result name="success">/WEB-INF/page/admin/story_preview.jsp</result>
+        </action>
+        <!--更新成功故事 -->
+        <action name="updateSuccessStory" class="successStoryAction" method="updateSuccessStory">   
+           <result name="input">/WEB-INF/page/admin/story_update.jsp</result>
+			<result name="success" type="redirect">querySuccessStoryListInit.do</result>
+        </action>
+        
+        <!--根据Id获取下载资料详情 -->
+        <action name="deleteSuccessStory" class="successStoryAction" method="deleteSuccessStory">             
+			<result name="success" type="redirect">querySuccessStoryListInit.do</result>
+        </action>
+        
+       
+
+	</package>
+</struts>

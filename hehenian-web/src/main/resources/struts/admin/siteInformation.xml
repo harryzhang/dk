@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="siteInfomation" extends="admin-default" namespace="/admin">
+	
+		<action name="querySiteInforInit" class="siteInformationAction" method="querySiteInforInit">
+			<result name="success" >/WEB-INF/page/admin/update_siteInformation_indexs.jsp</result>
+		</action>
+		
+		<action name="updateSiteInforInit" class="siteInformationAction" method="updateSiteInforInit">
+			<result name="success">/WEB-INF/page/admin/update_siteInformation_info.jsp</result>
+		</action>
+		
+		<action name="updateSiteInfor" class="siteInformationAction" method="updateSiteInfor">
+			<result name="success" >/WEB-INF/page/admin/update_siteInformation_indexs.jsp</result>
+		</action>
+		<action name="updateSiteWorkData" class="siteInformationAction" method="updateSiteWorkData">
+		</action>
+	</package>
+</struts>

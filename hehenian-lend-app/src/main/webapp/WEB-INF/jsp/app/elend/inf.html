@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+<title>成功</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="MobileOptimized" content="320" />
+<link href="../../../../app_res/css/elend/eLoan.css?v=1" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<section class="p1">
+		<article class="loan_inf">
+			<h3 class="inf_tip"><i class="t1"></i>基础信息</h3>
+			<div class="form-group db_f">
+				<label for="" class="lab">
+					学历：
+				</label>
+				<select name="" id="" class="sel bf1 db">
+					<option value="">初中</option>
+					<option value="">高中</option>
+					<option value="">大专</option>
+					<option value="">本科</option>
+					<option value="">硕士</option>
+					<option value="">博士/海龟</option>
+				</select>
+			</div>
+			<div class="form-group db_f">
+				<label for="" class="lab">
+					婚姻状况:
+				</label>
+				<select name="" id="" class="sel bf1 db">
+					<option value="">已婚</option>
+					<option value="">未婚</option>
+					<option value="">离异</option>
+				</select>
+			</div>
+			<div class="form-group db_f">
+				<label for="" class="lab">
+					工作年限:
+				</label>
+				<select name="" id="" class="sel bf1 db">
+					<option value="">0~12个月</option>
+					<option value="">12~18个月</option>
+					<option value="">19~24个月</option>
+					<option value="">25~36个月</option>
+					<option value="">37~60个月</option>
+					<option value="">61个月以上</option>
+				</select>
+			</div>
+			<div class="form-group db_f">
+				<label for="" class="lab">
+					职业信息:
+				</label>
+				<select name="" id="" class="sel bf1 db">
+					<option value="">工薪阶级</option>
+					<option value="">公务员</option>
+					<option value="">个体户</option>
+					<option value="">企业法人</option>
+				</select>
+			</div>
+			<div class="form-group db_f">
+				<label for="" class="lab">电子邮箱：</label>
+				<input type="text" class="txt bf1 db" placeholder="请填写有效的电子邮箱" id="email"/>
+			</div>
+		</article>
+		<article class="loan_inf">
+			<h3 class="inf_tip"><i class="t2"></i>房产信息</h3>
+			<div class="form-group db_f">
+				<label for="" class="lab">建筑面积：</label>
+				<input type="number" id="area"  class="txt bf1 db">
+				<span class="mm">㎡</span>
+			</div>
+			<div class="form-group db_f">
+				<label for="" class="lab">购买方式：</label>
+				<select name="" id="" class="sel bf1 db">
+					<option value="">一次性付款</option>
+					<option value="">按揭</option>
+				</select>
+			</div>
+			<div class="form-group db_f">
+				<label for="" class="lab">住宅地址：</label>
+				<input type="text" id="addr"  class="txt bf1 db">
+			</div>
+			<div class="form-group db_f">
+				<label for="" class="lab">是否抵押：</label>
+				<div class="bf1 db">
+					<div class="switch bs" style="float:right;margin-top:3px;">
+				    <input type="checkbox" checked="checked" />
+				    <label></label>
+				</div>
+				</div>
+			</div>
+		</article>
+		<article class="loan_inf">
+			<h2 class="inf_tip"><i class="t2"></i>资产信息</h2>
+			<div class="form-group db_f">
+				<textarea name="" rows="4" style="width:100%;display:block;" placeholder=''></textarea>
+			</div>
+			<div class="form-group db_f">
+				<label for="" class="lab">是否抵押：</label>
+				<div class="bf1 db">
+					<div class="switch bs" style="float:right;margin-top:3px;">
+				    <input type="checkbox" checked="checked" />
+				    <label></label>
+				</div>
+				</div>
+			</div>
+		</article>
+		<article class="loan_inf">
+			<h3 class="inf_tip">
+				<i class="t3"></i>家庭联系人信息
+			</h3>
+			<div class="form-group db_f">
+				<label for="" class="lab">联系人姓名：</label>
+				<input type="text" placeholder="请输入真实姓名"  class="txt bf1 db">
+			</div>
+			<div class="form-group db_f">
+				<label for="" class="lab">与本人关系：</label>
+				<select name="" id="" class="sel bf1 db">
+					<option value="">父母</option>
+					<option value="">子女</option>
+				</select>
+			</div>
+			<div class="form-group db_f">
+				<label for="" class="lab">手机号码：</label>
+				<input type="number" placeholder="请输入真实手机号码" class="txt bf1 db">
+			</div>
+			<div class="form-group db_f">
+				<label for="" class="lab">联系人姓名：</label>
+				<input type="text" placeholder="请输入真实姓名"  class="txt bf1 db">
+			</div>
+			<div class="form-group db_f">
+				<label for="" class="lab">与本人关系：</label>
+				<select name="" id="" class="sel bf1 db">
+					<option value="">兄弟</option>
+					<option value="">姐妹</option>
+				</select>
+			</div>
+			<div class="form-group db_f">
+				<label for="" class="lab">手机号码：</label>
+				<input type="number" placeholder="请输入真实手机号码" class="txt bf1 db">
+			</div>
+		</article>
+	</section>
+	<section class="p1">
+			<a href="javascript:void(0);" id="apply" class="apply">下一步</a>
+	</section>
+	<script>
+	$(function(){
+		var validateEmail = function(){
+			var $email = $("#email");
+			var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
+			if(!reg.test($email).val()){
+				$email.parent().append('<em class="err">邮箱格式错误</em>');
+				return false;
+			}
+			return true;
+		}
+
+		var validateHouse = function () {
+			var $area = $("#area");
+			if(!$area.val().length) {
+				$area.parent().append('<em class="err">请填写建筑面积</em>');
+				return false;
+			}
+			return true;
+		}
+
+		var validateAddr = function () {
+			var $addr = $("#addr");
+			if(!$addr.val().length) {
+				$addr.parent().append('<em class="err">请填写住宅地址</em>');
+				return false;
+			}
+			return true;
+		}
+
+		$("#apply").bind('touchstart', function(){
+
+		})
+	})
+	</script>
+</body>
+</html>

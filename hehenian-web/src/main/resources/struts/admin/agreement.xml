@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="agreement" extends="admin-default" namespace="/admin">
+		
+      
+        
+
+        
+        <!--根据类型获取协议详情 -->
+        <action name="AgreementInit" class="agreementAction" method="AgreementInit">
+            <result name="success">/WEB-INF/page/admin/agreement_update.jsp</result>
+            <result name="sercret">/WEB-INF/page/admin/agreement_update_secret.jsp</result>
+        </action>
+        <!--更新信息管理 -->
+        <action name="updateAgreement" class="agreementAction" method="updateAgreement">     
+             <result name="success">/WEB-INF/page/admin/agreement_update.jsp</result>
+            <result name="sercret">/WEB-INF/page/admin/agreement_update_secret.jsp</result>     
+        </action>
+
+
+
+	</package>
+</struts>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="userapp" extends="app-default" namespace="/app">
+		<action name="login" class="userAppAction" method="login">
+		</action>
+		<action name="register" class="userAppAction"
+			method="register">
+		</action>
+		<action name="sendSMS" class="userAppAction" method="sendSMS">
+		</action>
+		<action name="updateLoginPwd" class="userAppAction"
+			method="updateLoginPwd">
+		</action>
+		<action name="resetLoginPwd" class="userAppAction"
+			method="resetLoginPwd">
+		</action>
+
+		<action name="updateDealPwd" class="userAppAction"
+			method="updateDealPwd">
+		</action>
+
+		<action name="resetDealPwd" class="userAppAction"
+			method="resetDealPwd">
+		</action>
+
+		<action name="updateUserBaseData" class="userAppAction"
+			method="updateUserBaseDataCheck">
+		</action>
+
+		<action name="addImages" class="userAppAction"
+			method="addImage">
+		</action>
+
+		<action name="jumpPassDatapage" class="userAppAction"
+			method="jumpPassDatapage">
+		</action>
+		
+		<action name="addpastPicturdate" class="userAppAction"
+			method="addpastPicturdate">
+		</action>
+	</package>
+</struts>

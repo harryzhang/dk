@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="sendSMS" extends="admin-default" namespace="/admin">
+	
+		<!-- 用户列表初始化 -->
+		<action name="queryUserListInit" class="sendSMSAction" method="queryUserListInit">
+			<result name="success">/WEB-INF/page/admin/send_user_index.jsp</result>
+        </action>  
+        
+        <!-- 短信列表初始化 -->
+		<action name="querySendSMSListInit" class="sendSMSAction" method="querySendSMSListInit">
+			<result name="success">/WEB-INF/page/admin/send_index.jsp</result>
+        </action> 
+            
+        <!--用户列表 -->
+        <action name="queryUserListPage" class="sendSMSAction" method="queryUserListPage">
+            <result name="success">/WEB-INF/page/admin/send_user_list.jsp</result>
+        </action>
+        
+          <!--短信列表 -->
+        <action name="querySendSMSListPage" class="sendSMSAction" method="querySendSMSListPage">
+            <result name="success">/WEB-INF/page/admin/send_list.jsp</result>
+        </action>
+        
+         <!--编辑短信内容 -->
+        <action name="addsendSMSContent" class="sendSMSAction" method="addsendSMSContent">
+           
+        </action>
+        
+        <!--获取编辑短信内容 -->
+        <action name="getSendSMSContent" class="sendSMSAction" method="getSendSMSContent">
+            <result name="success">/WEB-INF/page/admin/send_edit.jsp</result>
+        </action>
+        
+        
+        <!--添加短信内容 -->
+        <action name="addsendSMSContent" class="sendSMSAction" method="addsendSMSContent">   
+        </action>
+        
+        <!--发送短信 -->
+        <action name="SendSMSs" class="sendSMSAction" method="SendSMSs">   
+        </action>
+        
+        <!--获取短信详情初始化 -->
+        <action name="getSendSMSByDetailpageInit" class="sendSMSAction" method="getSendSMSByDetailpageInit">
+            <result name="success">/WEB-INF/page/admin/send_detail_index.jsp</result>
+        </action>
+        
+        <!--获取短信详情 -->
+        <action name="getSendSMSByDetailpage" class="sendSMSAction" method="getSendSMSByDetailpage">
+            <result name="success">/WEB-INF/page/admin/send_detail_list.jsp</result>
+        </action>
+        
+        
+        
+        
+	</package>
+</struts>

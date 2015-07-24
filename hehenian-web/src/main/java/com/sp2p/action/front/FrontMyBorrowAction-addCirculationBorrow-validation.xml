@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="paramMap['title']">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>借款标题不能为空</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">20</param>
+			<message>借款标题长度不得大于${maxLength}个字符</message>
+		</field-validator>
+	</field>
+	<field name="paramMap['imgPath']">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请上传借款图片</message>
+		</field-validator>
+	</field>
+		<field name="paramMap['purpose']">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请选择借款目的</message>
+		</field-validator>
+	</field>
+	<field name="paramMap['deadLine']">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>请选择回购期限</message>
+		</field-validator>
+	</field>
+	<field name="paramMap['amount']">
+	    <field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写借款总额</message>
+		</field-validator>
+		<field-validator type="double">
+		    <param name="minInclusive">1</param>
+		    <param name="maxInclusive">5000000</param>
+			<message>借款总额范围${minInclusive}%到${maxInclusive}%</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="regex">
+				<![CDATA[
+					^([0-9]\d{0,9})$
+				]]>
+			</param>
+			<message>借款总额格式不正确</message>
+		</field-validator>
+	</field>
+	<field name="paramMap['annualRate']">
+		<field-validator type="requiredstring">
+		   <param name="trim">true</param>
+			<message>请填写借款年利率</message>
+		</field-validator>
+		<field-validator type="double">
+		    <param name="minInclusive">0.1</param>
+		    <param name="maxInclusive">24</param>
+			<message>借款年利率范围${minInclusive}%到${maxInclusive}%</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="regex">
+				<![CDATA[
+					^(([1-9][0-9]*([.][0-9]{1,2})?)|(0[.][0-9]{1,2})|(0))$
+				]]>
+			</param>
+			<message>年利率格式不正确</message>
+		</field-validator>
+	</field>
+	<field name="paramMap['smallestFlowUnit']">
+	    <field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写最小流转单位</message>
+		</field-validator>
+		<field-validator type="int">
+		    <param name="minInclusive">1</param>
+		    <param name="maxInclusive">5000000</param>
+			<message>最小流转单位范围${minInclusive}%到${maxInclusive}%</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="regex">
+				<![CDATA[
+					^([0-9]\d{0,9})$
+				]]>
+			</param>
+			<message>最小流转单位格式不正确</message>
+		</field-validator>
+	</field>
+	<field name="paramMap['businessDetail']">
+	    <field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写商业详情</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">500</param>
+			<message>商业详情不能超过${maxLength}个字符</message>
+		</field-validator>
+	</field>
+	<field name="paramMap['assets']">
+	    <field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写资产情况</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">500</param>
+			<message>资产情况不能超过${maxLength}个字符</message>
+		</field-validator>
+	</field>
+	<field name="paramMap['moneyPurposes']">
+	    <field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写资金用途</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">500</param>
+			<message>资金用途不能超过${maxLength}个字符</message>
+		</field-validator>
+	</field>
+	<field name="paramMap['code']">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写验证码</message>
+		</field-validator>
+	</field>
+		<!-- add by lw  -->
+	<field name="paramMap['sum']">
+		<field-validator type="regex">
+			<param name="regex">
+				<![CDATA[
+					^(([1-9][0-9]*([.][0-9]{1,2})?)|(0[.][0-9]{1,2})|(0))$
+				]]>
+			</param>
+			<message>&lt;span style="color: red;"&gt;金额格式不正确&lt;span&gt;</message>
+		</field-validator>
+	</field>
+	
+	<field name="paramMap['sumRate']">
+	    <field-validator type="double">
+		    <param name="minInclusive">0.01</param>
+		    <param name="maxInclusive">100</param>
+			<message>&lt;span style="color: red;"&gt;金额比例范围${minInclusive}%到${maxInclusive}%&lt;span&gt;</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="regex">
+				<![CDATA[
+					^(([1-9][0-9]*([.][0-9]{1,2})?)|(0[.][0-9]{1,2})|(0))$
+				]]>
+			</param>
+			<message>&lt;span style="color: red;"&gt;金额比例格式不正确&lt;span&gt;</message>
+		</field-validator>
+	</field>
+	 <!-- -->
+</validators>

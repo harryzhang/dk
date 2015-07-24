@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+
+	<description></description>
+	<display-name>Tag Library</display-name>
+	<tlib-version>1.0</tlib-version>
+	<short-name>hhn</short-name>
+	<uri>http://www.hehenian.com</uri>
+    <tag>
+        <name>paymentMode</name>
+        <tag-class>com.hehenian.web.common.tag.PaymentModeTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>paymentModeId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+	<function>
+		<name>titleHidden</name>
+		<function-class>com.hehenian.web.common.util.CommonUtils</function-class>
+		<function-signature>java.lang.String titleHidden(java.lang.String ,int)</function-signature>
+	</function>
+
+    <function>
+        <name>titleHiddenX</name>
+        <function-class>com.hehenian.web.common.util.CommonUtils</function-class>
+        <function-signature>java.lang.String titleHidden(java.lang.String)</function-signature>
+    </function>
+
+    <function>
+    	<description>将金额以逗号分割</description>
+        <name>insertComma</name>
+        <function-class>com.hehenian.web.common.util.CommonUtils</function-class>
+        <function-signature>java.lang.String insertComma(java.lang.String, int)</function-signature>
+        <example>${hhn:insertComma(money,2)}</example>
+    </function>
+
+    <function>
+    	<description>通过文件名获取显示的邀请二维码图片路径</description>
+        <name>getImagePath</name>
+        <function-class>com.hehenian.web.common.util.CommonUtils</function-class>
+        <function-signature>java.lang.String getImagePath(java.lang.String)</function-signature>
+        <example>${hhn:getImagePath(path)}</example>
+    </function>
+
+
+</taglib>

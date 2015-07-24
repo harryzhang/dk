@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="frontSuccssAppStory" extends="app-default" namespace="/app">
+		<!-- 成功故事列表(显示二条记录) -->
+		<action name="frontQuerySuccessStoryList" class="successStoryAppAction" method="frontQuerySuccessStoryList">
+        </action>
+
+        <!-- 前台初始化成功故事列表 -->
+        <action name="initSuccessStory" class="successStoryAppAction" method="initSuccessStory">
+        </action>
+        <!-- 成功故事列表 -->
+		<action name="frontQuerySuccessStoryListPage" class="successStoryAppAction" method="frontQuerySuccessStoryListPage">
+        </action>
+        
+        <!--根据Id获取成功故事详情 -->
+        <action name="frontQuerySuccessStoryDetail" class="successStoryAppAction" method="frontQuerySuccessStoryById">
+        </action>
+
+	</package>
+</struts>

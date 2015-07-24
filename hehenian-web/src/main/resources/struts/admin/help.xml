@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="help" extends="admin-default" namespace="/admin">
+		
+		<action name="addHelpInit" class="helpAction" method="addHelpInit">
+			<result name="success">/WEB-INF/page/admin/help_add.jsp</result>
+		</action>
+		
+		<action name="addHelpManagerInit" class="helpAction" method="addHelpInit">
+			<result name="success">/WEB-INF/page/admin/help_add_manager.jsp</result>
+		</action>
+		
+		<action name="addHelp" class="helpAction" method="addHelp">
+			<result name="input">/WEB-INF/page/admin/help_add.jsp</result>
+			<result name="success" type="redirect">queryHelpListPageInit.do</result>
+		</action>
+		
+		<action name="addHelpManager" class="helpAction" method="addHelp">
+			<result name="input">/WEB-INF/page/admin/help_add_manager.jsp</result>
+			<result name="success" type="redirect">queryHelpListPageInit.do</result>
+		</action>
+		
+		<action name="updateHelpInit" class="helpAction" method="updateHelpInit">
+			<result name="success">/WEB-INF/page/admin/help_update.jsp</result>
+		</action>
+		
+		<action name="previewHelpInit" class="helpAction" method="updateHelpInit">
+			<result name="success">/WEB-INF/page/admin/help_preview.jsp</result>
+		</action>
+		
+		<action name="updateHelp" class="helpAction" method="updateHelp">
+			<result name="input">/WEB-INF/page/admin/help_update.jsp</result>
+			<result name="success" type="redirect">queryHelpListPageInit.do</result>
+		</action>
+		
+		<action name="updateHelpManager" class="helpAction" method="updateHelpManager">
+		</action>
+		
+		<action name="deleteHelp" class="helpAction" method="deleteHelp">
+			<result name="success" type="redirect">queryHelpListPageInit.do</result>
+		</action>
+		
+		<action name="deleteHelpManager" class="helpAction" method="deleteHelpManager">
+			<result name="success" type="redirect">queryHelpListPageInit.do</result>
+		</action>
+		
+		
+		<action name="queryHelpListPage" class="helpAction" method="queryHelpListPage">
+			<result name="success">/WEB-INF/page/admin/help_index_info.jsp</result>
+		</action>
+		
+		<action name="queryHelpListPageInit" class="helpAction" method="queryHelpListPageInit">
+			<result name="success">/WEB-INF/page/admin/help_category_manage.jsp</result>
+		</action>
+		
+		<action name="queryHelpListManagePage" class="helpAction" method="queryHelpListPage">
+			<result name="success">/WEB-INF/page/admin/help_category_manage_list.jsp</result>
+		</action>		
+	</package>
+</struts>

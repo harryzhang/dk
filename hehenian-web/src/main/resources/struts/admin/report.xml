@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="report" extends="admin-default" namespace="/admin">
+	
+		<!-- 用户举报列表初始化 -->
+		<action name="queryReportListInit" class="reportAction" method="queryReportListInit">
+			<result name="success">/WEB-INF/page/admin/report_index.jsp</result>
+        </action>  
+            
+        <!--根据Id获取 短信接口详情 -->
+        <action name="queryReportListPage" class="reportAction" method="queryReportListPage">
+            <result name="success">/WEB-INF/page/admin/report_index_list.jsp</result>
+        </action>
+        
+        <!--更新举报初始化 -->
+        <action name="updateReportInit" class="reportAction" method="updateReportInit">   
+			<result name="success" >/WEB-INF/page/admin/report_update_detail.jsp</result>
+        </action>
+                
+        <!--更新举报 -->
+        <action name="updateReport" class="reportAction" method="updateReport">   
+			
+        </action>
+        
+         <!--删除举报-->
+        <action name="deleteReport" class="reportAction" method="deleteReport">   
+			<result name="success" type="redirect" >queryReportListInit.do</result>
+        </action>
+        
+	</package>
+</struts>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="aftercreditmanage" extends="admin-default" namespace="/admin">
+		<!-- 最近3天还款记录 -->
+		<action name="lastRepayMentInit" class="afterCreditManageAction" method="lastRepayMentInit">
+			<result name="success">/WEB-INF/page/admin/lastrepayment-index.jsp</result>
+		</action>
+		<action name="lastRepayMentList" class="afterCreditManageAction" method="lastRepayMentList">
+			<result name="success">/WEB-INF/page/admin/lastrepayment-list.jsp</result>
+		</action>
+		<action name="repaymentNoticeInit" class="afterCreditManageAction" method="repaymentNoticeInit">
+			<result name="success">/WEB-INF/page/admin/lastrepayment-notice-index.jsp</result>
+		</action>
+		<action name="repaymentNoticeList" class="afterCreditManageAction" method="repayMentNoticeList">
+			<result name="success">/WEB-INF/page/admin/lastrepayment-notice-list.jsp</result>
+		</action>
+		<action name="addRepayMentNotice" class="afterCreditManageAction" method="addRepayMentNotice">
+			<result name="input">/WEB-INF/page/admin/lastrepayment-notice-submit.jsp</result>
+		</action>
+		<!-- 导出excel -->
+		<action name="exportlastRepayMent" class="afterCreditManageAction" method="exportlastRepayMent">
+
+		</action>
+		<!-- 待收款记录详情 -->
+		<action name="forPaymentInit" class="afterCreditManageAction" method="forPaymentInit">
+			<result name="success">/WEB-INF/page/admin/forpayment-index.jsp</result>
+		</action>
+		<action name="forPaymentList" class="afterCreditManageAction" method="forPaymentList">
+			<result name="success">/WEB-INF/page/admin/forpayment-list.jsp</result>
+		</action>
+		<!-- 导出excel -->
+		<action name="exportforPayment" class="afterCreditManageAction" method="exportforPayment">
+
+		</action>
+		<!-- 代收款记录统计 -->
+		<action name="forPaymentTotalInit" class="afterCreditManageAction" method="forPaymentTotalInit">
+			<result name="success">/WEB-INF/page/admin/forpayment-total-index.jsp</result>
+		</action>
+		<action name="forPaymentTotalList" class="afterCreditManageAction" method="forPaymentTotalList">
+			<result name="success">/WEB-INF/page/admin/forpayment-total-list.jsp</result>
+		</action>
+		<!-- 导出excel -->
+		<action name="exportPaymentTotal" class="afterCreditManageAction" method="exportPaymentTotal">
+
+		</action>
+		<!-- 逾期的还款记录 -->
+		<action name="lateRepayInit" class="afterCreditManageAction" method="lateRepayInit">
+			<result name="success">/WEB-INF/page/admin/laterepay-index.jsp</result>
+		</action>
+		<action name="lateRepayList" class="afterCreditManageAction" method="lateRepayList">
+			<result name="success">/WEB-INF/page/admin/laterepay-list.jsp</result>
+		</action>
+		<!-- 导出excel 逾期垫付或逾期的还款 -->
+		<action name="exportlateRepay" class="afterCreditManageAction" method="exportlateRepay">
+
+		</action>
+		<!-- 逾期代偿记录 -->
+		<action name="overduePaymentInit" class="afterCreditManageAction" method="overduePaymentInit">
+			<result name="success">/WEB-INF/page/admin/overduepayment-index.jsp</result>
+		</action>
+		<action name="overduePaymentList" class="afterCreditManageAction" method="overduePaymentList">
+			<result name="success">/WEB-INF/page/admin/overduepayment-list.jsp</result>
+		</action>
+		<!-- 
+		<action name="overduePaymentRepaySubmit" class="afterCreditManageAction" method="overduePaymentRepaySubmit" />
+		 -->
+		<action name="repaymentDetail" class="afterCreditManageAction" method="repaymentDetail">
+			<result name="success">/WEB-INF/page/admin/repayment-detail-index.jsp</result>
+		</action>
+		<action name="addCollection" class="afterCreditManageAction" method="addCollection" />
+		<action name="delCollection" class="afterCreditManageAction" method="delCollection" />
+		<!-- 待回购借款 -->
+		<action name="backBuyInit" class="afterCreditManageAction" method="backBuyInit">
+			<result name="success">/WEB-INF/page/admin/back-buy-index.jsp</result>
+		</action>
+		<action name="backBuyInitList" class="afterCreditManageAction" method="backBuyInitList">
+			<result name="success">/WEB-INF/page/admin/back-buy-list.jsp</result>
+		</action>
+		<!-- 已回购借款 -->
+		<action name="hasBackBuyInit" class="afterCreditManageAction" method="hasBackBuyInit">
+			<result name="success">/WEB-INF/page/admin/has-back-buy-index.jsp</result>
+		</action>
+		<action name="hasBackBuyList" class="afterCreditManageAction" method="hasBackBuyList">
+			<result name="success">/WEB-INF/page/admin/has-back-buy-list.jsp</result>
+		</action>
+		<action name="backBuyDetails" class="afterCreditManageAction" method="backBuyDetails">
+			<result name="success">/WEB-INF/page/admin/back-buy-detail.jsp</result>
+		</action>
+		<action name="backBuyByborrowId" class="afterCreditManageAction" method="backBuyByborrowId">
+		</action>
+		<action name="exportBackBuyList" class="afterCreditManageAction" method="exportBackBuyList">
+		</action>
+		<!-- 已还款记录 -->
+		<action name="hasRepayInit" class="afterCreditManageAction" method="hasRepayInit">
+			<result name="success">/WEB-INF/page/admin/hasrepay-index.jsp</result>
+		</action>
+		<action name="hasRepayList" class="afterCreditManageAction" method="hasRepayList">
+			<result name="success">/WEB-INF/page/admin/hasrepay-list.jsp</result>
+		</action>
+		<!-- 导出excel 已还款记录 -->
+		<action name="exporthasRepay" class="afterCreditManageAction" method="exporthasRepay">
+
+		</action>
+		<!-- 查看已还款详情 -->
+		<action name="queryByrepayId" class="afterCreditManageAction" method="queryByrepayId">
+			<result name="success">/WEB-INF/page/admin/invest-repayment-detail.jsp</result>
+		</action>
+		<!-- 查看待还款详情 -->
+		<action name="queryByrepayIdDueId" class="afterCreditManageAction" method="queryByrepayIdDueId">
+			<result name="success">/WEB-INF/page/admin/deuin-repayment-detail.jsp</result>
+		</action>
+
+		<!-- 待还款记录详情 -->
+		<action name="forPaymentDueInInit" class="afterCreditManageAction" method="forPaymentDueInInit">
+			<result name="success">/WEB-INF/page/admin/deu_in-index.jsp</result>
+		</action>
+		<action name="forPaymentDueInList" class="afterCreditManageAction" method="forPaymentDueInList">
+			<result name="success">/WEB-INF/page/admin/deu_in-list.jsp</result>
+		</action>
+		<!-- 导出excel -->
+		<action name="exportforPaymentDueIn" class="afterCreditManageAction" method="exportforPaymentDueIn">
+		</action>
+
+		<!-- 添加回购 -->
+		<action name="addBackBuyInit" class="afterCreditManageAction" method="addBackBuyInit">
+			<result name="success">/WEB-INF/page/admin/back-buy-add-index.jsp</result>
+		</action>
+		<action name="addBackBuyList" class="afterCreditManageAction" method="addBackBuyList">
+			<result name="success">/WEB-INF/page/admin/back-buy-add-list.jsp</result>
+		</action>
+		<action name="addBackBuy" class="afterCreditManageAction" method="addBackBuy">
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+   	<field name="paramMap['name']">
+		<field-validator type="requiredstring">
+			<message>客服名称不能为空</message>
+		</field-validator>
+	</field>
+	
+	<field name="paramMap['QQ']">
+		<field-validator type="requiredstring">
+			<message>QQ号不能为空</message>
+		</field-validator>
+	</field>
+	<field name="paramMap['remark']">
+		<field-validator type="requiredstring">
+			<message>备注不能为空</message>
+		</field-validator>
+	</field>
+	
+	<field name="paramMap['kefuImage']">
+		<field-validator type="requiredstring">
+			<message>请上传图片</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">100</param>
+			<message>图片路径不得大于${maxLength}个字符</message>
+		</field-validator>
+	</field>
+   
+</validators>

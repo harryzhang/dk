@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="mailbox" extends="admin-default" namespace="/admin">
+		<!-- 站内信列表 -->
+		<action name="queryMailBoxListPage" class="mailBoxManagerAction" method="queryMailBoxListPage">
+			<result name="success">/WEB-INF/page/admin/mail_admin_info.jsp</result>
+        </action>
+        
+        <!-- 站内信列表 -->
+		<action name="queryMailBoxListUserPage" class="mailBoxManagerAction" method="queryMailBoxListUserPage">
+			<result name="success">/WEB-INF/page/admin/mail_user_info.jsp</result>
+        </action>
+        
+          <!-- 发送站内信初始化 -->
+		<action name="sendMailInit" class="mailBoxManagerAction" method="sendMailInit">
+			<result name="success">/WEB-INF/page/admin/mail_send_info.jsp</result>
+        </action>
+        
+        <!-- 初始化管理员与用户列表 -->
+        <action name="queryMailBoxListInit" class="mailBoxManagerAction" method="queryMailBoxListInit">
+			<result name="success">/WEB-INF/page/admin/mail_admin_list.jsp</result>			
+        </action>
+        
+        <!-- 初始化用户与用户列表 -->
+        <action name="queryMailBoxListUserInit" class="mailBoxManagerAction" method="queryMailBoxListUserInit">
+			<result name="success">/WEB-INF/page/admin/mail_user_list.jsp</result>			
+        </action>
+        
+         <!--删除站内信 管理员与用户-->
+        <action name="delewmail" class="mailBoxManagerAction" method="deleteMailBox">             
+			<result name="success" type="redirect">queryMailBoxListInit.do</result>
+        </action>
+        
+         <!--删除站内信 用户与用户-->
+        <action name="delewmailuser" class="mailBoxManagerAction" method="deleteMailBoxUser">             
+			<result name="success" type="redirect">queryMailBoxListUserInit.do</result>
+        </action>
+        
+
+        <!--根据Id获取团队介绍详情 -->
+        <action name="updateMailInit" class="mailBoxManagerAction" method="updateMailBoxInit">
+            <result name="success">/WEB-INF/page/admin/mail_admin_update.jsp</result>
+        </action>
+        <!--更新站内信-->
+        <action name="updateMailBox" class="mailBoxManagerAction" method="updateMailBox">   		
+        </action>
+        
+         <!--发送站内信-->
+        <action name="AdminAddMail" class="mailBoxManagerAction" method="addMail">   		
+        </action>
+        
+        <!--添加黑名单初始化-->
+        <action name="addBlackListInit" class="mailBoxManagerAction" method="addBlackListInit">   		
+           <result name="success" >/WEB-INF/page/admin/blacklist_add.jsp</result>
+        </action>
+        
+          <!--添加黑名单-->
+        <action name="addBlackList" class="mailBoxManagerAction" method="addBlackList">   		
+           
+        </action>
+        
+        <!--加入黑名单-->
+        <action name="joinBlackList" class="mailBoxManagerAction" method="joinBlackList">   		
+           <result name="success" type="redirect">queryMailBoxListUserInit.do</result>
+        </action>
+        
+
+     
+	</package>
+</struts>

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="myhome" extends="login-default" namespace="/">
+		<!-- 
+		<action name="home" class="frontMyHomeAction" method="homeInit">
+			<result name="success">/WEB-INF/page/front/home-index.jsp</result>
+			<result name="nologin">/index.jsp</result>
+		</action>
+		 -->
+        <action name="updateUserUsableSum" class="frontMyHomeAction" method="updateUserUsableSum">
+        </action>
+		<action name="ajaxHomeFlag" class="frontMyHomeAction" method="ajaxHomeFlag">
+		</action>
+		<action name="loginHF" class="frontMyHomeAction" method="foregroundRemainder">
+			<result name="noLogin" type="redirectAction">login.do</result>
+		</action>
+		
+		<action name="renewalVIPInit" class="homeInfoSettingAction" method="renewalVIPInit">
+			<result name="success">/WEB-INF/page/front/renewalvip-index.jsp</result>
+		</action>
+		<action name="renewalVIPSubmit" class="homeInfoSettingAction" method="renewalVIPSubmit" />
+
+		<!-- 个人设置页面加载 -->
+		<action name="homeInfoSettingInit" class="homeInfoSettingAction" method="homeInfoSettingInit">
+			<result name="success">/WEB-INF/page/front/wdzh-grsz-index.jsp</result>
+		</action>
+		<action name="queryHeadImg" class="homeInfoSettingAction" method="queryHeadImg" />
+
+		<action name="updatePersonImg" class="homeInfoSettingAction" method="updatePersonImg" />
+
+		<action name="updateLoginPass" class="homeInfoSettingAction" method="updateLoginPass">
+		</action>
+
+		<action name="addBankInfo" class="homeInfoSettingAction" method="addBankInfo">
+			<result name="success" type="redirect">queryBankInfoInit.do</result>
+		</action>
+
+		<action name="addBankInfo2" class="homeInfoSettingAction" method="addBankInfo2">
+			<result name="success" type="redirectAction">bankInfoSetInit.do</result>
+		</action>
+
+		<action name="deleteBankInfo" class="homeInfoSettingAction" method="deleteBankInfo">
+			<result name="success" type="redirect">queryBankInfoInit.do</result>
+		</action>
+
+		<action name="updateBankInfo" class="homeInfoSettingAction" method="updateBankInfo">
+		</action>
+
+		<action name="queryOneBankInfo" class="homeInfoSettingAction" method="queryOneBankInfo">
+			<result name="success">/WEB-INF/page/front/grsz-bankInfo-change.jsp</result>
+		</action>
+
+		<action name="bankChangeCancel" class="homeInfoSettingAction" method="bankChangeCancel">
+			<result name="success" type="redirect">queryBankInfoInit.do</result>
+		</action>
+
+		<action name="bankInfoSetInit" class="homeInfoSettingAction" method="bankInfoSetInit">
+			<result name="success">/WEB-INF/page/front/bankInfoSet.jsp</result>
+		</action>
+		
+		<action name="queryBankInfoInit" class="homeInfoSettingAction" method="queryBankInfoInit">
+			<result name="success">/WEB-INF/page/front/grsz-bankInfo.jsp</result>
+			<!-- <result name="success">/WEB-INF/page/front/wdzh-grsz-bankCard.jsp</result> -->
+			<!-- <result name="personal" type="redirect">owerInformationInit.do</result> -->
+		</action>
+
+		<action name="bindingMobileInit" class="homeInfoSettingAction" method="bindingMobileInit">
+		</action>
+
+		<action name="addBindingMobile" class="homeInfoSettingAction" method="addBindingMobile">
+		</action>
+
+		<action name="addChangeBindingMobile" class="homeInfoSettingAction" method="addChangeBindingMobile">
+		</action>
+
+		<action name="addNotesSetting" class="homeInfoSettingAction" method="addNotesSetting">
+		</action>
+
+		<action name="queryNotesSettingInit" class="homeInfoSettingAction" method="queryNotesSettingInit">
+		</action>
+
+		<!-- 我的帐户 站内信 -->
+		<action name="mailNoticeInit" class="homeInfoSettingAction" method="mailNoticeInit">
+			<result name="success">/WEB-INF/page/front/wdzh-znx-index.jsp</result>
+		</action>
+
+		<action name="judgeUserName" class="homeInfoSettingAction" method="judgeUserName">
+		</action>
+
+		<action name="addMail" class="homeInfoSettingAction" method="addMail">
+		</action>
+
+		<action name="queryReciveMails" class="homeInfoSettingAction" method="queryReciveMails">
+			<result name="success">/WEB-INF/page/front/receive-mails.jsp</result>
+		</action>
+
+		<action name="querySendMailsInit" class="homeInfoSettingAction" method="querySendMailsInit">
+			<result name="success">/WEB-INF/page/front/send-mails-index.jsp</result>
+		</action>
+
+		<action name="queryReceiveMailsInit" class="homeInfoSettingAction" method="queryReceiveMailsInit">
+			<result name="success">/WEB-INF/page/front/receive-mails-index.jsp</result>
+		</action>
+
+		<action name="querySysMailsInit" class="homeInfoSettingAction" method="querySysMailsInit">
+			<result name="success">/WEB-INF/page/front/sys-mails-index.jsp</result>
+		</action>
+
+		<action name="querySendMails" class="homeInfoSettingAction" method="querySendMails">
+			<result name="success">/WEB-INF/page/front/send-mails.jsp</result>
+		</action>
+
+		<action name="querySysMails" class="homeInfoSettingAction" method="querySysMails">
+			<result name="success">/WEB-INF/page/front/sys-mails.jsp</result>
+		</action>
+
+		<action name="replayMail" class="homeInfoSettingAction" method="replayMail">
+			<result name="success">/WEB-INF/page/front/replay-mail.jsp</result>
+		</action>
+
+		<!-- 删除邮件 -->
+		<action name="deleteSendMails" class="homeInfoSettingAction" method="deleteMails">
+			<result name="success" type="redirect">querySendMails.do</result>
+		</action>
+
+		<action name="deleteReceiveMails" class="homeInfoSettingAction" method="deleteMails">
+			<result name="success" type="redirect">queryReciveMails.do</result>
+		</action>
+
+		<action name="deleteSysMails" class="homeInfoSettingAction" method="deleteMails">
+			<result name="success" type="redirect">querySysMails.do</result>
+		</action>
+		<!-- 查看邮件 -->
+		<action name="queryEmailById" class="homeInfoSettingAction" method="queryEmailById">
+			<result name="success">/WEB-INF/page/front/mail-show.jsp</result>
+		</action>
+
+		<!--将信息标记为已读 -->
+		<action name="updateReceive2Readed" class="homeInfoSettingAction" method="updateMail">
+			<result name="success" type="redirect">queryReciveMails.do</result>
+		</action>
+
+		<action name="updateSys2Readed" class="homeInfoSettingAction" method="updateMail">
+			<result name="success" type="redirect">querySysMails.do</result>
+		</action>
+
+		<!-- 将信息标记为未读 -->
+		<action name="updateReceive2UNReaded" class="homeInfoSettingAction" method="updateMail">
+			<result name="success" type="redirect">queryReciveMails.do</result>
+		</action>
+
+		<action name="updateSys2UNReaded" class="homeInfoSettingAction" method="updateMail">
+			<result name="success" type="redirect">querySysMails.do</result>
+		</action>
+
+		<!-- 我要理财 成为理财人 -->
+		<action name="become2FinanceInit" class="homeInfoSettingAction" method="become2FinanceInit">
+			<result name="input">/WEB-INF/page/front/cwlcr-index-reg.jsp</result>
+			<result name="success">/WEB-INF/page/front/cwlcr-index.jsp</result>
+			<result name="waiting">/WEB-INF/page/front/cwlcr-waiting.jsp</result>
+		</action>
+
+		<action name="financerWaiting" class="homeInfoSettingAction" method="financerWaiting">
+			<result name="success">/WEB-INF/page/front/cwlcr-waiting.jsp</result>
+		</action>
+
+		<action name="addBecomeFinance" class="homeInfoSettingAction" method="addBecomeFinance">
+		</action>
+
+		<!-- 已经发布的借款 -->
+		<action name="homeBorrowAuditList" class="frontMyHomeAction" method="homeBorrowAuditList">
+			<result name="success">/WEB-INF/page/front/borrow-audit-index.jsp</result>
+		</action>
+
+		<action name="homeBorrowingList" class="frontMyHomeAction" method="homeBorrowingList">
+			<result name="success">/WEB-INF/page/front/borrow-borrowing-index.jsp</result>
+		</action>
+
+		<!-- 贷款统计 -->
+		<action name="loanStatisInit" class="frontMyHomeAction" method="loanStatisInit">
+			<result name="success">/WEB-INF/page/front/loanstatis-index.jsp</result>
+		</action>
+		<!-- 理财统计 -->
+		<action name="financeStatisInit" class="frontMyHomeAction" method="financeStatisInit">
+			<result name="success">/WEB-INF/page/front/financestatis-index.jsp</result>
+		</action>
+
+		<!-- 我的投标 成功的借款 -->
+
+		<action name="homeBorrowInvestList" class="frontMyHomeAction" method="homeBorrowInvestList">
+			<result name="success">/WEB-INF/page/front/invest-borrow-index.jsp</result>
+		</action>
+		<!-- 我的投标 招标中的借款 -->
+
+		<action name="homeBorrowTenderInList" class="frontMyHomeAction" method="homeBorrowTenderInList">
+			<result name="success">/WEB-INF/page/front/invest-tenderin-index.jsp</result>
+		</action>
+		<!-- 我的投标 回收中的借款 -->
+
+		<action name="homeBorrowRecycleList" class="frontMyHomeAction" method="homeBorrowRecycleList">
+			<result name="success">/WEB-INF/page/front/invest-recycle-index.jsp</result>
+		</action>
+		<action name="homeBorrowForpayDetail" class="frontMyHomeAction" method="homeBorrowForpayDetail">
+			<result name="success">/WEB-INF/page/front/invest-recycle-detail.jsp</result>
+		</action>
+		<!-- 我的投标 已回收的借款 -->
+
+		<action name="homeBorrowRecycledList" class="frontMyHomeAction" method="homeBorrowRecycledList">
+			<result name="success">/WEB-INF/page/front/invest-recycled-index.jsp</result>
+		</action>
+		<action name="homeBorrowHaspayDetail" class="frontMyHomeAction" method="homeBorrowHaspayDetail">
+			<result name="success">/WEB-INF/page/front/invest-recycle-detail.jsp</result>
+		</action>
+		<!-- 我的投标 借款回账查询 -->
+
+		<action name="homeBorrowBackAcount" class="frontMyHomeAction" method="homeBorrowBackAcount" />
+		<action name="homeBorrowBackAcountList" class="frontMyHomeAction" method="homeBorrowBackAcountList">
+			<result name="success">/WEB-INF/page/front/invest-backacount-index.jsp</result>
+		</action>
+		<!-- 自动投标 -->
+		<action name="automaticBidInit" class="frontMyHomeAction" method="automaticBidInit">
+			<result name="success">/WEB-INF/page/front/automaticbid-index.jsp</result>
+		</action>
+		<action name="automaticBidSet" class="frontMyHomeAction" method="automaticBidSet" />
+		<action name="automaticBidModify" class="frontMyHomeAction" method="automaticBidModify" />
+
+		<!-- 合和年 借款列表 -->
+		<action name="homeBorrowAllList" class="frontMyHomeAction" method="homeBorrowAllList">
+			<result name="success">/WEB-INF/page/front/borrow-all-index.jsp</result>
+		</action>
+
+		<!-- 合和年 还款 -->
+		<action name="queryPayingDetailsHHN" class="frontMyHomeAction" method="queryPayingDetailsHHN">
+			<result name="success">/WEB-INF/page/front/borrow-paying-details.jsp</result>
+		</action>
+
+
+
+		<!-- 投资记录 -->
+		<!-- 成功投资 -->
+		<action name="investSuccessedRecord" class="frontMyHomeAction" method="investSuccessedRecord">
+			<result name="success">/WEB-INF/page/front/investSuccessedRecord.jsp</result>
+		</action>
+		<!-- 多项债权合并 -->
+		<action name="investsCombine" class="frontMyHomeAction" method="investsCombine">
+		</action>
+		<!-- 多项债权拆分 -->
+		<!-- 根据ID查询相关信息(借款人、金额、期限) -->
+		<action name="queryInvestById" class="frontMyHomeAction" method="queryInvestById">
+			<result name="success" >/WEB-INF/page/front/assignment_split_show.jsp</result>
+		</action>
+		<!-- 根据ID查询出债权总额 -->
+		<action name="queryDebtSumById" class="frontMyHomeAction" method="queryDebtSumById">
+			<result name="404" >/error/404.jsp</result>
+		</action>
+		<!-- 查询总额与用户输入的金额比较 -->
+		<action name="queryRealAmount" class="frontMyHomeAction" method="queryRealAmount">
+			<result name="input" >/error/404.jsp</result>
+		</action>
+		<!-- 条件判断完毕，执行拆分 -->
+		<action name="assignmentSplit" class="frontMyHomeAction" method="assignmentSplit">
+			<result name="404" >/error/404.jsp</result>
+		</action>
+		<!-- 债权转让 -->
+		<action name="addInvestDebt" class="frontMyHomeAction" method="addInvestDebt">
+			<result name="input">
+				/WEB-INF/page/front/investDebt-manger-add.jsp
+			</result>
+		</action>
+		
+		<!-- 当前投资 -->
+		<action name="investCurrentRecord" class="frontMyHomeAction" method="investCurrentRecord">
+			<result name="success">/WEB-INF/page/front/investCurrentRecord.jsp</result>
+		</action>
+		<!-- 详细统计 -->
+		<action name="investDetailCount" class="frontMyHomeAction" method="investDetailCount">
+			<result name="success">/WEB-INF/page/front/investDetailCount.jsp</result>
+		</action>
+		<!-- 我的推荐人 -->
+		<!-- 查询我的推荐人 -->
+		<action name="myReferee" class="frontMyHomeAction" method="myReferee">
+			<result name="success">/WEB-INF/page/front/myReferee.jsp</result>
+		</action>
+		<!-- 提交我的推荐人 -->
+		<action name="setMyReferee" class="frontMyHomeAction" method="setMyReferee">
+		</action>
+		
+		<!-- 借款协议 -->
+		<action name="agreementDetail" class="frontMyHomeAction" method="agreementDetail">
+			<result name="success">/templete/agreement.jsp</result>
+		</action>
+		<action name="exportPDF" class="frontMyHomeAction" method="exportPDF">
+		</action>
+		
+		<!-- 汇付用户绑卡 -->
+		<action name="bindCardInit" class="frontMyHomeAction" method="bindCardInit">
+		</action>
+	</package>
+</struts>

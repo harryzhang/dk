@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<package name="sjb" extends="defaults" namespace="/">
+<interceptors>
+			<interceptor name="frontUserSessionInterceptor" class="com.sp2p.system.interceptor.FrontUserSeesionInterceptor" />
+			</interceptors>
+
+		<action name="sjb" class="sjbAction" method="sjb">
+			<result name="sjb20140613">/WEB-INF/page/front/worldcup-0613.jsp</result>
+			<result name="sjb20140614">/WEB-INF/page/front/worldcup-0614.jsp</result>
+			<result name="sjb20140615">/WEB-INF/page/front/worldcup-0615.jsp</result>
+			<result name="sjb20140616">/WEB-INF/page/front/worldcup-0616.jsp</result>
+			<result name="sjb20140617">/WEB-INF/page/front/worldcup-0617.jsp</result>
+			<result name="sjb20140618">/WEB-INF/page/front/worldcup-0618.jsp</result>
+			<result name="sjb20140619">/WEB-INF/page/front/worldcup-0619.jsp</result>
+			<result name="sjb20140620">/WEB-INF/page/front/worldcup-0620.jsp</result>
+			<result name="sjb20140621">/WEB-INF/page/front/worldcup-0621.jsp</result>
+			<result name="sjb20140622">/WEB-INF/page/front/worldcup-0622.jsp</result>
+			<result name="sjb20140623">/WEB-INF/page/front/worldcup-0623.jsp</result>
+			<result name="sjb20140624">/WEB-INF/page/front/worldcup-0624.jsp</result>
+			<result name="sjb20140625">/WEB-INF/page/front/worldcup-0625.jsp</result>
+			<result name="sjb20140626">/WEB-INF/page/front/worldcup-0626.jsp</result>
+			<result name="sjb20140627">/WEB-INF/page/front/worldcup-0627.jsp</result>
+			<result name="sjb20140628">/WEB-INF/page/front/worldcup-0628.jsp</result>
+			<result name="sjb20140629">/WEB-INF/page/front/worldcup-0629.jsp</result>
+			<result name="sjb20140630">/WEB-INF/page/front/worldcup-0630.jsp</result>
+			
+			<result name="sjb20140701">/WEB-INF/page/front/worldcup-0701.jsp</result>
+			<result name="sjb20140702">/WEB-INF/page/front/worldcup-0702.jsp</result>
+			<result name="sjb20140703">/WEB-INF/page/front/worldcup-0703.jsp</result>
+			<result name="sjb20140704">/WEB-INF/page/front/worldcup-0704.jsp</result>
+			<result name="sjb20140705">/WEB-INF/page/front/worldcup-0705.jsp</result>
+			<result name="sjb20140706">/WEB-INF/page/front/worldcup-0706.jsp</result>
+			<result name="sjb20140707">/WEB-INF/page/front/worldcup-0707.jsp</result>
+			<result name="sjb20140708">/WEB-INF/page/front/worldcup-0708.jsp</result>
+			<result name="sjb20140709">/WEB-INF/page/front/worldcup-0709.jsp</result>
+			<result name="sjb20140710">/WEB-INF/page/front/worldcup-0710.jsp</result>
+			<result name="sjb20140711">/WEB-INF/page/front/worldcup-0711.jsp</result>
+			<result name="sjb20140712">/WEB-INF/page/front/worldcup-0712.jsp</result>
+			<result name="sjb20140713">/WEB-INF/page/front/worldcup-0713.jsp</result>
+			<result name="sjb20140714">/WEB-INF/page/front/worldcup-0714.jsp</result>
+		</action>	
+		<action name="jc" class="sjbAction" method="jc">
+			  <result type="redirect">sjb.do</result>
+			  <result name="login">/WEB-INF/page/front/login.jsp</result>
+		</action>	
+		<action name="dealJcResult" class="sjbAction" method="dealJcResult">
+			  <result>/WEB-INF/page/front/worldcup.jsp</result>
+		</action>
+		
+			<!-- 花样年专区 -->
+			
+			<action name="hyn-index" class="sjbAction" method="hynIndex">
+			
+			 <interceptor-ref name="frontUserSessionInterceptor"></interceptor-ref>
+			 <interceptor-ref name="defaultStack" />
+			  <result name="noLogin">/WEB-INF/page/front/login.jsp</result>
+			  <result name="noRight">/WEB-INF/page/front/noright.jsp</result>
+			  <result>/WEB-INF/page/front/hyn-index.jsp</result>
+		</action>	
+		<!-- 花样会专区 -->
+		<action name="hyh-index" class="sjbAction" method="hyhIndex">
+			
+			 <interceptor-ref name="frontUserSessionInterceptor"></interceptor-ref>
+			 <interceptor-ref name="defaultStack" />
+			  <result name="noLogin">/WEB-INF/page/front/login.jsp</result>
+			  <result name="noRight">/WEB-INF/page/front/noright.jsp</result>
+			  <result>/WEB-INF/page/front/hyh-index.jsp</result>
+		</action>	
+		<!-- 各种专区 -->
+		<action name="zone" class="sjbAction" method="zone">
+			
+			 <interceptor-ref name="frontUserSessionInterceptor"></interceptor-ref>
+			 <interceptor-ref name="defaultStack" />
+			  <result name="noLogin">/WEB-INF/page/front/login.jsp</result>
+			  <result name="noRight">/WEB-INF/page/front/noright.jsp</result>
+			  <result>/WEB-INF/page/front/zone.jsp</result>
+		</action>	
+		
+	
+			
+</package>
+</struts>

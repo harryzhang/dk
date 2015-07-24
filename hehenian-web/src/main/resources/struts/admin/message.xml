@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="message" extends="admin-default" namespace="/admin">
+		<!-- 信息管理列表 -->
+		<action name="queryMessageListPage" class="messageAction" method="queryMessageList">
+			<result name="success">/WEB-INF/page/admin/message_index_info.jsp</result>
+        </action>
+        <!-- 初始化信息管理列表 -->
+        <action name="queryMessageListInit" class="messageAction" method="queryMessageListInit">
+			<result name="success">/WEB-INF/page/admin/message_index.jsp</result>
+        </action>
+        
+
+        <!--根据Id获取信息管理详情 -->
+        <action name="updateMessageInit" class="messageAction" method="updateMessageInit">
+            <result name="success">/WEB-INF/page/admin/message_update.jsp</result>
+        </action>
+        
+        <action name="previewMessageInit" class="messageAction" method="updateMessageInit">
+            <result name="success">/WEB-INF/page/admin/message_preview.jsp</result>
+        </action>
+        <!--更新信息管理 -->
+        <action name="updateMessage" class="messageAction" method="updateMessage">   
+           <result name="input">/WEB-INF/page/admin/message_update.jsp</result>
+			<result name="success" type="redirect">queryMessageListInit.do</result>
+        </action>
+
+
+
+	</package>
+</struts>

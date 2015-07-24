@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanUserDao">
+	<resultMap type="loanUserDo" id="loanUserResultMap">
+		<result property="loanUserId" column="loanUserId" />
+		<result property="name" column="name" />
+		<result property="idNo" column="idno" />
+		<result property="mobile" column="mobile" />
+		<result property="cid" column="cid" />
+		<result property="cname" column="cname" />
+		<result property="caddress" column="caddress" />
+		<result property="level" column="level" />
+		<result property="birthday" column="birthday" />
+		<result property="userType" column="userType" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="loanUserResultMap">
+		SELECT * 
+		  FROM t_loan_user WHERE loanUserId = #{loanUserId}
+	</select>
+
+	<select id="selectLoanUser" parameterType="Map" resultMap="loanUserResultMap">
+		SELECT * 
+		  FROM t_loan_user
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="loanUserId != null">  
+				AND loanUserId like #{loanUserId}
+			</if>
+			<if test="name != null">  
+				AND name like #{name}
+			</if>
+			<if test="idNo != null">  
+				AND idno like #{idNo}
+			</if>
+			<if test="mobile != null">  
+				AND mobile like #{mobile}
+			</if>
+			<if test="cid != null">  
+				AND cid like #{cid}
+			</if>
+			<if test="cname != null">  
+				AND cname like #{cname}
+			</if>
+			<if test="caddress != null">  
+				AND caddress like #{caddress}
+			</if>
+			<if test="level != null">  
+				AND level like #{level}
+			</if>
+			<if test="birthday != null">  
+				AND birthday like #{birthday}
+			</if>
+			<if test="userType != null">  
+				AND userType like #{userType}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateLoanUserById" parameterType="loanUserDo">
+		UPDATE t_loan_user 
+		   SET 		<if test="name != null">  
+				name = #{name}
+		</if>		
+		<if test="idNo != null">  
+				,idno = #{idNo}
+		</if>		
+		<if test="mobile != null">  
+				,mobile = #{mobile}
+		</if>		
+		<if test="cid != null">  
+				,cid = #{cid}
+		</if>		
+		<if test="cname != null">  
+				,cname = #{cname}
+		</if>		
+		<if test="caddress != null">  
+				,caddress = #{caddress}
+		</if>		
+		<if test="level != null">  
+				,level = #{level}
+		</if>		
+		<if test="birthday != null">  
+				,birthday = #{birthday}
+		</if>		
+		<if test="userType != null">  
+				,userType = #{userType}
+		</if>		
+
+		WHERE loanUserId = #{loanUserId}
+	</update>	
+	
+	<insert id="addLoanUser" parameterType="loanUserDo" keyProperty="loanUserId"
+		useGeneratedKeys="true" >
+		INSERT INTO t_loan_user(		name
+		,idno
+		,mobile
+		,cid
+		,cname
+		,caddress
+		,level
+		,birthday
+		,userType
+)
+		     VALUES (		#{name}
+		,#{idNo}
+		,#{mobile}
+		,#{cid}
+		,#{cname}
+		,#{caddress}
+		,#{level}
+		,#{birthday}
+		,#{userType}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM t_loan_user WHERE loanUserId = #{loanUserId}
+	</delete>
+	
+</mapper>
+

@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanPersonCreditDao">
+	<resultMap type="loanPersonCreditDo" id="loanPersonCreditResultMap">
+		<result property="creditId" column="credit_id" />
+		<result property="userId" column="userId" />
+		<result property="creditAmt" column="credit_amt" />
+		<result property="status" column="status" />
+		<result property="remark" column="remark" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="loanPersonCreditResultMap">
+		SELECT * 
+		  FROM t_loan_person_credit WHERE credit_id = #{credit_id}
+	</select>
+
+	<select id="selectLoanPersonCredit" parameterType="Map" resultMap="loanPersonCreditResultMap">
+		SELECT * 
+		  FROM t_loan_person_credit
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="creditId != null">  
+				AND credit_id like #{creditId}
+			</if>
+			<if test="userId != null">  
+				AND userId like #{userId}
+			</if>
+			<if test="creditAmt != null">  
+				AND credit_amt like #{creditAmt}
+			</if>
+			<if test="status != null">  
+				AND status like #{status}
+			</if>
+			<if test="remark != null">  
+				AND remark like #{remark}
+			</if>
+			<if test="createTime != null">  
+				AND create_time like #{createTime}
+			</if>
+			<if test="updateTime != null">  
+				AND update_time like #{updateTime}
+			</if>
+			AND STATUS= 'T'
+         </trim> 
+
+	</select>
+	
+	<update id="updateLoanPersonCreditById" parameterType="loanPersonCreditDo">
+		UPDATE t_loan_person_credit 
+		   SET 		<if test="userId != null">  
+				userId = #{userId}
+		</if>	
+		<if test="loanId != null">  
+				loanId = #{loanId}
+		</if>		
+		<if test="creditAmt != null">  
+				,credit_amt = #{creditAmt}
+		</if>		
+		<if test="status != null">  
+				,status = #{status}
+		</if>		
+		<if test="remark != null">  
+				,remark = #{remark}
+		</if>		
+		<if test="createTime != null">  
+				,create_time = #{createTime}
+		</if>		
+		<if test="updateTime != null">  
+				,update_time = #{updateTime}
+		</if>		
+
+		WHERE credit_id = #{credit_id} 
+	</update>	
+	
+	
+	<update id="updateCreditStatusByUser" parameterType="map">
+		UPDATE t_loan_person_credit 
+		   SET 	status = #{status}
+		WHERE userId = #{userId} 
+	</update>
+	
+	<insert id="addLoanPersonCredit" parameterType="loanPersonCreditDo" keyProperty="creditId"
+		useGeneratedKeys="true" >
+		INSERT INTO t_loan_person_credit(		userId,loanId
+		,credit_amt
+		,status
+		,remark
+		,create_time
+		,update_time
+)
+		     VALUES (		#{userId},#{loanId}
+		,#{creditAmt}
+		,#{status}
+		,#{remark}
+		,now()
+		,now()
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM t_loan_person_credit WHERE credit_id = #{credit_id}
+	</delete>
+	
+</mapper>
+

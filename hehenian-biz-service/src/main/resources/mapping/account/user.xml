@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.account.IUserDao">
+	<resultMap type="accountUserDo" id="accountUserResultMap">
+		<result property="id" column="id" />
+		<result property="usrCustId" column="usrCustId" />
+		<result property="username" column="username" />
+		<result property="email" column="email" />
+		<result property="password" column="password" />
+
+		<result property="dealpwd" column="dealpwd" />
+		<result property="mobilePhone" column="mobilePhone" />
+		<result property="refferee" column="refferee" />
+		<result property="reffer" column="reffer" />
+		<result property="rating" column="rating" />
+
+		<result property="creditrating" column="creditrating" />
+		<result property="lastIP" column="lastIP" />
+		<result property="lastDate" column="lastDate" />
+		<result property="vipStatus" column="vipStatus" />
+		<result property="vipCreateTime" column="vipCreateTime" />
+
+		<result property="creditLimit" column="creditLimit" />
+		<result property="authStep" column="authStep" />
+		<result property="headImg" column="headImg" />
+		<result property="enable" column="enable" />
+		<result property="cause" column="cause" />
+
+		<result property="createTime" column="createTime" />
+		<result property="content" column="content" />
+		<result property="usableSum" column="usableSum" />
+		<result property="freezeSum" column="freezeSum" />
+		<result property="dueinSum" column="dueinSum" />
+
+		<result property="dueinCapitalSum" column="dueinCapitalSum" />
+		<result property="dueinAccrualSum" column="dueinAccrualSum" />
+		<result property="dueoutSum" column="dueoutSum" />
+		<result property="kefuId" column="kefuId" />
+		<result property="adminId" column="adminId" />
+
+		<result property="groupId" column="groupId" />
+		<result property="usableCreditLimit" column="usableCreditLimit" />
+		<result property="creditlimtor" column="creditlimtor" />
+		<result property="vipFee" column="vipFee" />
+		<result property="feeStatus" column="feeStatus" />
+
+		<result property="loginCount" column="loginCount" />
+		<result property="lockTime" column="lockTime" />
+		<result property="cashStatus" column="cashStatus" />
+		<result property="xmax" column="xmax" />
+		<result property="x" column="x" />
+
+		<result property="xmin" column="xmin" />
+		<result property="isFirstVip" column="isFirstVip" />
+		<result property="source" column="source" />
+		<result property="registerIp" column="registerIp" />
+		<result property="colorid" column="colorid" />
+
+		<result property="via" column="via" />
+		<result property="colorcheck" column="colorcheck" />
+		<result property="colorTjr" column="colorTjr" />
+		<result property="userGroup" column="userGroup" />
+		<result property="lockAmount" column="lockAmount" />
+		<result property="accountType" column="accountType" />
+	</resultMap>
+
+	<select id="getById" parameterType="int" resultMap="accountUserResultMap">
+		SELECT * FROM
+		t_user WHERE id = #{id}
+	</select>
+	
+	<select id="getUserByCustId" parameterType="String" resultMap="accountUserResultMap">
+		SELECT * FROM t_user WHERE usrCustId =#{compCustId}
+	</select>
+	<!-- 根据彩生活用户id 取用户 -->
+	<select id="getUserByColorId" parameterType="long" resultMap="accountUserResultMap">
+		SELECT * FROM t_user WHERE colorid=#{colorUserId}
+	</select>
+	
+	<select id="getByIdNo" parameterType="string" resultMap="accountUserResultMap">
+		SELECT * FROM t_user WHERE id IN (SELECT userId FROM t_person WHERE idNo = #{idNo})
+	</select>
+	
+	<select id="countUsers" parameterType="map" resultType="long">
+		SELECT COUNT(*) FROM t_user u
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="userName != null">
+				AND u.username = #{userName}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="queryUsers" parameterType="map" resultType="map">
+		SELECT u.id userId,u.username,IFNULL(u.usableSum,0) usableSum,IFNULL(u.freezeSum,0) freezeSum,'0' forRePaySum,p.realName FROM t_user u
+		LEFT JOIN t_person p ON p.userid = u.id
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="userName != null">
+				AND u.username = #{userName}
+			</if>
+		</trim>
+		ORDER BY u.id
+		LIMIT #{beginCount},#{pageSize}
+	</select>
+
+	<select id="queryByUserIds" parameterType="map" resultMap="accountUserResultMap">
+		SELECT * FROM t_user
+		WHERE id IN
+		<foreach collection="userIdList" item="userId" open="(" close=")" separator=",">
+			#{userId}
+		</foreach>
+	</select>
+	
+	<update id="updateAmount" parameterType="accountUserDo">
+		UPDATE t_user
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="usableSum != null">
+				usableSum = usableSum + #{usableSum},
+			</if>
+			<if test="freezeSum != null">
+				freezeSum = freezeSum + #{freezeSum},
+			</if>
+			<if test="dueinSum != null">
+				dueinSum = dueinSum + #{dueinSum},
+			</if>
+			<if test="dueinCapitalSum != null">
+				dueinCapitalSum = dueinCapitalSum + #{dueinCapitalSum},
+			</if>
+			<if test="dueinAccrualSum != null">
+				dueinAccrualSum = dueinAccrualSum + #{dueinAccrualSum},
+			</if>
+			<if test="dueoutSum != null">
+				dueoutSum = dueoutSum + #{dueoutSum},
+			</if>
+			<if test="vipFee != null">
+				vipFee = vipFee + #{vipFee},
+			</if>
+			<if test="xmax != null">
+				xmax = xmax + #{xmax},
+			</if>
+			<if test="x != null">
+				x = x + #{x},
+			</if>
+			<if test="xmin != null">
+				xmin = xmin + #{xmin},
+			</if>
+			<if test="lockAmount != null">
+				lockAmount = lockAmount + #{lockAmount},
+			</if>
+		</trim>
+		WHERE id = #{id}
+	</update>
+
+	<!-- 改变用户的可以资金额，incrementSum 可以是负数 -->
+	<update id="updateUsableSum">
+		UPDATE t_user SET usableSum = usableSum +
+		#{IncrementSum} WHERE id = #{userId};
+	</update>
+
+    <select id="findUserByUserName" parameterType="String" resultMap="accountUserResultMap">
+        select  * from t_user where username=#{username} or mobilePhone=#{username} limit 1
+    </select>
+
+    <select id="findUserByEmail" parameterType="String" resultMap="accountUserResultMap">
+        select  * from t_user where email=#{email} limit 1
+    </select>
+
+    <select id="findUserByPhone" parameterType="String" resultMap="accountUserResultMap">
+        select  * from t_user where mobilePhone=#{mobilePhone} limit 1
+    </select>
+    
+    <select id="findUserByColorid" parameterType="String" resultMap="accountUserResultMap">
+        select  a.* from t_user a where a.colorid=#{colorid} limit 1
+    </select>
+
+    <insert id="saveUser" parameterType="accountUserDo"
+            keyProperty="id" useGeneratedKeys="true">
+        insert into t_user (username,password,mobilePhone,refferee,createTime,source,colorid)
+        values (#{username},#{password},#{mobilePhone},#{refferee},#{createTime},#{source},#{colorid})
+    </insert>
+
+    <select id="findUserByUserNamePwd" parameterType="Map" resultMap="accountUserResultMap">
+        select * from t_user where username=#{username} and password=#{password}
+    </select>
+
+    
+    <select id="queryByUserCusIds" parameterType="map" resultMap="accountUserResultMap">
+		SELECT * FROM t_user
+		WHERE usrCustId IN
+		<foreach collection="userIdList" item="userId" open="(" close=")" separator=",">
+			#{userId}
+		</foreach>
+	</select>
+
+    <update id="updateUserPhone" parameterType="Map" >
+        update t_user set  mobilePhone=#{mobilePhone}  where id=#{id};
+    </update>
+    
+    <update id="updatePersonPhone" parameterType="Map" >
+        update t_person set  cellPhone=#{mobilePhone},telephone=#{mobilePhone}  where userId=#{id};
+    </update>
+
+    <update id="updateUserEmail" parameterType="Map" >
+        update t_user set email=#{email}  where id=#{id};
+    </update>
+    
+    <update id="updateUserPassword" parameterType="Map" >
+        update t_user set password=#{password} where id=#{id};
+    </update>
+    
+    <update id="updatePayPassword" parameterType="Map" >
+        update t_user set payPassword=#{payPassword} where id=#{id};
+    </update>
+    
+
+    <update id="setReferee" parameterType="Map" >
+        update t_user set refferee=#{recommendId} where id=#{userId};
+    </update>
+
+    <update id="saveUserReffer" parameterType="Map" >
+        update t_user set reffer=#{reffer} where id=#{userId};
+    </update>
+    
+    <update id="updateUser" parameterType="accountUserDo">
+    	update t_user
+    	<set>
+    		<if test="usrCustId != null and usrCustId != 0">
+				usrCustId = #{usrCustId},
+    		</if>
+    		<if test="email != null and email != ''">
+    			email = #{email}
+    		</if>
+    	</set>
+    	<where>
+    		id = #{id}
+    	</where>
+    </update>
+    
+      <insert id="updateColourlifeInfo" parameterType="Map">
+        	insert into t_colourlife_info (userId,colourId,cid,cname,caddress) 
+        	values (#{id},#{colourId},#{cid},#{cname},#{caddress});
+    </insert>
+    
+    
+</mapper>

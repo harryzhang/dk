@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.trade.IRiskDetailDao">
+	<resultMap type="riskDetailDo" id="riskDetailResultMap">
+		<result property="id" column="id" />
+		<result property="riskInCome" column="riskInCome" />
+		<result property="riskSpending" column="riskSpending" />
+		<result property="riskDate" column="riskDate" />
+		<result property="riskBalance" column="riskBalance" />
+		<result property="riskType" column="riskType" />
+		<result property="resource" column="resource" />
+		<result property="trader" column="trader" />
+		<result property="borrowId" column="borrowId" />
+		<result property="remark" column="remark" />
+		<result property="operator" column="operator" />
+	</resultMap>
+
+	<select id="getById" parameterType="long" resultMap="riskDetailResultMap">
+		SELECT * 
+		  FROM t_risk_detail WHERE id = #{id}
+	</select>
+
+	<select id="selectRiskDetail" parameterType="Map" resultMap="riskDetailResultMap">
+		SELECT * 
+		  FROM t_risk_detail
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="id != null">  
+				AND id like #{id}
+			</if>
+			<if test="riskInCome != null">  
+				AND riskInCome like #{riskInCome}
+			</if>
+			<if test="riskSpending != null">  
+				AND riskSpending like #{riskSpending}
+			</if>
+			<if test="riskDate != null">  
+				AND riskDate like #{riskDate}
+			</if>
+			<if test="riskBalance != null">  
+				AND riskBalance like #{riskBalance}
+			</if>
+			<if test="riskType != null">  
+				AND riskType like #{riskType}
+			</if>
+			<if test="resource != null">  
+				AND resource like #{resource}
+			</if>
+			<if test="trader != null">  
+				AND trader like #{trader}
+			</if>
+			<if test="borrowId != null">  
+				AND borrowId like #{borrowId}
+			</if>
+			<if test="remark != null">  
+				AND remark like #{remark}
+			</if>
+			<if test="operator != null">  
+				AND operator like #{operator}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateRiskDetailById" parameterType="riskDetailDo">
+		UPDATE t_risk_detail 
+		   SET 		riskInCome = #{riskInCome}
+		,riskSpending = #{riskSpending}
+		,riskDate = #{riskDate}
+		,riskBalance = #{riskBalance}
+		,riskType = #{riskType}
+		,resource = #{resource}
+		,trader = #{trader}
+		,borrowId = #{borrowId}
+		,remark = #{remark}
+		,operator = #{operator}
+
+		WHERE id = #{id}
+	</update>	
+	
+	<insert id="addRiskDetail" parameterType="riskDetailDo" keyProperty="id" useGeneratedKeys="true" >
+		INSERT INTO t_risk_detail(riskInCome
+								 ,riskSpending
+								 ,riskDate
+								 ,riskBalance
+								 ,riskType
+								 ,resource
+								 ,trader
+								 ,borrowId
+								 ,remark
+								 ,operator )
+					   VALUES (	#{riskInCome}
+								,#{riskSpending}
+								,#{riskDate}
+								,#{riskBalance}
+								,#{riskType}
+								,#{resource}
+								,#{trader}
+								,#{borrowId}
+								,#{remark}
+								,#{operator});
+	</insert>
+	
+	<insert id="addRiskAndSumBalance" parameterType="riskDetailDo">
+	   <![CDATA[
+		INSERT INTO t_risk_detail(riskBalance,
+		                          riskSpending,
+		                          riskInCome,
+                                  riskDate,	
+                                  riskType,	
+                                  resource,	
+                                  trader,	
+                                  borrowId)
+		                   SELECT 
+		                          SUM(1000000+riskInCome-riskSpending),
+		                          #{riskSpending},
+		                          #{riskInCome},    
+		                          NOW(),
+								  #{riskType},
+								  #{resource}, 
+								  #{trader},
+								  #{borrowId} 
+						     FROM t_risk_detail
+		]]>
+	</insert>
+	
+	<delete id="deleteById" parameterType="long" >
+		DELETE FROM t_risk_detail WHERE id = #{id}
+	</delete>
+	
+</mapper>
+

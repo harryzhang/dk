@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.dal.account.IInviteCodeDao">
+	<resultMap type="inviteCodeDo" id="inviteCodeResultMap">
+		<result property="id" column="id" />
+		<result property="channel" column="channel" />
+		<result property="code" column="code" />
+		<result property="userId" column="userId" />
+	</resultMap>
+
+	<select id="findInviteCodeByDO" parameterType="inviteCodeDo" resultMap="inviteCodeResultMap">
+		SELECT *
+		FROM m_invite_code
+		<where>
+			<if test="userId != null">
+				userId= #{userId}
+			</if>
+			<if test="code != null">
+				AND code = #{code}
+			</if>
+		</where>
+	</select>
+
+	<update id="updateInviteCode" parameterType="inviteCodeDo">
+		UPDATE m_invite_code SET userId = #{userId},createTime=now() where id=#{id} 
+	</update>
+</mapper>
+

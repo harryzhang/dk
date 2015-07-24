@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+
+	<!-- 邮件 短信 -->
+	<bean id="notifyManagerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.hehenian.biz.component.notify.manager.dao.INotifyManagerDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+
+	<bean id="smsNotifyManagerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.hehenian.biz.component.notify.sms.dao.ISMSNotifyManagerDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+
+	<bean id="smsDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.hehenian.biz.component.notify.sms.dao.ISMSDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="notifyLoanDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.hehenian.biz.component.notify.sms.dao.INotifyLoanDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+
+	<bean id="mailNotifyDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.hehenian.biz.component.notify.mail.dao.IMailNotifyDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+
+	<bean id="notifyServiceImpl"
+		class="com.hehenian.biz.service.notify.impl.NotifyServiceImpl">
+		<property name="notifyManager" ref="notifyManagerComponent" />
+		<property name="notifyComponentMap">
+			<map>
+				<entry key="MAIL" value-ref="mailNotifyComponent" />
+				<entry key="SMS" value-ref="smsComponent" />
+			</map>
+		</property>
+		<property name="senderMap">
+			<map>
+				<entry key="MAIL" value-ref="mailNotifyService" />
+				<entry key="SMS" value-ref="smsNotifyService" />
+			</map>
+		</property>
+
+	</bean>
+
+	<bean id="notifyService"
+		class="com.hehenian.biz.service.notify.impl.NotifyServiceImpl">
+		<property name="notifyManager" ref="notifyManagerComponent" />
+		<property name="notifyComponentMap">
+			<map>
+				<entry key="MAIL" value-ref="mailNotifyComponent" />
+				<entry key="SMS" value-ref="smsComponent" />
+			</map>
+		</property>
+		<property name="senderMap">
+			<map>
+				<entry key="MAIL" value-ref="mailNotifyService" />
+				<entry key="SMS" value-ref="smsNotifyService" />
+			</map>
+		</property>
+	</bean>
+		<!-- 融资端站内通知发送 -->
+	<bean id="notifyLoanService"
+		class="com.hehenian.biz.service.notify.impl.NotifyLoanServiceImpl">
+		<property name="notifyManager" ref="notifyLoanComponent" />
+	</bean>
+	
+	<bean id="notifySchedule" class="com.hehenian.biz.service.notify.impl.NotifySchedule">
+		<property name="notifyService" ref="notifyService" />
+		<property name="notifyDaoMap">
+			<map>
+				<entry key="SMS" value-ref="smsDao" />
+				<entry key="MAIL" value-ref="mailNotifyDao" />
+			</map>
+		</property>
+	</bean>
+	
+	
+	
+</beans>

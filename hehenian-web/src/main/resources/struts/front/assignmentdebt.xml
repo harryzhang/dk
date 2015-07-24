@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="assignmentdebt" extends="login-default" namespace="/">
+
+		<!-- 已发布的债权 -->
+		<action name="queryFrontAllDebt" class="frontDebtAction" method="queryFrontAllDebt">
+			<result name="success">
+				/WEB-INF/page/front/creditor-index.jsp
+			</result>
+		</action>
+		<!-- 正在转让的债权 -->
+		<action name="queryPublishDebt" class="frontDebtAction" method="queryPublishDebt">
+			<result name="success">
+				/WEB-INF/page/front/finance-creditor-index.jsp
+			</result>
+		</action>
+
+		<!-- 即将发布债权 -->
+		<action name="queryFrontRedayDebt" class="frontDebtAction" method="queryFrontRedayDebt">
+			<result name="success">
+				/WEB-INF/page/front/reday-publish-assignment.jsp
+			</result>
+		</action>
+
+
+		<action name="queryDebtDetail" class="frontDebtAction" method="queryDebtDetail">
+			<result name="success">
+				/WEB-INF/page/front/creditor-detail1.jsp
+			</result>
+		</action>
+		<action name="queryDebtDetailHHN" class="frontDebtAction" method="queryDebtDetailHHN">
+			<result name="success">
+				/WEB-INF/page/front/creditor-detail.jsp
+			</result>
+		</action>
+		<action name="buyDebtDetailHHN" class="frontDebtAction" method="buyDebtDetailHHN">
+			<result name="success">
+				/WEB-INF/page/front/creditor-detail-buy.jsp
+			</result>
+		</action>
+		<action name="debtMSGInit" class="frontDebtAction" method="debtMSGInit">
+			<result name="success">/WEB-INF/page/front/debt-message-list.jsp
+			</result>
+			<result name="404">/error/404.jsp</result>
+		</action>
+		<action name="queryAcutionRecordInfo" class="frontDebtAction" method="queryAcutionRecordInfo">
+			<result name="success">/WEB-INF/page/front/debt-auction-records.jsp
+			</result>
+			<result name="404">/error/404.jsp</result>
+		</action>
+		<action name="queryFrontSuccessDebt" class="frontDebtAction" method="queryFrontSuccessDebt">
+			<result name="success">/WEB-INF/page/front/creditor-success-index.jsp
+			</result>
+			<result name="404">/error/404.jsp</result>
+		</action>
+
+	</package>
+
+	<package name="assignmentdebtlogin" extends="login-default" namespace="/">
+
+		<!-- 我要转让债权 -->
+		<action name="queryFrontCanDebt" class="homeDebtAction" method="queryCanAssignmentDebt">
+			<result name="success">
+				/WEB-INF/page/front/creditor-can-debt-index.jsp
+			</result>
+		</action>
+		<action name="addDebtMSG" class="frontDebtAction" method="addDebtMSG">
+			<result name="success">/WEB-INF/page/front/debt-message-submit.jsp
+			</result>
+			<result name="input">/WEB-INF/page/front/debt-message-submit.jsp
+			</result>
+			<result name="nologin">/index.jsp</result>
+		</action>
+		<action name="auctingDebtInit" class="frontDebtAction" method="auctingDebtInit">
+			<result name="success">/WEB-INF/page/front/creditor-auction.jsp</result>
+
+		</action>
+		<!-- 
+		<action name="addAuctingDebt" class="frontDebtAction" method="addAuctingDebt">
+			<result name="input">/WEB-INF/page/front/creditor-auction-add.jsp
+			</result>
+		</action>
+		 --> 
+	</package>
+
+</struts>

@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanCreditRecDao">
+	<resultMap type="loanCreditRecDo" id="loanCreditRecResultMap">
+		<result property="creditId" column="credit_id" />
+		<result property="creditRecId" column="credit_rec_id" />
+		<result property="creditItem" column="credit_item" />
+		<result property="creditItemVal" column="credit_item_val" />
+		<result property="creditAmt" column="credit_amt" />
+		<result property="remark" column="remark" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="loanCreditRecResultMap">
+		SELECT * 
+		  FROM t_loan_credit_rec WHERE credit_rec_id = #{credit_rec_id}
+	</select>
+
+	<select id="selectLoanCreditRec" parameterType="Map" resultMap="loanCreditRecResultMap">
+		SELECT * 
+		  FROM t_loan_credit_rec
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="creditId != null">  
+				AND credit_id like #{creditId}
+			</if>
+			<if test="creditRecId != null">  
+				AND credit_rec_id like #{creditRecId}
+			</if>
+			<if test="creditItem != null">  
+				AND credit_item like #{creditItem}
+			</if>
+			<if test="creditItemVal != null">  
+				AND credit_item_val like #{creditItemVal}
+			</if>
+			<if test="creditAmt != null">  
+				AND credit_amt like #{creditAmt}
+			</if>
+			<if test="remark != null">  
+				AND remark like #{remark}
+			</if>
+			<if test="createTime != null">  
+				AND create_time like #{createTime}
+			</if>
+			<if test="updateTime != null">  
+				AND update_time like #{updateTime}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateLoanCreditRecById" parameterType="loanCreditRecDo">
+		UPDATE t_loan_credit_rec 
+		   SET 		<if test="creditId != null">  
+				credit_id = #{creditId}
+		</if>		
+		<if test="creditItem != null">  
+				,credit_item = #{creditItem}
+		</if>		
+		<if test="creditItemVal != null">  
+				,credit_item_val = #{creditItemVal}
+		</if>		
+		<if test="creditAmt != null">  
+				,credit_amt = #{creditAmt}
+		</if>		
+		<if test="remark != null">  
+				,remark = #{remark}
+		</if>		
+		<if test="createTime != null">  
+				,create_time = #{createTime}
+		</if>		
+		<if test="updateTime != null">  
+				,update_time = #{updateTime}
+		</if>		
+
+		WHERE credit_rec_id = #{credit_rec_id} 
+	</update>	
+	
+	<insert id="addLoanCreditRec" parameterType="loanCreditRecDo" keyProperty="creditRecId"
+		useGeneratedKeys="true" >
+		INSERT INTO t_loan_credit_rec(		credit_id
+		,credit_item
+		,credit_item_val
+		,credit_amt
+		,remark
+		,create_time
+		,update_time
+)
+		     VALUES (		#{creditId}
+		,#{creditItem}
+		,#{creditItemVal}
+		,#{creditAmt}
+		,#{remark}
+		,now()
+		,now()
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM t_loan_credit_rec WHERE credit_rec_id = #{credit_rec_id}
+	</delete>
+	
+</mapper>
+

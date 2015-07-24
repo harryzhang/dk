@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="frontMediaReport" extends="injectionInterceptor-0" namespace="/">
+
+
+        <!-- 前台初始化媒体报道列表 -->
+        <action name="initMediaReport" class="frontMediaReportAction" method="frontQueryMediaReportdInit">
+			<result name="success">/WEB-INF/page/front/mediareport_index.jsp</result>
+        </action>
+        <!-- 媒体报道列表 -->
+		<action name="queryMediaReportListPage" class="frontMediaReportAction" method="frontQueryMediaReportdList">
+			<result name="success">/WEB-INF/page/front/mediaReport_list.jsp</result>
+        </action>
+        
+        <!--根据Id获取媒体报道详情 -->
+        <action name="frontMediaReportDetails" class="frontMediaReportAction" method="frontQueryMediaReportById">
+        </action>
+        
+         <!--根据Id获取媒体报道详情 -->
+        <action name="frontMedialinkId" class="frontMediaReportAction" method="frontMedialinkId">
+        	<result name="success">/WEB-INF/page/front/link_info_detail.jsp</result>
+        </action>
+
+	</package>
+</struts>

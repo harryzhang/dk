@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<package name="shipingadmin" extends="admin-default" namespace="/admin">
+	  	<action name="showshipingpop" class="showShipinAdminAction"
+			method="showshipingpop">
+			<result name="success" >/WEB-INF/page/admin/user-shipin-pop.jsp</result>
+		</action>
+		
+		<action name="updateShipingadmin" class="showShipinAdminAction"
+			method="updateShipingadmin">
+		</action>
+		<!-- 审核统计查看图片 -->
+		<action name="countindex" class="showShipinAdminAction"
+			method="countindex">
+			<result>/WEB-INF/page/admin/statistics-show.jsp</result>
+		</action>
+		
+		
+		<action name="queryoneindex" class="showShipinAdminAction"
+			method="queryoneindex">
+			<result>/WEB-INF/page/admin/statistics-show-1.jsp</result>
+		</action>
+		
+		
+	    
+	
+</package>
+</struts>

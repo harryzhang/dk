@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="frontSuccssStory" extends="injectionInterceptor-0" namespace="/">
+		<!-- 成功故事列表(显示二条记录) -->
+		<action name="frontQuerySuccessStoryList" class="frontSuccessStoryAction" method="frontQuerySuccessStoryList">
+			<result name="success">/WEB-INF/page/front/story_info.jsp</result>	
+        </action>
+
+        <!-- 前台初始化成功故事列表 -->
+        <action name="initSuccessStory" class="frontSuccessStoryAction" method="initSuccessStory">
+			<result name="success">/WEB-INF/page/front/story_index.jsp</result>
+        </action>
+        <!-- 成功故事列表 -->
+		<action name="frontQuerySuccessStoryListPage" class="frontSuccessStoryAction" method="frontQuerySuccessStoryListPage">
+			<result name="success">/WEB-INF/page/front/story_info_list.jsp</result>
+        </action>
+        
+        <!--根据Id获取成功故事详情 -->
+        <action name="frontQuerySuccessStoryDetail" class="frontSuccessStoryAction" method="frontQuerySuccessStoryById">
+            <result name="success">/WEB-INF/page/front/story_info_detail.jsp</result>
+        </action>
+
+	</package>
+</struts>

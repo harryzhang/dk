@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="shortMassege" extends="admin-default" namespace="/admin">
+	
+		<action name="sendShortMassegeInit" class="shortMassegeAction" method="sendShortMassegeInit">
+			<result name="success" >/WEB-INF/page/admin/shortMessege_index.jsp</result>
+		</action>
+		<action name="sendShortMassege" class="shortMassegeAction" method="sendShortMassege">
+			<result name="success" >/WEB-INF/page/admin/shortMassege_send.jsp</result>
+		</action>
+		<action name="queryShortMaseegeListInit" class="shortMassegeAction" method="sendShortMassegeInit">
+			<result name="success" >/WEB-INF/page/admin/shortMassege_list_index.jsp</result>
+		</action>
+		<action name="queryShortMaseegeList" class="shortMassegeAction" method="queryShortMaseegeList">
+			<result name="success" >/WEB-INF/page/admin/shortMassege_list_info.jsp</result>
+		</action>
+		<action name="addShortMassege" class="shortMassegeAction" method="addShortMassege">
+			<result name="input" >/WEB-INF/page/admin/shortMassege_send.jsp</result>
+			<result name="success" type="redirectAction">queryShortMaseegeListInit.do</result>
+		</action>
+		<action name="deleteShortMassege" class="shortMassegeAction" method="deleteShortMassege">
+			<result name="success" type="redirectAction">queryShortMaseegeListInit.do</result>
+		</action>
+		<action name="sendMaseege" class="shortMassegeAction" method="sendMaseege">
+			<result name="success" type="redirectAction">queryShortMaseegeListInit.do</result>
+		</action>
+	</package>
+</struts>

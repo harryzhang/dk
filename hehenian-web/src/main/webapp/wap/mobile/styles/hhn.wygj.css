@@ -1,0 +1,30 @@
+/*物业国际*/
+a:hover, a:active, a:focus { color:#333; }
+.t,
+.title,
+.t-a,
+.btn,
+.btn-c,
+.invest-fixed ul li a { background-color:#00678a;background-image:linear-gradient(top,#0092c3,#00678a); background-image:-webkit-linear-gradient(top,#0092c3,#00678a);background-image:-moz-linear-gradient(top,#0092c3,#00678a); background-image:-o-linear-gradient(top,#0092c3,#00678a); background-image:-ms-linear-gradient(top,#0092c3,#00678a); }
+
+.btn-grey { background:#aaa; color:#fff }
+.btn-red { background:#ee7f14; color:#fff; }
+.btn-dark { background:#999; color:#fff }
+
+.progress-round i { color:#0092c3; }
+.invest-title { background:#f0f0f0; color:#4d4d4d; } 
+.invest-title span { color:#999; border-bottom:#ccc solid 2px; }
+.input-text { color:#0092c3; }
+/*index*/
+.income-item li i { background-image:url(../images/index_compare_wygj.png); }
+/*account*/
+.account-list2 { background:#0092c3;  }
+.account-list2 li.account-zrzz strong { color:#0092c3;}
+
+/*invest detail*/
+.tabs-nav li.on { border-bottom:#0092c3 solid 2px; color:#0092c3; }
+.tabs-line{ background:#0092c3; }
+.tabs-line::before{ border:6px solid #0092c3; border-color:transparent transparent #0092c3 transparent; }
+
+/*qa*/
+.fqa dt.select span {color:#0092c3; }

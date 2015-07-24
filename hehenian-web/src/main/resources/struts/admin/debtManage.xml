@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+     <package name="debtmanage" extends="admin-default" namespace="/admin">
+        <action name="queryApplyDebtInit" class="debtManageAction" method="queryApplyDebtInit">
+			<result name="success">/WEB-INF/page/admin/debt_manager_index.jsp</result>
+		</action>
+		 <action name="queryApplyDebtInfo" class="debtManageAction" method="queryApplyDebtInfo">
+			<result name="success">/WEB-INF/page/admin/debt_manager_index_info.jsp</result>
+		</action>
+		<action name="queryApplyDebtAuditDetail" class="debtManageAction" method="queryApplyDebtAuditDetail">
+			<result name="success">/WEB-INF/page/admin/debt_manager_audit.jsp</result>
+		</action>
+	<!-- <action name="auditDebt" class="debtManageAction" method="auditDebt"> <result name="success">/WEB-INF/page/admin/debt_manager_index.jsp</result> </action> -->
+		
+		<action name="queryAuctingAssignmentDebtInit" class="debtManageAction" method="queryAuctingAssignmentDebtInit">
+			<result name="success">/WEB-INF/page/admin/debt_manager_aucting_index.jsp</result>
+		</action>
+		 <action name="queryAuctingAssignmentDebtInfo" class="debtManageAction" method="queryAuctingAssignmentDebtInfo">
+			<result name="success">/WEB-INF/page/admin/debt_manager_aucting_index_info.jsp</result>
+		</action>
+		
+		<action name="querySuccessAssignmentDebtInit" class="debtManageAction" method="querySuccessAssignmentDebtInit">
+			<result name="success">/WEB-INF/page/admin/debt_manager_success_index.jsp</result>
+		</action>
+		 <action name="querySuccessAssignmentDebtInfo" class="debtManageAction" method="querySuccessAssignmentDebtInfo">
+			<result name="success">/WEB-INF/page/admin/debt_manager_success_index_info.jsp</result>
+		</action>
+		
+		<action name="queryFailDebtInit" class="debtManageAction" method="queryFailDebtInit">
+			<result name="success">/WEB-INF/page/admin/debt_manager_fail_index.jsp</result>
+		</action>
+		
+		<action name="queryFailDebtInit2" class="debtManageAction" method="queryFailDebtInit">
+			<result name="success">/WEB-INF/page/admin/debt_manager_fail_index.jsp</result>
+		</action>
+		 <action name="queryFailDebtInfo" class="debtManageAction" method="queryFailDebtInfo">
+			<result name="success">/WEB-INF/page/admin/debt_manager_fail_index_info.jsp</result>
+		</action>
+		<!-- <action name="queryFailDebtInfo" class="debtManageAction" method="queryFailDebtInfo">
+			<result name="success">/WEB-INF/page/admin/debt_manager_fail_index_info.jsp</result>
+		</action> --> 
+		 <action name="queryManageDebtDetail" class="debtManageAction" method="queryManageDebtDetail">
+			<result name="success">/WEB-INF/page/admin/debt_manager_detail.jsp</result>
+		</action>
+		<action name="cancelManageDebt" class="debtManageAction" method="cancelManageDebt">
+			<result name="success">/WEB-INF/page/admin/debt_manager_aucting_index.jsp</result>
+		</action>
+		<action name="debtEndSuccess" class="debtManageAction" method="debtEndSuccess">
+			<result name="success">/WEB-INF/page/admin/debt_manager_aucting_index.jsp</result>
+		</action>
+			<action name="updateDebtFeeRate" class="debtManageAction" method="updateDebtFeeRate">
+			<result name="success">/WEB-INF/page/admin/debt_fee_update.jsp</result>
+			<result name="input">/WEB-INF/page/admin/debt_fee_update.jsp</result>
+		</action>
+		<action name="updateDebtFeeRateInit" class="debtManageAction" method="updateDebtFeeRateInit">
+			<result name="success">/WEB-INF/page/admin/debt_fee_update.jsp</result>
+		</action>
+    </package>
+</struts>

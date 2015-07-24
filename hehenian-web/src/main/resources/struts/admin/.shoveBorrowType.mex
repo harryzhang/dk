@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="shoveBorrowtype" location="390,10" size="770,350">
+    <action name="shoveTypeAllInit" location="555,162" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="shove_borrow_type_index.jsp" />
+      </result>
+    </action>
+    <action name="shoveTypeAllList" location="555,267" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="shove_borrow_type_info.jsp" />
+      </result>
+    </action>
+    <action name="updateShoveTypeInit" location="310,267" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="update_shove_borrow_type.jsp" />
+      </result>
+    </action>
+    <action name="updateShoveTypeInfo" location="310,57" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="shove_borrow_type_index.jsp" />
+      </result>
+    </action>
+    <action name="updateBorrowType" location="65,58" size="150,40" />
+  </package>
+  <webResource name="shove_borrow_type_index.jsp" path="/WEB-INF/page/admin/shove_borrow_type_index.jsp" location="1205,30" size="150,55" />
+  <webResource name="shove_borrow_type_info.jsp" path="/WEB-INF/page/admin/shove_borrow_type_info.jsp" location="1209,240" size="150,55" />
+  <webResource name="update_shove_borrow_type.jsp" path="/WEB-INF/page/admin/update_shove_borrow_type.jsp" location="10,240" size="150,55" />
+</Struts2Diagram>
+

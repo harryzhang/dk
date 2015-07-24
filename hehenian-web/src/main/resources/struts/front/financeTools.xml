@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="frontfinanceTools" extends="injectionInterceptor-0" namespace="/">
+		<action name="frontfinanceTools" class="financeToolsAction" method="toolsCalculate">
+		</action>
+		
+		<action name="queryPhoneInfo" class="financeToolsAction" method="queryPhoneInfo">
+			
+		</action>	
+		
+		<action name="toolsCalculateDay" class="financeToolsAction" method="toolsCalculateDay">
+			
+		</action>
+		
+		<action name="queryIPInfo" class="financeToolsAction" method="queryIPInfo">
+			
+		</action>
+		
+		<action name="queryBorrowClause" class="clauseAction" method="queryBorrowClause">
+			
+		</action>
+		
+		<action name="incomeCalculate" class="financeToolsAction" method="incomeCalculate">
+			
+		</action>
+		
+		<action name="howTofinance" class="financeToolsAction" method="howToFinanceInit">
+			<result name="success">
+				/WEB-INF/page/front/rhlc-info.jsp
+			</result>
+		</action>	
+		
+			
+	</package>
+</struts>

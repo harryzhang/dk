@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.dal.trade.IPreRepaymentDao">
+	<resultMap type="preRepaymentDo" id="preRepaymentResultMap">
+		<result property="id" column="id" />
+		<result property="repayPeriod" column="repayPeriod" />
+		<result property="repayDate" column="repayDate" />
+		<result property="stillPrincipal" column="stillPrincipal" />
+		<result property="stillInterest" column="stillInterest" />
+		<result property="principalBalance" column="principalBalance" />
+		<result property="interestBalance" column="interestBalance" />
+		<result property="consultFee" column="consultFee" />
+		<result property="mrate" column="mRate" />
+		<result property="totalSum" column="totalSum" />
+		<result property="totalAmount" column="totalAmount" />
+		<result property="borrowId" column="borrowId" />
+		<result property="identify" column="identify" />
+		<result property="sort" column="sort" />
+		<result property="repayFee" column="repayFee" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="preRepaymentResultMap">
+		SELECT *
+		FROM t_pre_repayment WHERE id = #{id}
+	</select>
+
+	<select id="selectPreRepayment" parameterType="Map"
+		resultMap="preRepaymentResultMap">
+		SELECT *
+		FROM t_pre_repayment
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != null">
+				AND id like #{id}
+			</if>
+			<if test="repayPeriod != null">
+				AND repayPeriod like #{repayPeriod}
+			</if>
+			<if test="repayDate != null">
+				AND repayDate like #{repayDate}
+			</if>
+			<if test="stillPrincipal != null">
+				AND stillPrincipal like #{stillPrincipal}
+			</if>
+			<if test="stillInterest != null">
+				AND stillInterest like #{stillInterest}
+			</if>
+			<if test="principalBalance != null">
+				AND principalBalance like #{principalBalance}
+			</if>
+			<if test="interestBalance != null">
+				AND interestBalance like #{interestBalance}
+			</if>
+			<if test="consultFee != null">
+				AND consultFee like #{consultFee}
+			</if>
+			<if test="mrate != null">
+				AND mRate like #{mrate}
+			</if>
+			<if test="totalSum != null">
+				AND totalSum like #{totalSum}
+			</if>
+			<if test="totalAmount != null">
+				AND totalAmount like #{totalAmount}
+			</if>
+			<if test="borrowId != null">
+				AND borrowId like #{borrowId}
+			</if>
+			<if test="identify != null">
+				AND identify like #{identify}
+			</if>
+			<if test="sort != null">
+				AND sort like #{sort}
+			</if>
+			<if test="repayFee != null">
+				AND repayFee like #{repayFee}
+			</if>
+		</trim>
+	</select>
+
+	<update id="updatePreRepaymentById" parameterType="preRepaymentDo">
+		UPDATE t_pre_repayment
+		SET
+		<if test="repayPeriod != null">
+			repayPeriod = #{repayPeriod}
+		</if>
+		<if test="repayDate != null">
+			,repayDate = #{repayDate}
+		</if>
+		<if test="stillPrincipal != null">
+			,stillPrincipal = #{stillPrincipal}
+		</if>
+		<if test="stillInterest != null">
+			,stillInterest = #{stillInterest}
+		</if>
+		<if test="principalBalance != null">
+			,principalBalance = #{principalBalance}
+		</if>
+		<if test="interestBalance != null">
+			,interestBalance = #{interestBalance}
+		</if>
+		<if test="consultFee != null">
+			,consultFee = #{consultFee}
+		</if>
+		<if test="mrate != null">
+			,mRate = #{mrate}
+		</if>
+		<if test="totalSum != null">
+			,totalSum = #{totalSum}
+		</if>
+		<if test="totalAmount != null">
+			,totalAmount = #{totalAmount}
+		</if>
+		<if test="borrowId != null">
+			,borrowId = #{borrowId}
+		</if>
+		<if test="identify != null">
+			,identify = #{identify}
+		</if>
+		<if test="sort != null">
+			,sort = #{sort}
+		</if>
+		<if test="repayFee != null">
+			,repayFee = #{repayFee}
+		</if>
+
+		WHERE id = #{id} and version = #{version}
+	</update>
+
+	<insert id="addPreRepayment" parameterType="preRepaymentDo"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO t_pre_repayment(
+		repayPeriod
+		,repayDate
+		,stillPrincipal
+		,stillInterest
+		,principalBalance
+		,interestBalance
+		,consultFee
+		,mRate
+		,totalSum
+		,totalAmount
+		,borrowId
+		,identify
+		,sort
+		,repayFee
+		)
+		VALUES ( #{repayPeriod}
+		,#{repayDate}
+		,#{stillPrincipal}
+		,#{stillInterest}
+		,#{principalBalance}
+		,#{interestBalance}
+		,#{consultFee}
+		,#{mrate}
+		,#{totalSum}
+		,#{totalAmount}
+		,#{borrowId}
+		,#{identify}
+		,#{sort}
+		,#{repayFee}
+		);
+	</insert>
+
+	<delete id="deleteById" parameterType="Long">
+		DELETE FROM
+		t_pre_repayment WHERE id = #{id}
+	</delete>
+
+</mapper>
+

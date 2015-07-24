@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="question" extends="admin-default" namespace="/admin">
+		<action name="queryQuestionListInit" class="questionAction" method="queryQuestionListInit">
+			<result name="success">/WEB-INF/page/admin/user_question_index.jsp</result>
+        </action>  
+        <action name="queryQuestionList" class="questionAction" method="queryQuestionList">
+			<result name="success">/WEB-INF/page/admin/user_question_info.jsp</result>
+        </action>  
+        <action name="deleteQuestion" class="questionAction" method="deleteQuestion">
+			<result name="success" type="redirectAction">queryQuestionListInit.do</result>
+			</action> 
+        <action name="updateQuestionStatus" class="questionAction" method="updateQuestionStatus">
+        </action> 
+	</package>
+</struts>

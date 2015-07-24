@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="orderCenter" extends="pay-default" namespace="/">
+		
+		<action name="orderShopping" class="orderCenterAction" method="orderShopping">
+			<result name="success">/WEB-INF/page/usercenter/shopping_index.jsp</result>
+		</action>
+		
+		<action name="addOrder" class="orderCenterAction" method="addOrder"></action>
+		
+		<action name="addOrderMall" class="orderCenterAction" method="addOrderMall"></action>
+		
+		<action name="orderInfo" class="orderCenterAction" method="orderInfo">
+			<result name="success">/WEB-INF/page/usercenter/order_info.jsp</result>
+		</action>
+		
+		<action name="orderShoppingMall" class="orderCenterAction" method="orderShoppingMall">
+			<result name="success">/WEB-INF/page/usercenter/shopping_index_mall.jsp</result>
+			<result name="input"  type="redirect">shoppingListInit.do</result>
+		</action>
+		
+		
+		<action name="addShoppingAddressInit" class="orderCenterAction" method="addShoppingAddressInit">
+			<result name="success">/WEB-INF/page/usercenter/shopping_user_address_add.jsp</result>
+		</action>
+		<action name="ajaxqueryRegion" class="orderCenterAction" method="ajaxqueryRegion">
+		</action>
+		
+		<action name="updateShoppingAddressInit" class="orderCenterAction" method="updateShoppingAddressInit">
+			<result name="success">/WEB-INF/page/usercenter/shopping_user_address_update.jsp</result>
+		</action>
+		
+		<action name="deleteShoppingAddress" class="orderCenterAction" method="deleteShoppingAddress">
+			<result name="success" type="redirect">orderShoppingAddressList.do</result>
+		</action>
+		
+		<action name="orderShoppingAddressList" class="orderCenterAction" method="orderShoppingAddressList">
+			<result name="success">/WEB-INF/page/usercenter/shopping_address_list.jsp</result>
+		</action>
+		
+		
+	</package>
+</struts>

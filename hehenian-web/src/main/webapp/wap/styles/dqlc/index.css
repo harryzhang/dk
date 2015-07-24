@@ -1,0 +1,40 @@
+
+.products{
+	position: relative;
+	height: 120px;
+	background: #ffffff;
+	border: 1px solid #dddddd;
+}
+.products p{
+	position: absolute;
+}
+.products .productsName{
+	color:#333333;
+	font-size: 20px;
+	top:25%;
+	left: 14.8%;
+}
+.products .left1{
+	left: 14.8%;
+}
+.products .left2{
+	left: 33.3%;
+}
+
+.products .left3{
+	left: 68.5%;
+}
+.products .top1{
+	top:52%;
+}
+.products .top2{
+	top:68.2%;
+}
+.products .font1{
+	font-size: 12px;
+	color: #999999;
+}
+.products .font2{
+	font-size: 22px;
+	color: #666666;
+}

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="myhomeapp" extends="app-default" namespace="/app">
+		
+		<action name="renewalVIPInit" class="homeInfoSettingAction" method="renewalVIPInit">
+		</action>
+		<action name="renewalVIPSubmit" class="homeInfoSettingAction" method="renewalVIPSubmit"/>
+		
+		<!-- 个人设置页面加载 -->
+		<action name="homeInfoSettingInit" class="homeInfoSettingAction" method="homeInfoSettingInit">
+		</action>
+		<action name="queryHeadImg" class="homeInfoSettingAction" method="queryHeadImg"/>
+
+		<action name="updatePersonImg" class="homeInfoSettingAction" method="updatePersonImg"/>
+		
+		<action name="updateLoginPass" class="homeInfoSettingAction" method="updateLoginPass">
+		</action>
+		
+		<action name="addBankInfo" class="homeInfoSettingAction" method="addBankInfo">
+		</action>
+		
+		<action name="deleteBankInfo" class="homeInfoSettingAction" method="deleteBankInfo">
+		</action>
+		
+		<action name="updateBankInfo" class="homeInfoSettingAction" method="updateBankInfo">
+		</action>
+		
+		<action name="queryOneBankInfo" class="homeInfoSettingAction" method="queryOneBankInfo">
+		</action>
+		
+		<action name="bankChangeCancel" class="homeInfoSettingAction" method="bankChangeCancel">
+		</action>
+		
+		<action name="queryBankInfoInit" class="homeInfoSettingAction" method="queryBankInfoInit">
+			<!-- <result name="success">/WEB-INF/page/front/wdzh-grsz-bankCard.jsp</result>-->
+			<!--  <result name="personal" type="redirect">owerInformationInit.do</result> -->
+		</action>
+		
+		<action name="bindingMobileInit" class="homeInfoSettingAction" method="bindingMobileInit">
+		</action>
+		
+		<action name="addBindingMobile" class="homeInfoSettingAction" method="addBindingMobile">
+		</action>
+		
+		<action name="addChangeBindingMobile" class="homeInfoSettingAction" method="addChangeBindingMobile">
+		</action>
+		
+		<action name="addNotesSetting" class="homeInfoSettingAction" method="addNotesSetting">
+		</action>
+		
+		<action name="queryNotesSettingInit" class="homeInfoSettingAction" method="queryNotesSettingInit">
+		</action>
+		
+		<!-- 我的帐户 站内信 -->
+		<action name="mailNoticeInit" class="homeInfoSettingAction" method="mailNoticeInit">
+		</action>
+		
+		<action name="judgeUserName" class="homeInfoSettingAction" method="judgeUserName">
+		</action>
+		
+		<action name="addMail" class="homeInfoSettingAction" method="addMail">
+		</action>
+		
+		<action name="queryReciveMails" class="homeInfoSettingAction" method="queryReciveMails">
+		</action>
+		
+		<action name="querySendMailsInit" class="homeInfoSettingAction" method="querySendMailsInit">
+		</action>
+		
+		<action name="queryReceiveMailsInit" class="homeInfoSettingAction" method="queryReceiveMailsInit">
+		</action>
+		
+		<action name="querySysMailsInit" class="homeInfoSettingAction" method="querySysMailsInit">
+		</action>
+		
+		<action name="querySendMails" class="homeInfoSettingAction" method="querySendMails">
+		</action>
+		
+		<action name="querySysMails" class="homeInfoSettingAction" method="querySysMails">
+		</action>
+		
+		<action name="replayMail" class="homeInfoSettingAction" method="replayMail">
+		</action>
+		
+		<!-- 删除邮件 -->
+		<action name="deleteSendMails" class="homeInfoSettingAction" method="deleteMails">
+		</action>
+		
+		<action name="deleteReceiveMails" class="homeInfoSettingAction" method="deleteMails">
+		</action>
+		
+		<action name="deleteSysMails" class="homeInfoSettingAction" method="deleteMails">
+		</action>
+		<!-- 查看邮件 -->
+		<action name="queryEmailById" class="homeInfoSettingAction" method="queryEmailById">
+		</action>
+		
+		<!--将信息标记为已读  -->
+		<action name="updateReceive2Readed" class="homeInfoSettingAction" method="updateMail">
+		</action>
+		
+		<action name="updateSys2Readed" class="homeInfoSettingAction" method="updateMail">
+		</action>
+		
+		<!-- 将信息标记为未读 -->
+		<action name="updateReceive2UNReaded" class="homeInfoSettingAction" method="updateMail">
+		</action>
+		
+		<action name="updateSys2UNReaded" class="homeInfoSettingAction" method="updateMail">
+		</action>
+		
+		<!-- 我要理财  成为理财人 -->
+		<action name="become2FinanceInit" class="homeInfoSettingAction" method="become2FinanceInit">
+		</action>
+		
+		<action name="financerWaiting" class="homeInfoSettingAction" method="financerWaiting">
+		</action>
+		
+		<action name="addBecomeFinance" class="homeInfoSettingAction" method="addBecomeFinance">
+		</action>
+		
+		<!-- 已经发布的借款 -->
+		
+		<action name="homeBorrowAuditList" class="myHomeAppAction" method="homeBorrowAuditList">
+		</action>
+		
+		<action name="homeBorrowingList" class="myHomeAppAction" method="homeBorrowingList">
+		</action>
+		
+		<!-- 贷款统计 -->
+		<action name="loanStatisInit" class="myHomeAppAction" method="loanStatisInit">
+		</action>
+		<!-- 理财统计 -->
+		<action name="financeStatisInit" class="myHomeAppAction" method="financeStatisInit">
+		</action>
+		
+		<!-- 我的投标 成功的借款-->
+		
+		<action name="homeBorrowInvestList" class="myHomeAppAction" method="homeBorrowInvestList">
+		</action>
+		<!-- 我的投标 招标中的借款-->
+
+		<action name="homeBorrowTenderInList" class="myHomeAppAction" method="homeBorrowTenderInList">
+		</action>
+		<!-- 我的投标 回收中的借款-->
+		
+		<action name="homeBorrowRecycleList" class="myHomeAppAction" method="homeBorrowRecycleList">
+		</action>
+		<action name="homeBorrowForpayDetail" class="myHomeAppAction" method="homeBorrowForpayDetail">
+		</action>
+		<!-- 我的投标 已回收的借款-->
+		
+		<action name="homeBorrowRecycledList" class="myHomeAppAction" method="homeBorrowRecycledList">
+		</action>
+		<action name="homeBorrowHaspayDetail" class="myHomeAppAction" method="homeBorrowHaspayDetail">
+		</action>
+		<!-- 我的投标 借款回账查询-->
+		
+		<action name="homeBorrowBackAcount" class="myHomeAppAction" method="homeBorrowBackAcount"/>
+		<action name="homeBorrowBackAcountList" class="myHomeAppAction" method="homeBorrowBackAcountList">
+		</action>
+		<!-- 自动投标 -->
+		<action name="automaticBidInit" class="myHomeAppAction" method="automaticBidInit">
+		</action>
+		<action name="automaticBidSet" class="myHomeAppAction" method="automaticBidSet"/>
+		<action name="automaticBidModify" class="myHomeAppAction" method="automaticBidModify"/>
+	</package>
+</struts>

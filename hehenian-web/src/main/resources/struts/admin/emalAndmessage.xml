@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+     <package name="emalAndmessage" extends="admin-default" namespace="/admin">
+    
+       	<action name="queryAcountIndex" class="emalAndMessageAction" method="queryAcountInitMe">
+		 <result name="success">/WEB-INF/page/admin/acountSet_index.jsp</result>
+		</action>
+		<action name="queryAcountinfo" class="emalAndMessageAction" method="queryAcountinfoM">
+		 <result  name="success">/WEB-INF/page/admin/accountt_info.jsp</result>
+		</action>
+		<!-- 借款期限 -->
+		<action name="queryDeadlineIndex" class="emalAndMessageAction" method="queryDeadlineIndex">
+		 <result name="success">/WEB-INF/page/admin/deadline_index.jsp</result>
+		</action>
+		<action name="queryDeadlineinfo" class="emalAndMessageAction" method="queryDeadlineinfoM">
+		 <result  name="success">/WEB-INF/page/admin/deadline_info.jsp</result>
+		</action>
+		<action name="addDeadline" class="emalAndMessageAction" method="addDeadlineM">
+		</action>
+		<action name="updateDeadline" class="emalAndMessageAction" method="updateDeadlineM">
+		  <result name="success">/WEB-INF/page/admin/deadline_xiugai.jsp</result>
+		</action>
+		 <action name="updateDeadlineRealM" class="emalAndMessageAction" method="updateDeadlineRealM">
+		</action>
+		<!-- 借款金额范围 -->
+		<action name="queryMomeyIndex" class="emalAndMessageAction" method="queryMomeyIndex">
+		 <result name="success">/WEB-INF/page/admin/momey_index.jsp</result>
+		</action>
+		<action name="queryMomeyinfo" class="emalAndMessageAction" method="queryMomeyinfoM">
+		 <result  name="success">/WEB-INF/page/admin/momey_info.jsp</result>
+		</action>
+		<action name="addMomey" class="emalAndMessageAction" method="addMomeyM">
+		</action>
+		<action name="updateMomey" class="emalAndMessageAction" method="updateMomeyM">
+		  <result name="success">/WEB-INF/page/admin/momey_xiugai.jsp</result>
+		</action>
+		<action name="updateMomeyRealM" class="emalAndMessageAction" method="updateMomeyRealM">
+		</action>
+		<!-- 机构担保 -->
+		<action name="addAssure" class="emalAndMessageAction" method="addAssureM">
+		</action>
+		<action name="updateselect" class="emalAndMessageAction" method="updateSelectType">
+		</action>
+		
+		<!-- 弹出窗修改 -->
+		<action name="updateaccountacton" class="emalAndMessageAction" method="updatam">
+		  <result name="success">/WEB-INF/page/admin/account_xiugai.jsp</result>
+		</action>
+		 <action name="updateaccreal" class="emalAndMessageAction" method="updatamreal">
+		</action>
+		
+		<!-- 删除金额范围-->
+		<action name="deleteacc" class="emalAndMessageAction" method="deleteaccM">
+		  <result name="success" type="redirectAction">queryAcountIndex.do</result>
+		</action>
+		
+		<!-- 投标金额 -->
+		<action name="queryInversIndex" class="emalAndMessageAction" method="queryInversIndexM">
+		 <result name="success">/WEB-INF/page/admin/invest_index.jsp</result>
+		</action>
+		<action name="queryInversInfo" class="emalAndMessageAction" method="queryInversInfoM">
+		 <result name="success">/WEB-INF/page/admin/invest_info.jsp</result>
+		</action>
+		<!-- 添加投标金额 -->
+		<action name="addInvers" class="emalAndMessageAction" method="addInversM">
+		</action>
+		<action name="updateinvers" class="emalAndMessageAction" method="updateinversM">
+		  <result name="success">/WEB-INF/page/admin/invest_xiugai.jsp</result>
+		</action>
+		<action name="updateinversReal" class="emalAndMessageAction" method="updateinversRealM">
+		</action>
+		<action name="deleteinvers" class="emalAndMessageAction" method="deleteinversM">
+		  <result name="success" type="redirectAction">queryInversIndex.do</result>
+		</action>
+		
+		
+		
+    
+    
+       <action name="emailAndMessageindex" class="emalAndMessageAction" method="emailAndMessageinitMethod">
+			<result name="success">/WEB-INF/page/admin/mailset_index.jsp</result>
+		</action>
+		<action name="updateMailSet" class="emalAndMessageAction" method="updateMailSetM">
+			<result name="input">/WEB-INF/page/admin/mail_set_submit.jsp</result>
+		</action>
+		<!-- 短信参数设置 -->
+		<action name="queryMessage" class="emalAndMessageAction" method="queryMessageSetMethod">
+			<result name="success">/WEB-INF/page/admin/MessageSet_index.jsp</result>
+		</action>
+		<!-- 短信参数设置提交 -->
+		<action name="updateMessageSet" class="emalAndMessageAction" method="updateMessageSetMethod">
+		</action>
+		<action name="updateMessageSet1" class="emalAndMessageAction" method="updateMessageSetMethod2">
+		</action>
+		<!-- 联动 -->
+		<action name="linkageinit" class="emalAndMessageAction" method="linkageinitIndex">
+		 <result name="success">/WEB-INF/page/admin/linkage_index.jsp</result>
+		</action>
+		<action name="linkageinfo" class="emalAndMessageAction" method="linkageinfoMethod">
+		  <result name="success">/WEB-INF/page/admin/linkage_info.jsp</result>
+		</action>
+		<!-- 添加借款目的 -->
+		<action name="addTarge" class="emalAndMessageAction" method="addTargMethod">
+		</action>
+		<!-- 修改借款目的 -->
+		<action name="updatetage" class="emalAndMessageAction" method="updatetageMethod">
+		  <result name="success">/WEB-INF/page/admin/linkage_xiugai.jsp</result>
+		</action>
+		<action name="updatetagereal" class="emalAndMessageAction" method="updatetagerealMethod">
+		</action>
+		<action name="deletetage" class="emalAndMessageAction" method="deletetageMethod">
+		  <result name="success" type="redirectAction">linkageinit.do</result>
+		</action>
+	 
+	 <!-- 系统头像 -->
+	   	<action name="queryImageIndex" class="emalAndMessageAction" method="queryImageIndexM">
+		 <result name="success">/WEB-INF/page/admin/image_index.jsp</result>
+		</action>
+	  	<action name="queryImageInfo" class="emalAndMessageAction" method="queryImageInfoM">
+		 <result name="success">/WEB-INF/page/admin/image_info.jsp</result>
+		</action>
+		<!-- 增加系统头像 -->
+        <action name="addSysImage" class="emalAndMessageAction" method="addSysImageM">
+		</action>		
+		<!-- 更新系统头像 -->
+		 <action name="updateSysImage" class="emalAndMessageAction" method="updateSysImageM">
+		</action>	
+		<action name="deletSysImage" class="emalAndMessageAction" method="deletSysImageM">
+		  <result name="success" type="redirectAction">queryImageIndex.do</result>
+		</action>
+	  
+	  
+		
+     </package>
+</struts>

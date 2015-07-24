@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.trade.IInvestHistoryDao">
+	<resultMap type="investHistoryDo" id="investHistoryResultMap">
+		<result property="id" column="id" />
+		<result property="investAmount" column="investAmount" />
+		<result property="monthRate" column="monthRate" />
+		<result property="investor" column="investor" />
+		<result property="borrowId" column="borrowId" />
+
+		<result property="investTime" column="investTime" />
+		<result property="oriInvestor" column="oriInvestor" />
+		<result property="realAmount" column="realAmount" />
+		<result property="hasPI" column="hasPI" />
+		<result property="deadline" column="deadline" />
+
+		<result property="hasDeadline" column="hasDeadline" />
+		<result property="recivedPrincipal" column="recivedPrincipal" />
+		<result property="recievedInterest" column="recievedInterest" />
+		<result property="hasPrincipal" column="hasPrincipal" />
+		<result property="hasInterest" column="hasInterest" />
+
+		<result property="recivedFI" column="recivedFI" />
+		<result property="hasFI" column="hasFI" />
+		<result property="manageFee" column="manageFee" />
+		<result property="reward" column="reward" />
+		<result property="repayStatus" column="repayStatus" />
+
+		<result property="flag" column="flag" />
+		<result property="isAutoBid" column="isAutoBid" />
+		<result property="isDebt" column="isDebt" />
+		<result property="checkPrincipal" column="check_principal" />
+		<result property="checkInterest" column="check_interest" />
+
+		<result property="circulationInterest" column="circulationInterest" />
+		<result property="circulationForpayStatus" column="circulationForpayStatus" />
+		<result property="reason" column="reason" />
+		<result property="repayDate" column="repayDate" />
+		<result property="minInvestId" column="min_invest_id" />
+
+		<result property="minInvestId" column="min_invest_id" />
+		<result property="maxInvestId" column="max_invest_id" />
+		<result property="adjustPrincipal" column="adjust_principal" />
+	</resultMap>
+
+	<insert id="addInvestHistory" parameterType="investHistoryDo">
+		INSERT INTO t_invest_history
+		(id,
+		investAmount,
+		monthRate,
+		investor,
+		borrowId,
+		investTime,
+		oriInvestor,
+		realAmount,
+		hasPI,
+		deadline,
+		hasDeadline,
+		recivedPrincipal,
+		recievedInterest,
+		hasPrincipal,
+		hasInterest,
+		recivedFI,
+		hasFI,
+		manageFee,
+		reward,
+		repayStatus,
+		flag,
+		isAutoBid,
+		isDebt,
+		check_principal,
+		check_interest,
+		min_invest_id,
+		max_invest_id,
+		adjust_principal
+		)
+		VALUES
+		(#{id},
+		#{investAmount},
+		#{monthRate},
+		#{investor},
+		#{borrowId},
+		#{investTime},
+		#{oriInvestor},
+		#{realAmount},
+		#{hasPI},
+		#{deadline},
+		#{hasDeadline},
+		#{recivedPrincipal},
+		#{recievedInterest},
+		#{hasPrincipal},
+		#{hasInterest},
+		#{recivedFI},
+		#{hasFI},
+		#{manageFee},
+		#{reward},
+		#{repayStatus},
+		#{flag},
+		#{isAutoBid},
+		#{isDebt},
+		#{checkPrincipal},
+		#{checkInterest},
+		#{minInvestId},
+		#{maxInvestId},
+		#{adjustPrincipal}
+		);
+	</insert>
+
+</mapper>

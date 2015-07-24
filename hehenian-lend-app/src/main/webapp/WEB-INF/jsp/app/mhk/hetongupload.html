@@ -1,0 +1,119 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>个人信息</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=0" />
+		<link rel="stylesheet" href="../../../../app_res/css/common.css">
+		<link rel="stylesheet" href="../../../../app_res/css/mhk/style.css">
+	</head>
+	<body>
+		<section>
+			<article class="p1 enable_inf" style="border-bottom: 10px solid #ccc;">
+				<div class="db_f order_head p05" style="margin-bottom: 5px;">
+					<date class="bf1">2015-02-08</date>
+				</div>
+				<p class="db_f"><label class="lab" >真实姓名：</label><span class="bf1">冯亮</span></p>
+				<p class="db_f"><label  class="lab">身份证号：</label><span class="bf1">61252519890555555555</span></p>
+			</article>			<article>
+				<section>
+					<h3 class="personinf_tip tip_1"><span>个人信息</span></h3>
+					<div class="p1 personinf_">
+						<div class="db_f">
+							<p class="bf1">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历：本科</p>
+							<p class="bf1">婚姻状态：已婚</p>
+						</div>
+						<div class="db_f">
+							<p class="bf1">工作年限：13-18个月</p>
+							<p class="bf1">职业信息：公务员</p>
+						</div>
+						<p style="width:100%">电子邮箱：112233@qq.com</p>
+					</div>
+					<div  class="p1">
+						<ul>
+							<li>
+								<img src="../../../../app_res/img/elend/banner.png">
+								<div class="db_f p1 personinf_radio">
+									<div class="bf1">
+									<label class="pass">
+										<input type="radio" class="rad " name="cid1"/>
+										与原件不一致
+									</label>
+									</div>
+									<div class="bf1">
+										<label class="checked nopass">
+										<input type="radio" class="rad " checked name="cid1"/>
+										与原件一致
+									</label>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section>
+					<h3 class="personinf_tip tip_2"><span>资产信息</span></h3>
+						<div class="p1 personinf_">
+							<p style="width:100%;">建筑面积： 100平方</p>
+							<p style="width:100%;">购买方式：一次性</p>
+							<p style="width:100%;">住宅地址： 罗湖区碧水龙庭</p>
+							<p style="width:100%;">是否抵押他人： 否</p>
+						</div>
+
+						<div class="p1">
+							哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+							<p style="width:100%;">是否抵押他人： 否</p>
+						</div>
+						<div  class="p1">
+						<ul>
+							<li>
+								<img src="../../../../app_res/img/elend/banner.png">
+								<div class="db_f p1 personinf_radio">
+									<div class="bf1">
+									<label class="pass">
+										<input type="radio" class="rad " name="cid1"/>
+										与原件不一致
+									</label>
+									</div>
+									<div class="bf1">
+										<label class="checked nopass">
+										<input type="radio" class="rad " checked name="cid1"/>
+										与原件一致
+									</label>
+									</div>
+								</div>
+							</li>
+						</
+				</section>
+				<section>
+					<h3 class="personinf_tip tip_3"><span>联系人信息</span></h3>
+					<ul class="p1 link">
+						<li class="db_f">
+							<span class="bf1 linkName">王大锤锤</span>
+							<span class="bf1">父母</span>
+							<span class="bf1">18665877630</span>
+						</li>
+						<li class="db_f">
+							<span class="bf1 linkName">王大锤</span>
+							<span class="bf1">父母</span>
+							<span class="bf1">18665877630</span>
+						</li>
+					</ul>	
+				</section>
+			</article>
+			<article class="p1 gaozhi">
+				<p>请客户经理务必核实贷款人真实信息，所提交的资料与资料原件是否一致。如客户经理选择“一致”，因为贷款人上传资料与资料原件不一致所造成的损失，客户经理将承担相应责任</p>
+			</article>
+			<div class="btn_box">
+				<botton class="btn">确认提交</botton>
+			</div>
+		</section>
+		<script src="../../../../app_res/js/libs/zepto.js"></script>
+		<script>
+		$(function() {
+			$(".personinf_radio label").click(function(){
+				$(this).addClass("checked").parent().siblings().find("label").removeClass("checked");
+			})	
+		})
+		</script>
+	</body>
+</html>

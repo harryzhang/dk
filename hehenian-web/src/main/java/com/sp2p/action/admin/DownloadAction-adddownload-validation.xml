@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="paramMap['title']">
+		<field-validator type="requiredstring">
+			<message>标题不能为空</message>
+		</field-validator>
+	</field>
+	
+	<field name="paramMap['visits']">
+		<field-validator type="regex">
+			<param name="expression">
+				<![CDATA[
+   	 				^([0-9]\d{0,9})$
+   	 			]]>
+			</param>
+			<message>格式不正确,请输入数字</message>
+		</field-validator>
+	</field>
+	
+
+	<field name="paramMap['seqNum']">
+		<field-validator type="regex">
+			<param name="expression">
+				<![CDATA[
+   	 				^([0-9]\d{0,9})$
+   	 			]]>
+			</param>
+			<message>格式不正确,请输入数字</message>
+		</field-validator>
+	</field>
+	
+	<field name="paramMap['state']">
+		<field-validator type="requiredstring">
+			<message>请选择是否显示</message>
+		</field-validator>
+	</field>
+	
+	<field name="paramMap['attachment']">
+		<field-validator type="requiredstring">
+			<message>请上传文件!</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">100</param>
+			<message>文件路径不得大于${maxLength}个字符</message>
+		</field-validator>
+	</field>
+	
+</validators>

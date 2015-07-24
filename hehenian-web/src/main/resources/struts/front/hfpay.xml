@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="pay" extends="injectionInterceptor-0" namespace="/">
+		<action name="payKeyValue" class="hfPaymentAction" method="getPayKeyValue">
+		</action>
+		<action name="resultUrl" class="hfPaymentAction" method="resultUrlParam">
+			<result>index2.jsp</result>
+		</action>
+	</package>
+	
+</struts>
+
+

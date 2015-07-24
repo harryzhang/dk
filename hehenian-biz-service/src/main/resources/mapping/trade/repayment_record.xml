@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.dal.trade.IRepaymentRecordDao">
+	<resultMap type="repaymentRecordDo" id="repaymentRecordResultMap">
+		<result property="id" column="id" />
+		<result property="repayId" column="repayId" />
+		<result property="repayAmount" column="repayAmount" />
+		<result property="oporator" column="oporator" />
+		<result property="remark" column="remark" />
+		<result property="createTime" column="createTime" />
+		<result property="oporatorIp" column="oporatorIp" />
+		<result property="repayType" column="repayType" />
+		<result property="processStatus" column="processStatus" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="repaymentRecordResultMap">
+		SELECT *
+		FROM t_repayment_record WHERE id = #{id}
+	</select>
+
+	<select id="selectRepaymentRecord" parameterType="Map"
+		resultMap="repaymentRecordResultMap">
+		SELECT *
+		FROM t_repayment_record
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != null">
+				AND id like #{id}
+			</if>
+			<if test="repayId != null">
+				AND repayId like #{repayId}
+			</if>
+			<if test="repayAmount != null">
+				AND repayAmount like #{repayAmount}
+			</if>
+			<if test="oporator != null">
+				AND oporator like #{oporator}
+			</if>
+			<if test="remark != null">
+				AND remark like #{remark}
+			</if>
+			<if test="createTime != null">
+				AND createTime like #{createTime}
+			</if>
+			<if test="oporatorIp != null">
+				AND oporatorIp like #{oporatorIp}
+			</if>
+			<if test="repayType != null">
+				AND repayType like #{repayType}
+			</if>
+			<if test="processStatus != null">
+				AND processStatus like #{processStatus}
+			</if>
+		</trim>
+
+	</select>
+
+	<update id="updateRepaymentRecordById" parameterType="repaymentRecordDo">
+		UPDATE t_repayment_record
+		SET
+		<if test="repayId != null">
+			repayId = #{repayId}
+		</if>
+		<if test="repayAmount != null">
+			,repayAmount = #{repayAmount}
+		</if>
+		<if test="oporator != null">
+			,oporator = #{oporator}
+		</if>
+		<if test="remark != null">
+			,remark = #{remark}
+		</if>
+		<if test="createTime != null">
+			,createTime = #{createTime}
+		</if>
+		<if test="oporatorIp != null">
+			,oporatorIp = #{oporatorIp}
+		</if>
+		<if test="repayType != null">
+			,repayType = #{repayType}
+		</if>
+		<if test="processStatus != null">
+			,processStatus = #{processStatus}
+		</if>
+
+		WHERE id = #{id} and version = #{version}
+	</update>
+
+	<insert id="addRepaymentRecord" parameterType="repaymentRecordDo"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		t_repayment_record( repayId
+		,repayAmount
+		,oporator
+		,remark
+		,createTime
+		,oporatorIp
+		,repayType
+		,processStatus
+		)
+		VALUES ( #{repayId}
+		,#{repayAmount}
+		,#{oporator}
+		,#{remark}
+		,#{createTime}
+		,#{oporatorIp}
+		,#{repayType}
+		,#{processStatus}
+		);
+	</insert>
+
+	<delete id="deleteById" parameterType="Long">
+		DELETE FROM
+		t_repayment_record WHERE id = #{id}
+	</delete>
+
+</mapper>
+

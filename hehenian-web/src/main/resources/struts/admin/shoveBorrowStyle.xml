@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="shoveBorrowStyle" extends="admin-default" namespace="/admin">
+	
+		<action name="queryShoveBorrowAllInit" class="shoveBorrowStyleAction" method="queryShoveBorrowAllInit">
+			<result name="success" >/WEB-INF/page/admin/shove_borrow_style_index.jsp</result>
+		</action>
+		
+		<action name="queryShoveBorrowAllPageInfo" class="shoveBorrowStyleAction" method="queryShoveBorrowAllPageInfo">
+			<result name="success" >/WEB-INF/page/admin/shove_borrow_style_info.jsp</result>
+		</action>
+		
+		<action name="updateShoveBorrowStyleInit" class="shoveBorrowStyleAction" method="updateShoveBorrowStyleInit">
+			<result name="success" >/WEB-INF/page/admin/update_shove_borrow_style.jsp</result>
+		</action>
+		
+		<action name="updateShoveBorrowStyle" class="shoveBorrowStyleAction" method="updateShoveBorrowStyleInfo">
+			<result name="success" >/WEB-INF/page/admin/shove_borrow_style_index.jsp</result>
+		</action>
+		
+	</package>
+</struts>

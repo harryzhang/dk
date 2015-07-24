@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.trade.IGuaranteeInstitutionsDao">
+	<resultMap type="guaranteeInstitutionsDo" id="guaranteeInstitutionsResultMap">
+		<result property="id" column="id" />
+		<result property="organName" column="organName" />
+		<result property="organMoney" column="organMoney" />
+		<result property="organNameber" column="organNameber" />
+		<result property="userId" column="userId" />
+	</resultMap>
+
+	<select id="getById" parameterType="int" resultMap="guaranteeInstitutionsResultMap">
+		SELECT * 
+		  FROM t_guarantee_institutions WHERE id = #{id}
+	</select>
+
+	<select id="selectGuaranteeInstitutions" parameterType="Map" resultMap="guaranteeInstitutionsResultMap">
+		SELECT * 
+		  FROM t_guarantee_institutions
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="id != null">  
+				AND id like #{id}
+			</if>
+			<if test="organName != null">  
+				AND organName like #{organName}
+			</if>
+			<if test="organMoney != null">  
+				AND organMoney like #{organMoney}
+			</if>
+			<if test="organNameber != null">  
+				AND organNameber like #{organNameber}
+			</if>
+			<if test="userId != null">  
+				AND userId like #{userId}
+			</if>
+         </trim> 
+
+	</select>
+	
+	
+	<update id="updateOrganMoney" parameterType="Double">
+		UPDATE t_guarantee_institutions SET organMoney=organMoney+ #{needSum};
+	</update>
+	
+	
+	<update id="updateGuaranteeInstitutionsById" parameterType="guaranteeInstitutionsDo">
+	   <![CDATA[
+		UPDATE t_guarantee_institutions 
+		   SET 		organName = #{organName}
+		,organMoney = #{organMoney}
+		,organNameber = #{organNameber}
+		,userId = #{userId}
+		WHERE id = #{id}
+		]]>
+	</update>	
+	
+	<insert id="addGuaranteeInstitutions" parameterType="guaranteeInstitutionsDo" keyProperty="id"
+		useGeneratedKeys="true" >
+		INSERT INTO t_guarantee_institutions(		organName
+		,organMoney
+		,organNameber
+		,userId
+)
+		     VALUES (		#{organName}
+		,#{organMoney}
+		,#{organNameber}
+		,#{userId}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="int" >
+		DELETE FROM t_guarantee_institutions WHERE id = #{id}
+	</delete>
+	
+</mapper>
+

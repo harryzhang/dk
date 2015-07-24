@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="hehenian.activity" extends="login-default"
+		namespace="/">
+		<action name="transferAuth" class="activityAuthAction" method="transferAuth">
+			<result name="error">/WEB-INF/jsp/message.jsp</result>
+		</action>
+		<action name="transferAuthCb" class="activityAuthAction" method="transferAuthCb">
+			<result name="success">/WEB-INF/jsp/message.jsp
+			</result>
+			<result name="error">/WEB-INF/jsp/message.jsp</result>
+		</action>
+	</package>
+</struts>

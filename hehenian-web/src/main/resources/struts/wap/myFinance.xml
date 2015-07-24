@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="webapp-finance" extends="defaults" namespace="/webapp">
+		<action name="webapp-finance" class="frontMyFinanceAction" method="financeList">
+			<result name="success">
+				/WEB-INF/page/mobile/tp-list.jsp
+			</result>
+			
+		</action>
+		
+		<action name="webapp-financeDetail" class="frontMyFinanceAction" method="financeDetail">
+			<result name="success">
+				/WEB-INF/page/mobile/tp-intro.jsp
+			</result>
+		</action>
+			
+		<action name="queryFrontAllDebt" class="frontDebtAction" method="queryFrontAllDebt">
+			<result name="success">
+				/WEB-INF/page/mobile/creditor-list.jsp
+			</result>
+		</action>
+		
+		<action name="queryFrontAllDebt-more" class="frontDebtAction" method="queryFrontAllDebt">
+			<result name="success">
+				/WEB-INF/page/mobile/creditor-list-more.jsp
+			</result>
+		</action>
+		
+		<action name="queryDebtDetailHHN" class="frontDebtAction" method="queryDebtDetailHHN">
+			<result name="success">
+				/WEB-INF/page/mobile/creditor-details.jsp
+			</result>
+		</action>
+	
+		<!--
+		<action name="soonPublishList" class="frontMyFinanceAction" method="soonPublishList">
+			<result name="success">
+				/WEB-INF/page/front/finance-soon-index.jsp
+			</result>
+			<result name="network">
+				weihui.jsp
+			</result>
+		</action>
+		<action name="financeLastestList" class="frontMyFinanceAction" method="financeLastestList">
+			<result name="success">
+				/WEB-INF/page/front/finance-last-list.jsp
+			</result>
+		</action>
+		<action name="investRank" class="frontMyFinanceAction" method="investRank">
+			<result name="success">
+				/WEB-INF/page/front/investrank-list.jsp
+			</result>
+		</action>
+		<action name="index" class="frontMyFinanceAction" method="index">
+			<result name="success">
+				/WEB-INF/page/front/index-list.jsp
+			</result>
+			<result name="network">
+				weihui.jsp
+			</result>
+		</action>
+		<action name="financeDetail" class="frontMyFinanceAction" method="financeDetail">
+			<result name="success">
+				/WEB-INF/page/front/finance-borrow-detail.jsp
+			</result>
+			<result name="cicuration">
+				/WEB-INF/page/front/finance-circulation-borrow-detail.jsp
+			</result>
+			<result name="404" >
+				/error/404.jsp
+			</result>
+		</action>
+		<action name="queryDebtBorrowDetail" class="frontMyFinanceAction" method="queryDebtBorrowDetail">
+			<result name="success">
+				/WEB-INF/page/front/debt-borrow-detail.jsp
+			</result>
+			<result name="cicuration">
+				/WEB-INF/page/front/debt-circulation-detail.jsp
+			</result>
+			<result name="404" >
+				/error/404.jsp
+			</result>
+		</action>
+		<action name="ajaxqueryRegions" class="frontMyFinanceAction" method="ajaxqueryRegions">
+		</action>
+		
+		<action name="ajaxqueryRegionsHHN" class="frontMyFinanceAction" method="ajaxqueryRegionsHHN">
+		</action>
+		
+		<action name="financeAudit" class="frontMyFinanceAction" method="financeAudit">
+			<result name="success">
+				/WEB-INF/page/front/finance-audit-list.jsp
+			</result>
+		</action>
+		<action name="financeRepay" class="frontMyFinanceAction" method="financeRepay">
+			<result name="success">
+				/WEB-INF/page/front/finance-repay-list.jsp
+			</result>
+		</action>
+		<action name="financeCollection" class="frontMyFinanceAction" method="financeCollection">
+			<result name="success">
+				/WEB-INF/page/front/finance-collection-list.jsp
+			</result>
+		</action>
+		<action name="borrowmessage" class="frontMyFinanceAction" method="borrowMSGInit">
+			<result name="success">/WEB-INF/page/front/message-list.jsp</result>
+			<result name="404" >/error/404.jsp</result>
+		</action>
+		<action name="financetool" class="frontMyFinanceAction" method="financeToolInit">
+			<result name="success">/WEB-INF/page/front/finance-tool.jsp</result>
+		</action>
+
+	
+		<action name="queryRepaymentById" class="frontMyFinanceAction" method="queryRepaymentById">
+			<result name="success"></result>
+		</action>
+
+	
+		<action name="queryCollectionById" class="frontMyFinanceAction" method="queryCollectionById">
+			<result name="success"></result>
+		</action>
+-->
+	</package>
+	
+
+</struts>

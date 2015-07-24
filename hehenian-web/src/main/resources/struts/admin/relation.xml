@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="relation" extends="admin-default" namespace="/admin">
+	
+		<action name="queryRelationInit" class="relationAction" method="queryRelationInit">
+			<result name="success" >/WEB-INF/page/admin/relation_index.jsp</result>
+		</action>
+		
+		<action name="queryRelationInfo" class="relationAction" method="queryRelationInfo" >
+			<result name="success" >/WEB-INF/page/admin/relation_index_info.jsp</result>
+		</action>
+	
+		<action name="queryFinancialInit" class="relationAction" method="queryFinancialInit">
+			<result name="success" >/WEB-INF/page/admin/financial_index.jsp</result>
+		</action>
+		
+		<action name="queryFinancialInfo" class="relationAction" method="queryFinancialInfo" >
+			<result name="success" >/WEB-INF/page/admin/financial_index_info.jsp</result>
+		</action>
+		
+		<action name="updateRelation" class="relationAction" method="updateRelation" ></action>
+		
+		<action name="relationLevelInit" class="relationAction" method="relationLevelInit" >
+			<result name="success" >/WEB-INF/page/admin/relation_level_index.jsp</result>
+		</action>
+		
+		<action name="relationLevelInfo" class="relationAction" method="relationLevelInfo" >
+			<result name="success" >/WEB-INF/page/admin/relation_level_index_info.jsp</result>
+		</action>
+		<!--初始化经济添加客户初始  -->
+		<action name="relationLeveladdInit" class="relationAction" method="relationLeveladdInit" >
+			<result name="success" >/WEB-INF/page/admin/relation_level_add_index.jsp</result>
+		</action>
+		<!--初始化经济添加客户  -->
+		<action name="relationLeveladdInfo" class="relationAction" method="relationLeveladdInfo" >
+			<result name="success" >/WEB-INF/page/admin/relation_level_add_index_info.jsp</result>
+		</action>
+		
+				<!--经济添加客户添加  -->
+		<action name="addRelationkhId" class="relationAction" method="addRelationkhId" >
+		</action>
+		
+		<!-- 查看经济人列表 -->
+		<action name="queryrelationeconomicInit" class="relationAction" method="queryrelationeconomicInit" >
+			<result name="success" >/WEB-INF/page/admin/relation_agent_index.jsp</result>
+		</action>
+		
+		<action name="queryrelationeconomicInfo" class="relationAction" method="queryrelationeconomicInfo" >
+			<result name="success" >/WEB-INF/page/admin/relation_agent_index_info.jsp</result>
+		</action>
+		<!-- 查看投资人列表 -->
+		
+		<action name="queryrelationinvestorsInit" class="relationAction" method="queryrelationinvestorsInit" >
+			<result name="success" >/WEB-INF/page/admin/relation_investor_index.jsp</result>
+		</action>
+		
+		<action name="queryrelationinvestorsInfo" class="relationAction" method="queryrelationinvestorsInfo" >
+			<result name="success" >/WEB-INF/page/admin/relation_investor_index_info.jsp</result>
+		</action>
+		
+	</package>
+</struts>

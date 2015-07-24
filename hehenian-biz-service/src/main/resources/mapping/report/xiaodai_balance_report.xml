@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.dal.report.IXiaoDaiBalanceReportDao">
+
+
+	<select id="queryPublishAmountByDate" parameterType="map" resultType="java.util.Map">
+		<![CDATA[
+			SELECT p.realName, p.idNo,b.auditTime, b.borrowAmount, b.deadline, b.businessNo, '合和年在线' AS platform, b.annualRate as rate
+				FROM  t_borrow b
+				LEFT OUTER JOIN t_person p  ON b.publisher = p.userId
+				WHERE b.auditTime = #{jobDate}
+		]]>
+	</select>
+	
+
+	 
+	 <select id="queryRepayAmountByDate" parameterType="map" resultType="java.util.Map">
+		<![CDATA[
+			SELECT p.realName, 
+			       p.idNo,
+			       b.businessNo,
+			       SUBSTRING_INDEX(r.repayPeriod,'/',1) AS repayPeriod,
+			       r.repayDate,
+			       r.stillPrincipal,
+			       r.stillInterest,
+			       r.consultFee,
+			       r.stillPrincipal + r.stillInterest + r.consultFee AS stillSumAmount,
+			       0 AS preSettleAmount,       
+			       r.principalBalance,
+			       r.lateFI,
+			       r.lateDay,
+			       1 AS finishedFlag,
+			       r.repayFee,
+			       0 AS serviceFee,
+			       IF(repayPeriod LIKE '1/%', 50,0) AS zhengxinFee,
+			       0  AS tingcheFee,
+			       0  AS registerFee,
+			       0 AS preSettleFee,
+			       r.stillPrincipal + r.stillInterest +r.consultFee+r.lateFI +r.repayFee AS realSumAmount       
+			FROM t_repayment  r 
+			     LEFT OUTER JOIN t_borrow b ON r.borrowId = b.id
+			     LEFT OUTER JOIN t_person p ON p.userId = b.publisher
+			WHERE r.realRepayDate = #{jobDate}
+		]]>
+	</select>
+</mapper>
+

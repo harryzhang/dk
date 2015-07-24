@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="hhn.trade" extends="login-default" namespace="/">
+		<!-- 提现申请 -->
+		<action name="addWithdraw" class="withdrawAction" method="addWithdraw">
+			<result name="error">/WEB-INF/jsp/message.jsp</result>
+		</action>
+
+		<!-- 债权转让 -->
+		<action name="addAssignmentDebt" class="newAssignmentDebtAction"
+			method="addAssignmentDebt" />
+		<action name="addAuctingDebt" class="newAssignmentDebtAction"
+			method="addPurchaseDebt" />
+		<action name="creditAssign" class="newAssignmentDebtAction"
+			method="updatePurchaseDebt">
+			<result name="success">/WEB-INF/jsp/message.jsp</result>
+			<result name="error">/WEB-INF/jsp/message.jsp</result>
+		</action>
+		<!-- 充值 -->
+		<action name="addRecharge1" class="newRechargeAction" method="addRecharge">
+			<result name="msg">/WEB-INF/jsp/message.jsp</result>
+		</action>
+
+		<!-- 投资 -->
+		<action name="borrowInvest" class="newInvestAction" method="borrowInvest">
+			<result name="msg">/WEB-INF/jsp/message.jsp</result>
+		</action>
+
+		<!-- 提现回调 -->
+		<action name="cash" class="withdrawAction" method="addWithdrawCallback">
+			<result name="success">/WEB-INF/jsp/message.jsp</result>
+			<result name="error">/WEB-INF/jsp/message.jsp</result>
+		</action>
+	</package>
+	<package name="hhn.trade1" extends="defaults" namespace="/">
+		<!-- 充值 回调 -->
+		<action name="addRechargeCallback1" class="newRechargeAction"
+			method="addRechargeCallback">
+			<result name="msg">/WEB-INF/jsp/message.jsp</result>
+		</action>
+		<!-- 投资 回调 -->
+		<action name="borrowInvestCallback" class="newInvestAction"
+			method="borrowInvestCallback">
+			<result name="msg">/WEB-INF/jsp/message.jsp</result>
+		</action>
+		<action name="creditAssignBg" class="newAssignmentDebtAction"
+			method="updatePurchaseDebtBg" />
+		<action name="cashBg" class="withdrawAction" method="addWithdrawCallbackBg" />
+		
+		<!-- 借款协议 -->
+		<action name="agreement" class="newAgreementAction" method="agreement">
+			<result name="success">/WEB-INF/jsp/message.jsp</result>
+			<result name="error">/WEB-INF/jsp/message.jsp</result>
+		</action>
+	</package>
+	<package name="admin.trade" extends="admin-default" namespace="/admin">
+		<!-- 提现初审 -->
+		<action name="updateWithdrawCheck" class="withdrawAction"
+			method="updateWithdrawAudit" />
+		<!-- 提现转账 -->
+		<action name="updateWithdrawTransfer" class="withdrawAction"
+			method="updateWithdrawTransfer" />
+		<!-- 平台提现 -->
+		<action name="merCashSubmit" class="withdrawAction" method="addMerWithdraw" />
+
+		<!-- 还款菜单初始化url查询 -->
+		<action name="queryUserFundRepayInit" class="repaymentAction"
+			method="queryUserFundRepayInit">
+			<result name="success">/WEB-INF/page/admin/FI-userFund-repay-init.jsp
+			</result>
+		</action>
+
+		<!-- 还款查询 -->
+		<action name="queryUserFundRepayList" class="repaymentAction"
+			method="queryUserFundRepayList">
+			<result name="success">/WEB-INF/page/admin/FI-userFund-repay-list.jsp
+			</result>
+		</action>
+
+		<!-- 提前还款 -->
+		<action name="updatePreRepayment" class="repaymentAction"
+			method="updatePreRepayment">
+			
+		</action>
+		
+		<!-- 提前还款确认页面 -->
+		<action name="preRepaymentConfirm" class="repaymentAction"
+			method="preRepaymentConfirm">
+			<result name="success">/WEB-INF/page/admin/fi-userfund-prerepay-confirm.jsp
+			</result>
+		</action>
+		<!-- 减免费用 -->
+		<action name="derateFee" class="repaymentAction"
+			method="derateFee">			
+		</action>
+		<!-- 初始化减免费用的页面 -->
+		<action name="derateFeeInit" class="repaymentAction"
+			method="derateFeeInit">
+			<result name="success">/WEB-INF/page/admin/fi-userfund-derate.jsp
+			</result>
+		</action>
+		<!-- 更成已还状态 -->
+		<action name="updateRepaymentStatus" class="repaymentAction"
+			method="updateRepaymentStatus">			
+		</action>
+		<!-- 手工触发还款初始页面 -->
+		<action name="toManualRepayent" class="repaymentAction"
+			method="toManualRepayent">	
+			<result name="success">/WEB-INF/page/admin/fi-userfund-manual-repayment.jsp
+			</result>
+		</action>
+		<action name="manualRepayment" class="repaymentAction"
+			method="manualRepayment">	
+		</action>
+		<!-- 重复请求 -->
+		
+		<action name="changeInvestRepaymentId" class="repaymentAction"
+			method="changeInvestRepaymentId">	
+		</action>
+		
+
+		<!-- 为用户还款 -->
+		<action name="updateRepayment" class="repaymentAction" method="updateRepayment">
+		</action>
+		<!-- 代偿 -->
+		<action name="overduePaymentRepaySubmit" class="repaymentAction"
+			method="overduePaymentRepaySubmit" />
+
+		<action name="updateBorrowFull" class="borrowAction" method="updateBorrowFullScale" />
+		<action name="auditDebt" class="newAssignmentDebtAction"
+			method="updateDebtAudit" />
+		<action name="trfReconciliation" class="newAssignmentDebtAction"
+			method="trfReconciliation">
+			<result name="success">/WEB-INF/jsp/trade/trfReconciliation.jsp
+			</result>
+		</action>
+		<action name="reconciliation" class="newAssignmentDebtAction"
+			method="reconciliation">
+			<result name="success">/WEB-INF/jsp/trade/reconciliation.jsp
+			</result>
+		</action>
+		<action name="saveReconciliation" class="newAssignmentDebtAction"
+			method="saveReconciliation">
+			<result name="success">/WEB-INF/jsp/trade/saveReconciliation.jsp
+			</result>
+		</action>
+		<action name="cashReconciliation" class="newAssignmentDebtAction"
+			method="cashReconciliation">
+			<result name="success">/WEB-INF/jsp/trade/cashReconciliation.jsp
+			</result>
+		</action>
+		<action name="queryAcctDetails" class="newAssignmentDebtAction"
+			method="queryAcctDetails" />
+
+		<!-- 流标 -->
+		<action name="updateBring" class="newInvestAction" method="discardBorrow">
+		</action>
+		
+		
+		<!-- 对账信息 -->
+		<action name="queryReconciliation" class="reconciliationAction" method="queryReconciliations">
+			<result name="success">/WEB-INF/jsp/trade/queryReconciliation.jsp</result>
+		</action>
+		
+		<!-- 合和贷与精英贷标的信息查询begin -->
+		<action name="loanBorrowList" class="borrowAction" method="loanBorrowList">
+			<result name="success">/WEB-INF/page/admin/loan_borrow_detail.jsp</result>
+		</action>
+		<action name="loanBorrowCheckList" class="borrowAction" method="loanBorrowCheckList">
+			<result name="success">/WEB-INF/page/admin/loan_borrow_user.jsp</result>
+		</action>
+		<action name="loanborrowFeeList" class="borrowAction" method="loanborrowFeeList">
+			<result name="success">/WEB-INF/page/admin/loan_borrow_rate.jsp</result>
+		</action>
+		<!-- 合和贷与精英贷标的信息查询end -->
+	</package>
+</struts>

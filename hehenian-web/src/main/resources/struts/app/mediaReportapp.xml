@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="mediaReportapp" extends="app-default" namespace="/app">
+
+
+        <!-- 前台初始化媒体报道列表 -->
+        <action name="initMediaReport" class="mediaReportAppAction" method="frontQueryMediaReportdInit">
+        </action>
+        <!-- 媒体报道列表 -->
+		<action name="queryMediaReportListPage" class="mediaReportAppAction" method="frontQueryMediaReportdList">
+        </action>
+        
+        <!--根据Id获取媒体报道详情 -->
+        <action name="frontMediaReportDetails" class="mediaReportAppAction" method="frontQueryMediaReportById">
+        </action>
+        
+         <!--根据Id获取媒体报道详情 -->
+        <action name="frontMedialinkId" class="mediaReportAppAction" method="frontMedialinkId">
+        </action>
+
+	</package>
+</struts>

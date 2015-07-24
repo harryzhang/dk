@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="statismanage" extends="admin-default" namespace="/admin">
+		<!-- 网站统计记录 -->
+		<action name="webStatisInit" class="statisManageAction" method="webStatisInit">
+			<result name="success">/WEB-INF/page/admin/webstatis-index.jsp</result>
+		</action>
+
+		<action name="webStatisFunds" class="statisManageAction"
+			method="webStatisFundsInit">
+			<result name="success">/WEB-INF/page/admin/webstatisFunds-index.jsp
+			</result>
+		</action>
+
+		<!-- 导出网站统计记录 excle -->
+		<action name="exportwebStatis" class="statisManageAction"
+			method="exportwebStatis">
+
+		</action>
+
+		<!-- 登录统计记录 -->
+		<action name="loginStatisInit" class="statisManageAction"
+			method="loginStatisInit">
+			<result name="success">/WEB-INF/page/admin/loginstatis-index.jsp
+			</result>
+		</action>
+
+		<action name="loginStatisList" class="statisManageAction"
+			method="loginStatisList">
+			<result name="success">/WEB-INF/page/admin/loginstatis-list.jsp</result>
+		</action>
+
+		<!-- 投资统计记录 -->
+		<action name="financeStatisInit" class="statisManageAction"
+			method="financeStatisInit">
+			<result name="success">/WEB-INF/page/admin/financestatis-index.jsp
+			</result>
+		</action>
+		<action name="financeStatisList" class="statisManageAction"
+			method="financeStatisList">
+			<result name="success">/WEB-INF/page/admin/financestatis-list.jsp
+			</result>
+		</action>
+		<!-- 导出投资统计记录 excle -->
+		<action name="exportfinanceStatis" class="statisManageAction"
+			method="exportfinanceStatis">
+
+		</action>
+
+		<!-- 投标统计记录 -->
+		<action name="investStatisInit" class="statisManageAction"
+			method="investStatisInit">
+			<result name="success">/WEB-INF/page/admin/investstatis-index.jsp
+			</result>
+		</action>
+		<action name="investStatisList" class="statisManageAction"
+			method="investStatisList">
+			<result name="success">/WEB-INF/page/admin/investstatis-list.jsp
+			</result>
+		</action>
+		<!-- 导出投标统计记录 excel -->
+		<action name="exportinvestStatis" class="statisManageAction"
+			method="exportinvestStatis">
+
+		</action>
+
+		<!-- 投标统计排名记录 -->
+		<action name="investStatisRankInit" class="statisManageAction"
+			method="investStatisRankInit">
+			<result name="success">/WEB-INF/page/admin/investstatis-rank-index.jsp
+			</result>
+		</action>
+		<action name="investStatisRankList" class="statisManageAction"
+			method="investStatisRankList">
+			<result name="success">/WEB-INF/page/admin/investstatis-rank-list.jsp
+			</result>
+		</action>
+
+		<!-- 导出投标统计排名记录  excel -->
+		<action name="exportinvestStatisRank" class="statisManageAction"
+			method="exportinvestStatisRank">
+
+		</action>
+
+		<!-- 借款统计统计记录 -->
+		<action name="borrowStatisInit" class="statisManageAction"
+			method="borrowStatisInit">
+			<result name="success">/WEB-INF/page/admin/borrowstatis-index.jsp
+			</result>
+		</action>
+
+		<action name="borrowStatisList" class="statisManageAction"
+			method="borrowStatisList">
+			<result name="success">/WEB-INF/page/admin/borrowstatis-list.jsp
+			</result>
+		</action>
+
+		<!-- 导出借款统计统计记录  excel -->
+		<action name="exportborrowStatis" class="statisManageAction"
+			method="exportborrowStatis">
+
+		</action>
+
+		<!-- 资金类别统计记录 -->
+		<action name="fundTypeStatisInit" class="statisManageAction"
+			method="fundTypeStatisInit">
+			<result name="success">/WEB-INF/page/admin/fundtTypeStatis-index.jsp
+			</result>
+		</action>
+
+		<action name="fundTypeStatisList" class="statisManageAction"
+			method="fundTypeStatisList">
+			<result name="success">/WEB-INF/page/admin/fundTypeStatis-list.jsp
+			</result>
+		</action>
+
+		<!-- 导出资金类别统计记录  excel -->
+		<action name="exportFundTypeStatis" class="statisManageAction"
+			method="exportFundTypeStatis">
+
+		</action>
+
+		<action name="borrowStatisInterestInit" class="statisManageAction"
+			method="borrowStatisInterestInit">
+			<result name="success">/WEB-INF/page/admin/borrowstatis-interest-index.jsp
+			</result>
+		</action>
+
+		<action name="borrowStatisInterestList" class="statisManageAction"
+			method="borrowStatisInterestList">
+			<result name="success">/WEB-INF/page/admin/borrowstatis-interest-list.jsp
+			</result>
+		</action>
+		<!-- 导出投资利息管理费记录  excel -->
+		<action name="exportborrowStatisInterest" class="statisManageAction"
+			method="exportborrowStatisInterest">
+
+		</action>
+
+		<!-- 用户组统计 -->
+		<action name="queryborrowStatisUserGroupInit" class="statisManageAction"
+			method="queryborrowStatisUserGroupInit">
+			<result name="success">/WEB-INF/page/admin/borrowstatis-usergroup-index.jsp
+			</result>
+		</action>
+
+		<action name="queryborrowStatisUserGroupPage" class="statisManageAction"
+			method="queryborrowStatisUserGroupPage">
+			<result name="success">/WEB-INF/page/admin/borrowstatis-usergroup-list.jsp
+			</result>
+		</action>
+		<!-- 导出投资利息管理费记录  excel -->
+		<action name="exportUserGroup" class="statisManageAction"
+			method="exportUserGroup">
+
+		</action>
+
+		<!-- 问卷调查统计记录 -->
+		<action name="questionnaireStatisInit" class="statisManageAction"
+			method="questionnaireStatisInit">
+			<result name="success">/WEB-INF/page/admin/questionnaire-statis-index.jsp
+			</result>
+		</action>
+
+		<action name="questionnaireStatisList" class="statisManageAction"
+			method="questionnaireStatisList">
+			<result name="success">/WEB-INF/page/admin/questionnaire-statis-list.jsp
+			</result>
+		</action>
+
+		<!-- 导出问卷调查统计记录  excel -->
+		<action name="exportQuestionnaireStatis" class="statisManageAction"
+			method="exportQuestionnaireStatis">
+
+		</action>
+	</package>
+</struts>

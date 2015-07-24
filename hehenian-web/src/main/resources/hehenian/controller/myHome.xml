@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 会员中心首页 手机入口 -->
+	<package name="hehenian-webapp-myhome" extends="defaults" namespace="/webapp">
+		<action name="webapp-money" class="userHomeAction" method="homeInit">
+			<result name="success">/WEB-INF/page/mobile/capital.jsp</result>
+			<result name="nologin">/index.jsp</result>
+		</action>
+		
+		<action name="webapp-motherDay" class="userHomeAction" method="motherDayInit">
+			<result name="success">/WEB-INF/page/mobile/motherDay_2.jsp</result>
+			<result name="nologin">/WEB-INF/page/mobile/motherDay_1.jsp</result>
+		</action>
+		
+	</package>
+	<!-- 会员中心首页  pc 入口 -->
+	<package name="hehenain-myhome" extends="login-default" namespace="/">
+		<action name="home" class="userHomeAction" method="homeInit">
+			<result name="success">/WEB-INF/page/front/home-index.jsp</result>
+			<result name="nologin">/index.jsp</result>
+		</action>
+	</package>
+	
+</struts>

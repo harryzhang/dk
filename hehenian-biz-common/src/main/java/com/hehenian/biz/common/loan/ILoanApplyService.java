@@ -106,5 +106,7 @@ public interface ILoanApplyService {
 	int updateHousePrice(Map<String, Object> parameterMap);
 	/** 保存小区房价*/
 	int saveHousePrice(Map<String, Object> parameterMap);
+	/** 根据身份证号码查询*/
+	LoanDo getByIdNoGroup(String idNo);
     
 }

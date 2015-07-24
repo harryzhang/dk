@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.system.ICommonQueryDao">
+	
+	<!--彩富人生 每天的充值金额-->
+	<select id="getRechargeMoney" parameterType="map" resultType="map">
+		SELECT sum(rechargeMoney) as rechargeMoney,
+			   sum(case when rateType = 2 then 0.5*0.08*rechargeMoney  
+					 when rateType = 3 then 2*0.12*rechargeMoney
+					 else 0.1*rechargeMoney end) as rechargeCb
+		  FROM t_activity_order
+		  WHERE rechargeMoney>0 and ordStatus=1 AND 
+		  updatetime BETWEEN #{applyTime}  AND #{endTime}
+	</select>
+
+	<!--彩富人生购买散标金额-->
+	<select id="getInvestAmount" parameterType="map" resultType="map">
+		SELECT  SUM(t1.investAmount) as investAmount,
+		TRUNCATE(sum(t1.deadline*(t1.investAmount*t1.monthRate/10000-t1.monthRate/10000*(t1.investAmount/t1.deadline)*(t1.deadline-1)/2+t1.investAmount/t1.deadline)-t1.investAmount),2) as investCb
+		  FROM  t_invest t1 
+     LEFT JOIN  t_borrow t2 ON t1.borrowId=t2.id 
+     LEFT JOIN  t_user t3 ON t1.investor=t3.id 
+		 WHERE  t1.investTime BETWEEN #{applyTime}  AND #{endTime}
+		   AND t3.colorid IS NOT NULL and t2.borrowStatus != '6'and t1.investor not in
+		( 
+		SELECT  userid from t_activity_order where ordStatus=1
+		)  
+	</select>
+	
+	<select id="getHbBuyMoney" parameterType="map" resultType="map">
+			SELECT sum(buy_money) as hbBuyMoney,sum(cl.buy_money*p.period*p.rate) hbCb
+			from 
+					  t_color_life_buy_info cl 
+	      	left join td_product_rate p on cl.product_id = p.product_rate_id
+	      	left join t_user u on cl.user_id = u.id	
+			where  u.source IN (2,4,6) AND cl.status = 2 and cl.product_id in (11,12,13)
+			and cl.update_time BETWEEN #{applyTime}  AND #{endTime}
+	</select>
+	
+	<!--彩富人生购买定期理财的金额-->
+	<select id="getTradeAmount" parameterType="map" resultType="map">
+		SELECT   SUM(trade.trade_amount) as tradeAmount,sum(trade.trade_amount*rate.period*rate.rate) tradeCb
+	      FROM   td_fund_trade trade
+	 LEFT JOIN   t_user u ON trade.user_id = u.id 
+	 LEFT JOIN   td_product_rate rate on trade.rate_id = rate.product_rate_id
+	     WHERE   u.source IN (2,4,6) AND trade.trade_type='INVESTMENT' AND trade.rate_id in (1,2,4) AND 
+	      <![CDATA[
+	      	trade.trade_status <>'FAILURE' 
+	      ]]>
+	     AND trade.trade_time  BETWEEN #{applyTime}  AND #{endTime}
+	</select>
+	 
+	<!--平台购买散标金额  -->
+	<select id="getPlatformInvestAmount" parameterType="map" resultType="map">
+		SELECT  SUM(t1.investAmount) as platformInvestAmount,
+		TRUNCATE(sum(t1.deadline*(t1.investAmount*t1.monthRate/10000-t1.monthRate/10000*(t1.investAmount/t1.deadline)*(t1.deadline-1)/2+t1.investAmount/t1.deadline)-t1.investAmount),2) as platformInvestCb
+			  FROM  t_invest t1 
+	     LEFT JOIN  t_borrow t2 ON t1.borrowId=t2.id 
+	     LEFT JOIN  t_user t3 ON t1.investor=t3.id 
+			 WHERE  t1.investTime  BETWEEN #{applyTime}  AND #{endTime}
+			AND t3.colorid IS NULL and t2.borrowStatus != '6'
+	</select>	
+	
+	<!--平台购买定期理财  -->
+	<select id="getPlatformTradeAmount" parameterType="map" resultType="map">
+		SELECT   SUM(trade.trade_amount) as platformTradeAmount,sum(trade.trade_amount*rate.period*rate.rate) as platformCb
+	      FROM   td_fund_trade trade
+	 LEFT JOIN   td_product_rate rate on trade.rate_id = rate.product_rate_id
+	 LEFT JOIN   t_user u ON trade.user_id = u.id 
+	     WHERE   u.source NOT IN (2,4,6) AND trade.trade_type='INVESTMENT' AND trade.rate_id in (1,2,4) AND 
+	      <![CDATA[
+	      	trade.trade_status <>'FAILURE' 
+	      ]]>
+	      and trade.trade_time  BETWEEN #{applyTime}  AND #{endTime}
+	</select>
+	
+		<!-- 物业国际+薪宝 -->
+	<select id="getGjwyXMoney" parameterType="map" resultType="map">
+		SELECT   SUM(trade.trade_amount) as jxbBuyMoney,sum(trade.trade_amount*rate.period*rate.rate) as jxbBuyCb
+	      FROM   td_fund_trade trade
+	      LEFT JOIN   td_product_rate rate on trade.rate_id = rate.product_rate_id
+	     WHERE  trade.trade_type='INVESTMENT' AND trade.rate_id in (8,9,10) AND 
+	      <![CDATA[
+	      	trade.trade_status <>'FAILURE' 
+	      ]]>
+	      and trade.trade_time  BETWEEN #{applyTime}  AND #{endTime}
+	</select>
+	
+	<!-- 物业国际+族宝 -->
+	<select id="getGjwyZMoney" parameterType="map" resultType="map">
+		SELECT   SUM(trade.trade_amount) as jzbBuyMoney,sum(trade.trade_amount*rate.period*rate.rate) as jzbBuyCb
+	      FROM   td_fund_trade trade
+	      LEFT JOIN   td_product_rate rate on trade.rate_id = rate.product_rate_id
+	     WHERE  trade.trade_type='INVESTMENT' AND trade.rate_id in (5,6,7) AND 
+	      <![CDATA[
+	      	trade.trade_status <>'FAILURE' 
+	      ]]>
+	      and trade.trade_time  BETWEEN #{applyTime}  AND #{endTime}
+	</select>
+	
+	<!-- 放款金额 -->
+	<select id="getBorrowAmount"  parameterType="map" resultType="map">
+		SELECT sum(IFNULL(a,0)+IFNULL(b,0))  as  borrowAmount FROM
+		(
+		SELECT sum(t1.invest_amount)  as a
+		FROM td_fund_product t1 
+		WHERE t1.product_status in (5,6) AND t1.update_time BETWEEN #{applyTime}  AND #{endTime}
+		) tb,
+		(SELECT sum(borrowAmount) as b
+				 FROM t_borrow 
+				WHERE  auditTime BETWEEN #{applyTime}  AND #{endTime} 
+				  AND  borrowStatus in (4,5)
+		) td
+	</select>
+	
+	<!-- 提现金额 -->
+	<select id="getWithdrawal" parameterType="map" resultType="map">
+		 SELECT SUM(SUM) as withdrawal  
+		   FROM t_withdraw 
+		  WHERE STATUS = 2 and checkTime  BETWEEN #{applyTime}  AND #{endTime}
+	</select>
+	
+	<!-- 通联账户可用余额 -->
+	<select id="getTlAvailableMoney" parameterType="map" resultType="map">
+		SELECT sum(a+b) as tlAvailableMoney 
+		 FROM 
+		   (SELECT SUM(t1.trade_balance) a 
+			  from td_fund_trade t1   
+			 where t1.trade_type='INVESTMENT' 
+			  <![CDATA[
+				and t1.trade_status <> 'FAILURE'
+				]]>) t3 ,
+		   (SELECT sum(balance_amount) b 
+		      from td_fund_user_account t2 
+		     where t2.user_id not in(
+		    SELECT user_id 
+		      FROM td_loan_detail)) t4 ;
+	</select>
+	
+	<!-- 回款的钱 -->
+	<select id="getHkMoney" parameterType="map" resultType="map">
+			SELECT sum(hasPrincipal+hasInterest) as interestMoney
+		from t_invest_repayment t1 
+		where t1.isWebRepay=2 and t1.realRepayDate BETWEEN #{applyTime}  AND #{endTime}
+	</select>
+	
+	<!-- 汇付可用余额 -->
+	<select id="getHfAvailableMoney" parameterType="map" resultType="map">
+		SELECT sum(usableSum) as hfAvailableMoney
+		  FROM t_user
+		  where  usableSum>0 AND 
+		  <![CDATA[
+		   id <>109669 
+		  ]]>
+	</select>
+	
+	<select id="getTotalCountAccount" parameterType="map" resultType="int">
+		SELECT  count(*)
+		  FROM 	t_capital_account
+		  <trim prefix="WHERE" prefixOverrides="AND"> 
+			<if test="createTime != null">  
+				AND date_format(createTime,'%Y-%m') = #{createTime}
+			</if>
+         </trim> 
+	</select>
+	
+	<select id="getCapitalAccount" parameterType="map" resultType="map">
+		SELECT 
+				  accountId,
+				  (CASE WHEN  ISNULL(rechargeMoney) THEN 0 ElSE rechargeMoney END) as rechargeMoney,
+				  (CASE WHEN  ISNULL(investAmount) THEN 0 ElSE investAmount END) as  investAmount,
+				  (CASE WHEN  ISNULL(tradeAmount) THEN 0 ElSE tradeAmount END) as tradeAmount,
+				  (CASE WHEN  ISNULL(hbBuyMoney) THEN 0 ElSE hbBuyMoney END) as hbBuyMoney,
+				  (CASE WHEN  ISNULL(rechargeMoney) THEN 0 ElSE rechargeMoney END) 
+				  + (CASE WHEN  ISNULL(investAmount) THEN 0 ElSE investAmount END)
+				  +(CASE WHEN  ISNULL(tradeAmount) THEN 0 ElSE tradeAmount END)
+				  +(CASE WHEN  ISNULL(hbBuyMoney) THEN 0 ElSE hbBuyMoney END) as cliftTotalMoney,
+				  (CASE WHEN  ISNULL(jxbBuyMoney) THEN 0 ElSE jxbBuyMoney END) as jxbBuyMoney,
+				  (CASE WHEN  ISNULL(jzbBuyMoney) THEN 0 ElSE jzbBuyMoney END) as jzbBuyMoney,
+				  (CASE WHEN  ISNULL(jxbBuyMoney) THEN 0 ElSE jxbBuyMoney END) +
+				  (CASE WHEN  ISNULL(jzbBuyMoney) THEN 0 ElSE jzbBuyMoney END) as gjwyBuyMoney,
+				  (CASE WHEN  ISNULL(platformInvestAmount) THEN 0 ElSE platformInvestAmount END) as platformInvestAmount,
+				  (CASE WHEN  ISNULL(platformTradeAmount) THEN 0 ElSE platformTradeAmount END) as platformTradeAmount,
+				 (CASE WHEN  ISNULL(platformInvestAmount) THEN 0 ElSE platformInvestAmount END) 
+				 +(CASE WHEN  ISNULL(platformTradeAmount) THEN 0 ElSE platformTradeAmount END) as platformTotalMoney,
+				(CASE WHEN  ISNULL(rechargeMoney) THEN 0 ElSE rechargeMoney END)+
+				(CASE WHEN  ISNULL(investAmount) THEN 0 ElSE investAmount END)+
+				(CASE WHEN  ISNULL(tradeAmount) THEN 0 ElSE tradeAmount END)+
+				(CASE WHEN  ISNULL(hbBuyMoney) THEN 0 ElSE hbBuyMoney END)+
+				(CASE WHEN  ISNULL(jxbBuyMoney) THEN 0 ElSE jxbBuyMoney END) +
+				(CASE WHEN  ISNULL(jzbBuyMoney) THEN 0 ElSE jzbBuyMoney END)+
+				(CASE WHEN  ISNULL(platformInvestAmount) THEN 0 ElSE platformInvestAmount END)+
+				(CASE WHEN  ISNULL(platformTradeAmount) THEN 0 ElSE platformTradeAmount END) as totalMoney,
+				  (CASE WHEN  ISNULL(borrowAmount) THEN 0 ElSE borrowAmount END) as borrowAmount,
+				  (CASE WHEN  ISNULL(withdrawal) THEN 0 ElSE withdrawal END) as withdrawal,
+				  (CASE WHEN  ISNULL(tlAvailableMoney) THEN 0 ElSE tlAvailableMoney END) as tlAvailableMoney,
+				  (CASE WHEN  ISNULL(hfAvailableMoney) THEN 0 ElSE hfAvailableMoney END) as hfAvailableMoney,
+				  (CASE WHEN  ISNULL(tlAvailableMoney) THEN 0 ElSE tlAvailableMoney END)+
+					(CASE WHEN  ISNULL(hfAvailableMoney) THEN 0 ElSE hfAvailableMoney END) as totalAmount,
+				  date_format(createTime,'%Y-%m-%d') as createTime
+		  FROM 	  t_capital_account
+		  <trim prefix="WHERE" prefixOverrides="AND"> 
+		  	<if test="accountId != null">  
+				AND accountId = #{accountId}
+			</if>
+			<if test="createTime != null">  
+				AND date_format(createTime,'%Y-%m') = #{createTime}
+			</if>
+         </trim> 
+         ORDER BY createTime
+	</select>
+	
+	
+	<select id="getCapitalData" parameterType="map" resultType="map">
+		SELECT 
+				  accountId,
+				  (CASE WHEN  ISNULL(rechargeMoney) THEN 0 ElSE rechargeMoney END) as rechargeMoney,
+				  (CASE WHEN  ISNULL(investAmount) THEN 0 ElSE investAmount END) as  investAmount,
+				  (CASE WHEN  ISNULL(tradeAmount) THEN 0 ElSE tradeAmount END) as tradeAmount,
+				  (CASE WHEN  ISNULL(hbBuyMoney) THEN 0 ElSE hbBuyMoney END) as hbBuyMoney,
+				  (CASE WHEN  ISNULL(rechargeMoney) THEN 0 ElSE rechargeMoney END) 
+				  + (CASE WHEN  ISNULL(investAmount) THEN 0 ElSE investAmount END)
+				  +(CASE WHEN  ISNULL(tradeAmount) THEN 0 ElSE tradeAmount END)
+				  +(CASE WHEN  ISNULL(hbBuyMoney) THEN 0 ElSE hbBuyMoney END) as cliftTotalMoney,
+				  (CASE WHEN  ISNULL(jxbBuyMoney) THEN 0 ElSE jxbBuyMoney END) as jxbBuyMoney,
+				  (CASE WHEN  ISNULL(jzbBuyMoney) THEN 0 ElSE jzbBuyMoney END) as jzbBuyMoney,
+				  (CASE WHEN  ISNULL(jxbBuyMoney) THEN 0 ElSE jxbBuyMoney END) +
+				  (CASE WHEN  ISNULL(jzbBuyMoney) THEN 0 ElSE jzbBuyMoney END) as gjwyBuyMoney,
+				  (CASE WHEN  ISNULL(platformInvestAmount) THEN 0 ElSE platformInvestAmount END) as platformInvestAmount,
+				  (CASE WHEN  ISNULL(platformTradeAmount) THEN 0 ElSE platformTradeAmount END) as platformTradeAmount,
+				 (CASE WHEN  ISNULL(platformInvestAmount) THEN 0 ElSE platformInvestAmount END) 
+				 +(CASE WHEN  ISNULL(platformTradeAmount) THEN 0 ElSE platformTradeAmount END) as platformTotalMoney,
+				(CASE WHEN  ISNULL(rechargeMoney) THEN 0 ElSE rechargeMoney END)+
+				(CASE WHEN  ISNULL(investAmount) THEN 0 ElSE investAmount END)+
+				(CASE WHEN  ISNULL(tradeAmount) THEN 0 ElSE tradeAmount END)+
+				(CASE WHEN  ISNULL(hbBuyMoney) THEN 0 ElSE hbBuyMoney END)+
+				(CASE WHEN  ISNULL(jxbBuyMoney) THEN 0 ElSE jxbBuyMoney END) +
+				(CASE WHEN  ISNULL(jzbBuyMoney) THEN 0 ElSE jzbBuyMoney END)+
+				(CASE WHEN  ISNULL(platformInvestAmount) THEN 0 ElSE platformInvestAmount END)+
+				(CASE WHEN  ISNULL(platformTradeAmount) THEN 0 ElSE platformTradeAmount END) as totalMoney,
+				  (CASE WHEN  ISNULL(borrowAmount) THEN 0 ElSE borrowAmount END) as borrowAmount,
+				  (CASE WHEN  ISNULL(withdrawal) THEN 0 ElSE withdrawal END) as withdrawal,
+				  (CASE WHEN  ISNULL(tlAvailableMoney) THEN 0 ElSE tlAvailableMoney END) as tlAvailableMoney,
+				  (CASE WHEN  ISNULL(hfAvailableMoney) THEN 0 ElSE hfAvailableMoney END) as hfAvailableMoney,
+				  (CASE WHEN  ISNULL(tlAvailableMoney) THEN 0 ElSE tlAvailableMoney END)+
+					(CASE WHEN  ISNULL(hfAvailableMoney) THEN 0 ElSE hfAvailableMoney END) as totalAmount,
+				  date_format(createTime,'%Y-%m-%d') as createTime
+		  FROM 	  t_capital_account
+		  <trim prefix="WHERE" prefixOverrides="AND"> 
+			<if test="applyTime != null">  
+				AND createTime BETWEEN #{startTime} AND #{endTime}
+			</if>
+         </trim> 
+         ORDER BY createTime
+	</select>
+	
+	<!-- 查询对账信息 -->
+	<select id="getReconciliations" parameterType="map" resultType="map">
+			SELECT u.username,reconciliationId,reconciliationType,reconciliationStatus,reconciliationDesc,ordId,merCustId,
+				   re.usrCustId,cardId,transAmt,transStat,pnrDate,pnrSeqId,ordDate,investCustId,borrCustId,gateBusiId,openBankId,
+				   openAcctId,feeAmt,feeCustId,feeAcctId,sellCustId,creditAmt,creditDealAmt,fee,buyCustId,re.createTime
+			 FROM  t_reconciliation  re
+		LEFT JOIN  t_user u  ON re.usrcustid = u.usrcustid
+		    WHERE  re.createTime BETWEEN #{startTime}  AND #{endTime} AND  re.reconciliationStatus = 'FAILURE'
+ 	    ORDER BY  re.createTime
+	</select>
+	
+	<select id="getInvestMoney" parameterType="map" resultType="map">
+				 <![CDATA[
+				SELECT  TRUNCATE((IFNULL(a.rechargeMoney,0) + IFNULL(b.hbBuyMoney,0) + IFNULL(c.investAmount,0) + IFNULL(d.tradeAmount,0))/10000,2) as totalMoney from 
+				(
+				SELECT sum(rechargeMoney) as rechargeMoney 
+						  FROM t_activity_order
+						  WHERE rechargeMoney>0 and ordStatus=1 AND 
+						  updatetime BETWEEN #{applyTime}  AND #{endTime}
+				)a,
+				(
+				SELECT sum(buy_money) as hbBuyMoney
+							from 
+									  t_color_life_buy_info cl 
+							where   cl.status = 2 and cl.product_id in (11,12,13)
+							and cl.update_time BETWEEN #{applyTime}  AND #{endTime}
+				) b,
+				(
+				SELECT  SUM(t1.investAmount) as investAmount
+						  FROM  t_invest t1 
+				     LEFT JOIN  t_borrow t2 ON t1.borrowId=t2.id 
+				     LEFT JOIN  t_user t3 ON t1.investor=t3.id 
+						 WHERE  t1.investTime BETWEEN #{applyTime}  AND #{endTime}
+						    and t2.borrowStatus != '6'and t1.investor not in
+						( 
+						SELECT  userid from t_activity_order where ordStatus=1
+						)
+				) c ,
+				(
+				SELECT   SUM(trade.trade_amount) as tradeAmount
+					      FROM   td_fund_trade trade
+					 LEFT JOIN   t_user u ON trade.user_id = u.id 
+					     WHERE    trade.trade_type='INVESTMENT'  AND 
+					      	trade.trade_status <>'FAILURE' 
+					     AND trade.trade_time  BETWEEN #{applyTime}  AND #{endTime}
+				) d 
+	 	 		]]>
+	</select>
+	
+	<!-- 投资注册人数 -->
+	<select id="getRegisterNumber" parameterType="map" resultType="map">
+		  <![CDATA[
+			SELECT TRUNCATE(count(1),0) as registerNumber
+					FROM  t_user u 
+					WHERE 
+					 u.createTime BETWEEN #{applyTime}  AND #{endTime}
+				     AND u.source <> 100	 
+		 ]]>
+	</select>
+	
+	<!-- 贷款注册人数 -->
+	<select id="getDkRegisterNumber" parameterType="map" resultType="map">
+		  <![CDATA[
+		SELECT TRUNCATE(count(1),0) as dkRegisterNumber
+				FROM  t_user u 
+				WHERE 
+				 u.createTime BETWEEN #{applyTime}  AND #{endTime}
+			     AND u.source = 100	 
+		 ]]>
+	</select>
+	
+	<!-- 放款金额 -->
+	<select id="getFkMoney"  parameterType="map" resultType="map">
+		SELECT TRUNCATE(sum(IFNULL(a,0)+IFNULL(b,0))/10000,2) as  borrowAmount FROM
+		(
+		SELECT sum(t1.invest_amount)  as a
+		FROM td_fund_product t1 
+		WHERE t1.product_status in (5,6) AND t1.update_time BETWEEN #{applyTime}  AND #{endTime}
+		) tb,
+		(SELECT sum(borrowAmount) as b
+				 FROM t_borrow 
+				WHERE  auditTime BETWEEN #{applyTime}  AND date_sub(#{endTime},interval 1 day) 
+				  AND  borrowStatus in (4,5)
+		) td
+	</select>
+	
+		<select id="getTodayFkMoney"  parameterType="map" resultType="map">
+		SELECT TRUNCATE(sum(IFNULL(a,0)+IFNULL(b,0))/10000,2) as  borrowAmount FROM
+		(
+		SELECT sum(t1.invest_amount)  as a
+		FROM td_fund_product t1 
+		WHERE t1.product_status in (5,6) AND t1.update_time BETWEEN #{applyTime}  AND #{endTime}
+		) tb,
+		(SELECT sum(borrowAmount) as b
+				 FROM t_borrow 
+				WHERE  auditTime BETWEEN #{applyTime}  AND #{applyTime} 
+				  AND  borrowStatus in (4,5)
+		) td
+	</select>
+	
+	<!-- KPI指标值 -->
+	<select id="getKpiTargetVal" parameterType="map" resultType="map">
+		  <![CDATA[
+			SELECT  *
+			  FROM   t_platform_kpiData
+		 	 WHERE   targetMonth = #{targetMonth}
+		 ]]>
+	</select>
+	
+</mapper>

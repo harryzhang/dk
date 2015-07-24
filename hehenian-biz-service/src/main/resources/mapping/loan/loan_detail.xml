@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanDetailDao">
+
+	<select id="queryLoanDetails" parameterType="map" resultType="loanDetailDo">
+		SELECT d.loanId, p.userId, d.realName, d.idNo, d.mobile, d.income,
+		d.loanUsage, d.loanUsageDesc, d.loanPeriod, d.loanAmount, d.checkDesc,
+		d.remark, d.loanStatus, d.createTime, d.updateTime
+		FROM t_loan_detail d
+		LEFT JOIN t_person p ON p.idNo = d.idNo
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="idNo != null and idNo != ''">
+				AND d.idNo = #{idNo}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND d.mobile = #{mobile}
+			</if>
+			<if test="loanStatus != null and loanStatus != ''">
+				AND d.loanStatus = #{loanStatus}
+			</if>
+		</trim>
+		ORDER BY d.createTime,d.loanStatus
+		LIMIT #{beginCount},#{pageSize}
+	</select>
+
+	<select id="countLoanDetails" parameterType="map" resultType="long">
+		SELECT COUNT(*) FROM t_loan_detail
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="idNo != null and idNo != ''">
+				AND idNo = #{idNo}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND mobile = #{mobile}
+			</if>
+			<if test="loanStatus != null and loanStatus != ''">
+				AND loanStatus = #{loanStatus}
+			</if>
+		</trim>
+	</select>
+
+	<select id="queryByLoanStatus" parameterType="map" resultType="loanDetailDo">
+		SELECT * FROM t_loan_detail
+		WHERE loanStatus = #{loanStatus}
+	</select>
+
+	<select id="getByIdNo" parameterType="string" resultType="loanDetailDo">
+		SELECT
+		* FROM t_loan_detail
+		WHERE idNo = #{idNo}
+		ORDER BY createTime DESC
+		LIMIT
+		1;
+	</select>
+
+	<select id="getByIdNoGroup" parameterType="string" resultType="loanDetailDo">
+	
+	SELECT c.realName,a.loanStatus,a.createTime,a.updateTime 
+	FROM (select  b.loanId,b.realName from  t_loan_person b where b.idNo =#{idNo} ORDER BY b.createTime DESC LIMIT 1  ) c
+	LEFT JOIN t_loan a ON a.loanId=c.loanId and  a.productCode='D01' 
+		<!-- SELECT b.realName,a.loanStatus,a.createTime,a.updateTime 
+		FROM t_loan a LEFT JOIN t_loan_person b ON a.loanId=b.loanId
+		WHERE b.idNo = AND a.productCode='D01'  ORDER BY a.createTime DESC LIMIT 1; -->
+	</select>
+	
+	<insert id="addLoanDetail" parameterType="loanDetailDo"
+		keyProperty="loanId" useGeneratedKeys="true">
+		INSERT INTO
+		t_loan_detail
+		(userId, realName, idNo, mobile, income, loanUsage, loanUsageDesc,
+		loanPeriod,
+		loanAmount, checkDesc, remark, loanStatus, createTime,
+		updateTime)
+		VALUES (#{userId}, #{realName}, #{idNo}, #{mobile},
+		#{income},
+		#{loanUsage}, #{loanUsageDesc}, #{loanPeriod},
+		#{loanAmount},
+		#{checkDesc}, #{remark}, #{loanStatus}, NOW(),NOW());
+	</insert>
+	
+	<insert id="addDepositLoanDetail" parameterType="com.hehenian.biz.common.loan.dataobject.DepositLoanDetailDo" keyProperty="loanId" useGeneratedKeys="true">
+		insert INTO td_loan_detail
+		(user_id,loan_title,loan_amount,loan_usage,loan_period,annual_rate,repay_period,repay_type,tender_day,loan_desc,loan_status,borrower_type,
+		create_time,update_time,remark,loan_rate,business_num,issuer_brunch,department)
+		VALUES (
+		#{userId},#{loanTitle},#{loanAmount},#{loanUsage},#{loanPeriod},#{annualRate},#{repayPeriod},#{repayType},#{tenderDay},
+		#{loanDesc},#{loanStatus},#{borrowerType},#{createTime},#{updateTime},#{remark},#{loanRate},#{businessNum},#{issuerBrunch},	#{department});
+	</insert>
+
+	<insert id="addFundProduct" parameterType="com.hehenian.biz.common.loan.dataobject.FundProductDo" keyProperty="productId" useGeneratedKeys="true">
+		INSERT INTO td_fund_product
+            (loan_id,user_id,product_name,invest_amount,invested_amount,product_usage,loan_period,annual_rate,repay_period,repay_type,tender_day,
+             remark,product_status,loan_type,security_type,bin_level,create_time,publish_time,loan_rate)
+		VALUES (
+	        #{loanId},#{userId},#{productName},#{investAmount},#{investedAmount},#{productUsage},#{loanPeriod},#{annualRate},#{repayPeriod},
+	        #{repayType},#{tenderDay},#{remark},#{productStatus},#{loanType},#{securityType},#{binLevel},#{createTime},#{publishTime},#{loanRate});
+	</insert>
+	
+	<insert id="addFundUserAccount" parameterType="com.hehenian.biz.common.loan.dataobject.FundUserAccountDo"  keyProperty="userAccountId" useGeneratedKeys="true">
+		INSERT INTO td_fund_user_account(user_id,balance_amount,freeze_amount,invest_amount,total_invest_amount,loan_amount,
+             total_loan_amount,total_income,total_recharge_amount,total_withdraw_amount,trade_password,update_time,create_time)
+		VALUES (#{userId},#{balanceAmount},#{freezeAmount},#{investAmount},#{totalInvestAmount},#{loanAmount},#{totalLoanAmount},
+		        #{totalIncome},#{totalRechargeAmount},#{totalWithdrawAmount},#{tradePassword},NOW(),NOW());
+	</insert>
+
+	<select id="existUserAccount" parameterType="long" resultType="int">
+		select COUNT(1) from td_fund_user_account a where a.user_id =#{user_id}
+	</select>
+	
+
+	<update id="updateLoanDetail" parameterType="loanDetailDo">
+		UPDATE t_loan_detail
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="userId != null">
+				userId = #{userId},
+			</if>
+			<if test="realName != null">
+				realName = #{realName},
+			</if>
+			<if test="idNo != null">
+				idNo = #{idNo},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="income != null">
+				income = #{income},
+			</if>
+			<if test="loanUsage != null">
+				loanUsage = #{loanUsage},
+			</if>
+			<if test="loanUsageDesc != null">
+				loanUsageDesc = #{loanUsageDesc},
+			</if>
+			<if test="loanPeriod != null">
+				loanPeriod = #{loanPeriod},
+			</if>
+			<if test="loanAmount != null">
+				loanAmount = #{loanAmount},
+			</if>
+			<if test="checkDesc != null">
+				checkDesc = #{checkDesc},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="loanStatus != null">
+				loanStatus = #{loanStatus},
+			</if>
+			updateTime = NOW(),
+		</trim>
+		WHERE loanId = #{loanId};
+	</update>
+</mapper>

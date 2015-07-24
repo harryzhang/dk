@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="wyf" extends="login-default" namespace="/wyf">
+		<action name="index" class="com.sp2p.action.front.WyfAction" method="index" >
+			<result name="colorlife_wyf_app">/WEB-INF/jsp/wyf/appindex.jsp</result>
+			<result name="colorlife_wyf_web">/WEB-INF/jsp/wyf/index.jsp</result>
+		</action>
+	</package>
+    <package name="wyf1" extends="injectionInterceptor-0" namespace="/wyf">
+        <action name="app-index" class="com.sp2p.action.front.WyfAction" method="appIndex" >
+            <result type="chain">
+                colore-wyf
+            </result>
+        </action>
+        <action name="web-index" class="com.sp2p.action.front.WyfAction" method="webIndex" >
+            <result type="chain">
+                colore-wyf
+            </result>
+
+        </action>
+        <action name="colore-wyf" class="com.sp2p.action.front.FrontLongRegisterAction" method="colourlife">
+            <result name="msg">/WEB-INF/jsp/wyf/message1.jsp</result>
+            <result name="wyf" type="chain">
+                index
+            </result>
+            <result name="colourlife-bind-hhn">/WEB-INF/jsp/wyf/bind-hhn.jsp</result>
+        </action>
+        <action name="bind-hhn" class="com.sp2p.action.front.FrontLongRegisterAction" method="colourlifeBindHhnUser">
+
+        </action>
+            </package>
+</struts>

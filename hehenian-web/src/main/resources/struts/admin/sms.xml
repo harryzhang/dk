@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="sms" extends="admin-default" namespace="/admin">
+	
+		<!-- 短信接口列表 -->
+		<action name="findSMSList" class="SMSAction" method="findSMSList">
+			<result name="success">/WEB-INF/page/admin/sms_index.jsp</result>
+        </action>  
+            
+        <!--根据Id获取 短信接口详情 -->
+        <action name="updateSMSInit" class="SMSAction" method="updateSMSInit">
+            <result name="success">/WEB-INF/page/admin/team_update.jsp</result>
+        </action>
+        
+        <!--更新 短信接口 -->
+        <action name="updateSMS" class="SMSAction" method="updateSMS">   
+			<result name="success" >/WEB-INF/page/admin/sms_index.jsp</result>
+        </action>
+        
+        
+	</package>
+</struts>

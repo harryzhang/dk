@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.account.IPersonDao">
+	<resultMap type="personDo" id="personResultMap">
+		<result property="id" column="id" />
+		<result property="realName" column="realName" />
+		<result property="cellPhone" column="cellPhone" />
+		<result property="sex" column="sex" />
+		<result property="birthday" column="birthday" />
+
+		<result property="age" column="age" />
+		<result property="highestEdu" column="highestEdu" />
+		<result property="eduStartDay" column="eduStartDay" />
+		<result property="school" column="school" />
+		<result property="maritalStatus" column="maritalStatus" />
+
+		<result property="hasChild" column="hasChild" />
+		<result property="hasHourse" column="hasHourse" />
+		<result property="hasHousrseLoan" column="hasHousrseLoan" />
+		<result property="hasCar" column="hasCar" />
+		<result property="hasCarLoan" column="hasCarLoan" />
+
+		<result property="nativePlacePro" column="nativePlacePro" />
+		<result property="nativePlaceCity" column="nativePlaceCity" />
+		<result property="registedPlacePro" column="registedPlacePro" />
+		<result property="registedPlaceCity" column="registedPlaceCity" />
+		<result property="address" column="address" />
+
+		<result property="telephone" column="telephone" />
+		<result property="userId" column="userId" />
+		<result property="personalHead" column="personalHead" />
+		<result property="bankCar" column="bankCar" />
+		<result property="bankCarStatus" column="bankCarStatus" />
+
+		<result property="idNo" column="idNo" />
+		<result property="idNoStatus" column="idNoStatus" />
+		<result property="auditStatus" column="auditStatus" />
+		<result property="audExplain" column="audExplain" />
+		<result property="flag" column="flag" />
+
+		<result property="qq" column="qq" />
+		<result property="usrCustId" column="usrCustId" />
+		<result property="creditNum" column="creditNum" />
+		<result property="creditSum" column="creditSum" />
+		<result property="email" column="email" />
+
+		<result property="invite2dcodePath" column="invite_2dcode_path" />
+	</resultMap>
+
+	<select id="getByUserId" parameterType="int" resultMap="personResultMap">
+		SELECT *
+		FROM t_person
+		WHERE userId = #{userId}
+	</select>
+	
+	<select id="queryByUserIds" parameterType="map" resultMap="personResultMap">
+		SELECT *
+		FROM t_person
+		WHERE userId IN
+		<foreach collection="userIdList" item="userId" open="(" close=")" separator=",">
+			#{userId}
+		</foreach>
+	</select>
+
+    <insert id="savePerson">
+        insert into t_person (userId,telephone,cellPhone) values (#{userId},#{telephone},#{cellPhone});
+    </insert>
+    
+    <update id="updatePersonByUserId"  parameterType="personDo">
+       UPDATE t_person 
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="realName != null">
+				realName =  #{realName},
+			</if>
+			<if test="idNo != null">
+				idNo = #{idNo},
+			</if>
+			<if test="telephone != null">
+				telephone =  #{telephone},
+			</if>
+			<if test="cellPhone != null">
+				cellPhone =  #{cellPhone},
+			</if>
+		</trim>
+		WHERE userId = #{userId}
+    </update>
+
+    <insert id="saveWorkauth" parameterType="Map">
+        	insert into t_workauth (userId) VALUES (#{userId});
+    </insert>
+    
+    <update id="updatePhoneByUserId" parameterType="Map">
+    	update t_person set cellPhone = #{mobilePhone} where userId = #{userId}
+    </update>
+
+    <update id="updateEmailByUserId" parameterType="Map">
+    	update t_person set email = #{email} where userId = #{userId}
+    </update>
+    
+    <update id="updatePerson" parameterType="personDo">
+    	update t_person
+    	<set>
+    		<if test="realName != null and realName != ''">
+    			realName = #{realName},
+    		</if>
+    		<if test="idNo != null and idNo != ''">
+    			idNo = #{idNo},
+    		</if>
+    		<if test="invite2dcodePath != null and invite2dcodePath != ''">
+    			invite_2dcode_path = #{invite2dcodePath}
+    		</if>
+    	</set>
+    	<where>
+    		id = #{id}
+    	</where>
+    </update>
+
+    <select id="getIdByRealnameAndIdNum" parameterType="map" resultType="long">
+    	select a.userId from t_person a where a.realName = #{realName} and a.idNo = #{idNo}
+    </select>
+</mapper>

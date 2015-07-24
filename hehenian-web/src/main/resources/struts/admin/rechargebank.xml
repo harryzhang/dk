@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="rechargebank" extends="admin-default" namespace="/admin">
+	
+		<action name="querybankeditInit" class="rechargebankAction" method="querybankeditInit">
+			<result name="success" >/WEB-INF/page/admin/rechargebank_index.jsp</result>
+		</action>
+			<action name="querybankeditInfo" class="rechargebankAction" method="querybankeditInfo">
+			<result name="success" >/WEB-INF/page/admin/rechargebank_index_info.jsp</result>
+		</action>
+		
+		
+		<action name="updateRechargeBankInit" class="rechargebankAction" method="updateRechargeBankInit">
+			<result name="success" >/WEB-INF/page/admin/rechargebank_update.jsp</result>
+		</action>
+			<action name="updateRechargeBankInfo" class="rechargebankAction" method="updateRechargeBankInfo">
+			<result name="success" >/WEB-INF/page/admin/rechargebank_index.jsp</result>
+			<result name="input" >/WEB-INF/page/admin/rechargebank_update.jsp</result>
+		</action>
+		
+		
+		<!-- 添加充值银行初始化 -->
+		<action name="addRechargeBankInit" class="rechargebankAction" method="addRechargeBankInit">
+			<result name="success" >/WEB-INF/page/admin/rechargebank_add.jsp</result>
+		</action>
+		<!-- 后台线下充值银行 -->
+		<action name="addRechargeBankInfo" class="rechargebankAction" method="addRechargeBankInfo">
+		    <result name="success" type="redirect">querybankeditInit.do</result>
+			<result name="input" >/WEB-INF/page/admin/rechargebank_add.jsp</result>
+		</action>
+		
+		<action name="queryxxRechargeInit" class="rechargeAdminAction" method="queryxxRechargeInit">
+			<result name="success" >/WEB-INF/page/admin/rechargeAdmin_index.jsp</result>
+		</action>
+		<action name="queryxxRechargeInfo" class="rechargeAdminAction" method="queryxxRechargeInfo">
+			<result name="success" >/WEB-INF/page/admin/rechargeAdmin_index_info.jsp</result>
+		</action>
+		
+		<!-- 后台审核 -->
+		<action name="queryrechargeAdminInit" class="rechargeAdminAction" method="queryrechargeAdminInit">
+			<result name="success" >/WEB-INF/page/admin/rechargeAdmin_index_update.jsp</result>
+		</action>
+		<action name="updateRechargeDetailStatusById" class="rechargeAction" method="updateRechargeDetailStatusById">
+			<result name="input" >/WEB-INF/page/admin/rechargeAdmin_index_update.jsp</result>
+			<result name="success" >/WEB-INF/page/admin/rechargeAdmin_index.jsp</result>
+		</action>
+		
+		
+		
+	</package>
+</struts>

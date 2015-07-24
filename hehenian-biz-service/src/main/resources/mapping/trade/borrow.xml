@@ -1,0 +1,861 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.dal.trade.IBorrowDao">
+	<resultMap type="borrowDo" id="borrowResultMap">
+		<result property="id" column="id" />
+		<result property="borrowTitle" column="borrowTitle" />
+		<result property="borrowStatus" column="borrowStatus" />
+		<result property="imgPath" column="imgPath" />
+		<result property="borrowWay" column="borrowWay" />
+		<result property="borrowInfo" column="borrowInfo" />
+		<result property="deadline" column="deadline" />
+		<result property="paymentMode" column="paymentMode" />
+		<result property="borrowAmount" column="borrowAmount" />
+		<result property="annualRate" column="annualRate" />
+		<result property="minTenderedSum" column="minTenderedSum" />
+		<result property="maxTenderedSum" column="maxTenderedSum" />
+		<result property="raiseTerm" column="raiseTerm" />
+		<result property="detail" column="detail" />
+		<result property="visitors" column="visitors" />
+		<result property="remainTimeStart" column="remainTimeStart" />
+		<result property="tradeType" column="tradeType" />
+		<result property="auditOpinion" column="auditOpinion" />
+		<result property="publisher" column="publisher" />
+		<result property="excitationType" column="excitationType" />
+		<result property="excitationSum" column="excitationSum" />
+		<result property="excitationMode" column="excitationMode" />
+		<result property="hasInvestAmount" column="hasInvestAmount" />
+		<result property="investNum" column="investNum" />
+		<result property="purpose" column="purpose" />
+		<result property="hasPwd" column="hasPWD" />
+		<result property="investPwd" column="investPWD" />
+		<result property="publishTime" column="publishTime" />
+		<result property="publishIp" column="publishIP" />
+		<result property="remainTimeEnd" column="remainTimeEnd" />
+		<result property="auditTime" column="auditTime" />
+		<result property="hasDeadline" column="hasDeadline" />
+		<result property="isAutoBid" column="isAutoBid" />
+		<result property="manageFee" column="manageFee" />
+		<result property="isDayThe" column="isDayThe" />
+		<result property="autoBidEnableTime" column="autoBidEnableTime" />
+		<result property="version" column="version" />
+		<result property="frozenMargin" column="frozen_margin" />
+		<result property="smallestFlowUnit" column="smallestFlowUnit" />
+		<result property="circulationNumber" column="circulationNumber" />
+		<result property="hasCirculationNumber" column="hasCirculationNumber" />
+		<result property="nidLog" column="nid_log" />
+		<result property="sort" column="sort" />
+		<result property="feestate" column="feestate" />
+		<result property="feelog" column="feelog" />
+		<result property="businessDetail" column="businessDetail" />
+		<result property="assets" column="assets" />
+		<result property="moneyPurposes" column="moneyPurposes" />
+		<result property="circulationMode" column="circulationMode" />
+		<result property="circulationStatus" column="circulationStatus" />
+		<result property="undertaker" column="undertaker" />
+		<result property="borrowShow" column="borrowShow" />
+		<result property="hasRepoNumber" column="hasRepoNumber" />
+		<result property="agent" column="agent" />
+		<result property="counterAgent" column="counterAgent" />
+		<result property="amountScale" column="amount_scale" />
+		<result property="windControl" column="windControl" />
+		<result property="firstTrial" column="firstTrial" />
+		<result property="recheck" column="recheck" />
+		<result property="number" column="number" />
+		<result property="isTimes" column="isTimes" />
+		<result property="maxInvest" column="maxInvest" />
+		<result property="guaranteeId" column="guaranteeId" />
+		<result property="loansOk" column="loansOk" />
+		<result property="unfreeOk" column="unfreeOk" />
+		<result property="borrowadvisory" column="borrowadvisory" />
+		<result property="advisorybranch" column="advisorybranch" />
+		<result property="borrowGroup" column="borrowGroup" />
+	</resultMap>
+
+	<select id="getById" parameterType="long" resultMap="borrowResultMap">
+		SELECT *
+		FROM t_borrow WHERE id = #{id}
+	</select>
+	
+	<select id="getByIdNo" parameterType="string" resultMap="borrowResultMap">
+		SELECT * FROM t_borrow
+		WHERE publisher IN (
+		SELECT userId FROM t_person WHERE idNo = #{idNo})
+		ORDER BY publishTime DESC
+		LIMIT 1;
+	</select>
+	
+	<select id="queryBorrows" parameterType="Map" resultMap="borrowResultMap">
+		SELECT * FROM t_borrow
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="purpose != null">
+				AND purpose = #{purpose}
+			</if>
+			<if test="deadline != null">
+				AND deadline = #{deadline}
+			</if>
+			<if test="arStart != null">
+				<![CDATA[AND borrowAmount >= #{arStart}]]>
+			</if>
+			<if test="arEnd != null">
+				<![CDATA[AND borrowAmount <= #{arEnd}]]>
+			</if>
+			<if test="borrowStatus != null">
+				AND borrowStatus IN 
+				<foreach collection="borrowStatuses" item="borrowStatus" open="(" close=")" separator=",">
+					#{borrowStatus}
+				</foreach>
+			</if>
+			<if test="borrowGroup != null">
+				AND borrowGroup = #{borrowGroup}
+			</if>
+		</trim>
+		ORDER BY borrowStatus, publishTime DESC 
+		LIMIT #{beginCount},#{pageSize}
+	</select>
+	
+	<select id="queryBorrowDetails" parameterType="long" resultType="map">
+		SELECT 
+		 u.username
+		,p.idNo
+		,b.borrowAmount
+		,b.deadline
+		,b.paymentMode
+		,b.borrowTitle
+		,b.auditTime
+		,b.annualRate
+		,b.number
+		,b.publisher
+		,b.borrowStatus borrowStatus
+		,(SELECT bc.cardNo FROM t_bankcard bc WHERE bc.userId = b.publisher LIMIT 1) 'cardNo'
+		,(SELECT pc.costFee FROM t_platform_cost pc WHERE pc.id = 28 LIMIT 1) 'feeRate'
+		FROM t_borrow b
+		LEFT JOIN t_user u ON u.id = b.publisher
+		LEFT JOIN t_person p ON p.userId = u.id
+		WHERE b.id = #{borrowId}
+	</select>
+	
+	<select id="getBorrowQty" parameterType="map" resultType="long">
+		SELECT COUNT(*) FROM t_borrow
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="purpose != null">
+				AND purpose = #{purpose}
+			</if>
+			<if test="deadline != null">
+				AND deadline = #{deadline}
+			</if>
+			<if test="arStart != null">
+				<![CDATA[AND borrowAmount >= #{arStart}]]>
+			</if>
+			<if test="arEnd != null">
+				<![CDATA[AND borrowAmount <= #{arEnd}]]>
+			</if>
+			<if test="borrowStatus != null">
+				AND borrowStatus IN 
+				<foreach collection="borrowStatuses" item="borrowStatus" open="(" close=")" separator=",">
+					#{borrowStatus}
+				</foreach>
+			</if>
+			<if test="borrowGroup != null">
+				AND borrowGroup = #{borrowGroup}
+			</if>
+		</trim>
+	</select>
+
+	<select id="selectBorrow" parameterType="Map" resultMap="borrowResultMap">
+		SELECT *
+		FROM t_borrow
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != null">
+				AND id like #{id}
+			</if>
+			<if test="borrowTitle != null">
+				AND borrowTitle like #{borrowTitle}
+			</if>
+			<if test="borrowStatus != null">
+				AND borrowStatus like #{borrowStatus}
+			</if>
+			<if test="imgPath != null">
+				AND imgPath like #{imgPath}
+			</if>
+			<if test="borrowWay != null">
+				AND borrowWay like #{borrowWay}
+			</if>
+			<if test="borrowInfo != null">
+				AND borrowInfo like #{borrowInfo}
+			</if>
+			<if test="deadline != null">
+				AND deadline like #{deadline}
+			</if>
+			<if test="paymentMode != null">
+				AND paymentMode like #{paymentMode}
+			</if>
+			<if test="borrowAmount != null">
+				AND borrowAmount like #{borrowAmount}
+			</if>
+			<if test="annualRate != null">
+				AND annualRate like #{annualRate}
+			</if>
+			<if test="minTenderedSum != null">
+				AND minTenderedSum like #{minTenderedSum}
+			</if>
+			<if test="maxTenderedSum != null">
+				AND maxTenderedSum like #{maxTenderedSum}
+			</if>
+			<if test="raiseTerm != null">
+				AND raiseTerm like #{raiseTerm}
+			</if>
+			<if test="detail != null">
+				AND detail like #{detail}
+			</if>
+			<if test="visitors != null">
+				AND visitors like #{visitors}
+			</if>
+			<if test="remainTimeStart != null">
+				AND remainTimeStart like #{remainTimeStart}
+			</if>
+			<if test="tradeType != null">
+				AND tradeType like #{tradeType}
+			</if>
+			<if test="auditOpinion != null">
+				AND auditOpinion like #{auditOpinion}
+			</if>
+			<if test="publisher != null">
+				AND publisher like #{publisher}
+			</if>
+			<if test="excitationType != null">
+				AND excitationType like #{excitationType}
+			</if>
+			<if test="excitationSum != null">
+				AND excitationSum like #{excitationSum}
+			</if>
+			<if test="excitationMode != null">
+				AND excitationMode like #{excitationMode}
+			</if>
+			<if test="hasInvestAmount != null">
+				AND hasInvestAmount like #{hasInvestAmount}
+			</if>
+			<if test="investNum != null">
+				AND investNum like #{investNum}
+			</if>
+			<if test="purpose != null">
+				AND purpose like #{purpose}
+			</if>
+			<if test="hasPwd != null">
+				AND hasPWD like #{hasPwd}
+			</if>
+			<if test="investPwd != null">
+				AND investPWD like #{investPwd}
+			</if>
+			<if test="publishTime != null">
+				AND publishTime like #{publishTime}
+			</if>
+			<if test="publishIp != null">
+				AND publishIP like #{publishIp}
+			</if>
+			<if test="remainTimeEnd != null">
+				AND remainTimeEnd like #{remainTimeEnd}
+			</if>
+			<if test="auditTime != null">
+				AND auditTime like #{auditTime}
+			</if>
+			<if test="hasDeadline != null">
+				AND hasDeadline like #{hasDeadline}
+			</if>
+			<if test="isAutoBid != null">
+				AND isAutoBid like #{isAutoBid}
+			</if>
+			<if test="manageFee != null">
+				AND manageFee like #{manageFee}
+			</if>
+			<if test="isDayThe != null">
+				AND isDayThe like #{isDayThe}
+			</if>
+			<if test="autoBidEnableTime != null">
+				AND autoBidEnableTime like #{autoBidEnableTime}
+			</if>
+			<if test="version != null">
+				AND version like #{version}
+			</if>
+			<if test="frozenMargin != null">
+				AND frozen_margin like #{frozenMargin}
+			</if>
+			<if test="smallestFlowUnit != null">
+				AND smallestFlowUnit like #{smallestFlowUnit}
+			</if>
+			<if test="circulationNumber != null">
+				AND circulationNumber like #{circulationNumber}
+			</if>
+			<if test="hasCirculationNumber != null">
+				AND hasCirculationNumber like #{hasCirculationNumber}
+			</if>
+			<if test="nidLog != null">
+				AND nid_log like #{nidLog}
+			</if>
+			<if test="sort != null">
+				AND sort like #{sort}
+			</if>
+			<if test="feestate != null">
+				AND feestate like #{feestate}
+			</if>
+			<if test="feelog != null">
+				AND feelog like #{feelog}
+			</if>
+			<if test="businessDetail != null">
+				AND businessDetail like #{businessDetail}
+			</if>
+			<if test="assets != null">
+				AND assets like #{assets}
+			</if>
+			<if test="moneyPurposes != null">
+				AND moneyPurposes like #{moneyPurposes}
+			</if>
+			<if test="circulationMode != null">
+				AND circulationMode like #{circulationMode}
+			</if>
+			<if test="circulationStatus != null">
+				AND circulationStatus like #{circulationStatus}
+			</if>
+			<if test="undertaker != null">
+				AND undertaker like #{undertaker}
+			</if>
+			<if test="borrowShow != null">
+				AND borrowShow like #{borrowShow}
+			</if>
+			<if test="hasRepoNumber != null">
+				AND hasRepoNumber like #{hasRepoNumber}
+			</if>
+			<if test="agent != null">
+				AND agent like #{agent}
+			</if>
+			<if test="counterAgent != null">
+				AND counterAgent like #{counterAgent}
+			</if>
+			<if test="amountScale != null">
+				AND amount_scale like #{amountScale}
+			</if>
+			<if test="windControl != null">
+				AND windControl like #{windControl}
+			</if>
+			<if test="firstTrial != null">
+				AND firstTrial like #{firstTrial}
+			</if>
+			<if test="recheck != null">
+				AND recheck like #{recheck}
+			</if>
+			<if test="number != null">
+				AND number like #{number}
+			</if>
+			<if test="isTimes != null">
+				AND isTimes like #{isTimes}
+			</if>
+			<if test="maxInvest != null">
+				AND maxInvest like #{maxInvest}
+			</if>
+			<if test="guaranteeId != null">
+				AND guaranteeId like #{guaranteeId}
+			</if>
+			<if test="loansOk != null">
+				AND loansOk like #{loansOk}
+			</if>
+			<if test="unfreeOk != null">
+				AND unfreeOk like #{unfreeOk}
+			</if>
+			<if test="borrowadvisory != null">
+				AND borrowadvisory like #{borrowadvisory}
+			</if>
+			<if test="advisorybranch != null">
+				AND advisorybranch like #{advisorybranch}
+			</if>
+			<if test="borrowGroup != null">
+				AND borrowGroup like #{borrowGroup}
+			</if>
+		</trim>
+
+	</select>
+	
+	<select id="queryLoanBorrows" parameterType="map" resultType="map">
+	 <![CDATA[ select * from (
+			select 1 type,a.advisorybranch,a.id,a.number,p.realName,a.deadline,a.auditTime,a.paymentmode,a.isDayThe,a.borrowAmount,s.schemeName,
+				a.annualRate,a.borrowTitle,a.businessNo,p.idNo,case when a.paymentmode IN (10,11) then b.consultFee else 0 end as consultFee 
+			from t_borrow as a LEFT JOIN t_user u ON u.id = a.publisher LEFT JOIN t_person p ON p.userId = u.id 
+			LEFT JOIN (select a.id,a.borrowId,IFNULL(a.consultFee,0) as consultFee from t_repayment as a 
+				where not exists (select * from t_repayment where borrowId=a.borrowId and id<a.id)) b on a.id=b.borrowId 
+			LEFT JOIN	t_sett_scheme s on s.schemeId=a.paymentMode
+			where a.borrowStatus in (4,5) and a.hasInvestAmount= a.borrowAmount
+		UNION
+			select 2 type,a.issuer_brunch,t.product_id,a.loan_id,p.realName,a.loan_period,
+			CASE WHEN a.repay_type in(10,11) THEN date_format(b.pre_repay_date,'%Y-%m-%d') 
+			else date_format(date_sub(b.pre_repay_date,INTERVAL 1 MONTH),'%Y-%m-%d') end auditTime,a.repay_type,1 isDayThe,
+				a.loan_amount,s.schemeName,a.annual_rate,a.loan_usage,a.business_num,p.idNo,case when a.repay_type IN (10,11) then b.consultFee else 0 end consultFee 
+			from td_loan_detail a LEFT JOIN td_fund_product t on a.loan_id=t.loan_id 
+			LEFT JOIN t_user u ON u.id = a.user_Id LEFT JOIN t_person p ON p.userId = u.id 
+			LEFT JOIN (select loan_id,pre_repay_date,IFNULL(consult_Fee,0) consultFee from td_fund_pre_repayment c 
+				where not EXISTS(select * from td_fund_pre_repayment where loan_id=c.loan_id and repayment_id<c.repayment_id)) b on a.loan_id=b.loan_id 
+			LEFT JOIN t_sett_scheme s on s.schemeId=a.repay_type
+			where t.product_status in (5,6)) k
+		]]>
+		<trim prefix="WHERE" prefixOverrides="AND">
+
+			<if test="auditTime1 != null">
+				<![CDATA[AND auditTime >= #{auditTime1}]]>
+			</if>
+			<if test="auditTime2 != null">
+				<![CDATA[AND auditTime <= #{auditTime2}]]>
+			</if>
+			<if test="borrowId != null">
+				<![CDATA[AND id = #{borrowId}]]>
+			</if>
+			<if test="type != null">
+				<![CDATA[AND type = #{type}]]>
+			</if>
+			<if test="paymentModes != null">
+				AND paymentMode IN 
+				<foreach collection="paymentModes" item="paymentmode" open="(" close=")" separator=",">
+					#{paymentmode}
+				</foreach>
+			</if>
+
+		</trim>
+	</select>
+
+	<select id="queryloanBorrowUser" parameterType="map" resultType="map">
+		select * from (
+			select 1 type,a.borrowId,b.annualRate,p.realName,a.investAmount from t_borrow as b,t_invest as a 
+				LEFT JOIN t_user u ON u.id = a.investor LEFT JOIN t_person p ON p.userId = u.id 
+				where a.borrowId=b.id
+			UNION
+			select 2 type,a.product_id,b.annual_rate,c.realName,a.trade_amount
+        	from td_fund_investment_detail a,td_fund_product b,t_person c
+        		where a.product_id = b.product_id
+        		and c.userId = a.user_id
+		) k
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="borrowId != null">
+				AND borrowId = #{borrowId}
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 查询还款信息 -->
+	<select id="queryRepayment" parameterType="map" resultType="map">
+	 <![CDATA[ select * from (
+			SELECT 1 type,r.borrowId,p.realName,p.idNo,b.businessNo,SUBSTRING_INDEX(r.repayPeriod,'/',1) AS repayPeriod,r.realRepayDate repayDate,
+			 	r.stillPrincipal,r.stillInterest,r.consultFee,r.stillPrincipal + r.stillInterest + r.consultFee AS stillSumAmount,0 AS preSettleAmount,       
+			       r.principalBalance,r.lateFI,r.lateDay,1 AS finishedFlag,r.repayFee,0 AS serviceFee,IF(repayPeriod LIKE '1/%', 50,0) AS zhengxinFee,
+			       0  AS tingcheFee,0  AS registerFee,0 AS preSettleFee,r.stillPrincipal + r.stillInterest +r.consultFee+r.lateFI +r.repayFee AS realSumAmount       
+			FROM t_repayment  r 
+			     LEFT OUTER JOIN t_borrow b ON r.borrowId = b.id
+			     LEFT OUTER JOIN t_person p ON p.userId = b.publisher
+			UNION
+			SELECT 2 type,r.loan_id,p.realName,p.idNo,b.business_num,r.repay_times,r.repay_date,
+			 	r.capital,r.interest,r.consult_fee,r.capital + r.interest + r.consult_fee AS stillSumAmount,0 AS preSettleAmount,       
+			       ifnull(b.loan_amount-s.scapital,0) as principalBalance,IFNULL(r.late_charge,0),CASE WHEN datediff(r.repay_date,r.pre_repay_date)<0 THEN 0 ELSE datediff(r.repay_date,r.pre_repay_date) END,
+				1 AS finishedFlag,0 as repayFee,0 AS serviceFee,IFNULL(service_fee,0) AS zhengxinFee,
+			       0  AS tingcheFee,0  AS registerFee,0 AS preSettleFee,r.capital + r.interest +IFNULL(r.consult_fee,0)+IFNULL(r.late_charge,0) AS realSumAmount       
+				FROM td_fund_pre_repayment  r 
+			     LEFT OUTER JOIN td_loan_detail b ON r.loan_id = b.loan_id
+			     LEFT OUTER JOIN t_person p ON p.userId = b.user_id
+					 LEFT JOIN (select loan_id,repay_status,repay_date,sum(capital) scapital from td_fund_pre_repayment group by loan_id,repay_date,repay_status HAVING repay_status='REPAYMENTED' AND repay_date<#{repayDate}) s
+						ON s.loan_id = r.loan_id
+			) k
+		]]>
+		<trim prefix="WHERE" prefixOverrides="AND">
+
+			<if test="repayDate != null">
+				<![CDATA[AND repayDate = #{repayDate}]]>
+			</if>
+			<if test="type != null">
+				<![CDATA[AND type = #{type}]]>
+			</if>
+
+		</trim>
+	</select>
+
+	<update id="updateBorrowById" parameterType="borrowDo">
+		UPDATE t_borrow
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="borrowTitle != null">
+				borrowTitle = #{borrowTitle},
+			</if>
+			<if test="borrowStatus != null">
+				borrowStatus = #{borrowStatus},
+			</if>
+			<if test="imgPath != null">
+				imgPath = #{imgPath},
+			</if>
+			<if test="borrowWay != null">
+				borrowWay = #{borrowWay},
+			</if>
+			<if test="borrowInfo != null">
+				borrowInfo = #{borrowInfo},
+			</if>
+			<if test="deadline != null">
+				deadline = #{deadline},
+			</if>
+			<if test="paymentMode != null">
+				paymentMode = #{paymentMode},
+			</if>
+			<if test="borrowAmount != null">
+				borrowAmount = #{borrowAmount},
+			</if>
+			<if test="annualRate != null">
+				annualRate = #{annualRate},
+			</if>
+			<if test="minTenderedSum != null">
+				minTenderedSum = #{minTenderedSum},
+			</if>
+			<if test="maxTenderedSum != null">
+				maxTenderedSum = #{maxTenderedSum},
+			</if>
+			<if test="raiseTerm != null">
+				raiseTerm = #{raiseTerm},
+			</if>
+			<if test="detail != null">
+				detail = #{detail},
+			</if>
+			<if test="visitors != null">
+				visitors = #{visitors},
+			</if>
+			<if test="remainTimeStart != null">
+				remainTimeStart = #{remainTimeStart},
+			</if>
+			<if test="tradeType != null">
+				tradeType = #{tradeType},
+			</if>
+			<if test="auditOpinion != null">
+				auditOpinion = #{auditOpinion},
+			</if>
+			<if test="publisher != null">
+				publisher = #{publisher},
+			</if>
+			<if test="excitationType != null">
+				excitationType = #{excitationType},
+			</if>
+			<if test="excitationSum != null">
+				excitationSum = #{excitationSum},
+			</if>
+			<if test="excitationMode != null">
+				excitationMode = #{excitationMode},
+			</if>
+			<if test="hasInvestAmount != null">
+				hasInvestAmount = #{hasInvestAmount},
+			</if>
+			<if test="investNum != null">
+				investNum = #{investNum},
+			</if>
+			<if test="purpose != null">
+				purpose = #{purpose},
+			</if>
+			<if test="hasPwd != null">
+				hasPWD = #{hasPwd},
+			</if>
+			<if test="investPwd != null">
+				investPWD = #{investPwd},
+			</if>
+			<if test="publishTime != null">
+				publishTime = #{publishTime},
+			</if>
+			<if test="publishIp != null">
+				publishIP = #{publishIp},
+			</if>
+			<if test="remainTimeEnd != null">
+				remainTimeEnd = #{remainTimeEnd},
+			</if>
+			<if test="auditTime != null">
+				auditTime = #{auditTime},
+			</if>
+			<if test="hasDeadline != null">
+				hasDeadline = #{hasDeadline},
+			</if>
+			<if test="isAutoBid != null">
+				isAutoBid = #{isAutoBid},
+			</if>
+			<if test="manageFee != null">
+				manageFee = #{manageFee},
+			</if>
+			<if test="isDayThe != null">
+				isDayThe = #{isDayThe},
+			</if>
+			<if test="autoBidEnableTime != null">
+				autoBidEnableTime = #{autoBidEnableTime},
+			</if>
+			<if test="frozenMargin != null">
+				frozen_margin = #{frozenMargin},
+			</if>
+			<if test="smallestFlowUnit != null">
+				smallestFlowUnit = #{smallestFlowUnit},
+			</if>
+			<if test="circulationNumber != null">
+				circulationNumber = #{circulationNumber},
+			</if>
+			<if test="hasCirculationNumber != null">
+				hasCirculationNumber = #{hasCirculationNumber},
+			</if>
+			<if test="nidLog != null">
+				nid_log = #{nidLog},
+			</if>
+			<if test="sort != null">
+				sort = #{sort},
+			</if>
+			<if test="feestate != null">
+				feestate = #{feestate},
+			</if>
+			<if test="feelog != null">
+				feelog = #{feelog},
+			</if>
+			<if test="businessDetail != null">
+				businessDetail = #{businessDetail},
+			</if>
+			<if test="assets != null">
+				assets = #{assets},
+			</if>
+			<if test="moneyPurposes != null">
+				moneyPurposes = #{moneyPurposes},
+			</if>
+			<if test="circulationMode != null">
+				circulationMode = #{circulationMode},
+			</if>
+			<if test="circulationStatus != null">
+				circulationStatus = #{circulationStatus},
+			</if>
+			<if test="undertaker != null">
+				undertaker = #{undertaker},
+			</if>
+			<if test="borrowShow != null">
+				borrowShow = #{borrowShow},
+			</if>
+			<if test="hasRepoNumber != null">
+				hasRepoNumber = #{hasRepoNumber},
+			</if>
+			<if test="agent != null">
+				agent = #{agent},
+			</if>
+			<if test="counterAgent != null">
+				counterAgent = #{counterAgent},
+			</if>
+			<if test="amountScale != null">
+				amount_scale = #{amountScale},
+			</if>
+			<if test="windControl != null">
+				windControl = #{windControl},
+			</if>
+			<if test="firstTrial != null">
+				firstTrial = #{firstTrial},
+			</if>
+			<if test="recheck != null">
+				recheck = #{recheck},
+			</if>
+			<if test="number != null">
+				number = #{number},
+			</if>
+			<if test="isTimes != null">
+				isTimes = #{isTimes},
+			</if>
+			<if test="maxInvest != null">
+				maxInvest = #{maxInvest},
+			</if>
+			<if test="guaranteeId != null">
+				guaranteeId = #{guaranteeId},
+			</if>
+			<if test="loansOk != null">
+				loansOk = #{loansOk},
+			</if>
+			<if test="unfreeOk != null">
+				unfreeOk = #{unfreeOk},
+			</if>
+			<if test="borrowadvisory != null">
+				borrowadvisory = #{borrowadvisory},
+			</if>
+			<if test="advisorybranch != null">
+				advisorybranch = #{advisorybranch},
+			</if>
+			<if test="borrowGroup != null">
+				borrowGroup = #{borrowGroup},
+			</if>
+			version = version + 1
+		</trim>
+		WHERE id = #{id} and version = #{version}
+	</update>
+	<update id="updateBorrowStatusAndHasDeadlineById" parameterType="long">
+	   UPDATE t_borrow SET borrowStatus=4 ,sort = 2,
+	    hasDeadline = (SELECT COUNT(*) FROM t_repayment r 
+	    WHERE r.borrowId = #{borrowId} AND r.repayStatus = 2 ) 
+	    WHERE id= #{borrowId}
+	</update>
+	<update id="updateBorrowStatus"  parameterType="long">
+	     <![CDATA[ 
+	     UPDATE t_borrow SET borrowStatus = 5,sort=2
+	     WHERE id = #{borrowId} AND borrowStatus =4 AND ( NOT EXISTS ( SELECT id FROM t_repayment  WHERE borrowId = #{borrowId} AND repayStatus = 1	)  )
+	    
+	     ]]>
+	</update>
+	<update id="updateBorrowStatusByPreRepay" parameterType="long">
+	     <![CDATA[ 
+	     UPDATE t_borrow SET borrowStatus = 5 ,sort = 2,hasDeadline = deadline
+	     WHERE  id = #{borrowId}
+	     ]]>
+	</update>
+	<update id="updateBorrowFullScale" parameterType="long">
+		UPDATE t_borrow SET borrowStatus = 4,auditTime = NOW(),version = version + 1 
+		WHERE id = #{borrowId} AND borrowStatus = 3
+	</update>
+	<insert id="addBorrow" parameterType="borrowDo" keyProperty="id"
+		useGeneratedKeys="true">
+		INSERT INTO t_borrow( borrowTitle
+		,borrowStatus
+		,imgPath
+		,borrowWay
+		,borrowInfo
+		,deadline
+		,paymentMode
+		,borrowAmount
+		,annualRate
+		,minTenderedSum
+		,maxTenderedSum
+		,raiseTerm
+		,detail
+		,visitors
+		,remainTimeStart
+		,tradeType
+		,auditOpinion
+		,publisher
+		,excitationType
+		,excitationSum
+		,excitationMode
+		,hasInvestAmount
+		,investNum
+		,purpose
+		,hasPWD
+		,investPWD
+		,publishTime
+		,publishIP
+		,remainTimeEnd
+		,auditTime
+		,hasDeadline
+		,isAutoBid
+		,manageFee
+		,isDayThe
+		,autoBidEnableTime
+		,version
+		,frozen_margin
+		,smallestFlowUnit
+		,circulationNumber
+		,hasCirculationNumber
+		,nid_log
+		,sort
+		,feestate
+		,feelog
+		,businessDetail
+		,assets
+		,moneyPurposes
+		,circulationMode
+		,circulationStatus
+		,undertaker
+		,borrowShow
+		,hasRepoNumber
+		,agent
+		,counterAgent
+		,amount_scale
+		,windControl
+		,firstTrial
+		,recheck
+		,number
+		,isTimes
+		,maxInvest
+		,guaranteeId
+		,loansOk
+		,unfreeOk
+		,borrowadvisory
+		,advisorybranch
+		,borrowGroup
+		)
+		VALUES (
+		#{borrowTitle}
+		,#{borrowStatus}
+		,#{imgPath}
+		,#{borrowWay}
+		,#{borrowInfo}
+		,#{deadline}
+		,#{paymentMode}
+		,#{borrowAmount}
+		,#{annualRate}
+		,#{minTenderedSum}
+		,#{maxTenderedSum}
+		,#{raiseTerm}
+		,#{detail}
+		,#{visitors}
+		,#{remainTimeStart}
+		,#{tradeType}
+		,#{auditOpinion}
+		,#{publisher}
+		,#{excitationType}
+		,#{excitationSum}
+		,#{excitationMode}
+		,#{hasInvestAmount}
+		,#{investNum}
+		,#{purpose}
+		,#{hasPwd}
+		,#{investPwd}
+		,#{publishTime}
+		,#{publishIp}
+		,#{remainTimeEnd}
+		,#{auditTime}
+		,#{hasDeadline}
+		,#{isAutoBid}
+		,#{manageFee}
+		,#{isDayThe}
+		,#{autoBidEnableTime}
+		,#{version}
+		,#{frozenMargin}
+		,#{smallestFlowUnit}
+		,#{circulationNumber}
+		,#{hasCirculationNumber}
+		,#{nidLog}
+		,#{sort}
+		,#{feestate}
+		,#{feelog}
+		,#{businessDetail}
+		,#{assets}
+		,#{moneyPurposes}
+		,#{circulationMode}
+		,#{circulationStatus}
+		,#{undertaker}
+		,#{borrowShow}
+		,#{hasRepoNumber}
+		,#{agent}
+		,#{counterAgent}
+		,#{amountScale}
+		,#{windControl}
+		,#{firstTrial}
+		,#{recheck}
+		,#{number}
+		,#{isTimes}
+		,#{maxInvest}
+		,#{guaranteeId}
+		,#{loansOk}
+		,#{unfreeOk}
+		,#{borrowadvisory}
+		,#{advisorybranch}
+		,#{borrowGroup}
+		);
+	</insert>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM
+		t_borrow WHERE
+		id = #{id}
+	</delete>
+
+    <update id="updateStatus" parameterType="borrowDo" >
+        update t_borrow set borrowStatus=#{borrowStatus} where id=#{id}
+    </update>
+
+    <update id="updateBorrowInvest" parameterType="borrowDo" >
+        <![CDATA[
+        update t_borrow set hasInvestAmount=#{hasInvestAmount},investNum=#{investNum},version=version+1 where id=#{id} and version=#{version} and borrowAmount >= #{hasInvestAmount} ;
+        ]]>
+    </update>
+</mapper>
+

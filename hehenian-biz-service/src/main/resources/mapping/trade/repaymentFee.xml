@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.trade.IRepaymentFeeDao">
+	<resultMap type="repaymentFeeDo" id="repaymentFeeResultMap">
+		<result property="id" column="id" />
+		<result property="feeCode" column="feeCode" />
+		<result property="repaymentId" column="repaymentId" />
+		<result property="stillAmount" column="stillAmount" />
+		<result property="hasAmount" column="hasAmount" />
+		<result property="lastUpdateDate" column="lastUpdateDate" />
+		<result property="remark" column="remark" />
+		
+		<result property="investRepaymentId" column="investRepaymentId" />
+		<result property="lastUpdateUser" column="lastUpdateUser" />
+		<result property="operationNum" column="operationNum" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="repaymentFeeResultMap">
+		SELECT * 
+		  FROM t_repayment_fee WHERE id = #{id}
+	</select>
+	
+	<select id="getByRepaymentId" parameterType="Long" resultMap="repaymentFeeResultMap">
+		SELECT repaymentId ,
+		       feeCode,
+		       sum(stillAmount) as stillAmount, 
+		       sum(hasAmount) as hasAmount,
+		       max(lastUpdateDate) as lastUpdateDate 
+		  FROM t_repayment_fee
+		  WHERE repaymentId = #{id}
+		  GROUP BY repaymentId ,feeCode
+	</select>
+
+	<select id="selectRepaymentFee" parameterType="Map" resultMap="repaymentFeeResultMap">
+		SELECT * 
+		  FROM t_repayment_fee
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="id != null">  
+				AND id like #{id}
+			</if>
+			<if test="feeCode != null">  
+				AND feeCode like #{feeCode}
+			</if>
+			<if test="repaymentId != null">  
+				AND repaymentId like #{repaymentId}
+			</if>
+			<if test="stillAmount != null">  
+				AND stillAmount like #{stillAmount}
+			</if>
+			<if test="hasAmount != null">  
+				AND hasAmount like #{hasAmount}
+			</if>
+			<if test="lastUpdateDate != null">  
+				AND lastUpdateDate like #{lastUpdateDate}
+			</if>
+			<if test="remark != null">  
+				AND remark like #{remark}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateRepaymentFeeById" parameterType="repaymentFeeDo">
+		UPDATE t_repayment_fee 
+		   SET 		<if test="feeCode != null">  
+				feeCode = #{feeCode}
+		</if>		
+		<if test="repaymentId != null">  
+				,repaymentId = #{repaymentId}
+		</if>		
+		<if test="stillAmount != null">  
+				,stillAmount = #{stillAmount}
+		</if>		
+		<if test="hasAmount != null">  
+				,hasAmount = #{hasAmount}
+		</if>		
+		<if test="lastUpdateDate != null">  
+				,lastUpdateDate = #{lastUpdateDate}
+		</if>		
+		<if test="remark != null">  
+				,remark = #{remark}
+		</if>		
+	    <if test="investRepaymentId != null">  
+				,investRepaymentId = #{investRepaymentId}
+		</if>	
+		<if test="lastUpdateUser != null">  
+				,lastUpdateUser = #{lastUpdateUser}
+		</if>
+		<if test="operationNum != null">  
+				,operationNum = #{operationNum}
+		</if>	
+		WHERE id = #{id}  
+	</update>	
+	
+	<insert id="addRepaymentFee" parameterType="repaymentFeeDo" keyProperty="id"
+		useGeneratedKeys="true" >
+		INSERT INTO t_repayment_fee(feeCode
+		,repaymentId
+		,stillAmount
+		,hasAmount
+		,lastUpdateDate
+		,remark
+		,investRepaymentId
+		,lastUpdateUser
+		,operationNum)
+		 VALUES (#{feeCode}
+		,#{repaymentId}
+		,#{stillAmount}
+		,#{hasAmount}
+		,#{lastUpdateDate}
+		,#{remark}
+		,#{investRepaymentId}
+		,#{lastUpdateUser}
+		,#{operationNum});
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM t_repayment_fee WHERE id = #{id}
+	</delete>
+	
+</mapper>
+

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanInfoDao">
+	<select id="queryLoanInfos" parameterType="map" resultType="loanInfoDo">
+		SELECT loan.*,sett.repayWay FROM t_loan_info loan
+		LEFT JOIN t_sett_scheme sett ON sett.schemeId = loan.repayType
+		<where>
+			<if test="realName != null">
+				and loan.realName like concat('%',#{realName},'%')
+			</if>
+			<if test="loanStatus != null">
+				and loan.loanStatus = #{loanStatus}
+			</if>
+			<if test="productType != null">
+				and loan.productType = #{productType}
+			</if>
+		</where>
+		ORDER BY loan.createTime DESC
+		LIMIT #{beginCount},#{pageSize}
+	</select>
+	
+	<select id="countLoanInfo" parameterType="map" resultType="long">
+		SELECT COUNT(*) FROM t_loan_info
+		<where>
+			<if test="realName != null">
+				and realName like concat('%',#{realName},'%')
+			</if>
+			<if test="loanStatus != null">
+				and loanStatus = #{loanStatus}
+			</if>
+			<if test="productType != null">
+				and productType = #{productType}
+			</if>
+		</where>
+	</select>
+
+	<select id="getByLoanInfoId" parameterType="long" resultType="loanInfoDo">
+		SELECT * FROM t_loan_info
+		WHERE loanInfoId = #{loanInfoId}
+	</select>
+	
+	<select id="queryByLoanInfoIds" parameterType="map" resultType="loanInfoDo">
+		SELECT * FROM t_loan_info
+		WHERE loanInfoId IN
+		<foreach collection="loanInfoIdList" item="loanInfoId" open="(" close=")" separator=",">
+			#{loanInfoId}
+		</foreach>
+	</select>
+
+	<insert id="addLoanInfo" parameterType="loanInfoDo">
+		INSERT INTO t_loan_info
+		(realName, sex, age, marriaged, residenceType, education,
+		creditNum, creditAmt, idNo, carQty, companyName,
+		companyAddress, position, companyType, workYear, industry,
+		income, expense, loanAmt, loanPeriod, productType,
+		repayType, loanAnnualRate,annualRate, tenderDay, loanUsage, consultant,
+		consultantBranch, borrowGroup, businessNo, loanStatus,
+		remark, createTime, updateTime)
+		VALUES (#{realName},#{sex},#{age},#{marriaged},
+		#{residenceType},#{education},#{creditNum},#{creditAmt},#{idNo},
+		#{carQty},#{companyName},#{companyAddress},#{position},#{companyType},
+		#{workYear},#{industry},#{income},#{expense},#{loanAmt},#{loanPeriod},
+		#{productType},#{repayType},#{loanAnnualRate},#{annualRate},#{tenderDay},#{loanUsage},
+		#{consultant},#{consultantBranch},#{borrowGroup},#{businessNo},
+		#{loanStatus},#{remark},NOW(),NOW());
+	</insert>
+
+	<update id="updateLoanInfo" parameterType="loanInfoDo">
+		UPDATE t_loan_info
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="realName != null">
+				realName = #{realName},
+			</if>
+			<if test="idNo != null">
+				idNo = #{idNo},
+			</if>
+			<if test="loanAmt != null">
+				loanAmt = #{loanAmt},
+			</if>
+			<if test="loanPeriod != null">
+				loanPeriod = #{loanPeriod},
+			</if>
+			<if test="productType != null">
+				productType = #{productType},
+			</if>
+			<if test="repayType != null">
+				repayType = #{repayType},
+			</if>
+			<if test="loanAnnualRate != null">
+				loanAnnualRate = #{loanAnnualRate},
+			</if>
+			<if test="annualRate != null">
+				annualRate = #{annualRate},
+			</if>
+			<if test="borrowGroup != null">
+				borrowGroup = #{borrowGroup},
+			</if>
+			<if test="loanStatus != null">
+				loanStatus = #{loanStatus},
+			</if>
+			updateTime = NOW(),
+		</trim>
+		WHERE loanInfoId = #{loanInfoId}
+	</update>
+
+
+</mapper>

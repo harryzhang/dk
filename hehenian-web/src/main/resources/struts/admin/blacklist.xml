@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="blacklist" extends="admin-default" namespace="/admin">
+		<!-- 黑名单列表 -->
+		<action name="queryBlacklistPage" class="blacklistAction" method="queryBlacklistPage">
+			<result name="success">/WEB-INF/page/admin/blacklist_index_info.jsp</result>
+        </action>
+        
+        <!-- 黑名单列表初始化 -->
+		<action name="queryBlacklistInit" class="blacklistAction" method="queryBlacklistInit">
+			<result name="success">/WEB-INF/page/admin/blacklist_index.jsp</result>
+        </action>
+
+         <!-- 删除黑名单用户 -->
+		<action name="deleteBlackList" class="blacklistAction" method="deleteBlackList">
+			<result name="success" type="redirect">queryBlacklistInit.do</result>
+        </action>
+        
+        <!-- 添加黑名单用户 -->
+		<action name="updateBlackList" class="blacklistAction" method="updateBlackList">
+			<result name="success">/WEB-INF/page/admin/news_index_info.jsp</result>
+        </action>
+        
+   
+
+	</package>
+</struts>

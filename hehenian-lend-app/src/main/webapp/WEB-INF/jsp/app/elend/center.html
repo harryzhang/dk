@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+<title>成功</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="MobileOptimized" content="320" />
+<link href="../../../../app_res/css/elend/eLoan.css?v=1" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<header class="center_head">
+		<div class="head-inf">
+			<h2>张三</h2>
+			<p class="db_f">
+				<span class="bf1">158****5555</span>
+				<span class="bf1">560239****2398</span>
+			</p>
+		</div>
+		<div class="head-lend db_f">
+			<span><em>贷款金额(元)</em>120,000</span>
+			<span><em>还款期限(元)</em>6</span>
+			<span><em>月还款额(元)</em>11,800</span>
+		</div>
+	</header>
+
+	<article>
+		<section>
+			<h2 class="progess-tip p1"><em>2015.08.25</em>一审通过</h2>
+			<div class="p1 db_f progess">
+				<span class="bf1 pl">1</span>
+				<span class="bf1 pm">2</span>
+				<span class="bf1 pm">3</span>
+				<span class="bf1 pm">4</span>
+				<span class="bf1 pr">√</span>
+			</div>
+			<div class="p1 db_f progess">
+				<span class="bf1 pl pl2">1</span>
+				<span class="bf1 pm pm2">2</span>
+				<span class="bf1 pm pm22">3</span>
+				<span class="bf1 pm ">4</span>
+				<span class="bf1 pr ">√</span>
+			</div>
+			<div class="p1 db_f progess">
+				<span class="bf1 pl pl2">1</span>
+				<span class="bf1 pm pm2">2</span>
+				<span class="bf1 pm pm2">3</span>
+				<span class="bf1 pm pm2">4</span>
+				<span class="bf1 pr pr2">√</span>
+			</div>
+			<div class="p1 db_f progess">
+				<span class="bf1 pl pl32">1</span>
+				<span class="bf1 pm">2</span>
+				<span class="bf1 pm">3</span>
+				<span class="bf1 pm">4</span>
+				<span class="bf1 pr">√</span>
+			</div>
+			<div class="p1 db_f progess">
+				<span class="bf1 pl pl3">1</span>
+				<span class="bf1 pm pm3">2</span>
+				<span class="bf1 pm">3</span>
+				<span class="bf1 pm">4</span>
+				<span class="bf1 pr">√</span>
+			</div>
+		</section>
+		<section>
+			<div class="p1">
+				<a href="##" class="apply">查看我提交的资料</a>
+			</div>
+
+			<div>
+				<div class="p1 db_f">
+					<div class="bf1"><input type="checkbox" ><a href="#">《合和年在线借款协议》</a></div>
+					<div class="bf1"><input type="checkbox" ><a href="#">《借款咨询服务协议》</a></div>
+				</div>
+				<p style="padding:0 10px;color:#f00;">请仔细阅读协议并勾选</p>
+				<p class="p1">尊敬的e贷款用户张三你好。尊敬的e贷款用户张三你好。尊敬的e贷款用户张三你好。尊敬的e贷款用户张三你好。尊敬的e贷款用户张三你好。</p>
+				<div class="p1 db_f">
+					<div class="p1 bf1"><a href="##" class="apply">不同意贷款</a></div>
+					<div class="p1 bf1"><a href="##" class="apply">同意贷款</a></div>
+				</div>
+			</div>
+		</section>
+		<section>
+			<ul class="center-list">
+				<li><span class="hj">还款计划表</span><em></em>
+					<table class="r_table h_table">
+						<thead>
+							<tr>
+								<th>期数</th>
+								<th>还款日期</th>
+								<th>月还款额(元)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>2015.07.24</td>
+								<td>120.000</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>2015.07.24</td>
+								<td>120.000</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>2015.07.24</td>
+								<td>120.000</td>
+							</tr>
+						</tbody>
+					</table>
+				</li>
+				<li>
+					<span class="ld">历史贷款情况</span><em></em>
+					<table class="r_table h_table">
+						<thead>
+							<tr>
+								<th>申请日期</th>
+								<th>贷款金额(元)</th>
+								<th>状态</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>2015.07.24</td>
+								<td>120.000</td>
+								<td class="status0">审核中</td>
+							</tr>
+							<tr>
+								<td>2015.07.24</td>
+								<td>120.000</td>
+								<td class="status1">审核中</td>
+							</tr>
+							<tr>
+								<td>2015.07.24</td>
+								<td>120.000</td>
+								<td>审核中</td>
+							</tr>
+						</tbody>
+					</table>
+				</li>
+			</ul>
+		</section>
+	</article>
+
+	<script src="../../../../app_res/js/libs/zepto.js"></script>
+	<script>
+	$(function(){
+		$(".center-list li span").bind('touchend', function(){
+			var that = $(this);
+			if(that.next(".down").length){
+				that.siblings('.h_table').hide().prev("em").removeClass("down");
+			} else {
+				that.next('em').addClass("down").next('.h_table').show();
+				that.parent().siblings().find('.h_table').hide().prev("em").removeClass("down");
+			}
+		})
+	})
+	</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.trade.IAssignmentDebtDao">
+	<resultMap type="assignmentDebtDo" id="assignmentDebtResultMap">
+		<result property="id" column="id" />
+		<result property="parentId" column="parentId" />
+		<result property="debtSum" column="debtSum" />
+		<result property="auctionBasePrice" column="auctionBasePrice" />
+		<result property="debtLimit" column="debtLimit" />
+		<result property="auctionMode" column="auctionMode" />
+
+		<result property="publishTime" column="publishTime" />
+		<result property="viewCount" column="viewCount" />
+		<result property="details" column="details" />
+		<result property="auctionDays" column="auctionDays" />
+		<result property="debtStatus" column="debtStatus" />
+
+		<result property="borrowId" column="borrowId" />
+		<result property="alienatorId" column="alienatorId" />
+		<result property="auctionerId" column="auctionerId" />
+		<result property="auctionHighPrice" column="auctionHighPrice" />
+		<result property="auctionEndTime" column="auctionEndTime" />
+
+		<result property="applyTime" column="applyTime" />
+		<result property="manageFee" column="manageFee" />
+		<result property="investId" column="investId" />
+	</resultMap>
+
+	<select id="getById" parameterType="int" resultMap="assignmentDebtResultMap">
+		SELECT * FROM
+		t_assignment_debt WHERE id = #{id}
+	</select>
+
+	<!-- 还款的时候查询债券转让最后一条成功的 -->
+	<select id="getAssignmentDebtByInvestId" parameterType="map"
+		resultMap="assignmentDebtResultMap">
+		SELECT *
+		FROM t_assignment_debt ad
+		WHERE ad.investId =
+		#{investId}
+		AND ad.debtStatus = 3
+		AND ad.auctionerId = #{owner}
+		ORDER BY
+		ad.id DESC
+		LIMIT 1;
+	</select>
+
+	<!-- 成功投资取最后一次转让 -->
+	<select id="getSuccessInvestAssignmentDebt" parameterType="map"
+		resultMap="assignmentDebtResultMap">
+		SELECT *
+		FROM t_assignment_debt ad
+		WHERE ad.investId =
+		#{investId}
+		AND (ad.alienatorId = #{owner} or auctionerId = #{owner})
+		ORDER BY ad.id DESC
+		LIMIT 1;
+	</select>
+
+	<select id="isHaveAssignmentDebt" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*) FROM t_assignment_debt
+		WHERE investId = #{investId}
+		AND
+		alienatorId = #{alienatorId}
+		AND debtStatus IN
+		<foreach collection="debtStatuses" item="debtStatus" open="("
+			close=")" separator=",">
+			#{debtStatus}
+		</foreach>
+	</select>
+
+	<select id="getByInvestIdAndAuctionerId" parameterType="map"
+		resultMap="assignmentDebtResultMap">
+		SELECT * FROM t_assignment_debt
+		WHERE investId = #{investId}
+		AND auctionerId = #{auctionerId}
+		AND debtStatus = 3
+		ORDER BY
+		auctionEndTime DESC
+		LIMIT 1;
+	</select>
+
+	<insert id="addAssignmentDebt" parameterType="assignmentDebtDo">
+		INSERT INTO
+		t_assignment_debt(parentId,debtSum,auctionBasePrice,debtLimit,auctionMode,publishTime,viewCount,details,auctionDays,debtStatus,borrowId,alienatorId,auctionerId,auctionHighPrice,auctionEndTime,applyTime,manageFee,investId)
+		VALUES(#{parentId},#{debtSum},#{auctionBasePrice},#{debtLimit},#{auctionMode},#{publishTime},#{viewCount},#{details},#{auctionDays},#{debtStatus},#{borrowId},#{alienatorId},#{auctionerId},#{auctionHighPrice},#{auctionEndTime},NOW(),#{manageFee},#{investId});
+	</insert>
+
+	<update id="updateAssignmentDebt" parameterType="assignmentDebtDo">
+		UPDATE t_assignment_debt
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="debtSum != null">
+				debtSum = #{debtSum},
+			</if>
+			<if test="auctionBasePrice != null">
+				auctionBasePrice = #{auctionBasePrice},
+			</if>
+			<if test="debtLimit != null">
+				debtLimit = #{debtLimit},
+			</if>
+			<if test="auctionMode != null">
+				auctionMode = #{auctionMode},
+			</if>
+			<if test="publishTime != null">
+				publishTime = #{publishTime},
+			</if>
+			<if test="viewCount != null">
+				viewCount = #{viewCount},
+			</if>
+			<if test="details != null">
+				details = #{details},
+			</if>
+			<if test="auctionDays != null">
+				auctionDays = #{auctionDays},
+			</if>
+			<if test="debtStatus != null">
+				debtStatus = #{debtStatus},
+			</if>
+			<if test="borrowId != null">
+				borrowId = #{borrowId},
+			</if>
+			<if test="alienatorId != null">
+				alienatorId = #{alienatorId},
+			</if>
+			<if test="auctionerId != null">
+				auctionerId = #{auctionerId},
+			</if>
+			<if test="auctionHighPrice != null">
+				auctionHighPrice = #{auctionHighPrice},
+			</if>
+			<if test="auctionEndTime != null">
+				auctionEndTime = #{auctionEndTime},
+			</if>
+			<if test="applyTime != null">
+				applyTime = #{applyTime},
+			</if>
+			<if test="manageFee != null">
+				manageFee = #{manageFee},
+			</if>
+			<if test="investId != null">
+				investId = #{investId},
+			</if>
+		</trim>
+		WHERE id = #{id}
+	</update>
+
+	<update id="updatePurchaseDebt" parameterType="assignmentDebtDo">
+		UPDATE
+		t_assignment_debt SET auctionHighPrice =
+		#{auctionHighPrice},auctionerId = #{auctionerId}
+		,auctionEndTime =
+		#{auctionEndTime},debtStatus = #{debtStatus},manageFee = #{manageFee}
+		WHERE id = #{id} AND debtStatus != 3
+	</update>
+	
+	<update id="updateDebtStatusFailure" parameterType="long">
+		UPDATE t_assignment_debt SET debtStatus = 4 
+		WHERE borrowId = #{borrowId}
+		AND debtStatus IN (1,2,7)
+	</update>
+
+</mapper>
+	

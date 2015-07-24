@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="hhn.report" extends="admin-default" namespace="/admin">
+        <!-- E理财投资报表 -->
+        <action name="colorInvestReportInit" class="colorReportAction" method="queryColorInvestReportInit">
+            <result name="success">/WEB-INF/page/admin/color_invest_report_init.jsp</result>
+        </action>
+        <action name="colorInvestReport" class="colorReportAction" method="queryColorInvestReport">
+            <result name="success">/WEB-INF/page/admin/color_invest_report.jsp</result>
+        </action>
+	</package>
+	
+</struts>

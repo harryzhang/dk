@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+<package name="userverify" extends="admin-default"
+		namespace="/admin">
+		<!-- 管理员更改后台用户基本资料 -->
+		<action name="updateUserBaseDataAdmin" class="userAdminAction"
+			method="updateUserBaseDataAdmin">
+		</action>
+		
+		<!-- 管理员更改后台用户工作基本资料 -->
+		<action name="updateUserWorkDataAdmin" class="userAdminAction"
+			method="updateUserWorkDataAdmin">
+		</action>
+		
+			<action name="ajaxqueryRegionadmin" class="userAdminAction"
+			method="ajaxqueryRegionadmin">
+		</action>
+		
+     </package>
+</struts>    

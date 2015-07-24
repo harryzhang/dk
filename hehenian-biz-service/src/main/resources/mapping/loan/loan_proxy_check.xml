@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanProxyCheckDao">
+	<resultMap type="loanProxyCheckDo" id="loanProxyCheckResultMap">
+		<result property="id" column="id" />
+		<result property="loanId" column="loanId" />
+		<result property="tableCode" column="tableCode" />
+		<result property="recordId" column="recordId" />
+		<result property="nameCode" column="nameCode" />
+		<result property="fieldName" column="fieldName" />
+		<result property="status" column="status" />
+		<result property="createTime" column="createTime" />
+		<result property="updateTime" column="updateTime" />
+		<result property="auditUserId" column="auditUserId" />
+		<result property="auditUserName" column="auditUserName" />
+		<result property="auditTime" column="auditTime" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="loanProxyCheckResultMap">
+		SELECT * 
+		  FROM t_loan_proxy_check WHERE id = #{id}
+	</select>
+
+	<select id="selectLoanProxyCheck" parameterType="Map" resultMap="loanProxyCheckResultMap">
+		SELECT * 
+		  FROM t_loan_proxy_check
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="id != null">  
+				AND id like #{id}
+			</if>
+			<if test="loanId != null">  
+				AND loanId like #{loanId}
+			</if>
+			<if test="tableCode != null">  
+				AND tableCode like #{tableCode}
+			</if>
+			<if test="recordId != null">  
+				AND recordId like #{recordId}
+			</if>
+			<if test="nameCode != null">  
+				AND nameCode like #{nameCode}
+			</if>
+			<if test="fieldName != null">  
+				AND fieldName like #{fieldName}
+			</if>
+			<if test="status != null">  
+				AND status like #{status}
+			</if>
+			<if test="createTime != null">  
+				AND createTime like #{createTime}
+			</if>
+			<if test="updateTime != null">  
+				AND updateTime like #{updateTime}
+			</if>
+			<if test="auditUserId != null">  
+				AND auditUserId like #{auditUserId}
+			</if>
+			<if test="auditUserName != null">  
+				AND auditUserName like #{auditUserName}
+			</if>
+			<if test="auditTime != null">  
+				AND auditTime like #{auditTime}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateLoanProxyCheckById" parameterType="loanProxyCheckDo">
+		UPDATE t_loan_proxy_check 
+		   SET 		<if test="loanId != null">  
+				loanId = #{loanId}
+		</if>		
+		<if test="tableCode != null">  
+				,tableCode = #{tableCode}
+		</if>		
+		<if test="recordId != null">  
+				,recordId = #{recordId}
+		</if>		
+		<if test="nameCode != null">  
+				,nameCode = #{nameCode}
+		</if>		
+		<if test="fieldName != null">  
+				,fieldName = #{fieldName}
+		</if>		
+		<if test="status != null">  
+				,status = #{status}
+		</if>		
+		<if test="createTime != null">  
+				,createTime = #{createTime}
+		</if>		
+		<if test="updateTime != null">  
+				,updateTime = #{updateTime}
+		</if>		
+		<if test="auditUserId != null">  
+				,auditUserId = #{auditUserId}
+		</if>		
+		<if test="auditUserName != null">  
+				,auditUserName = #{auditUserName}
+		</if>		
+		<if test="auditTime != null">  
+				,auditTime = #{auditTime}
+		</if>		
+
+		WHERE id = #{id} 
+	</update>	
+	
+	<insert id="addLoanProxyCheck" parameterType="loanProxyCheckDo" keyProperty="id"
+		useGeneratedKeys="true" >
+		INSERT INTO t_loan_proxy_check(		loanId
+		,tableCode
+		,recordId
+		,nameCode
+		,fieldName
+		,status
+		,createTime
+		,updateTime
+		,auditUserId
+		,auditUserName
+		,auditTime
+)
+		     VALUES (		#{loanId}
+		,#{tableCode}
+		,#{recordId}
+		,#{nameCode}
+		,#{fieldName}
+		,#{status}
+		,#{createTime}
+		,#{updateTime}
+		,#{auditUserId}
+		,#{auditUserName}
+		,#{auditTime}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM t_loan_proxy_check WHERE id = #{id}
+	</delete>
+	
+</mapper>
+

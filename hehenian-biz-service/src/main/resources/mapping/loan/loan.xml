@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanDao">
+
+
+	<select id="getByLoanId" parameterType="Long" resultType="loanDo">
+		SELECT
+		* FROM t_loan
+		WHERE loanId = #{loanId}
+	</select>
+	
+	<select id="queryBySourceUserId" parameterType="String" resultType="loanDo">
+		SELECT l.* FROM t_loan l, t_loan_person lp 
+		WHERE lp.loanId = l.loanId
+		AND l.userId = #{sourceUserId}
+		ORDER BY createTime DESC		
+	</select>
+
+	<select id="getLoanQty" resultType="int">
+		SELECT COUNT(*) FROM t_loan
+	</select>
+
+	<select id="getMyLoanList" parameterType="String" resultType="loanDo">
+		SELECT l.* FROM t_loan l,  t_loan_person p 
+        WHERE l.loanId = p.loanId           
+          AND l.userId = #{id}
+        ORDER BY createTime DESC
+	</select>
+	
+	<select id="getMyRefLoanList" parameterType="String" resultType="loanDo">
+		SELECT l.* FROM t_loan l,  t_loan_person p 
+        WHERE l.loanId = p.loanId
+          AND p.referenceMobile = #{mobile}
+          ORDER BY createTime DESC
+	</select>
+
+	<select id="queryLateCount" parameterType="String" resultType="int">
+	  <![CDATA[
+		SELECT count(1) FROM  t_loan_repayment lr  ,t_loan l
+		WHERE lr.loanId=l.loanId  AND l.userId= #{id} AND lr.lateDay >0
+		]]> 
+	</select>	
+	
+	<select id="getCname" parameterType="long" resultType="Map">
+		SELECT l.* FROM t_loan_cid l  WHERE  l.cid = #{cid} and type = 'C' and status='T' 
+	</select>
+	
+	<select id="getCmoblie" parameterType="long" resultType="string">
+		SELECT  GROUP_CONCAT(l.cmobile ) FROM t_loan_cid cb , t_loan_cmobile  l WHERE cb.cid =#{cid}  AND  cb.cname = l.cname  AND cb.status = 'T' 
+	</select>
+	
+	<select id="getByIdNoGroup" parameterType="String" resultType="loanDo">
+		SELECT 
+			c.realName,a.loanStatus,a.createTime,a.updateTime 
+		FROM 
+			(select  b.loanId,b.realName from  t_loan_person b where b.idNo =#{idNo} ORDER BY b.createTime DESC LIMIT 1  ) c
+		LEFT JOIN 
+			t_loan a ON a.loanId=c.loanId and  a.productCode='D01'  
+	</select>
+	
+	<select id="getJBCmobileDo" parameterType="Map" resultType="Map">
+		SELECT a.cid,a.cname,a.status,b.cusername,b.cmobile,b.cuserId,b.createDate,b.lastUpdateDate
+		FROM t_loan_cid a 
+		LEFT JOIN t_loan_cmobile b ON a.cname=b.cname		
+        WHERE 1=1     
+		<if test="userId != null and userId != ''">  
+			AND b.cuserId = '${userId}' 
+		</if>
+        
+	</select>
+	
+	<select id="selectLoanList" parameterType="loanDo" resultType="loanDo">
+		SELECT 	a.loanId,a.userId,a.schemeId,a.borrowId,a.loanTitle,a.loanUsage,
+				a.applyAmount,a.loanPeriod,a.loanTime,a.loanAmount,a.remark,
+				a.loanStatus,a.auditUserId,a.auditUser,a.auditTime,a.createTime,a.updateTime,
+				a.loanType,a.annualRate,a.productCode,a.orderCode,a.investAnnualRate ,a.channel_id
+		  FROM t_loan a
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="remark != null">  
+				AND a.remark = #{remark}
+			</if>
+			<if test="productCode != null">  
+				AND a.productCode like #{productCode}
+			</if>
+			<if test="userId != null">  
+				AND a.userId = #{userId}
+				ORDER BY a.createTime DESC   LIMIT 1
+			</if>
+         </trim> 
+	</select>
+	
+	<select id="getAreaList" resultType="Map" parameterType="Map">
+		SELECT * FROM t_loan_cid 
+		WHERE STATUS = 'T'
+		<if test=" type != null">
+			and type=#{type}
+		</if>
+		<if test=" cname != null">
+		   and cname=#{cname}
+		</if>
+		<if test="cid !=null">
+		   and cid = #{cid}
+		</if>
+		<if test="id !=null">
+		   and id = #{id}
+		</if>
+	</select>
+	
+	
+	<insert id="addLoanDo" parameterType="loanDo" keyProperty="loanId"
+		useGeneratedKeys="true">
+		INSERT INTO
+		t_loan
+		(userId,schemeId, loanTitle,
+		loanUsage,applyAmount,
+		loanPeriod,loanTime,
+		loanAmount, remark, loanStatus,
+		createTime,
+		updateTime,
+		loanType,
+		annualRate ,productCode,orderCode ,channel_id,processCurrentStep,processNextStep,auditAmount)
+		VALUES (#{userId},#{schemeId}, #{loanTitle}
+		,#{loanUsage}, #{applyAmount},#{loanPeriod},
+		#{loanTime},#{loanAmount},
+		#{remark},
+		#{loanStatus},NOW(),NOW(),#{loanType},#{annualRate} ,#{productCode},#{orderCode},#{channelId},#{processCurrentStep},#{processNextStep},#{auditAmount});
+	</insert>
+	
+	<insert id="addLoanDo1" parameterType="loanDo" keyProperty="loanId"
+		useGeneratedKeys="true">
+		INSERT INTO
+		t_loan
+		(userId,schemeId, loanTitle,
+		loanUsage,applyAmount,
+		loanPeriod,loanTime,
+		loanAmount, remark, loanStatus,
+		createTime,
+		updateTime,
+		loanType,
+		annualRate ,productCode,orderCode,channel_id,processCurrentStep,processNextStep )
+		VALUES (#{userId},#{schemeId}, #{loanTitle}
+		,#{loanUsage}, #{applyAmount},#{loanPeriod},
+		#{loanTime},#{loanAmount},
+		#{remark},
+		#{loanStatus},#{createTime},#{updateTime},#{loanType},#{annualRate} ,#{productCode},#{orderCode},#{channelId},#{processCurrentStep},#{processNextStep});
+	</insert>
+
+	<update id="updateLoanDo" parameterType="loanDo">
+		UPDATE t_loan
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="userId != null">
+				userId = #{userId},
+			</if>
+			<if test="schemeId != null">
+				schemeId = #{schemeId},
+			</if>
+			<if test="loanTitle != null">
+				loanTitle = #{loanTitle},
+			</if>
+			<if test="loanUsage != null">
+				loanUsage = #{loanUsage},
+			</if>
+			<if test="applyAmount != null">
+				applyAmount = #{applyAmount},
+			</if>
+			<if test="loanPeriod != null">
+				loanPeriod = #{loanPeriod},
+			</if>
+			<if test="loanAmount != null">
+				loanAmount = #{loanAmount},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="loanStatus != null">
+				loanStatus = #{loanStatus},
+			</if>
+			<if test="borrowId != null">
+				borrowId = #{borrowId},
+			</if>
+			<if test="loanType != null">
+				loanType = #{loanType},
+			</if>
+			<if test="annualRate != null">
+				annualRate = #{annualRate},
+			</if>
+			<if test="loanTime!=null">
+			    loanTime=#{loanTime},
+			</if>
+			<if test="productCode!=null">
+			     productCode=#{productCode},
+			</if>
+			<if test="productCode!=null">
+			     orderCode=#{orderCode},
+			</if>
+			<if test="channelId!=null">
+			     channel_id=#{channelId},
+			</if>
+			
+			<if test="processCurrentStep !=null">
+			     processCurrentStep=#{processCurrentStep},
+			</if>
+			
+			
+			<if test=" processNextStep !=null">
+			     processNextStep=#{processNextStep},
+			</if>
+			
+			<if test=" auditAmount !=null">
+			     auditAmount=GREATEST(IFNULL(auditAmount,0),#{auditAmount}),
+			</if>
+			updateTime = NOW(),
+		</trim>
+		WHERE loanId = #{loanId};
+	</update>
+
+	<update id="changeLoanStatus" parameterType="loanDo">
+		UPDATE t_loan
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="loanAmount != null">
+				loanAmount = #{loanAmount},
+			</if>
+			<if test="auditUserId != null">
+				auditUserId = #{auditUserId},
+			</if>
+			<if test="auditUser != null">
+				auditUser = #{auditUser},
+			</if>
+			<if test="loanStatus != null">
+				loanStatus = #{loanStatus},
+			</if>
+			<if test="borrowId != null">
+				borrowId = #{borrowId},
+			</if>
+			<if test="processCurrentStep !=null">
+			     processCurrentStep=#{processCurrentStep},
+			</if>
+			<if test=" processNextStep !=null">
+			     processNextStep=IF(#{loanStatus}='NOPASS',NULL,#{processNextStep}),
+			</if>
+			<if test=" auditAmount !=null">
+			     auditAmount=GREATEST(IFNULL(auditAmount,0),#{auditAmount}),
+			</if>
+			auditTime = NOW(),
+			updateTime = NOW(),
+		</trim>
+		WHERE loanId = #{loanId};
+	</update>
+	
+	<update id="updateHousePrice" parameterType="Map">
+		UPDATE t_loan_cid 
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="housePrice != null">
+				housePrice = #{housePrice},
+			</if>
+				
+		</trim>
+		WHERE STATUS = 'T' AND type='C' AND cid =#{cid} ;
+	</update>
+	
+	<insert id="saveHousePrice" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO t_loan_cid ( cid, cname, status, type, housePrice ) 
+		VALUES (#{cid},#{cname},'T',#{type}, #{housePrice});
+	</insert>
+	
+	
+</mapper>

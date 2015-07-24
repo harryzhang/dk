@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="usermanage" extends="admin-default" namespace="/admin">
+		<action name="queryUserManageBaseInfoindex" class="userManageAction" method="queryUserManageBaseInfoindex">
+			<result>/WEB-INF/page/admin/userManage_index.jsp</result>
+		</action>
+		<action name="queryUserManageBaseInfo" class="userManageAction" method="queryUserManageBaseInfo">
+			<result>/WEB-INF/page/admin/userManage_info.jsp</result>
+		</action>
+
+		<!-- 用户列表模块 -->
+		<action name="queryUserManageInfoIndex" class="userManageAction" method="queryUserManageInfoIndex">
+			<result>/WEB-INF/page/admin/userManageBase_index.jsp</result>
+		</action>
+		<action name="queryUserManageInfo" class="userManageAction" method="queryUserManageInfo">
+			<result>/WEB-INF/page/admin/userManageBase_info.jsp</result>
+		</action>
+		<action name="queryUserInfo" class="userManageAction" method="queryUserInfo">
+			<result>/WEB-INF/page/admin/userUpdateqq.jsp</result>
+		</action>
+		<action name="updateUserqq" class="userManageAction" method="updateUserqq">
+		</action>
+		<action name="exportusermanageinfo" class="userManageAction" method="exportusermanageinfo">
+		</action>
+
+		<action name="queryUserManageBaseInfoinner" class="userManageAction" method="queryUserManageBaseInfoinner">
+			<result>/WEB-INF/page/admin/userManage_innerindex.jsp</result>
+		</action>
+		<action name="queryUserInfoinner" class="userManageAction" method="queryUserInfoinner">
+			<result>/WEB-INF/page/admin/userManage_info_alert.jsp</result>
+		</action>
+		<action name="queryUserMoneyInfoinner" class="userManageAction" method="queryUserMoneyInfoinner">
+			<result>/WEB-INF/page/admin/userManageMoney_info_alert.jsp</result>
+		</action>
+		<action name="queryUserTouzInfoinner" class="userManageAction" method="queryUserTouzInfoinner">
+			<result>/WEB-INF/page/admin/userManagetouz_info_alert.jsp</result>
+		</action>
+
+
+
+		<action name="queryUserManageInvest" class="userManageAction" method="queryUserManageInvest">
+			<result>/WEB-INF/page/admin/usermanageinvest.jsp</result>
+		</action>
+		<action name="exportuserInvestInfo" class="userManageAction" method="exportuserInvestInfo">
+		</action>
+
+		<!-- add by houli -->
+
+		<action name="queryUserManageBaseInfoinnerU" class="userManageAction" method="queryUserManageBaseInfoinner">
+			<result>/WEB-INF/page/admin/userManage_innerindex_u.jsp</result>
+		</action>
+
+		<action name="queryUserCashInfo" class="userManageAction" method="queryUserCashInfo">
+		</action>
+
+		<action name="queryUserMangeworkU" class="userManageAction" method="queryUserMangework">
+			<result>/WEB-INF/page/admin/userManage_innerworkindex_u.jsp</result>
+		</action>
+
+		<!-- end -->
+
+
+		<action name="queryUserManageintegralindex" class="userManageAction" method="queryUserManageintegralindex">
+			<result>/WEB-INF/page/admin/userintegralmanage_index.jsp</result>
+		</action>
+		<action name="queryUserManageintegralinfo" class="userManageAction" method="queryUserManageintegralinfo">
+			<result>/WEB-INF/page/admin/userintegralManage_info.jsp</result>
+		</action>
+		<!-- 积分导出 -->
+		<action name="exportintegralinfo" class="userManageAction" method="exportintegralinfo">
+		</action>
+
+		<!-- 积分明细导出 -->
+		<action name="exportuserintegralcreditinfo" class="userManageAction" method="exportuserintegralcreditinfo">
+		</action>
+
+
+		<action name="queryUservipRecoderindex" class="userManageAction" method="queryUservipRecoderindex">
+			<result>/WEB-INF/page/admin/uermanageviprecode_index.jsp</result>
+		</action>
+		<action name="queryUservipRecoderinfo" class="userManageAction" method="queryUservipRecoderinfo">
+			<result>/WEB-INF/page/admin/uermanageviprecode_info.jsp</result>
+		</action>
+
+
+		<action name="queryUserMangework" class="userManageAction" method="queryUserMangework">
+			<result>/WEB-INF/page/admin/userManage_innerworkindex.jsp</result>
+		</action>
+
+		<action name="userintegralcreditindex" class="userManageAction" method="userintegralcreditindex">
+			<result>/WEB-INF/page/admin/userintegralmanage_credit_index.jsp</result>
+		</action>
+		<action name="userintegralcreditinfo" class="userManageAction" method="userintegralcreditinfo">
+			<result>/WEB-INF/page/admin/userintegralmanage_credit_info.jsp</result>
+		</action>
+
+		<!-- update 用户详细信息 -->
+		<action name="userManageUpd" class="userManageAction" method="userManageUpd">
+			<result name="success">/WEB-INF/page/admin/userManage_innerindex.jsp</result>
+		</action>
+
+		<!-- 弹出框添加积分初始化 -->
+		<action name="addintegral" class="userManageAction" method="addintegralindex">
+			<result>/WEB-INF/page/admin/userintegralmanage-credit-infopop.jsp</result>
+		</action>
+		<!-- 弹出框添加积分添加 -->
+		<action name="addintegralreal" class="userManageAction" method="addintegralreal">
+		</action>
+		<action name="publishCirculation" class="userManageAction" method="queryUserManageBaseInfoindex">
+			<result name="success">/WEB-INF/page/admin/circulation-user-index.jsp</result>
+		</action>
+		<action name="publishCirculationList" class="userManageAction" method="queryUserManageBaseInfo">
+			<result name="success">/WEB-INF/page/admin/circulation-user-info.jsp</result>
+		</action>
+
+		<!-- 用户注册管理初始化 -->
+		<action name="findUserRegistListIndex" class="userManageAction" method="findUserRegistListIndex">
+			<result name="success">/WEB-INF/page/admin/send_user_register_list_index.jsp</result>
+		</action>
+
+		<!-- 用户注册管理 -->
+		<action name="userRegisterManageList" class="userManageAction" method="findUserRegistList">
+			<result name="success">/WEB-INF/page/admin/send_user_register_list.jsp</result>
+		</action>
+
+		<!-- 用户注册管理导出EXCEL -->
+		<action name="exportUserRegisterx" class="userManageAction" method="exportUserRegisterx">
+		</action>
+		<!-- 用户注册管理导出EXCEL -->
+		<action name="exportUserInfo" class="userManageAction" method="exportUserInfo">
+		</action>
+
+		<!-- 实名认证管理 -->
+		<action name="realNameAuthentication" class="userManageAction" method="realNameAuthentication">
+			<result>/WEB-INF/page/admin/realNameAuthentication_index.jsp</result>
+		</action>
+		<!-- 实名认证审核 -->
+		<action name="queryPersonAuditStatusInfoAlert" class="userManageAction" method="queryPersonAuditStatusInfoAlert">
+			<result name="success">
+				/WEB-INF/page/admin/realNameAuthentication_info_alert.jsp
+			</result>
+		</action>
+		<!-- 查看实名认证信息 -->
+		<action name="queryPersonAuditStatusInfoSelect" class="userManageAction" method="queryPersonAuditStatusInfoAlert">
+			<result name="success">
+				/WEB-INF/page/admin/realNameAuthentication_info_select.jsp
+			</result>
+		</action>
+
+		<!-- 推荐人管理初始化 -->
+		<action name="referencerInit" class="userManageAction" method="referencerInit">
+			<result name="success">/WEB-INF/page/admin/referencer-index.jsp</result>
+		</action>
+
+		<!-- 推荐人管理列表 -->
+		<action name="referencerList" class="userManageAction" method="referencerList">
+			<result name="success">/WEB-INF/page/admin/referencer-list.jsp</result>
+		</action>
+		<!-- zhangjhmf update add setAccountType-->
+		<action name="updateUserAccountType" class="userManageAction" method="updateUserAccountType">
+			<result name="success">/WEB-INF/page/admin/send_user_register_list.jsp</result>
+		</action>
+		<action name="userListAfterSetAcconutType" class="userManageAction" method="findListAfterSetAcconutType">
+			<result name="success">/WEB-INF/page/admin/send_user_register_list_index.jsp</result>
+		</action>
+	</package>
+</struts>

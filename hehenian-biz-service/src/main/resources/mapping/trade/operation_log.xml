@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.trade.IOperationLogDao">
+	<resultMap type="operationLogDo" id="operationLogMap">
+		<result property="id" column="id" />
+		<result property="operationTable" column="operation_table" />
+		<result property="operationUser" column="operation_user" />
+		<result property="operationType" column="operation_type" />
+		<result property="operationIp" column="operation_ip" />
+
+		<result property="operationTime" column="operation_time" />
+		<result property="operationMoney" column="operation_money" />
+		<result property="operationRemarks" column="operation_remarks" />
+		<result property="operationAround" column="operation_around" />
+	</resultMap>
+
+	<insert id="addOperationLog" parameterType="operationLogDo">
+		INSERT INTO
+		t_operation_log(operation_table,operation_user,operation_type,operation_ip,operation_time,operation_money,operation_remarks,operation_around)
+		VALUES(#{operationTable},#{operationUser},#{operationType},#{operationIp},NOW(),#{operationMoney},#{operationRemarks},#{operationAround});
+	</insert>
+
+</mapper>

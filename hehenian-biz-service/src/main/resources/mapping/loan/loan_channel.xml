@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanChannelDao">
+	<resultMap id="loanChannelDoResult" type="loanChannelDo">
+		<association property="loanUserDo" column="loanUserId" select="getLoanUserByIds" />
+	</resultMap>
+	
+	<resultMap type="loanChannelDo" id="loanChannelResultMap">
+		<result property="id" column="id" />
+		<result property="channelType" column="channelType" />
+		<result property="sourceUserId" column="sourceUserId" />
+		<result property="loanUserId" column="loanUserId" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="loanChannelResultMap">
+		SELECT * 
+		  FROM t_loan_channel WHERE id = #{id}
+	</select>
+	
+	<select id="getBySourceId" parameterType="Map" resultMap="loanChannelDoResult">
+		SELECT * 
+		  FROM t_loan_channel WHERE sourceUserId = #{sourceUserId} and channelType =  #{channelType}
+	</select>
+	
+	<select id="getLoanUserByIds" parameterType="Long" resultType="loanUserDo">
+		SELECT * 
+		  FROM t_loan_user WHERE loanUserId = #{loanUserId}
+	</select>
+
+	<select id="selectLoanChannel" parameterType="Map" resultMap="loanChannelResultMap">
+		SELECT * 
+		  FROM t_loan_channel
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="id != null">  
+				AND id like #{id}
+			</if>
+			<if test="channelType != null">  
+				AND channelType like #{channelType}
+			</if>
+			<if test="sourceUserId != null">  
+				AND sourceUserId like #{sourceUserId}
+			</if>
+			<if test="loanUserId != null">  
+				AND loanUserId like #{loanUserId}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateLoanChannelById" parameterType="loanChannelDo">
+		UPDATE t_loan_channel 
+		   SET 		<if test="channelType != null">  
+				channelType = #{channelType}
+		</if>		
+		<if test="sourceUserId != null">  
+				,sourceUserId = #{sourceUserId}
+		</if>		
+		<if test="loanUserId != null">  
+				,loanUserId = #{loanUserId}
+		</if>		
+
+		WHERE id = #{id} 
+	</update>	
+	
+	<insert id="addLoanChannel" parameterType="loanChannelDo" keyProperty="id"
+		useGeneratedKeys="true" >
+		INSERT INTO t_loan_channel(		channelType
+		,sourceUserId
+		,loanUserId
+)
+		     VALUES (		#{channelType}
+		,#{sourceUserId}
+		,#{loanUserId}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM t_loan_channel WHERE id = #{id}
+	</delete>
+	
+</mapper>
+

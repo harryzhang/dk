@@ -1,0 +1,29 @@
+/*E理财*/
+a:hover,a:visited, a:active, a:focus { color:#333; }
+.title { display:none; }
+.title span,.title strong { display:none; }
+.t,
+.t-a,
+.btn,
+.btn-c { background-color:#894d8d; }
+.btn-grey { background:#aaa; color:#fff }
+.btn-red { background:#ee7f14; color:#fff; }
+.btn-dark { background:#999; color:#fff }
+.progress-round i { color:#894d8d; }
+.invest-title { background:#f0f0f0; color:#4d4d4d; } 
+.invest-title span { color:#999; border-bottom:#ccc solid 2px; }
+.input-text { color:#894d8d; }
+/*index*/
+.income-item li i { background-image:url(../images/index_compare_cf.png); }
+/*account*/
+.account-list2 { background:#894d8d;  }
+.account-list2 li.account-zrzz strong { color:#894d8d;}
+
+/*invest detail*/
+.tabs-nav li.on { border-bottom:#894d8d solid 2px; color:#894d8d; }
+.tabs-line{ background:#894d8d; }
+.tabs-line::before{ border:6px solid #894d8d; border-color:transparent transparent #894d8d transparent; }
+
+/*qa*/
+.jieshao-title { display:none; }
+.fqa dt.select span {color:#894d8d; }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="clift" extends="admin-default" namespace="/admin">
+		<action name="queryClift" class="cliftAction" method="getData">
+			<result name="success">/WEB-INF/jsp/system/clift_detail.jsp</result>
+		</action>
+		
+		<action name="exportEMsg" class="cliftAction" method="exportEMsg">
+			<result name="success">/WEB-INF/jsp/system/clift_detail.jsp</result>
+		</action>
+		
+		<action name="investDetail" class="cliftAction" method="InvestDeteail">
+			<result name="success">/WEB-INF/jsp/system/invest_detail.jsp</result>
+		</action>
+		
+		<action name="yyInvestDetail" class="cliftAction" method="InvestDeteail">
+			<result name="success">/WEB-INF/jsp/system/yy_invest_detail.jsp</result>
+		</action>
+		
+		<action name="exportInvestDetail" class="cliftAction" method="exportInvestData">
+			<result name="success">/WEB-INF/jsp/system/invest_detail.jsp</result>
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanModifyLogDao">
+	<resultMap type="loanModifyLogDo" id="loanModifyLogResultMap">
+		<result property="modifyLogId" column="modify_log_id" />
+		<result property="field" column="field" />
+		<result property="oldVal" column="old_val" />
+		<result property="newVal" column="new_val" />
+		<result property="createTime" column="create_time" />
+		<result property="loanId" column="loan_id" />
+		<result property="modifyBy" column="modify_by" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="loanModifyLogResultMap">
+		SELECT * 
+		  FROM t_loan_modify_log WHERE modify_log_id = #{modifyLogId}
+	</select>
+
+	<select id="selectLoanModifyLog" parameterType="Map" resultMap="loanModifyLogResultMap">
+		SELECT * 
+		  FROM t_loan_modify_log
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="modifyLogId != null">  
+				AND modify_log_id like #{modifyLogId}
+			</if>
+			<if test="field != null">  
+				AND field like #{field}
+			</if>
+			<if test="oldVal != null">  
+				AND old_val like #{oldVal}
+			</if>
+			<if test="newVal != null">  
+				AND new_val like #{newVal}
+			</if>
+			<if test="createTime != null">  
+				AND create_time like #{createTime}
+			</if>
+			<if test="loanId != null">  
+				AND loan_id like #{loanId}
+			</if>
+			<if test="modifyBy != null">  
+				AND modify_by like #{modifyBy}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateLoanModifyLogById" parameterType="loanModifyLogDo">
+		UPDATE t_loan_modify_log 
+		   SET 		<if test="field != null">  
+				field = #{field}
+		</if>		
+		<if test="oldVal != null">  
+				,old_val = #{oldVal}
+		</if>		
+		<if test="newVal != null">  
+				,new_val = #{newVal}
+		</if>		
+		<if test="createTime != null">  
+				,create_time = #{createTime}
+		</if>		
+		<if test="loanId != null">  
+				,loan_id = #{loanId}
+		</if>		
+		<if test="modifyBy != null">  
+				,modify_by = #{modifyBy}
+		</if>		
+
+		WHERE modify_log_id = #{modifyLogId} 
+	</update>	
+	
+	<insert id="addLoanModifyLog" parameterType="loanModifyLogDo" keyProperty="modifyLogId"
+		useGeneratedKeys="true" >
+		INSERT INTO t_loan_modify_log(		field
+		,old_val
+		,new_val
+		,create_time
+		,loan_id
+		,modify_by
+)
+		     VALUES (		#{field}
+		,#{oldVal}
+		,#{newVal}
+		,#{createTime}
+		,#{loanId}
+		,#{modifyBy}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM t_loan_modify_log WHERE modify_log_id = #{modifyLogId}
+	</delete>
+	
+</mapper>
+

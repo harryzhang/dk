@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>摇一摇</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no,email=no">
+    <meta http-equiv="Expires" CONTENT="0">
+    <meta http-equiv="Cache-Control" CONTENT="no-cache">
+    <meta http-equiv="Pragma" CONTENT="no-cache">
+    <link href="css/common.css" rel="stylesheet"/>
+    <link href="css/layout.css" rel="stylesheet"/>
+</head>
+<body>
+  <div class="container-fluid text-center panel" id="container-js">
+     <ul class="mT5 row-fluid"> <!--总分 单次最高分-->
+         <li class="span4">您好，张三 </li>
+         <li class="span4">摇一摇总分：<span class="redFont">1886</span></li>
+         <li class="span4">单次最高分：<span class="redFont">486</span></li>
+     </ul>
+     <p class="mT15"><strong>摇一摇手机一分钟倒计时开始：</strong><span id="initMit" class="redFont font28"></span></p>
+     <figure><img id="huge" src="images/huge_static.gif"/></figure>
+      <div class="startBtnBg"> <!--按钮-->
+          <div style="opacity:0"><strong>您已经摇动了:</strong><span id="DeviceMotionNum" class="redFont font28">0</span></div>
+          <a class="btn btn-warning startBtn" id="startBtn">开始</a>
+      </div>
+      <div class="row-fluid rankingsWrap" id="rankingsContLayer">
+          <script type="text/html" id="rankingScript">
+          <ul class="rankings" id="rankingsForWeek">
+             <li>一周总分排行</li>
+             <li><em>名次</em><em>人名</em><em>分数</em></li>
+             <li><em>22</em><em>张三</em><em>1652</em></li>
+              {{each root as val i}}
+             <li><em>val['id']</em><em>val['name']</em><em>val['value']</em></li>
+              {{/each}}
+          </ul>
+          <ul class="rankings" style="margin-left:0" id="rankingsForOnce">
+              <li>单次最高分排行</li>
+              <li><em>名次</em><em>人名</em><em>分数</em></li>
+              <li><em>23</em><em>张三</em><em>445</em></li>
+              <li><em>01</em><em>张三</em><em>801</em></li>
+              <li><em>02</em><em>张三</em><em>801</em></li>
+              <li><em>03</em><em>张三</em><em>643</em></li>
+              <li><em>04</em><em>张三</em><em>559</em></li>
+          </ul>
+          </script>
+      </div>
+      <div class="game-rule"> <!--规则-->
+          <p class="text-center rule-tit"><a href="javascript:void(0);" class="btn-link bk-js">游戏规则</a></p>
+          <ul class="rule-details-list well radius5" style="display:none;">
+              <li>必须关注微信号 我们才能取到对方的ID;</li>
+              <li>多个微信公众号可以通过一个微信号绑定关联;</li>
+              <li>建议：关注微信号2次，注册并注册汇付2次;</li>
+              <li>首次投资5次，每增加投资2000元5次;</li>
+              <li>转发他人成功点击2次，转发他人成功注册2次，他人投资5次，他人投资增加2000元5次;</li>
+              <li>每周单次最大值大于***分或总分大于XXX分奖励88,68,38;</li>
+              <li>每周单次前3名奖励188,168,138;</li>
+              <li>每周总分第一名奖励1888;</li>
+          </ul>
+      </div>
+
+      <audio id="media" src="images/boom.mp3" preload></audio>
+      <!--<div class="result font28" id="result">
+          恭喜你，一分钟之内已经摇了<br>
+          <span class="redFont">0</span>
+      </div>-->
+
+  </div>
+
+<script src="scripts/zepto.min.js"></script>
+<script src="scripts/yao.js"></script>
+<script src="scripts/artTemplate.js"></script>
+
+
+<!--设置最小高度-->
+<script>
+    var  getClientHeight = document.all ? document.documentElement.clientHeight : window.innerHeight;
+    getClientHeight -= 60;
+    document.getElementById('container-js').style.minHeight = getClientHeight+'px';
+</script>
+
+</body>
+</html>

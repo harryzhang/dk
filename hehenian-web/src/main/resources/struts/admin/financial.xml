@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="financial" extends="admin-default" namespace="/admin">
+
+		<action name="rechargeecordsInit" class="financialAction"
+			method="rechargeecordsInit">
+			<result name="success">
+				/WEB-INF/page/admin/user_index.jsp
+			</result>
+		</action>
+		<!-- <action name="rechargeecordsInfo" class="financialAction" method="rechargeecordsInfo"> 
+			<result name="success"> /WEB-INF/page/admin/financial_index_info.jsp </result> 
+			</action> -->
+
+		<action name="rechargeecordsInf" class="validateAction" method="queryUserCredit">
+			<result name="success">
+				/WEB-INF/page/admin/user_index_info.jsp
+			</result>
+		</action>
+
+		<!-- 后台审核 -->
+		<action name="userBaseDataCheck" class="userAction"
+			method="updateUserBaseDataCheck">
+		</action>
+		<!-- 后台的新用户审核列表 -->
+
+		<!-- 后台用户的审核时候显示的详细信息初始化 -->
+		<action name="adminBase" class="userAction" method="queryBaseMsgInit">
+			<result name="success">
+				/WEB-INF/page/admin/user_all_info_check.jsp
+			</result>
+		</action>
+		<!-- 合和年 基本认证信息 -->
+		<action name="queryAdminBasecMessage" class="userAction"
+			method="queryAdminBasecMessage">
+			<result name="success">
+				/WEB-INF/page/admin/user_baseInf_admin.jsp
+			</result>
+		</action>
+
+
+	</package>
+</struts>

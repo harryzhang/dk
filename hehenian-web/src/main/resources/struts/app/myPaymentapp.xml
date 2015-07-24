@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="mypaymentapp" extends="app-default" namespace="/app">
+	    
+		<!-- 充值提现 -->
+		<action name="mypaymentInit" class="appPayAction" method="mypaymentInit">
+		</action>
+		
+		
+		
+		<action name="queryMySuccessBorrowList" class="appPayAction" method="queryMySuccessBorrowList">
+		</action>
+		
+		<!-- 导出成功借款，正在还款的借款 excle -->
+	    <action name="exportSuccessBorrow" class="appPayAction" method="exportSuccessBorrow">
+		</action>
+		
+		<!-- 导出还款明细账excle -->
+	    <action name="exportrepayment" class="appPayAction" method="exportrepayment">
+		</action>
+		
+	
+		
+		<action name="queryMyPayingBorrowList" class="appPayAction" method="queryMyPayingBorrowList">
+		</action>
+		
+		<action name="queryPayingDetails" class="appPayAction" method="queryPayingDetails">
+		</action>
+		
+	
+		
+		<action name="queryAllDetails" class="appPayAction" method="queryAllDetails">
+		</action>
+		
+		<action name="queryBorrowInvestorInfo" class="appPayAction" method="queryBorrowInvestorInfo">
+		</action>
+				
+		<action name="queryPayoffList" class="appPayAction" method="queryMyPayoffBorrowList">
+		</action>
+		
+		<action name="queryMyPayData" class="appPayAction" method="queryMyPayData">
+		</action>
+		
+		<action name="submitPay" class="appPayAction" method="submitPay">
+		</action>
+	</package>
+</struts>

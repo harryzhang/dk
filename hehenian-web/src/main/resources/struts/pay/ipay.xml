@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ipayinfo" extends="pay-default" namespace="/">
+		
+		<action name="ipayPayment" class="iPaymentAction" method="ipayPayment">
+			<result name="input" type="redirect">voucherCenterInit.do</result>
+			<result name="noLogin" type="redirect">login.do</result>
+		</action>
+		
+	</package>
+	<package name="ipaybackinfo" extends="front-default" namespace="/">
+		<action name="merChanUrl" class="iPaymentAction" method="merChanUrl">
+			<result name="success" type="redirectAction">rechargeInit.do</result>
+		</action>
+		<action name="merServerUrl" class="iPaymentAction" method="merServerUrl">
+		</action>
+	</package>
+</struts>
+
+

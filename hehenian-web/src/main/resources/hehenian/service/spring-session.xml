@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+ 
+	<bean id="sessionManager" class="com.hehenian.common.memcache.MemcachedSessionManager">
+		<property name="sessionKey" value="s" />
+		<property name="cookieDomain" value="${memcache.session.cookieDomain}" />
+		<property name="sessionTimeout" value="120" />
+		<property name="memcachedServers" value="${memcache.session.address}" />
+	</bean>
+</beans>

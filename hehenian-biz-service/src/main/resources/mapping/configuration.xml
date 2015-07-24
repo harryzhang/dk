@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- "configuration" must match "(properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,plugins?,environments?,mappers?)". -->
+
+	<properties>
+		<property name="dialect" value="MYSQL" />
+		<property name="pageSqlId" value=".*Page$" />
+	</properties>
+
+	<typeAliases>
+		<!-- 借款 -->
+		<typeAlias alias="loanDetailDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanDetailDo" />
+		<typeAlias alias="certificateDo"
+			type="com.hehenian.biz.common.loan.dataobject.CertificateDo" />
+		<typeAlias alias="jobDo"
+			type="com.hehenian.biz.common.loan.dataobject.JobDo" />
+		<typeAlias alias="loanDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanDo" />
+		<typeAlias alias="loanPersonDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanPersonDo" />
+		<typeAlias alias="loanRelationDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanRelationDo" />
+		<typeAlias alias="propertyDo"
+			type="com.hehenian.biz.common.loan.dataobject.PropertyDo" />
+
+		<typeAlias alias="loanUserDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanUserDo" />
+		<typeAlias alias="loanChannelDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanChannelDo" />
+			
+		<typeAlias alias="loanRepaymentDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanRepaymentDo" />
+		<typeAlias alias="loanRepaymentFeeDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanRepaymentFeeDo" />	
+				
+		<typeAlias alias="auditLogDo"
+			type="com.hehenian.biz.common.loan.dataobject.AuditLogDo" />
+			
+		<!-- 产品 -->	
+		<typeAlias alias="loanProductDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanProductDo" />
+		
+		<!-- 字典表 -->	
+			<typeAlias alias="loanDictDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanDictDo" />
+			<typeAlias alias="loanDictDtlDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanDictDtlDo" />
+		
+		<!-- 邮件 -->
+		<typeAlias alias="mailNotifyDo"
+			type="com.hehenian.biz.common.notify.dataobject.MailNotifyDo" />
+		<typeAlias alias="smsNotifyDo"
+			type="com.hehenian.biz.common.notify.dataobject.SMSNotifyDo" />
+
+		<typeAlias alias="notifyManagerDo"
+			type="com.hehenian.biz.common.notify.dataobject.NotifyManagerDo" />
+		<typeAlias alias="smsManagerDo"
+			type="com.hehenian.biz.common.notify.dataobject.SMSManagerDo" />
+		<typeAlias alias="loanNotifyDo"
+			type="com.hehenian.biz.common.notify.dataobject.LoanNotifyDo" />
+
+		<!-- 账户 -->
+		<typeAlias alias="accountUserDo"
+			type="com.hehenian.biz.common.account.dataobject.AccountUserDo" />
+		<typeAlias alias="userBindDo"
+			type="com.hehenian.biz.common.account.dataobject.UserBindDo" />
+		<typeAlias alias="adminDo"
+			type="com.hehenian.biz.common.account.dataobject.AdminDo" />
+
+		<typeAlias alias="personDo"
+			type="com.hehenian.biz.common.account.dataobject.PersonDo" />
+		<typeAlias alias="bankCardDo"
+			type="com.hehenian.biz.common.account.dataobject.BankCardDo" />
+		<typeAlias alias="phoneVerifyDo"
+			type="com.hehenian.biz.common.account.dataobject.PhoneVerifyDo" />
+		<typeAlias alias="inviteCodeDo"
+			type="com.hehenian.biz.common.account.dataobject.InviteCodeDo" />
+		<!-- 交易 -->
+		<typeAlias alias="withdrawDo"
+			type="com.hehenian.biz.common.trade.dataobject.WithdrawDo" />
+		<typeAlias alias="OperationLogDo"
+			type="com.hehenian.biz.common.trade.dataobject.OperationLogDo" />
+		<typeAlias alias="fundrecordDo"
+			type="com.hehenian.biz.common.trade.dataobject.FundrecordDo" />
+		<typeAlias alias="investDo"
+			type="com.hehenian.biz.common.trade.dataobject.InvestDo" />
+		<typeAlias alias="preRepaymentDo"
+			type="com.hehenian.biz.common.trade.dataobject.PreRepaymentDo" />
+		<typeAlias alias="platformCostDo"
+			type="com.hehenian.biz.common.trade.dataobject.PlatformCostDo" />
+		<typeAlias alias="assignmentDebtDo"
+			type="com.hehenian.biz.common.trade.dataobject.AssignmentDebtDo" />
+		<typeAlias alias="auctionDebtDo"
+			type="com.hehenian.biz.common.trade.dataobject.AuctionDebtDo" />
+		<typeAlias alias="investHistoryDo"
+			type="com.hehenian.biz.common.trade.dataobject.InvestHistoryDo" />
+		<typeAlias alias="reconciliationDo"
+			type="com.hehenian.biz.common.trade.dataobject.ReconciliationDo" />
+		<typeAlias alias="reconciliationDetailDo"
+			type="com.hehenian.biz.common.trade.dataobject.ReconciliationDetailDo" />
+		<typeAlias alias="parameterLogDo"
+			type="com.hehenian.biz.common.trade.dataobject.ParameterLogDo" />
+		<!-- 还款 -->
+		<typeAlias alias="repaymentDo"
+			type="com.hehenian.biz.common.trade.dataobject.RepaymentDo" />
+		<typeAlias alias="repaymentRecordDo"
+			type="com.hehenian.biz.common.trade.dataobject.RepaymentRecordDo" />
+		<typeAlias alias="repaymentFeeDo"
+			type="com.hehenian.biz.common.trade.dataobject.RepaymentFeeDo" />
+
+		<!-- 投资回款 -->
+		<typeAlias alias="investRepaymentDo"
+			type="com.hehenian.biz.common.trade.dataobject.InvestRepaymentDo" />
+		<!-- 标的 -->
+		<typeAlias alias="borrowDo"
+			type="com.hehenian.biz.common.trade.dataobject.BorrowDo" />
+		<!-- 保障资金 -->
+		<typeAlias alias="riskDetailDo"
+			type="com.hehenian.biz.common.trade.dataobject.RiskDetailDo" />
+		<!-- 担保机构 -->
+		<typeAlias alias="guaranteeInstitutionsDo"
+			type="com.hehenian.biz.common.trade.dataobject.GuaranteeInstitutionsDo" />
+		<typeAlias alias="borrowTypeLogDo"
+			type="com.hehenian.biz.common.trade.dataobject.BorrowTypeLogDo" />
+		<typeAlias alias="merCashDo"
+			type="com.hehenian.biz.common.trade.dataobject.MerCashDo" />
+		<!-- 费用编码表 -->
+		<typeAlias alias="fundDo"
+			type="com.hehenian.biz.common.fund.dataobject.FundDo" />
+		<typeAlias alias="rechargeDo"
+			type="com.hehenian.biz.common.trade.dataobject.RechargeDo" />
+		<typeAlias alias="activityOrderDo"
+			type="com.hehenian.biz.common.activity.dataobject.ActivityOrderDo" />
+		<typeAlias alias="activityAuthDo"
+			type="com.hehenian.biz.common.activity.dataobject.ActivityAuthDo" />
+		<typeAlias alias="activityTradeDo"
+			type="com.hehenian.biz.common.activity.dataobject.ActivityTradeDo" />
+		<typeAlias alias="activityLockDo"
+			type="com.hehenian.biz.common.activity.dataobject.ActivityLockDo" />
+		<!-- 结算方式管理 -->
+		<typeAlias alias="settSchemeDo"
+			type="com.hehenian.biz.common.system.dataobject.SettSchemeDo" />
+		<typeAlias alias="feeRuleDo"
+			type="com.hehenian.biz.common.system.dataobject.FeeRuleDo" />
+		<typeAlias alias="sysParameterDo"
+			type="com.hehenian.biz.common.system.dataobject.SysParameterDo" />
+			
+		<typeAlias alias = "bankBingDo" type="com.hehenian.biz.common.bank.dataobject.BankBingDo"/>
+		<typeAlias alias = "capitalAccountDo" type="com.hehenian.biz.common.activity.dataobject.CapitalAccountDo"/>
+		<typeAlias alias = "loanInfoDo" type="com.hehenian.biz.common.loan.dataobject.LoanInfoDo"/>	
+		<typeAlias alias="WorkAuth" type="com.hehenian.biz.common.account.dataobject.WorkAuth"/>
+		<typeAlias alias="MaterialsAuth" type="com.hehenian.biz.common.account.dataobject.MaterialsAuth"/>
+		<typeAlias alias = "menuDo" type="com.hehenian.biz.common.account.dataobject.MenuDo"/>
+		
+		<!-- 授信 -->
+		<typeAlias alias = "loanPersonCreditDo" type="com.hehenian.biz.common.loan.dataobject.LoanPersonCreditDo"/>
+		<typeAlias alias = "loanCreditRecDo" type="com.hehenian.biz.common.loan.dataobject.LoanCreditRecDo"/>
+		<typeAlias alias = "loanProxyCheckDo" type="com.hehenian.biz.common.loan.dataobject.LoanProxyCheckDo"/>
+		<!-- 评分 -->
+		<typeAlias alias = "loanCheckDetailDo" type="com.hehenian.biz.common.loan.dataobject.LoanCheckDetailDo"/>
+		<typeAlias alias = "loanCheckItemDo" type="com.hehenian.biz.common.loan.dataobject.LoanCheckItemDo"/>
+		<typeAlias alias = "loanCheckResultDo" type="com.hehenian.biz.common.loan.LoanCheckResultDo"/>
+		
+		<!-- 订单协议 -->
+		<typeAlias alias = "loanProtocolDo" type="com.hehenian.biz.common.loan.dataobject.LoanProtocolDo"/>
+		
+		<!--  manager 合并进来的 -->
+		
+		<!-- 贷款 -->
+		<typeAlias alias="loanPersonDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanPersonDo" />
+		<typeAlias alias="loanProvidedDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanProvidedDo" />
+		<typeAlias alias="loanSettSchemeDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanSettSchemeDo" />
+		<typeAlias alias="loanFeeRuleDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanFeeRuleDo" />		
+		
+		<typeAlias alias="loanUserBankDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanUserBankDo" />			
+			
+		<!-- 贷款日志 -->	
+		<typeAlias alias="loanLogDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanLogDo" />
+		
+		<!-- 财管家联系人 -->
+		<typeAlias alias="loanCMobileDo"
+			type="com.hehenian.biz.common.loan.dataobject.LoanCMobileDo" />
+			
+		<typeAlias alias = "loanModifyLogDo" type="com.hehenian.biz.common.loan.dataobject.LoanModifyLogDo"/>
+		
+		<typeAlias alias = "loanCheckedDo" type="com.hehenian.biz.common.loan.dataobject.LoanCheckedDo"/>
+		<!-- 贷款人验证 -->
+		<typeAlias alias = "loanPersonCheckDo" type="com.hehenian.biz.common.loan.dataobject.LoanPersonCheckDo"/>
+		
+		
+		
+		
+	</typeAliases>
+	
+	<plugins>
+		<plugin interceptor="com.hehenian.biz.common.mybatis.PageInterceptor">
+			<property name="a" value="a" />
+			<property name="b" value="b" />
+		</plugin>
+	</plugins>
+
+	<mappers>
+		<!-- 借款 -->
+		<mapper resource="mapping/loan/loan_detail.xml" />
+		<mapper resource="mapping/loan/loan_certificate.xml" />
+		<mapper resource="mapping/loan/loan.xml" />
+		<mapper resource="mapping/loan/loan_job.xml" />
+		<mapper resource="mapping/loan/loan_person.xml" />
+		<mapper resource="mapping/loan/loan_property.xml" />
+		<mapper resource="mapping/loan/loan_relation.xml" />
+
+		<mapper resource="mapping/loan/loan_user.xml" />
+		<mapper resource="mapping/loan/loan_channel.xml" />
+		<mapper resource="mapping/loan/loan_repayment.xml" />
+		<mapper resource="mapping/loan/loan_repayment_fee.xml" />
+		<mapper resource="mapping/loan/audit_log.xml" />
+		<mapper resource="mapping/loan/loan_product.xml" />
+		
+
+		<mapper resource="mapping/loan/loan_info.xml" />
+		
+		<!-- 邮件 -->
+		<mapper resource="mapping/notify/notify-mail.xml" />
+		<mapper resource="mapping/notify/notify-SMS.xml" />
+		<mapper resource="mapping/notify/notify-mail.xml" />
+		<mapper resource="mapping/notify/notify-SMS-manager.xml" />
+		<mapper resource="mapping/notify/notify-manager.xml" />
+		<!-- 融资端站内通知发送 -->
+		<mapper resource="mapping/notify/notify-loan.xml" />
+		<!-- 绑定银行卡 -->
+		<mapper resource="mapping/bank/bank.xml" />
+
+		<!-- 账户 -->
+		<mapper resource="mapping/account/user.xml" />
+		<mapper resource="mapping/account/user_bind.xml" />
+		<mapper resource="mapping/account/admin.xml" />
+		<mapper resource="mapping/account/person.xml" />
+		<mapper resource="mapping/account/bank_card.xml" />
+		<mapper resource="mapping/account/phone_verify.xml" />
+		<!-- 交易 -->
+		<mapper resource="mapping/trade/withdraw.xml" />
+		<mapper resource="mapping/trade/operation_log.xml" />
+		<mapper resource="mapping/trade/fundrecord.xml" />
+		<mapper resource="mapping/trade/invest.xml" />
+		<mapper resource="mapping/trade/pre_repayment.xml" />
+		<mapper resource="mapping/trade/recharge.xml" />
+		<mapper resource="mapping/trade/platform_cost.xml" />
+		<mapper resource="mapping/trade/assignment_debt.xml" />
+		<mapper resource="mapping/trade/auction_debt.xml" />
+		<mapper resource="mapping/trade/invest_history.xml" />
+		<mapper resource="mapping/trade/reconciliation.xml" />
+		<mapper resource="mapping/trade/reconciliation_detail.xml" />
+		<mapper resource="mapping/trade/parameter_log.xml" />
+		<!-- 还款 -->
+		<mapper resource="mapping/trade/repayment.xml" />
+		<mapper resource="mapping/trade/repayment_record.xml" />
+		<mapper resource="mapping/trade/repaymentFee.xml" />
+		<!-- 投资回款 -->
+		<mapper resource="mapping/trade/investrepayment.xml" />
+		<!-- 标的 -->
+		<mapper resource="mapping/trade/borrow.xml" />
+		<!-- 风险保障金 -->
+		<mapper resource="mapping/trade/riskdetail.xml" />
+		<!-- 担保机构 -->
+		<mapper resource="mapping/trade/guaranteeinstitutions.xml" />
+		<mapper resource="mapping/trade/borrowlog.xml" />
+		<mapper resource="mapping/trade/mercash.xml" />
+
+		<!-- 费用编码表 -->
+		<mapper resource="mapping/trade/fund.xml" />
+
+		<!-- 查询报表 -->
+		<mapper resource="mapping/report/color_report.xml" />
+		<mapper resource="mapping/report/xiaodai_balance_report.xml" />
+		<mapper resource="mapping/activity/activity_auth.xml" />
+		<mapper resource="mapping/activity/activity_lock.xml" />
+		<mapper resource="mapping/activity/activity_order.xml" />
+		<mapper resource="mapping/activity/activity_trade.xml" />
+
+		<!-- 结算方式管理 -->
+		<mapper resource="mapping/system/sett_scheme.xml" />
+		<mapper resource="mapping/system/fee_rule.xml" />
+		<mapper resource="mapping/system/sys_parameter.xml" />
+		
+		<!-- 通用查询功能 -->
+		<mapper resource="mapping/system/common_system.xml" />
+		
+		<mapper resource="mapping/report/balance_report.xml" />
+		<!-- 员工邀请码 -->
+		<mapper resource="mapping/account/invite_code.xml" />
+		<!-- 彩生活后台数据查询 -->
+		<mapper resource="mapping/system/clift_data.xml"/>	
+
+		<!-- 菜单 -->
+		<mapper resource="mapping/account/menu.xml" />	
+
+		<mapper resource="mapping/colorlife/colorLifeBuyInfoDao.xml"/>
+		<mapper resource="mapping/account/WorkAuthDao.xml"/>
+		<mapper resource="mapping/account/MaterialsAuthDao.xml"/>
+		
+		<!-- 授信 -->
+		<mapper resource="mapping/loan/loan_person_credit_rec.xml" />
+		<mapper resource="mapping/loan/loan_person_credit.xml" />
+		<mapper resource="mapping/loan/loan_proxy_check.xml" />
+		<mapper resource="mapping/loan/loan_check_detail.xml" />
+		<mapper resource="mapping/loan/loan_check_item.xml" />
+		<mapper resource="mapping/loan/loan_check_result.xml" />
+		
+		<!-- 订单协议 -->
+		<mapper resource="mapping/loan/loan_protocol.xml" />
+		
+		
+		<!-- manager 合并后 -->
+		<!-- 贷款 -->
+		<mapper resource="mapping/loan/loan_provided.xml" />
+		<mapper resource="mapping/loan/loan_sett_scheme.xml" />
+		<mapper resource="mapping/loan/loan_fee_rule.xml" />
+		<mapper resource="mapping/loan/fee_rule.xml" />
+		<mapper resource="mapping/loan/sett_scheme.xml" />
+		<mapper resource="mapping/loan/loan_log.xml" />
+		<!-- 数据字典 -->
+		<mapper resource="mapping/loan/loan_dict.xml" />
+		<mapper resource="mapping/loan/loan_dict_dtl.xml" />
+		<!-- 财管家联系人 -->
+		<mapper resource="mapping/loan/loan_cmobile.xml" />
+		<mapper resource="mapping/loan/loan_modify_log.xml" />
+		<mapper resource="mapping/loan/loan_checked.xml" />
+		<!-- 贷款人验证 -->
+		<mapper resource="mapping/loan/loan_person_check.xml" />
+		
+		
+	</mappers>
+
+</configuration>

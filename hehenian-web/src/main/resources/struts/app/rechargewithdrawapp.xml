@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="rechargewithdrawapp" extends="app-default" namespace="/app">
+		<action name="queryWithdraw" class="rechargeWithdrawAppAction" method="queryWithdraw">
+		</action>
+		
+		<action name="queryWithdrawList" class="rechargeWithdrawAppAction" method="queryWithdrawList">
+		</action>
+		
+		<action name="addWithdraw" class="rechargeWithdrawAppAction" method="addWithdraw">
+		</action>
+		
+		<action name="deleteWithdraw" class="rechargeWithdrawAppAction" method="deleteWithdraw">
+		</action>
+		
+		<action name="queryFundsRecodeList" class="rechargeWithdrawAppAction" method="queryFundsRecodeList">
+		</action>
+		
+	</package>
+</struts>

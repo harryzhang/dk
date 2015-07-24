@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.trade.IFundrecordDao">
+	<resultMap type="fundrecordDo" id="fundrecordResultMap">
+		<result property="id" column="id" />
+		<result property="userId" column="userId" />
+		<result property="fundMode" column="fundMode" />
+		<result property="handleSum" column="handleSum" />
+		<result property="usableSum" column="usableSum" />
+
+		<result property="freezeSum" column="freezeSum" />
+		<result property="dueinSum" column="dueinSum" />
+		<result property="trader" column="trader" />
+		<result property="recordTime" column="recordTime" />
+		<result property="dueoutSum" column="dueoutSum" />
+
+		<result property="dueinCapitalSum" column="dueinCapitalSum" />
+		<result property="dueinAccrualSum" column="dueinAccrualSum" />
+		<result property="remarks" column="remarks" />
+		<result property="operateType" column="operateType" />
+		<result property="oninvest" column="oninvest" />
+
+		<result property="paynumber" column="paynumber" />
+		<result property="paybank" column="paybank" />
+		<result property="cost" column="cost" />
+		<result property="income" column="income" />
+		<result property="spending" column="spending" />
+
+		<result property="borrowId" column="borrow_id" />
+		<result property="repaymentId" column="repayment_id" />
+		<result property="type" column="type" />
+		<result property="ordId" column="ordId" />
+	</resultMap>
+	
+	<select id="getDailyIncentiveAmount" parameterType="map" resultType="double">
+		SELECT SUM(handleSum) FROM t_fundrecord
+		WHERE fundMode = '会员奖励'
+		AND userid = #{userId}
+		<if test="beginDate != null and endDate != null">
+		AND recordTime BETWEEN #{beginDate} AND #{endDate}
+		</if>
+	</select>
+
+	<insert id="addFundrecord" parameterType="fundrecordDo"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		t_fundrecord (userId,
+		fundMode,
+		handleSum, usableSum, freezeSum,
+		dueinSum, trader, recordTime,
+		dueoutSum, dueinCapitalSum,
+		dueinAccrualSum, remarks, operateType,
+		oninvest,paynumber,paybank,cost,income,spending,borrow_id,repayment_id,type,ordId)
+		VALUES(#{userId},#{fundMode},#{handleSum},#{usableSum},#{freezeSum},#{dueinSum},#{trader},NOW(),#{dueoutSum},#{dueinCapitalSum}
+		,#{dueinAccrualSum},#{remarks},#{operateType},#{oninvest},#{paynumber},#{paybank},#{cost},#{income},#{spending},#{borrowId},#{repaymentId},#{type},#{ordId});
+	</insert>
+	
+	<insert id="addFundByRepay" parameterType="fundrecordDo"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO t_fundrecord (userId, 
+                          recordTime, 
+						  operateType, 
+						  fundMode, 
+						  handleSum, 
+						  usableSum, 
+						  freezeSum, 
+						  dueinSum,
+						  trader, 
+						  dueoutSum, 
+						  remarks, 
+						  oninvest, 
+						  paynumber, 
+						  paybank, 
+						  cost,
+						  income,
+						  spending,
+						  borrow_id,
+						  repayment_id)
+                  SELECT #{userId}, 
+				         NOW(), 
+						 #{operateType}, 
+						 #{fundMode}, 
+						 #{handleSum},
+                         a.usableSum AS usableSum, 
+						 a.freezeSum AS freezeSum, 
+						 SUM(b.recivedPrincipal + b.recievedInterest - b.hasPrincipal - b.hasInterest),
+                         -1,
+						 0,
+						 #{remarks}, 
+						 0,
+						 #{paynumber},
+						 '', 
+						 0,
+						 #{income},
+						 #{spending},
+						 #{borrowId},
+						 #{repaymentId} 
+				   FROM t_user a LEFT JOIN t_invest b ON a.id = b.investor  
+				   WHERE a.id = #{userId} 
+				   GROUP BY a.id;
+	</insert>
+
+    <delete id="delectById" parameterType="long">
+        delete from t_fundrecord WHERE
+		id = #{id}
+    </delete>
+</mapper>

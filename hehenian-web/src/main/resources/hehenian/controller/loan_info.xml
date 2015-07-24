@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="loan_info" extends="struts-default" namespace="/loan">
+		
+		<interceptors>
+			<interceptor name="loanInterceptor" class="com.sp2p.system.interceptor.LoanInterceptor" />
+			<interceptor-stack name="loanStack">
+				<interceptor-ref name="loanInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		
+		<global-results>
+			<result name="noLogin">/WEB-INF/jsp/message.jsp</result>
+		</global-results>
+		
+		<action name="uploadFile" class="uploadFileAction" method="uploadFile">
+			<result name="success">/WEB-INF/jsp/loan/file_upload.jsp</result>
+			<result name="error">/WEB-INF/jsp/loan/file_upload.jsp</result>
+		</action>
+		
+		<action name="index" class="loanYwslAction" method="index">
+			<result name="success" type="redirectAction">
+				getLoan.do
+			</result>
+			<result name="error">/WEB-INF/jsp/message.jsp</result>
+		</action>
+		
+		
+		<!-- 业务受理 -->
+		<action name="loanInit" class="loanYwslAction" method="initData">
+			<result  name="success">/WEB-INF/page/loan/loan_ywsl.jsp</result>
+           <interceptor-ref name="loanStack"></interceptor-ref>
+		</action>
+		
+		<action name="loanAdd" class="loanYwslAction" method="addPerson">
+			<result  name="success">/WEB-INF/page/loan/loan.jsp</result>
+		</action>
+		
+		<action name="getLoan" class="loanYwslAction" method="getLoanPerson">
+			 <interceptor-ref name="loanStack"></interceptor-ref>
+			<result name="success">/WEB-INF/page/loan/loanPersonQuery.jsp</result>
+		</action>
+		
+		<action name="loanUpdate" class="loanYwslAction" method="updatePerson">
+			<result name="success">/WEB-INF/page/loan/loan_ywsl.jsp</result>
+			<result name="error">/WEB-INF/page/loan/loan_ywsl.jsp</result>
+           <interceptor-ref name="loanStack"></interceptor-ref>
+		</action>
+		
+		<action name="changeloanJkStatus" class="loanYwslAction" method="changeloanStatus">
+			<result  name="success">/WEB-INF/page/loan/loan_ywsl.jsp</result>
+			<result name="error">/WEB-INF/page/loan/loan_ywsl.jsp</result>
+		</action>
+		
+		<action name="loanQuery" class="loanYwslAction" method="initData">
+			<result  name="success">/WEB-INF/page/loan/queryLoan.jsp</result>
+           <interceptor-ref name="loanStack"></interceptor-ref>
+		</action>
+		
+		<!-- 合约签约 -->
+		<action name="loanTreatyQuery" class="loanYwslAction" method="loanTreatyQuery">
+			<interceptor-ref name="loanStack"></interceptor-ref>
+			<result  name="success">/WEB-INF/page/loan/loanTreatyQuery.jsp</result>
+		</action>
+		
+		<action name="loanTreatyInit" class="loanYwslAction" method="initTreatyData">
+			<interceptor-ref name="loanStack"></interceptor-ref>
+			<result  name="success">/WEB-INF/page/loan/loan_treaty.jsp</result>
+		</action>
+		
+		<action name="uploadFileHy" class="loanYwslAction" method="uploadFile">
+			<interceptor-ref name="loanStack"></interceptor-ref>
+			<result  name="success">/WEB-INF/page/loan/loan_treaty.jsp</result>
+		</action>
+		<action name="loanTreatyLook" class="loanYwslAction" method="initTreatyData">
+			<interceptor-ref name="loanStack"></interceptor-ref>
+			<result  name="success">/WEB-INF/page/loan/loan_treatyQuery.jsp</result>
+		</action>
+		
+		<!-- 贷后管理 -->
+		<action name="getManagerData" class="loanYwslAction" method="getManagerData">
+			<interceptor-ref name="loanStack"></interceptor-ref>
+			<result  name="success">/WEB-INF/page/loan/loanManagerQuery.jsp</result>
+		</action>
+		
+		<action name="getRepayMentByBwId" class="loanYwslAction" method="getRepayMentByBwId">
+			<interceptor-ref name="loanStack"></interceptor-ref>
+			<result  name="success">/WEB-INF/page/loan/assignment_repayed_list.jsp</result>
+		</action>
+		
+		<!-- 业绩查询 -->
+		<action name="getIncomeManager" class="loanYwslAction" method="getIncomeManager">
+			<interceptor-ref name="loanStack"></interceptor-ref>
+			<result  name="success">/WEB-INF/page/loan/loan_income.jsp</result>
+		</action>
+		
+		
+	</package>
+
+	<package name="loan_detail" extends="struts-default" namespace="/">
+		<action name="dai">
+			<result name="success">/WEB-INF/jsp/loan/loan_apply.jsp</result>
+		</action>
+		<action name="addLoanDetail" class="loanDetailAction" method="addLoanDetail">
+			<result name="success">/WEB-INF/jsp/loan/loan_success.jsp</result>
+			<result name="error">/WEB-INF/jsp/message.jsp</result>
+		</action>
+		<action name="calCreditAmount" class="loanDetailAction" method="calCreditAmount"/>
+		<action name="calRepayDetail" class="loanDetailAction" method="calRepayDetail"/>
+		<action name="getByIdNo" class="loanDetailAction" method="getByIdNo"/>
+		<action name="loanDetails" class="loanDetailAction" method="queryUncheckedLoanDetails" />
+		<action name="chkLoanDetail" class="loanDetailAction" method="checkLoanDetail" />
+		
+		<!-- 小贷对接-->
+		<action name="addLoanInfo" class="loanInfoAction" method="addLoanInfo"/>
+		
+		
+	</package>
+	
+	<package name="admin.loandetail" extends="admin-default" namespace="/admin">
+		<action name="queryLoanDetails" class="loanDetailAction" method="queryLoanDetails">
+			<result name="success">/WEB-INF/jsp/audit/loandetail_list.jsp</result>
+		</action>
+		
+		<!-- 贷款审核 -->
+		<action name="loanAuditInit" class="loanYwslAction" method="initAuditData">
+			<result  name="success">/WEB-INF/page/loan/loanAuditQuery.jsp</result>
+		</action>
+		
+		<action name="loanAuditData" class="loanYwslAction" method="initData">
+			<result  name="success">/WEB-INF/page/loan/loan_client.jsp</result>
+		</action>
+		
+		<action name="updateLoanShInfo" class="loanYwslAction" method="updateLoanShInfo">
+		</action>
+		<action name="loanAuditQueryData" class="loanYwslAction" method="initData">
+			<result  name="success">/WEB-INF/page/loan/loan_clientQuery.jsp</result>
+		</action>
+		
+		<action name="loanQuery" class="loanYwslAction" method="initData">
+			<result  name="success">/WEB-INF/page/loan/queryLoan.jsp</result>
+		</action>
+		
+		
+		<!-- 自动上标 -->
+		<action name="loanAutoQuery" class="loanYwslAction" method="loanAutoQuery">
+			<result  name="success">/WEB-INF/page/loan/loanAutomaticSbQuery.jsp</result>
+		</action>
+		<action name="loanAutoSubject" class="loanYwslAction" method="loanAutoSubject">
+			<result  name="success">/WEB-INF/page/loan/loanAutomaticSbQuery.jsp</result>
+		</action>
+		
+		
+		<action name="exportLoanDetails" class="loanDetailAction" method="exportLoanDetails"/>
+		<action name="changeLoanStatus" class="loanDetailAction" method="changeLoanStatus"/>
+		
+		<!-- 小贷对接-->
+		<action name="queryLoanInfos" class="loanInfoAction" method="queryLoanInfos">
+			<result  name="success">/WEB-INF/jsp/loan/loaninfo_list.jsp</result>
+		</action>
+		<action name="toUpdateLoanInfo" class="loanInfoAction" method="getByLoanInfoId">
+			<result  name="success">/WEB-INF/jsp/loan/loaninfo_update.jsp</result>
+		</action>
+		<action name="updateLoanInfo" class="loanInfoAction" method="updateLoanInfo">
+			<result  name="success">/WEB-INF/jsp/loan/loaninfo_list.jsp</result>
+		</action>
+		<action name="releaseLoanInfo" class="loanInfoAction" method="releaseLoanInfo">
+			<result  name="success">/WEB-INF/jsp/loan/loaninfo_list.jsp</result>
+		</action>
+	</package>
+</struts>

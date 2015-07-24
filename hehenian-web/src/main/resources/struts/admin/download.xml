@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="download" extends="admin-default" namespace="/admin">
+		<!-- 下载资料列表 -->
+		<action name="downloadlist" class="downloadAction" method="queryDownloadListPage">
+			<result name="success">/WEB-INF/page/admin/download_index_info.jsp</result>
+        </action>
+        <!-- 初始化下载资料列表 -->
+        <action name="downloadlistinit" class="downloadAction" method="queryDownloadListPageInit">
+			<result name="success">/WEB-INF/page/admin/download_index.jsp</result>
+        </action>
+        
+        <!-- 初始化添加下载资料 -->
+        <action name="adddownloadinit" class="downloadAction" method="addDownloadInit">
+			<result name="success">/WEB-INF/page/admin/download_add.jsp</result>
+        </action>
+        
+        <!-- 添加下载资料 -->
+        <action name="adddownload" class="downloadAction" method="addDownload">
+            <result name="input">/WEB-INF/page/admin/download_add.jsp</result>
+			<result name="success" type="redirectAction">downloadlistinit.do</result>
+        </action>
+        
+        <!--根据Id获取下载资料详情 -->
+        <action name="updateDownloadInit" class="downloadAction" method="queryDownloadById">
+            <result name="success">/WEB-INF/page/admin/download_update.jsp</result>
+        </action>
+        <!--根据Id获取下载资料详情 -->
+        <action name="updateDownload" class="downloadAction" method="updateDownload">   
+        </action>
+        
+        <!--根据Id获取下载资料详情 -->
+        <action name="deleteDownload" class="downloadAction" method="deleteDownload">             
+			<result name="success" type="redirect">downloadlistinit.do</result>
+        </action>
+
+	</package>
+</struts>

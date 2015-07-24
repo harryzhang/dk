@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="paramMap['title']">
+		<field-validator type="requiredstring">
+			<message>标题不能为空</message>
+		</field-validator>
+	</field>
+	
+	<field name="paramMap['content']">
+		<field-validator type="requiredstring">
+			<message>内容不能为空</message>
+		</field-validator>
+	</field>
+	
+	<field name="paramMap['publisher']">
+		<field-validator type="requiredstring">
+			<message>发布人不能为空</message>
+		</field-validator>
+	</field>
+	
+	<field name="paramMap['publishTime']">
+		<field-validator type="requiredstring">
+			<message>发布时间不能为空</message>
+		</field-validator>
+	</field>
+	
+</validators>

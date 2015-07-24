@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.dal.activity.IActivityTradeDao">
+	<resultMap type="activityTradeDo" id="activityTradeResultMap">
+		<result property="tradeId" column="tradeId" />
+		<result property="ordId" column="ordId" />
+		<result property="fromUserId" column="fromUserId" />
+		<result property="toUserId" column="toUserId" />
+		<result property="amount" column="amount" />
+		<result property="realAmount" column="realAmount" />
+		<result property="tradeTime" column="tradeTime" />
+		<result property="realTradeTime" column="realTradeTime" />
+		<result property="tradeStatus" column="tradeStatus" />
+		<result property="remark" column="remark" />
+		<result property="createTime" column="createTime" />
+		<result property="updateTime" column="updateTime" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="activityTradeResultMap">
+		SELECT *
+		FROM t_activity_trade WHERE tradeId = #{id}
+	</select>
+
+	<select id="queryNoTransferTrades" parameterType="date"
+		resultMap="activityTradeResultMap">
+		<![CDATA[
+			SELECT t.* FROM t_activity_trade t 
+			LEFT JOIN t_user u ON u.id = t.fromUserId
+			WHERE tradeTime < #{tradeTime}
+			AND tradeStatus = 0
+			AND u.usableSum >= t.amount
+			AND tradeId IN (SELECT MIN(tr.tradeId) FROM t_activity_trade tr WHERE tr.ordId = t.ordId AND tr.tradeStatus = 0)
+			ORDER BY createTime
+			LIMIT 2000;
+		]]>
+	</select>
+
+	<select id="queryByIds" parameterType="map" resultMap="activityTradeResultMap">
+		SELECT * FROM t_activity_trade
+		WHERE tradeId IN
+		<foreach collection="idList" item="id" open="(" close=")"
+			separator=",">
+			#{id}
+		</foreach>
+	</select>
+
+	<!-- 最小未扣款金额 -->
+	<select id="selectLastUnDeductActivityTrade" parameterType="Map"
+		resultMap="activityTradeResultMap">
+
+		SELECT act.* FROM t_activity_trade act WHERE act.fromUserId = #{fromUserId}
+		AND act.tradeStatus = 0 AND act.tradeId IN
+		(SELECT MIN(a.tradeId)
+			FROM t_activity_trade a
+			WHERE a.fromUserId = #{fromUserId} AND a.tradeStatus = 0
+			GROUP BY a.ordId
+		)
+		
+
+	</select>
+
+	<select id="selectActivityTrade" parameterType="Map"
+		resultMap="activityTradeResultMap">
+		SELECT *
+		FROM t_activity_trade
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="tradeId != null">
+				AND tradeId like #{tradeId}
+			</if>
+			<if test="ordId != null">
+				AND ordId like #{ordId}
+			</if>
+			<if test="fromUserId != null">
+				AND fromUserId like #{fromUserId}
+			</if>
+			<if test="toUserId != null">
+				AND toUserId like #{toUserId}
+			</if>
+			<if test="amount != null">
+				AND amount like #{amount}
+			</if>
+			<if test="realAmount != null">
+				AND realAmount like #{realAmount}
+			</if>
+			<if test="tradeTime != null">
+				AND tradeTime like #{tradeTime}
+			</if>
+			<if test="realTradeTime != null">
+				AND realTradeTime like #{realTradeTime}
+			</if>
+			<if test="tradeStatus != null">
+				AND tradeStatus like #{tradeStatus}
+			</if>
+			<if test="remark != null">
+				AND remark like #{remark}
+			</if>
+			<if test="createTime != null">
+				AND createTime like #{createTime}
+			</if>
+			<if test="updateTime != null">
+				AND updateTime like #{updateTime}
+			</if>
+		</trim>
+
+	</select>
+
+	<update id="updateActivityTradeById" parameterType="activityTradeDo">
+		UPDATE t_activity_trade
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="ordId != null">
+				,ordId = #{ordId}
+			</if>
+			<if test="fromUserId != null">
+				,fromUserId = #{fromUserId}
+			</if>
+			<if test="toUserId != null">
+				,toUserId = #{toUserId}
+			</if>
+			<if test="amount != null">
+				,amount = #{amount}
+			</if>
+			<if test="realAmount != null">
+				,realAmount = #{realAmount}
+			</if>
+			<if test="realTradeTime != null">
+				,realTradeTime = #{realTradeTime}
+			</if>
+			<if test="tradeStatus != null">
+				,tradeStatus = #{tradeStatus}
+			</if>
+			<if test="remark != null">
+				,remark = #{remark}
+			</if>
+			,updateTime = NOW()
+		</trim>
+		WHERE tradeId = #{tradeId}
+	</update>
+
+	<insert id="addActivityTrade" parameterType="activityTradeDo"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO t_activity_trade(
+		ordId
+		,fromUserId
+		,toUserId
+		,amount
+		,realAmount
+		,tradeTime
+		,realTradeTime
+		,tradeStatus
+		,remark
+		,createTime
+		,updateTime
+		)
+		VALUES ( #{ordId}
+		,#{fromUserId}
+		,#{toUserId}
+		,#{amount}
+		,#{realAmount}
+		,#{tradeTime}
+		,#{realTradeTime}
+		,#{tradeStatus}
+		,#{remark}
+		,NOW()
+		,NOW()
+		);
+	</insert>
+
+	<delete id="deleteById" parameterType="Long">
+		DELETE FROM
+		t_activity_trade WHERE tradeId = #{id}
+	</delete>
+
+</mapper>
+

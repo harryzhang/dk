@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="adminUser" extends="login-default">
+		<action name="ajaxqueryRegion" class="userAction" method="ajaxqueryRegion">
+		</action>
+		<action name="information" class="frontUserAction" method="userinformationInit">
+			<result name="success">
+				/WEB-INF/page/usercenter/user_infomation_jibenjiliao.jsp
+			</result>
+			<result name="workdata">
+				/WEB-INF/page/usercenter/user_infomation_workdata.jsp
+			</result>
+			<result name="vip">
+				/WEB-INF/page/usercenter/user_infomation_vip.jsp
+			</result>
+			<result name="pictureData">
+				/WEB-INF/page/usercenter/user_pictureData.jsp
+			</result>
+		</action>
+		<!-- 填写基本资料再次跳转到user_infomation.jsp -->
+		<action name="againJumpToUserInf" class="userAction" method="againUserInformation">
+			<result name="success">
+				/WEB-INF/page/usercenter/user_infomation_workdata.jsp
+			</result>
+			<result name="login">/index.jsp</result>
+		</action>
+		<!-- 填写工作资料再次跳转到user_infomation.jsp -->
+		<action name="againJumpToUserInfo" class="userAction" method="againUserInformationTwo">
+			<result name="success" type="redirect">quervipData.do</result>
+			<result name="login">/index.jsp</result>
+		</action>
+
+
+
+
+
+
+		<action name="querBaseData" class="userAction" method="queryBaseData">
+			<result name="success">
+				/WEB-INF/page/front/wdzh-user-detail-info.jsp
+			</result>
+		</action>
+
+		<action name="querWorkData" class="userAction" method="queryVipToWork">
+			<result name="success">
+				/WEB-INF/page/usercenter/user_infomation_workdata.jsp
+			</result>
+			<result name="querBaseData" type="chain">
+				<param name="adminUser">/</param>
+				<param name="actionName">querBaseData</param>
+			</result>
+			<result name="login">index.jsp</result>
+		</action>
+
+		<action name="quervipData" class="userAction" method="queryBaseToVip">
+			<!-- 跳转到更新页面 -->
+			<result>
+				/WEB-INF/page/usercenter/user_infomation_vip.jsp
+			</result>
+			<result name="querBaseData" type="chain">
+				<param name="adminUser">/</param>
+				<param name="actionName">querBaseData</param>
+			</result>
+			<result name="querWorkData" type="chain">
+				<param name="adminUser">/</param>
+				<param name="actionName">querWorkData</param>
+			</result>
+			<result name="login">index.jsp</result>
+		</action>
+		<!-- 申请vip -->
+		<action name="updataUserVipStatus" class="userAction" method="updataVipStatus">
+		</action>
+
+		<action name="jumptopiturepage" class="userAction" method="jumpTopage">
+			<result name="success" type="redirect">userPassData.do</result>
+			<result name="login">index.jsp</result>
+		</action>
+
+
+		<action name="updateBasedate" class="userAction" method="updateUserBaseData">
+		</action>
+
+		<action name="updatework" class="userAction" method="updateUserWorkData">
+		</action>
+
+
+
+
+		<action name="upData" class="userAction" method="upDataMethod">
+			<result>
+				/WEB-INF/page/usercenter/user_pictureData.jsp
+			</result>
+			<!-- <result name="jibenjiliao">/WEB-INF/page/usercenter/user_pictureData.jsp</result> <result name="workData"></result> <result name="login"></result> -->
+		</action>
+
+		<!-- 用户添加基本资料 -->
+		<action name="userBaseDate" class="userAction" method="addUserBaseData">
+		</action>
+		<!-- 用户添加工作认证资料 -->
+		<action name="userWorkDate" class="userAction" method="addUserWorkData">
+		</action>
+
+
+
+		<!-- 跳转到上传资料 -->
+		<action name="userPassData" class="userAction" method="jumpPassDatapage">
+			<result>
+				/WEB-INF/page/usercenter/user_pictureData.jsp
+			</result>
+			<!-- 用户申请vip之后就可以发布借款 -->
+			<result name="jumpNet" type="chain">
+				<param name="adminUser">/</param>
+				<param name="actionName">borrowTypeNet</param>
+			</result>
+			<result name="jumpSeconds" type="chain">
+				<param name="adminUser">/</param>
+				<param name="actionName">borrowTypeSeconds</param>
+			</result>
+			<result name="jumpOther" type="chain">
+				<param name="adminUser">/</param>
+				<param name="actionName">borrowOther</param>
+			</result>
+			<result name="querBaseData" type="chain">
+				<param name="adminUser">/</param>
+				<param name="actionName">querBaseData</param>
+			</result>
+			<result name="querWorkData" type="chain">
+				<param name="adminUser">/</param>
+				<param name="actionName">querWorkData</param>
+			</result>
+			<result name="quervipData" type="chain">
+				<param name="adminUser">/</param>
+				<param name="actionName">quervipData</param>
+			</result>
+			<result name="login">index.jsp</result>
+		</action>
+
+
+		<action name="uploadFileAction" class="uploadCommonentsAction" method="onloadFileUpload">
+			<result name="smallcomponent">
+				/WEB-INF/page/uploadFile.jsp
+			</result>
+			<result name="input">/WEB-INF/page/upload_error.jsp</result>
+		</action>
+		<action name="uploadFiles" class="uploadCommonentsAction" method="uploadFiles">
+			<result name="input">/WEB-INF/page/upload_error.jsp</result>
+			<result name="success">/WEB-INF/page/uploadFile.jsp</result>
+		</action>
+
+		<!-- -->
+		<action name="updateHeadImgInit" class="frontUserAction" method="updateUserHeadImgInit">
+			<result name="success">
+				/WEB-INF/page/usercenter/user_infomation.jsp
+			</result>
+		</action>
+
+		<action name="updateHeadImg" class="frontUserAction" method="updateUserHeadImg">
+			<result name="success" type="redirect">
+				updateHeadImgInit.do
+			</result>
+		</action>
+
+		<action name="addImg" class="userAction" method="addImage">
+		</action>
+		<!--上传资料弹出框 -->
+		<action name="showpastpictur" class="userAction" method="queryUserPictur">
+			<result>/WEB-INF/page/usercenter/user-pastpictur.jsp</result>
+		</action>
+		<!-- 保存用户上传的图片到数据库 -->
+		<action name="addpastPicturdate" class="userAction" method="addpastPicturdate">
+		</action>
+		<!-- 发送手机短信 -->
+		<action name="sendSMS" class="userAction" method="SendSMS">
+		</action>
+
+		<!-- 清空session中的短信验证码 -->
+		<action name="removeCode" class="userAction" method="removeSessionCode">
+		</action>
+		<!-- 更新用户证件的可见 -->
+		<action name="updatevisiable" class="userAction" method="updatevisiable">
+		</action>
+
+
+
+
+		<action name="querykefu" class="userAction" method="querykefylist">
+			<result>/WEB-INF/page/usercenter/user_serive_list.jsp</result>
+		</action>
+	</package>
+	<package name="tip" extends="struts-default" namespace="/">
+		<action name="querytip" class="userAction" method="querytipM">
+			<result>/WEB-INF/page/usercenter/tip.jsp</result>
+		</action>
+		<action name="querytips" class="userAction" method="querytipsM">
+			<result>/WEB-INF/page/usercenter/tips.jsp</result>
+		</action>
+
+		<action name="queryRechartips" class="userAction" method="queryRecharTips">
+			<result>/WEB-INF/page/usercenter/rechar-tips.jsp</result>
+		</action>
+	</package>
+	<!-- 自动导入 -->
+	<package name="userManageInfo" namespace="/admin" extends="admin-default">
+		<!-- 用户导入初始化 -->
+		<action name="importUserInfoInit">
+			<result name="success">/WEB-INF/page/admin/import_userinfo_detail.jsp</result>
+		</action>
+		<!-- 导入 -->
+		<action name="importUserInfo" class="userAction" method="importUserInfo">
+			<result name="input">/WEB-INF/page/admin/import_userinfo_detail.jsp</result>
+			<result name="success">/WEB-INF/page/admin/import_userinfo_detail.jsp</result>
+		</action>
+	</package>
+</struts>

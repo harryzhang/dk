@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="adminRecordInfo" extends="admin-default" namespace="/admin">
+	
+		<action name="queryRecordInit" class="operationLogAction" method="queryRecordInit">
+			<result name="success" >/WEB-INF/page/admin/admin_log_index.jsp</result>
+		</action>
+		
+		<action name="queryRecordInfo" class="operationLogAction" method="queryRecordInfo" >
+			<result name="success" >/WEB-INF/page/admin/admin_log_index_info.jsp</result>
+		</action>	
+		
+		<action name="queryManagerOperationLogInit" class="operationLogAction" method="queryManagerOperationLogInit" >
+			<result name="success" >/WEB-INF/page/admin/operationLog_manager_index.jsp</result>
+		</action>	
+		<action name="queryManagerOperationLog" class="operationLogAction" method="queryManagerOperationLog" >
+			<result name="success" >/WEB-INF/page/admin/operationLog_manager_info.jsp</result>
+		</action>	
+		<action name="queryUserOperationLogInit" class="operationLogAction" method="queryUserOperationLogInit" >
+			<result name="success" >/WEB-INF/page/admin/operationLog_user_index.jsp</result>
+		</action>	
+		<action name="queryUserOperationLog" class="operationLogAction" method="queryUserOperationLog" >
+			<result name="success" >/WEB-INF/page/admin/operationLog_user_info.jsp</result>
+		</action>	
+	</package>
+</struts>

@@ -1,0 +1,38 @@
+@charset "utf-8";
+body {
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:12px;
+	line-height:20px;
+}
+.users_new, .detailed, .latest, .mass {
+	border-spacing: 2px 2px;
+	border-collapse: separate;
+	background: #6E8270;
+}
+.users_new th, .detailed th, .latest th, .mass th {
+	background: #91A794;
+	color: white;
+	cursor: default;
+	font-size: 12px;
+	padding: 2px 3px;
+}
+.users_new td, .detailed td, .latest td, .mass td {
+	background-color: #DAE9DC;
+	font-size: 12px;
+	height: 16px;
+	line-height: 16px;
+	padding: 2px 3px;
+	text-align: left;
+}
+.users_new textarea, .detailed textarea, .mass textarea {
+	width:500px;
+	max-height:100px;
+	min-height:100px;
+	height:100px;
+	max-width:500px;
+	;
+	min-width:500px;
+	;
+}

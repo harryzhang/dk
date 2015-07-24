@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.dal.activity.IActivityAuthDao">
+	<resultMap type="activityAuthDo" id="activityAuthResultMap">
+		<result property="authId" column="authId" />
+		<result property="ordId" column="ordId" />
+		<result property="fromUserId" column="fromUserId" />
+		<result property="toUserId" column="toUserId" />
+		<result property="authAmount" column="authAmount" />
+		<result property="authType" column="authType" />
+		<result property="authTime" column="authTime" />
+		<result property="authStatus" column="authStatus" />
+		<result property="remark" column="remark" />
+		<result property="createTime" column="createTime" />
+		<result property="updateTime" column="updateTime" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="activityAuthResultMap">
+		SELECT *
+		FROM t_activity_auth WHERE authId = #{id}
+	</select>
+
+	<select id="selectActivityAuth" parameterType="Map"
+		resultMap="activityAuthResultMap">
+		SELECT *
+		FROM t_activity_auth
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ordId != null">
+				AND ordId like #{ordId}
+			</if>
+			<if test="fromUserId != null">
+				AND fromUserId like #{fromUserId}
+			</if>
+			<if test="toUserId != null">
+				AND toUserId like #{toUserId}
+			</if>
+			<if test="authAmount != null">
+				AND authAmount like #{authAmount}
+			</if>
+			<if test="authType != null">
+				AND authType like #{authType}
+			</if>
+			<if test="authTime != null">
+				AND authTime like #{authTime}
+			</if>
+			<if test="authStatus != null">
+				AND authStatus like #{authStatus}
+			</if>
+			<if test="remark != null">
+				AND remark like #{remark}
+			</if>
+			<if test="createTime != null">
+				AND createTime like #{createTime}
+			</if>
+			<if test="updateTime != null">
+				AND updateTime like #{updateTime}
+			</if>
+		</trim>
+	</select>
+
+	<select id="getByFromUserIdAndToUserId" parameterType="map"
+		resultMap="activityAuthResultMap">
+		SELECT * FROM t_activity_auth
+		WHERE fromUserId =
+		#{fromUserId}
+		AND toUserId = #{toUserId}
+		AND authStatus = 2
+		ORDER BY
+		createTime DESC
+		LIMIT 1;
+	</select>
+	
+	<select id="getAuthAmtByFromUserIdAndToUserId" parameterType="map" resultType="double">
+		SELECT SUM(authAmount) FROM t_activity_auth
+		WHERE fromUserId = #{fromUserId}
+		AND toUserId = #{toUserId}
+		AND authStatus = 1
+	</select>
+
+	<select id="getByOrdId1" parameterType="long" resultMap="activityAuthResultMap">
+		SELECT *
+		FROM t_activity_auth
+		WHERE ordId = #{ordId}
+		AND authStatus = 1
+		LIMIT 1;
+	</select>
+
+	<update id="updateActivityAuthById" parameterType="activityAuthDo">
+		UPDATE t_activity_auth
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="ordId != null">
+				ordId = #{ordId},
+			</if>
+			<if test="fromUserId != null">
+				fromUserId = #{fromUserId},
+			</if>
+			<if test="toUserId != null">
+				toUserId = #{toUserId},
+			</if>
+			<if test="authAmount != null">
+				authAmount = #{authAmount},
+			</if>
+			<if test="authType != null">
+				authType = #{authType},
+			</if>
+			<if test="authTime != null">
+				authTime = #{authTime},
+			</if>
+			<if test="authStatus != null">
+				authStatus = #{authStatus},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="createTime != null">
+				createTime = #{createTime},
+			</if>
+			updateTime = NOW(),
+		</trim>
+		WHERE authId = #{authId}
+	</update>
+
+	<insert id="addActivityAuth" parameterType="activityAuthDo"
+		keyProperty="authId" useGeneratedKeys="true">
+		INSERT INTO t_activity_auth(
+		ordId
+		,fromUserId
+		,toUserId
+		,authAmount
+		,authType
+		,authTime
+		,authStatus
+		,remark
+		,createTime
+		,updateTime
+		)
+		VALUES ( #{ordId}
+		,#{fromUserId}
+		,#{toUserId}
+		,#{authAmount}
+		,#{authType}
+		,#{authTime}
+		,#{authStatus}
+		,#{remark}
+		,NOW()
+		,NOW()
+		);
+	</insert>
+
+	<delete id="deleteById" parameterType="Long">
+		DELETE FROM
+		t_activity_auth WHERE authId = #{id}
+	</delete>
+	
+	<select id="getByOrdId" parameterType="activityAuthDo" resultMap="activityAuthResultMap">
+        select authId,ordId,fromUserId,toUserId,SUM(authAmount) authAmount,authType,authTime,authStatus,remark,createTime,updateTime from t_activity_auth where ordId=#{ordId} and fromUserId=#{fromUserId} and toUserId=#{toUserId} and authStatus=1
+	</select>
+
+</mapper>
+

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.IManagerLoanSettSchemeDao">
+
+	<select id="countList" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM t_loan_sett_scheme
+		<where>
+			<if test="code != null and code != ''">
+				AND code = #{code}
+			</if>
+			<if test="prodId != null">
+				AND prodId = #{prodId}
+			</if>
+			<if test="repayWay != null">
+				AND repayWay = #{repayWay}
+			</if>
+			<if test="receiptWay != null">
+				AND receiptWay = #{receiptWay}
+			</if>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
+		</where>
+	</select>
+
+	<select id="queryList" parameterType="map" resultType="loanSettSchemeDo">
+		SELECT * FROM t_loan_sett_scheme
+		<where>
+			<if test="code != null and code != ''">
+				AND code = #{code}
+			</if>
+			<if test="prodId != null">
+				AND prodId = #{prodId}
+			</if>
+			<if test="repayWay != null">
+				AND repayWay = #{repayWay}
+			</if>
+			<if test="receiptWay != null">
+				AND receiptWay = #{receiptWay}
+			</if>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryPage" parameterType="map" resultType="loanSettSchemeDo">
+		SELECT * FROM t_loan_sett_scheme
+		<where>
+			<if test="code != null and code != ''">
+				AND code = #{code}
+			</if>
+			<if test="prodId != null">
+				AND prodId = #{prodId}
+			</if>
+			<if test="repayWay != null">
+				AND repayWay = #{repayWay}
+			</if>
+			<if test="receiptWay != null">
+				AND receiptWay = #{receiptWay}
+			</if>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryByProdId" parameterType="long" resultType="loanSettSchemeDo">
+		SELECT * FROM t_loan_sett_scheme
+		where prodId = #{prodId}
+	</select>
+
+	<select id="getById" parameterType="long" resultType="loanSettSchemeDo">
+		SELECT * FROM t_loan_sett_scheme
+		WHERE id = #{id}
+	</select>
+
+	<select id="getBycode" parameterType="string" resultType="loanSettSchemeDo">
+		SELECT * FROM t_loan_sett_scheme
+		WHERE code = #{code}
+	</select>
+
+	<insert id="add" parameterType="loanSettSchemeDo">
+		INSERT INTO
+		t_loan_sett_scheme
+		(prodId,code, name, repayWay, defaultAnnualRate,receiptWay,aheadSettlePeriod, status, createUserId,updateUserId,createTime, updateTime)
+		VALUES(#{prodId},#{code},#{name},#{repayWay},#{defaultAnnualRate},#{receiptWay},#{aheadSettlePeriod},#{status},#{createUserId},#{updateUserId}, NOW(),NOW());
+	</insert>
+
+	<update id="update" parameterType="loanSettSchemeDo">
+		UPDATE t_loan_sett_scheme
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="code != null">
+				code = #{code},
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="repayWay != null">
+				repayWay = #{repayWay},
+			</if>
+			<if test="defaultAnnualRate != null">
+				defaultAnnualRate = #{defaultAnnualRate},
+			</if>
+			<if test="receiptWay != null">
+				receiptWay = #{receiptWay},
+			</if>
+			<if test="aheadSettlePeriod != null">
+				aheadSettlePeriod = #{aheadSettlePeriod},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="updateUserId != null">
+				updateUserId = #{updateUserId},
+			</if>
+			updateTime = NOW(),
+		</trim>
+		WHERE id = #{id}
+	</update>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM
+		t_loan_sett_scheme WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteByIds" parameterType="map" >
+		<if test="ids.size() > 0"> 
+		 delete 
+	    from t_loan_sett_scheme
+	    where id in  
+            <foreach close=")" collection="ids" item="id" open="(" separator=",">
+				#{id}
+			</foreach>
+        </if>  
+	    
+	</delete>
+	
+</mapper>

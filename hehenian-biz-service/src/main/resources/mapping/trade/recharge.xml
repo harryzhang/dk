@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.trade.IRechargeDao">
+	<resultMap type="rechargeDo" id="rechargeResultMap">
+		<result property="id" column="id" />
+		<result property="userId" column="userId" />
+		<result property="rechargeTime" column="rechargeTime" />
+		<result property="rechargeMoney" column="rechargeMoney" />
+		<result property="cost" column="cost" />
+        <result property="gateBusiId" column="gateBusiId" />
+		<result property="result" column="result" />
+		<result property="paynumber" column="paynumber" />
+		<result property="bankName" column="bankName" />
+
+	</resultMap>
+	
+	<select id="getById" parameterType="long" resultMap="rechargeResultMap">
+		SELECT * FROM t_recharge_detail WHERE id = #{id}
+	</select>
+	
+	<select id="queryByIds" parameterType="map" resultMap="rechargeResultMap">
+		SELECT * FROM t_recharge_detail 
+		WHERE id IN
+		<foreach collection="idList" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</select>
+	
+	<insert id="addRecharge" parameterType="rechargeDo" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO t_recharge_detail(userId,rechargeTime,rechargeMoney,cost,result,paynumber,bankName,gateBusiId)
+		VALUES(#{userId},#{rechargeTime},#{rechargeMoney},#{cost},#{result},#{paynumber},#{bankName},#{gateBusiId});
+	</insert>
+	
+	<update id="updateRecharge" parameterType="rechargeDo">
+		UPDATE t_recharge_detail
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="userId != null">
+                userId = #{userId},
+			</if>
+			<if test="rechargeTime != null">
+                rechargeTime = #{rechargeTime},
+			</if>
+			<if test="rechargeMoney != null">
+                rechargeMoney = #{rechargeMoney},
+			</if>
+			<if test="cost != null">
+                cost = #{cost},
+			</if>
+			<if test="result != null">
+                result = #{result},
+			</if>
+			<if test="paynumber != null">
+                paynumber = #{paynumber},
+			</if>
+			<if test="bankName != null">
+                bankName = #{bankName},
+			</if>
+			versoin = versoin + 1,
+		</trim>
+		WHERE id = #{id} AND versoin = #{versoin}
+	</update>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM t_recharge_detail WHERE id = #{id}
+	</delete>
+
+</mapper>

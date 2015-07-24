@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="advertis" extends="admin-default" namespace="/admin">
+		
+		<!-- 广告位置action配置 -->
+		<action name="queryadvertisementInit" class="linksAction" method="queryadvertisementInit">
+			<result name="success">/WEB-INF/page/admin/advertisement_index.jsp</result>
+		</action>
+		<action name="queryadvertisementInfo" class="linksAction" method="queryadvertisementInfo">
+			<result name="success">/WEB-INF/page/admin/advertisement_index_info.jsp</result>
+		</action>
+		<action name="deleteadvertis" class="linksAction" method="deleteadvertis">
+			<result name="success" type="redirect">queryadvertisementInit.do</result>
+		</action>
+		
+		<action name="updateadvertisInit" class="linksAction" method="updateadvertisInit">
+			<result name="success">/WEB-INF/page/admin/advertis-update-info.jsp</result>
+		</action>
+		
+		<action name="updateadvertisInfo" class="linksAction" method="updateadvertisInfo">
+			<result name="input">/WEB-INF/page/admin/advertis-update-info.jsp</result>
+			<result name="success" type="redirect">queryadvertisementInit.do</result>
+		</action>
+		
+	 	<action name="addAdvertisInit" class="linksAction" method="addAdvertisInit">
+			<result name="success">/WEB-INF/page/admin/advertis-add-info.jsp</result>
+		</action>
+		<action name="addAdvertisInfo" class="linksAction" method="addAdvertisInfo">
+			<result name="input">/WEB-INF/page/admin/advertis-add-info.jsp</result>
+			<result name="success" type="redirect">queryadvertisementInit.do</result>
+		</action>
+		
+		<!-- 首页滚动图片 add by X.kai -->
+		<action name="queryIndexRollImgInit" class="linksAction" method="queryIndexRollImgInit">
+		    <result name="success">/WEB-INF/page/admin/indexRollImg_index.jsp</result>
+		</action>
+		<action name="queryIndexRollImgInfo" class="linksAction" method="queryIndexRollImgInfo">
+			<result name="success">/WEB-INF/page/admin/indexRollImg_index_info.jsp</result>
+		</action>
+		<action name="deleteIndexRollImg" class="linksAction" method="deleteIndexRollImg">
+			<result name="success" type="redirect">queryIndexRollImgInit.do</result>
+		</action>
+		
+		<action name="updateIndexRollImgInit" class="linksAction" method="updateIndexRollImgInit">
+			<result name="success">/WEB-INF/page/admin/indexRollImg-update-info.jsp</result>
+		</action>
+		
+		<action name="updateIndexRollImgInfo" class="linksAction" method="updateIndexRollImgInfo">
+		<result name="success"></result>
+		</action>
+		
+	 	<action name="addIndexRollImgInit" class="linksAction" method="addIndexRollImgInit">
+			<result name="success">/WEB-INF/page/admin/indexRollImg-add-info.jsp</result>
+		</action>
+		<action name="addIndexRollImgInfo" class="linksAction" method="addIndexRollImgInfo">
+			<result name="input">/WEB-INF/page/admin/indexRollImg-add-info.jsp</result>
+			<result name="success" type="redirect">queryIndexRollImgInit.do</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.component.notify.mail.dao.IMailNotifyDao">
+
+	<resultMap type="mailNotifyDo" id="notifyResultMap">
+		<result property="messageId" column="message_id" />
+		<result property="sender" column="sender" />
+		<result property="message" column="message" />
+		<result property="messageType" column="message_type" />
+		<result property="recievers" column="recievers" />
+		<result property="messageTemplate" column="message_template" />
+		<result property="ccList" column="cc_list" />
+		<result property="subject" column="subject" />
+		<result property="sendFlag" column="send_flag" />
+		<result property="validate" column="is_validate" />
+		<result property="businessType" column="business_type" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<delete id="deleteMessageId" parameterType="int">
+		DELETE FROM
+		t_notify
+		WHERE message_id = #{messageId}
+	</delete>
+
+	<select id="getMessageById" parameterType="int" resultMap="notifyResultMap">
+		SELECT
+		`message`
+		, `message_id`
+		, `sender`
+		, `recievers`
+		, `cc_list`
+		,
+		`subject`
+		, `send_flag`
+		, `message_template`
+		, `message_type`
+		,
+		is_validate,
+		, business_type
+		, update_time
+		FROM t_notify
+		WHERE message_id
+		= #{messageId}
+	</select>
+
+	<select id="listUnSendMessageList" parameterType="String"
+		resultMap="notifyResultMap">
+		SELECT
+		`message`
+		, `message_id`
+		, `sender`
+		, `recievers`
+		,
+		`cc_list`
+		, `subject`
+		, `send_flag`
+		, `message_template`
+		, `message_type`
+		,is_validate
+		, business_type
+		, update_time
+		FROM
+		`t_notify`
+		WHERE send_flag
+		= 'F' and message_type='MAIL' and is_validate = 'T'
+	</select>
+
+	<select id="selectNotify" parameterType="mailNotifyDo"
+		resultMap="notifyResultMap">
+		SELECT `message`
+		, `message_id`
+		, `sender`
+		, `recievers`
+		, `cc_list`
+		,
+		`subject`
+		, `send_flag`
+		, `message_template`
+		, `message_type`
+		,
+		is_validate
+		, business_type
+		, update_time
+		FROM t_notify
+		WHERE
+		message_type
+		= 'MAIL'
+		AND is_validate = 'T'
+		<if test="sender != null">
+			AND sender like #{sender}
+		</if>
+		<if test="message != null">
+			AND message like #{message}
+		</if>
+		<if test="recievers != null">
+			AND recievers like #{recievers}
+		</if>
+		<if test="smsType != null">
+			AND sms_type like #{smsType}
+		</if>
+		<if test="sendFlag != null">
+			AND send_flag like #{sendFlag}
+		</if>
+		<if test="sendId != null">
+			AND send_id like #{sendId}
+		</if>
+	</select>
+
+
+	<select id="getLastIdentifyCode" parameterType="mailNotifyDo"
+		resultMap="notifyResultMap">
+		SELECT
+		`message`
+		, `message_id`
+		, `sender`
+		, `recievers`
+		, `cc_list`
+		,
+		`subject`
+		, `send_flag`
+		, `message_template`
+		, `message_type`
+		,
+		is_validate,
+		, business_type
+		, update_time
+		FROM t_notify
+		WHERE
+		message_type = 'MAIL'
+		AND is_validate = 'T'
+		AND business_type = 'check'
+		AND recievers = #{recievers}
+
+		ORDER BY message_id DESC LIMIT 1
+	</select>
+
+	<insert id="addMessage" parameterType="mailNotifyDo"
+		keyProperty="messageId" useGeneratedKeys="true">
+		INSERT INTO
+		t_notify(message,sender,recievers,cc_list,subject,send_flag,message_template,message_type,is_validate,business_type,create_time,update_time)
+		VALUES(#{message},#{sender},#{recievers},#{ccList},#{subject},#{sendFlag},#{messageTemplate},'MAIL',#{validate},#{businessType},NOW(),NOW());
+	</insert>
+
+	<update id="updateMessage" parameterType="mailNotifyDo">
+		UPDATE t_notify SET
+		message = #{message},
+		message_type=#{messageType},
+		sender = #{sender},
+		recievers=#{recievers},
+		cc_list=#{ccList},
+		subject=#{subject},
+		message_template=#{messageTemplate},
+		send_flag=#{sendFlag},
+		is_validate=#{validate},
+		update_time = NOW(),
+		business_type=#{businessType}
+		WHERE message_id = #{messageId}
+	</update>
+
+	<update id="updateMessageFlag">
+		UPDATE t_notify SET
+		send_flag=#{newSendFlag},
+		update_time = NOW()
+		WHERE message_id = #{messageId}
+	</update>
+</mapper>

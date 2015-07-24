@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	<bean id="selectedDao" class="com.sp2p.dao.SelectedDao" />
+	<bean id="userDao" class="com.sp2p.dao.UserDao" />
+	<bean id="regionDao" class="com.sp2p.dao.RegionDao" />
+	<bean id="financeDao" class="com.sp2p.dao.FinanceDao" />
+	<bean id="callCenterDao" class="com.sp2p.dao.CallCenterDao" />
+	<bean id="borrowDao" class="com.sp2p.dao.BorrowDao" />
+	<bean id="categoryDao" class="com.sp2p.dao.CategoryDao" />
+	<bean id="capitalEnsureDao" class="com.sp2p.dao.CapitalEnsureDao" />
+	<bean id="linksDao" class="com.sp2p.dao.LinksDao" />
+	<bean id="downloadDao" class="com.sp2p.dao.DownloadDao" />
+	<bean id="borrowManageDao" class="com.sp2p.dao.admin.BorrowManageDao" />
+	<bean id="vidateDao" class="com.sp2p.dao.VidateDao">
+		<property name="userManageDao" ref="userManageDao"></property>
+	</bean>
+	<bean id="teamDao" class="com.sp2p.dao.admin.TeamDao"></bean>
+	<bean id="mediaReportDao" class="com.sp2p.dao.admin.MediaReportDao"></bean>
+	<bean id="newsDao" class="com.sp2p.dao.admin.NewsDao"></bean>
+	<bean id="messageDao" class="com.sp2p.dao.admin.MessageDao"></bean>
+	<bean id="phoneInfoDao" class="com.sp2p.dao.PhoneInfoDao"></bean>
+	<bean id="personDao" class="com.sp2p.dao.PersonDao" />
+	<bean id="repayMentDao" class="com.sp2p.dao.RepayMentDao" />
+	<bean id="adminDao" class="com.sp2p.dao.admin.AdminDao" />
+	<bean id="rightsDao" class="com.sp2p.dao.admin.RightsDao" />
+	<bean id="roleDao" class="com.sp2p.dao.admin.RoleDao" />
+	<bean id="roleRightsDao" class="com.sp2p.dao.admin.RoleRightsDao" />
+	<bean id="clauseDao" class="com.sp2p.dao.admin.ClauseDao" />
+	<bean id="myHomeInfoSettingDao" class="com.sp2p.dao.MyHomeInfoSettingDao" />
+	<bean id="afterCreditManageDao" class="com.sp2p.dao.admin.AfterCreditManageDao" />
+	<bean id="rechargeDao" class="com.sp2p.dao.RechargeDao" />
+	<bean id="guaranteeDao" class="com.sp2p.dao.GuaranteeDao" />
+	<bean id="recommendUserDao" class="com.sp2p.dao.RecommendUserDao" />
+	<bean id="awardMoneyDao" class="com.sp2p.dao.AwardMoneydDao" />
+	<bean id="costManagerDao" class="com.sp2p.dao.CostManagerDao" />
+	<bean id="approveDao" class="com.sp2p.dao.ApproveDao" />
+	<bean id="myHomeDao" class="com.sp2p.dao.MyHomeDao" />
+	<bean id="repamentDao" class="com.sp2p.dao.RepamentDao" />
+	<bean id="repaymentRecordDao" class="com.sp2p.dao.RepaymentRecordDao" />
+	<bean id="noticeTaskDao" class="com.sp2p.dao.NoticeTaskDao"></bean>
+	<bean id="feedbackDao" class="com.sp2p.dao.FeedbackDao"></bean>
+	<bean id="operationLogDao" class="com.sp2p.dao.OperationLogDao"></bean>
+	<bean id="mailBoxManagerDao" class="com.sp2p.dao.admin.MailBoxManagerDao" />
+	<bean id="closeNetWorkDao" class="com.sp2p.dao.admin.CloseNetWorkDao" />
+	<bean id="referralBonusesDao" class="com.sp2p.dao.admin.ReferralBonusesDao" />
+	<bean id="emalAndMessageDao" class="com.sp2p.dao.admin.EmalAndMessageDao" />
+	<bean id="platformCostDao" class="com.sp2p.dao.admin.PlatformCostDao" />
+	<bean id="becomeFinanceDao" class="com.sp2p.dao.BecomeToFinanceDao" />
+	<bean id="frontpayDao" class="com.sp2p.dao.FrontMyPaymentDao" />
+	<bean id="awardMonthDao" class="com.sp2p.dao.AwardMonthDao" />
+
+	<bean id="RechargebankDao" class="com.sp2p.dao.admin.RechargebankDao" />
+	<bean id="successStoryDao" class="com.sp2p.dao.admin.SuccessStoryDao" />
+	<bean id="agreementDao" class="com.sp2p.dao.admin.AgreementDao" />
+	<bean id="sMSInterfaceDao" class="com.sp2p.dao.admin.SMSInterfaceDao" />
+	<bean id="userBankDao" class="com.sp2p.dao.admin.UserBankManagerDao" />
+	<bean id="reportDao" class="com.sp2p.dao.admin.ReportDao" />
+	<bean id="userManageDao" class="com.sp2p.dao.admin.UserManageDao" />
+	<bean id="groupDao" class="com.sp2p.dao.admin.GroupDao" />
+	<bean id="groupUserDao" class="com.sp2p.dao.admin.GroupUserDao" />
+	<bean id="fiManageDao" class="com.sp2p.dao.admin.FIManageDao" />
+	<bean id="relationDao" class="com.sp2p.dao.admin.RelationDao" />
+	<bean id="sendSMSDao" class="com.sp2p.dao.admin.SendSMSDao" />
+	<bean id="sendmsgDao" class="com.sp2p.dao.admin.SendmsgDao" />
+	<bean id="userAdminDao" class="com.sp2p.dao.admin.UserAdminDao" />
+	<bean id="statisManageDao" class="com.sp2p.dao.admin.StatisManageDao" />
+	<bean id="riskManageDao" class="com.sp2p.dao.admin.RiskManageDao" />
+	<bean id="kefusDao" class="com.sp2p.dao.admin.KefuDao" />
+	<bean id="jobTaskDao" class="com.sp2p.task.JobTaskDao" />
+	<bean id="assignmentDebtDao" class="com.sp2p.dao.AssignmentDebtDao" />
+	<bean id="auctionDebtDao" class="com.sp2p.dao.AuctionDebtDao" />
+	<bean id="awardDao" class="com.sp2p.dao.AwardDao" />
+	<bean id="awardLevel4Dao" class="com.sp2p.dao.AwardLevel4Dao" />
+	<bean id="searchBasicDao" class="com.sp2p.dao.SearchBasicInfoDao" />
+	<bean id="showShipinDao" class="com.sp2p.dao.ShowShipinDao" />
+	<bean id="showShipinAdminDao" class="com.sp2p.dao.admin.ShowShipinAdminDao" />
+	<bean id="countWorkStatusDao" class="com.sp2p.dao.admin.CountWorkStatusDao" />
+	<bean id="fundRecordDao" class="com.sp2p.dao.FundRecordDao" />
+	<bean id="investDao" class="com.sp2p.dao.InvestDao" />
+	<bean id="beVipDao" class="com.sp2p.dao.BeVipDao" />
+	<bean id="dataApproveDao" class="com.sp2p.dao.DataApproveDao" />
+	<bean id="userIntegralDao" class="com.sp2p.dao.UserIntegralDao" />
+	<bean id="getMailMsgOnUpDao" class="com.sp2p.dao.admin.GetMailMsgOnUpDao" />
+	<bean id="siteInformationDao" class="com.sp2p.dao.SiteInformationDao"></bean>
+	<bean id="awardDetailDao" class="com.sp2p.dao.admin.AwardDetailDao" />
+	<bean id="shoveBorrowStyleDao" class="com.sp2p.dao.admin.ShoveBorrowStyleDao" />
+	<bean id="shoveBorrowTypeDao" class="com.sp2p.dao.admin.ShoveBorrowTypeDao" />
+	<bean id="shoveBorrowAmountTypeDao" class="com.sp2p.dao.admin.ShoveBorrowAmountTypeDao" />
+	<bean id="shoveApproveNoticeTemplateDao" class="com.sp2p.dao.admin.ShoveApproveNoticeTemplateDao"></bean>
+	<bean id="shoveApproveNoticeStyleDao" class="com.sp2p.dao.admin.ShoveApproveNoticeStyleDao" />
+	<bean id="accountUsersDao" class="com.sp2p.dao.AccountUsersDao" />
+	<bean id="rechargeDetailDao" class="com.sp2p.dao.RechargeDetailDao" />
+	<bean id="shoveBorrowTypeLogDao" class="com.sp2p.dao.admin.ShoveBorrowTypeLogDao" />
+	<bean id="automaticBidDao" class="com.sp2p.dao.admin.AutomaticBidDao" />
+	<bean id="accountPaymentDao" class="com.sp2p.dao.admin.AccountPaymentDao" />
+	<bean id="SEOConfigDao" class="com.sp2p.dao.admin.SEOConfigDao" />
+	<bean id="getSEOConfigOnUpDao" class="com.sp2p.dao.admin.GetSEOConfigOnUpDao" />
+	<bean id="articleManageDao" class="com.sp2p.dao.admin.ArticleManageDao" />
+	<bean id="userReviewDao" class="com.sp2p.dao.admin.UserReviewDao" />
+	<bean id="assignmentDao" class="com.sp2p.dao.admin.AssignmentDebtDao" />
+	<bean id="shortMassegeDao" class="com.sp2p.dao.admin.ShortMassegeDao" />
+	<bean id="questionnaireDao" class="com.sp2p.dao.QuestionnaireDao" />
+
+	<!-- add by dong 10.15 -->
+	<bean id="workAuthDao" class="com.sp2p.dao.WorkAuthDao" />
+	<bean id="bankCardDao" class="com.sp2p.dao.BankCardDao" />
+	<bean id="questionDao" class="com.sp2p.dao.QuestionDao" />
+	<bean id="colorLifeDao" class="com.sp2p.dao.ColorLifeDao" />
+	<bean id="scoreDao" class="com.sp2p.dao.ScoreDao" />
+	
+	<!-- 汇付天下 -->
+	<bean id="chinaPnrDao" class="com.sp2p.dao.ChinaPnrDao" />
+	
+	<bean id="merDao" class="com.sp2p.dao.admin.merDao" />
+</beans>

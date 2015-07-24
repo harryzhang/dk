@@ -1,0 +1,13 @@
+body{background:#dedede;}
+.pT20{padding-top:20px;}
+.mB15{margin-bottom:15px;}
+.registerFormBg{width:96%;background:#d1d9de;margin:0 auto;padding-top:30px;}
+.registerForm{margin:0 auto;width:90%;padding-bottom:10px;}
+.registerFormBg .border-top{background:#eaeaea;height:2px;width:96%;}
+.registerFormBg p input,.registerFormBg p button{height:40px;width:100%;margin-bottom:15px;border:none;line-height:normal;}
+.registerFormBg p input.input-text{padding:0 40px; background:url(../images/register_ico.png) 10px 3px no-repeat #fff;}
+.registerFormBg p input.passW{background-position:10px bottom;}
+.registerFormBg p .btn{padding:0;}
+.registerFormBg p .btn-b{margin-left:0;}
+.reBack_pw{color:#0091e6;font-size:16px;text-decoration:underline;}
+.reBack_pw:hover{color:#005097;}

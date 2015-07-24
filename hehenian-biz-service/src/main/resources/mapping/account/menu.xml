@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.account.IMenuDao">
+	<resultMap type="menuDo" id="menuDoResultMap">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="action" column="action" />
+		<result property="description" column="description" />
+		<result property="isLog" column="isLog" />
+		<result property="isIntercept" column="isIntercept" />
+		<result property="summary" column="summary" />
+		<result property="parentId" column="parentID" />
+		<result property="isQuery" column="isQuery" />
+		<result property="indexs" column="indexs" />
+		<result property="menuId" column="menuId" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="menuDoResultMap">
+		SELECT * 
+		  FROM bt_rights WHERE id = #{id}
+	</select>
+ 	
+ 	<select id = "selectFirstLevelMenu" resultMap="menuDoResultMap">
+ 		select * from bt_rights where parentId is null
+ 	</select>
+ 
+	<select id="selectRoleMenuList" parameterType="Long" resultMap="menuDoResultMap">
+		SELECT br.* FROM t_role_rights r, bt_rights br WHERE r.roleId = #{roleId} AND r.rightsId = br.id ORDER BY id, indexs	
+	</select>
+	
+	<select id="selectMenuList" parameterType="Map" resultMap="menuDoResultMap">
+		SELECT * 
+		  FROM bt_rights
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="id != null">  
+				AND id like #{id}
+			</if>
+			<if test="name != null">  
+				AND name like #{name}
+			</if>
+			<if test="action != null">  
+				AND action like #{action}
+			</if>
+			<if test="description != null">  
+				AND description like #{description}
+			</if>
+			<if test="isLog != null">  
+				AND isLog like #{isLog}
+			</if>
+			<if test="isIntercept != null">  
+				AND isIntercept like #{isIntercept}
+			</if>
+			<if test="summary != null">  
+				AND summary like #{summary}
+			</if>
+			<if test="parentId != null">  
+				AND parentID like #{parentId}
+			</if>
+			<if test="isQuery != null">  
+				AND isQuery like #{isQuery}
+			</if>
+			<if test="indexs != null">  
+				AND indexs like #{indexs}
+			</if>
+			<if test="menuId != null">  
+				AND menuId like #{menuId}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateMenuById" parameterType="menuDo">
+		UPDATE bt_rights 
+		   SET 		<if test="name != null">  
+				name = #{name}
+		</if>		
+		<if test="action != null">  
+				,action = #{action}
+		</if>		
+		<if test="description != null">  
+				,description = #{description}
+		</if>		
+		<if test="isLog != null">  
+				,isLog = #{isLog}
+		</if>		
+		<if test="isIntercept != null">  
+				,isIntercept = #{isIntercept}
+		</if>		
+		<if test="summary != null">  
+				,summary = #{summary}
+		</if>		
+		<if test="parentId != null">  
+				,parentID = #{parentId}
+		</if>		
+		<if test="isQuery != null">  
+				,isQuery = #{isQuery}
+		</if>		
+		<if test="indexs != null">  
+				,indexs = #{indexs}
+		</if>		
+		<if test="menuId != null">  
+				,menuId = #{menuId}
+		</if>		
+
+		WHERE id = #{id} and version =  #{version}
+	</update>	
+	
+	<insert id="addMenu" parameterType="menuDo" keyProperty="id"
+		useGeneratedKeys="true" >
+		INSERT INTO bt_rights(		name
+		,action
+		,description
+		,isLog
+		,isIntercept
+		,summary
+		,parentID
+		,isQuery
+		,indexs
+		,menuId
+)
+		     VALUES (		#{name}
+		,#{action}
+		,#{description}
+		,#{isLog}
+		,#{isIntercept}
+		,#{summary}
+		,#{parentId}
+		,#{isQuery}
+		,#{indexs}
+		,#{menuId}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM bt_rights WHERE id = #{id}
+	</delete>
+	
+</mapper>
+

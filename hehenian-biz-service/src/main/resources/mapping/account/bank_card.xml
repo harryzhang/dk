@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.account.IBankCardDao">
+	<resultMap type="bankCardDo" id="bankCardResultMap">
+		<result property="id" column="id" />
+		<result property="cardUserName" column="cardUserName" />
+		<result property="bankName" column="bankName" />
+		<result property="branchBankName" column="branchBankName" />
+		<result property="cardNo" column="cardNo" />
+
+		<result property="cardMode" column="cardMode" />
+		<result property="modifiedCardNo" column="modifiedCardNo" />
+		<result property="modifiedBankName" column="modifiedBankName" />
+		<result property="modifiedBranchBankName" column="modifiedBranchBankName" />
+		<result property="commitTime" column="commitTime" />
+
+		<result property="modifiedTime" column="modifiedTime" />
+		<result property="modifiedCardStatus" column="modifiedCardStatus" />
+		<result property="cardStatus" column="cardStatus" />
+		<result property="checkTime" column="checkTime" />
+		<result property="userId" column="userId" />
+
+		<result property="checkUser" column="checkUser" />
+		<result property="remark" column="remark" />
+		<result property="province" column="province" />
+		<result property="city" column="city" />
+		<result property="openBankId" column="openBankId" />
+
+		<result property="modifiedOpenBankId" column="modifiedOpenBankId" />
+		<result property="provinceId" column="provinceId" />
+		<result property="cityId" column="cityId" />
+		<result property="isDefault" column="isDefault" />
+		<result property="isExpress" column="isExpress" />
+	</resultMap>
+
+	<select id="getById" parameterType="int" resultMap="bankCardResultMap">
+		SELECT *
+		FROM
+		t_bankcard
+		WHERE id = #{id}
+	</select>
+
+	<select id="getByUserIdAndCardNo" parameterType="map"
+		resultMap="bankCardResultMap">
+		SELECT *
+		FROM
+		t_bankcard
+		WHERE userId = #{userId}
+		AND cardNo = #{cardNo}
+		LIMIT 1;
+	</select>
+	
+	<select id="queryByUserIds" parameterType="map" resultMap="bankCardResultMap">
+		SELECT *
+		FROM
+		t_bankcard
+		WHERE userId IN
+		<foreach collection="userIdList" item="userId" open="(" close=")" separator=",">
+			${userId}
+		</foreach>
+	</select>
+	
+	<select id="queryByUserIdAndCardStatus" parameterType="map" resultMap="bankCardResultMap">
+		SELECT *
+		FROM
+		t_bankcard
+		WHERE userId = #{userId}
+		AND cardStatus = #{cardStatus}
+	</select>
+
+	<insert id="addCardInfo" parameterType="bankCardDo">
+		INSERT INTO
+		t_bankcard(cardUserName,bankName,branchBankName,cardNo,cardMode,modifiedCardNo,modifiedBankName,modifiedBranchBankName,commitTime,modifiedTime
+		,modifiedCardStatus,cardStatus,checkTime,userId,checkUser,remark,province,city,openBankId,modifiedOpenBankId,provinceId,cityId,isDefault,isExpress)
+		VALUES(#{cardUserName},#{bankName},#{branchBankName},#{cardNo},#{cardMode},#{modifiedCardNo},#{modifiedBankName},#{modifiedBranchBankName}
+		,NOW(),NOW(),#{modifiedCardStatus},#{cardStatus},#{checkTime},#{userId},#{checkUser},#{remark},#{province},#{city},#{openBankId},#{modifiedOpenBankId}
+		,#{provinceId},#{cityId},#{isDefault},#{isExpress});
+	</insert>
+	
+	<update id="updateCardInfo" parameterType="bankCardDo">
+		UPDATE t_bankcard
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="cardUserName != null">
+				cardUserName = #{cardUserName},
+			</if>
+			<if test="bankName != null">
+				bankName = #{bankName},
+			</if>
+			<if test="branchBankName != null">
+				branchBankName = #{branchBankName},
+			</if>
+			<if test="cardNo != null">
+				cardNo = #{cardNo},
+			</if>
+			<if test="cardMode != null">
+				cardMode = #{cardMode},
+			</if>
+			<if test="modifiedCardNo != null">
+				modifiedCardNo = #{modifiedCardNo},
+			</if>
+			<if test="modifiedBankName != null">
+				modifiedBankName = #{modifiedBankName},
+			</if>
+			<if test="modifiedBranchBankName != null">
+				modifiedBranchBankName = #{modifiedBranchBankName},
+			</if>
+			<if test="modifiedCardStatus != null">
+				modifiedCardStatus = #{modifiedCardStatus},
+			</if>
+			<if test="cardStatus != null">
+				cardStatus = #{cardStatus},
+			</if>
+			<if test="checkTime != null">
+				checkTime = #{checkTime},
+			</if>
+			<if test="userId != null">
+				userId = #{userId},
+			</if>
+			<if test="checkUser != null">
+				checkUser = #{checkUser},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="province != null">
+				province = #{province},
+			</if>
+			<if test="city != null">
+				city = #{city},
+			</if>
+			<if test="openBankId != null">
+				openBankId = #{openBankId},
+			</if>
+			<if test="modifiedOpenBankId != null">
+				modifiedOpenBankId = #{modifiedOpenBankId},
+			</if>
+			<if test="provinceId != null">
+				provinceId = #{provinceId},
+			</if>
+			<if test="cityId != null">
+				cityId = #{cityId},
+			</if>
+			<if test="isDefault != null">
+				isDefault = #{isDefault},
+			</if>
+			<if test="isExpress != null">
+				isExpress = #{isExpress},
+			</if>
+			modifiedTime = NOW(),
+		</trim>
+		WHERE id = #{id}
+	</update>
+
+</mapper>

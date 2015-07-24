@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="paramMap['msg']">
+	    <field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写留言内容</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">120</param>
+			<message>留言内容长度不得大于${maxLength}个字符</message>
+		</field-validator>
+	</field>
+	<field name="paramMap['code']">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写验证码</message>
+		</field-validator>
+	</field>
+</validators>

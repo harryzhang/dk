@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="webapp-myhome" extends="defaults" namespace="/webapp">
+        <action name="webapp-colourlife" class="cfAction" method="cfApp" >
+			<result type="chain">webapp-colourlife-app</result>
+        <!--<result type="chain">webapp-index</result>
+        <result name="fail">/fail.jsp</result>
+        <result name="colourlife-bind-hhn">/WEB-INF/page/mobile/colourlife-bind-hhn.jsp</result>
+        <result name="register">/WEB-INF/page/mobile/register.jsp</result>
+        <result name="msg">/WEB-INF/page/mobile/message1.jsp</result>-->
+		</action>
+		<action name="webapp-colourlife-app" class="frontLongRegisterAction" method="colourlife">
+			<result type="chain">webapp-index</result>
+			<result name="fail">/fail.jsp</result>
+			<result name="colourlife-bind-hhn">/WEB-INF/page/mobile/colourlife-bind-hhn.jsp</result>
+			<result name="register">/WEB-INF/page/mobile/register.jsp</result>
+			<result name="msg">/WEB-INF/page/mobile/message1.jsp</result>
+		</action> 
+		<action name="webapp-colourlife-bind-hhnuser" class="frontLongRegisterAction" method="colourlifeBindHhnUser">
+			<result name="success">/WEB-INF/page/mobile/user.jsp</result>
+			<result name="nologin">/index.jsp</result>
+		</action>
+		
+		<!-- 抢红包活动 -->
+		
+		<!-- 链接到活动页面 -->
+		<action name="toRobflow" class="frontLongRegisterAction" method="toRobflow">
+            <result name="success">/llhb/flow-none.jsp</result>
+        </action>
+		        
+        <!-- 摇一摇-->
+        <action name="robflow" class="frontLongRegisterAction" method="robflow">
+            <result name="success">/llhb/shake.jsp</result>
+        </action>
+        
+        <!-- 下订单 -->
+        <action name="placeOrder" class="frontLongRegisterAction" method="placeOrder">
+            <result name="success">/llhb/flow-get.jsp</result>
+            <result name="failure">/llhb/flow-fail.jsp</result>
+        </action>
+        
+        <!-- 连接到介绍页 -->
+        <action name="actNotice" class="frontLongRegisterAction" method="actNotice">
+            <result name="success">/WEB-INF/page/front/act-notice.jsp</result>
+        </action>
+        
+		<!-- 抢红包活动 -->
+		<!-- 母亲节活动 连接到活动介绍页 -->
+		<action name="motherDayNotice" class="frontLongRegisterAction" method="motherDayNotice">
+            <result name="success">/WEB-INF/page/front/matherDay_pc.jsp</result>
+        </action>
+        <!-- 母亲节活动 连接到活动介绍页 -->
+		
+		<action name="webapp-home" class="FrontMyInformation" method="queryBaseData">
+			<result name="success">/WEB-INF/page/mobile/user.jsp</result>
+		</action>
+		<action name="webapp-userinfo" class="FrontMyInformation" method="queryBaseData">
+			<result name="success"> /WEB-INF/page/mobile/user.jsp </result>
+		</action>
+		<action name="webapp-wszl" class="FrontMyInformation" method="queryBaseData">
+			<result name="success"> /WEB-INF/page/mobile/wszl.jsp </result>
+		</action>
+		<!-- 
+		<action name="webapp-money" class="frontMyHomeAction" method="homeInit">
+			<result name="success">/WEB-INF/page/mobile/capital.jsp</result>
+			<result name="nologin">/index.jsp</result>
+		</action>
+		 -->
+		<action name="webapp-investDetailCount" class="frontMyHomeAction" method="investDetailCount">
+			<result name="success">/WEB-INF/page/mobile/investment.jsp</result>
+		</action>
+		<action name="webapp-invest-records" class="frontMyHomeAction" method="moreInvestRecords">
+			<result name="success">/WEB-INF/page/mobile/invest-records.jsp</result>
+		</action>
+		<!-- 债权转让 -->
+		<action name="webapp-invest-zr" class="frontMyHomeAction" method="investSuccessedRecord">
+			<result name="success">/WEB-INF/page/mobile/invest-records-zr.jsp</result>
+		</action>
+		
+		<action name="webapp-invest-zr-more" class="frontMyHomeAction" method="investSuccessedRecord">
+			<result name="success">/WEB-INF/page/mobile/invest-records-zr-more.jsp</result>
+		</action>
+		
+		<action name="cancelApplyDebt" class="homeDebtAction" method="cancelApplyDebt">
+			<result name="success" type="redirectAction">
+				webapp/webapp-invest-zr.do
+			</result>
+		</action>
+		
+		<action name="cancelApplyDebtList" class="homeDebtAction" method="cancelApplyDebt">
+			<result name="success" type="redirectAction">
+				webapp/webapp-invest-zrList.do
+			</result>
+		</action>
+		
+		<action name="webapp-invest-invoke" class="frontMyHomeAction" method="investsInvoke">
+			<result name="success">/WEB-INF/page/mobile/invest-invoke.jsp</result>
+		</action>
+		
+		<action name="webapp-tz-intro" class="frontMyHomeAction" method="homeBorrowPublishInit">
+			<result name="success">/WEB-INF/page/mobile/tz-intro.jsp</result>
+		</action>
+		
+		<action name="webapp-more-investrecord" class="frontMyHomeAction" method="moreInvestRecords">
+			<result name="success">/WEB-INF/page/mobile/more-invest-records.jsp</result>
+		</action>
+		<action name="webapp-index" class="frontMyFinanceAction" method="index">
+			<result>/WEB-INF/page/mobile/index.jsp</result>
+		</action>
+        <action name="index" class="cfAction" method="appComm">
+            <result name="index" type="redirect">webapp-index.do</result>
+            <result type="redirect">webapp-index.do</result>
+        </action>
+		
+		<action name="webapp-recharge" class="rechargeAction" method="rechargeInit">
+			<result name="success">/WEB-INF/page/mobile/recharge.jsp</result>
+		</action>
+		<action name="webapp-cash" class="rechargeAction" method="withdrawLoad">
+			<result name="success">/WEB-INF/page/mobile/cash.jsp</result>
+		</action>
+		
+		<action name="qa"  class="cfAction" method="faq">
+		<result name="success">/WEB-INF/page/mobile/qa.jsp</result>
+		</action>
+
+		<action name="automaticbid"  class="frontMyHomeAction" method="automaticBidInit">
+		<result name="success">/WEB-INF/page/mobile/automaticbid.jsp</result>
+		</action>
+		<action name="huodong"  class="activityAction" method="luckDrawIndex">
+	<result name="success">/WEB-INF/page/mobile/huodong.jsp</result>
+	</action>
+		<action name="more"  class="cfAction" method="faq">
+			<result name="success">/WEB-INF/page/mobile/more.jsp</result>
+		</action>
+		<action name="introduce"  class="cfAction" method="faq">
+			<result name="success">/WEB-INF/page/mobile/introduce.jsp</result>
+		</action>
+		<action name="feedback"  class="cfAction" method="faq">
+			<result name="success">/WEB-INF/page/mobile/contact.jsp</result>
+		</action>
+		<action name="capital-records"  class="rechargeAction" method="queryFundrecordList">
+			<result name="success">/WEB-INF/page/mobile/capital-records.jsp</result>
+		</action>
+        <action name="capital-records-more"  class="rechargeAction" method="queryFundrecordList">
+            <result name="success">/WEB-INF/page/mobile/capital-records-more.jsp</result>
+        </action>
+		<action name="zhuce-huifu"  class="cfAction" method="faq">
+			<result name="success">/WEB-INF/page/mobile/hftx.jsp</result>
+		</action>
+		<action name="webapp-register"  class="cfAction" method="faq">
+			<result name="success">/WEB-INF/page/mobile/register.jsp</result>
+		</action>
+		<action name="webapp-login"  class="cfAction" method="faq">
+			<result name="success">/WEB-INF/page/mobile/login.jsp</result>
+		</action>
+		<action name="webapp-finance-more" class="frontMyFinanceAction" method="financeList">
+			<result name="success">
+				/WEB-INF/page/mobile/tp-list-more.jsp
+			</result>
+		</action>
+		<action name="webapp-bind-hhn"  class="cfAction" method="faq">
+			<result name="success">/WEB-INF/page/mobile/bind-hhn.jsp</result>
+		</action>
+        <action name="message"  class="cfAction" method="faq">
+            <result name="success">/WEB-INF/page/mobile/message.jsp</result>
+        </action>
+       <action name="webapp-logout"  class="frontLongRegisterAction" method="logout">
+            <result name="login">/WEB-INF/page/mobile/login.jsp</result>
+        </action>
+
+        <action name="webapp-reg" class="newUserAction" method="register">
+            <result type="redirect">/webapp/webapp-index.do</result>
+            <result name="input">/WEB-INF/page/webapp/register.jsp</result>
+            <result name="register">/WEB-INF/page/mobile/register.jsp</result>
+        </action>
+        <action name="webapp-logining" class="newUserAction" method="login">
+            <result name="input">/WEB-INF/page/webapp/login.jsp</result>
+        </action>
+
+        <!--修改个人信息 -->
+        <action name="modify-userinfo" class="FrontMyInformation" method="queryBaseData">
+            <result name="success"> /WEB-INF/page/mobile/modify-user-info.jsp </result>
+            <result name="login"> /WEB-INF/page/mobile/login.jsp </result>
+        </action>
+        <!--保存个人信息 -->
+        <action name="save-userinfo" class="userAction" method="updateUserBaseData">
+        </action>
+        <!--修改手机号码-->
+        <action name="modify-phone" class="cfAction" method="faq">
+            <result name="success" > /WEB-INF/page/mobile/modify-phone.jsp </result>
+        </action>
+        <!--保存手机号码-->
+        <action name="save-phone" class="userAction" method="updateUserBaseData">
+        </action>
+        <!--彩富人生用户进入e理财之后 投资等操作的提示页面-->
+        <action name="e-webapp-msg" class="cfAction" method="faq">
+            <result>/WEB-INF/page/mobile/e-webapp-msg.jsp</result>
+        </action>
+	</package>
+</struts>

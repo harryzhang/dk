@@ -1,0 +1,93 @@
+﻿html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	font-family: "微软雅黑";
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+html{
+	overflow:auto;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+textarea{
+	overflow:auto;
+}
+a{
+	color:#515151;
+	text-decoration:none;
+	cursor:pointer;
+}
+/***********************底部样式***************************/
+.bottom{
+	width: 640px;
+	height: 106px;
+	background: #e9eaee;
+	position: fixed;
+	bottom: 0;
+	border-top:1px solid #cfd0d2; 
+}
+.bottom .bottomMenu{
+	display: inline-block;
+	height: 100%;
+	width: 154px;
+}
+.bottom .icon{
+	height: 44px;
+	width: 44px;
+	background: url(/wap/styles/dqlc/icons.png) no-repeat;
+	margin: 14px auto 0 auto;
+}
+.bottom .nav1{
+	background-position: -15px -17px;
+}
+.bottom .nav2{
+	background-position: -122px -17px;
+}
+.bottom .nav3{
+	background-position: -229px -17px;
+}
+.bottom .nav4{
+	background-position: -334px -17px;
+}
+.bottom .menuName{
+	text-align: center;
+	line-height: 40px;
+	font-size: 28px;
+	color: #4a4b4f;
+}

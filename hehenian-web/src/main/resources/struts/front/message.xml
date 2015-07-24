@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="frontMessage" extends="injectionInterceptor-0" namespace="/">
+		<!-- 根据信息管理的类型不同跳转到不同的页面 -->
+		<action name="getMessageBytypeId" class="frontMessageAction" method="getMessageBytypeId">
+			<result name="zqjkxy">/WEB-INF/page/front/zqzr_index.jsp</result>
+			<result name="gsjj">/WEB-INF/page/front/gsjj_info.jsp</result>
+			<result name="ptyl">/WEB-INF/page/front/ptyl_info.jsp</result>
+			<result name="gywm">/WEB-INF/page/front/aboutus_index.jsp</result>
+			<result name="flzc">/WEB-INF/page/front/flzc_info.jsp</result>
+			<result name="zfsm">/WEB-INF/page/front/zfsm_info.jsp</result>
+			<result name="lxwm">/WEB-INF/page/front/download_info.jsp</result>
+			<result name="rhlc">/WEB-INF/page/front/rhlc-info.jsp</result>
+			<result name="bjbz">/WEB-INF/page/front/bjbz-index-info.jsp</result>
+			<result name="success">/WEB-INF/page/front/download_info.jsp</result>
+			<result name="jkxy">/WEB-INF/page/front/jkxy_index_load.jsp</result>
+		</action>
+
+		<!-- 合和年 使用技巧页面 -->
+		<action name="getUseMethodHhn">
+			<result>/WEB-INF/page/front/use-method-hhn.jsp</result>
+		</action>
+		<!-- 合和年 关于我们 根据信息类型不同跳转不同页面 -->
+		<action name="getMessageByHhn" class="frontMessageAction" method="getMessageByHhn">
+			<result>/WEB-INF/page/front/about_us_index.jsp</result>
+		</action>
+
+
+		<!-- 根据信息管理的类型不同跳转到不同的页面 -->
+		<action name="frontTeam" class="frontMessageAction" method="listTeamPage">
+			<result name="success">/WEB-INF/page/front/team_index.jsp</result>
+		</action>
+
+		<!-- 异步加载 -->
+		<action name="queryMessageDetail" class="frontMessageAction" method="qureygetMessageBytypeId">
+		</action>
+
+
+		<!-- 首页滚动图片加载 add by X.kai -->
+		<action name="queryIndexRollImg" class="mediaReportAction" method="queryIndexRollImg">
+			<result name="success">/WEB-INF/page/front/indexRollImg-info.jsp</result>
+		</action>
+
+
+	</package>
+</struts>

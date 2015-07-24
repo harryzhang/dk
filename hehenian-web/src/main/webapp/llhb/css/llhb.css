@@ -1,0 +1,419 @@
+* {
+	margin:0;
+	padding:0;
+}
+a {
+	color:inherit;
+	text-decoration: none;
+	-webkit-tap-highlight-color: transparent;
+}
+a:focus {
+	outline: none;
+}
+html {
+	font-size:20px;
+}
+html body {
+	font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+.shake {
+	width:100%;
+	height:24rem;
+	background: url(../image/shake.png) no-repeat;
+	background-size:100%;
+	position: relative;
+}
+.flow-fail {
+	width:100%;
+	height:24rem;
+	background: url(../image/flow-fail.png) no-repeat;
+	background-size:100%;
+	position: relative;
+}
+.flow-get {
+	width:100%;
+	height:24rem;
+	background: url(../image/flow-get.png) no-repeat;
+	background-size:100%;
+	position: relative;
+}
+.act-rule {
+	width:100%;
+	height:24.5rem;
+	background: url(../image/act-rule.png?_=3) no-repeat;
+	background-size:100%;
+	position: relative;
+}
+.act-pre {
+	width:100%;
+	height:24.5rem;
+	background: url(../image/act-pre.png) no-repeat;
+	background-size:100%;
+	position: relative;
+}
+.act-over {
+	width:100%;
+	height:24.5rem;
+	background: url(../image/act-over.png) no-repeat;
+	background-size:100%;
+	position: relative;
+}
+.page-entry {
+	width: 100%;
+	height: 24rem;
+	background: url(../image/page-entry.png) no-repeat;
+	background-size: 100%;
+	position: relative;
+}
+.page-none {
+	width: 100%;
+	height: 24rem;
+	background: url(../image/page-none.png?_=3) no-repeat;
+	background-size: 100%;
+	position: relative;
+}
+.logo-title {
+	font-size:1rem;
+	font-family:SimHei;
+	line-height: 0.2rem;
+}
+.logo-eng {
+	font-size:0.6rem;
+	font-family: SimHei;
+	line-height: 0.2rem;
+}
+.logo {
+	width:100%;
+}
+.logo-left {
+	float:left;
+}
+.logo-right {
+	float:left;
+}
+.logo-left img {
+	width:5.75rem;
+	height:4.35rem;
+}
+.phone-shake {
+	height:9.5rem;
+	width:7.95rem;
+	position: absolute;
+	top:6rem;
+	left:4rem;
+	background: url(../image/phone-icon.png) no-repeat;
+	background-size: 100%;
+}
+.phone-num {
+	position: absolute;
+	top:17rem;
+	width: 100%;
+	text-align:center;
+}
+.phone-num span {
+	display: inline-block;
+	text-align: center;
+	height:1.2rem;
+	width: 7.5rem;
+	background-color: #ffb500;
+	font-size:.91rem;
+	font-family: SimHei;
+	line-height: 1.2rem;
+	border-radius: .8rem;
+}
+.phone-num p {
+	font-size: 0.6rem;
+	color:#bd0000;
+	margin-top:.1rem;
+}
+.act-rules {
+	position: absolute;
+	top:22rem;
+	width:100%;
+	text-align: center;
+	font-size:.6rem;
+	color:#874128;
+}
+.act-rules a {
+	text-decoration: none;
+	color:inherit;
+}
+.act-num {
+	position: absolute;
+	top:4.8rem;
+	width: 100%;
+	text-align: center;
+	font-size: .6rem;
+	color:#666;
+}
+.wechat-pho {
+	position: absolute;
+	top:9.7rem;
+	left:6rem;
+	height:4rem;
+	width: 4rem;
+	border-radius: 50%;
+}
+.wechat-pho img {
+	height: 4rem;
+	width: 4rem;
+	border-radius: 50%;
+}
+.wechat-name {
+	position: absolute;
+	top:14.2rem;
+	color:#fff;
+	width:100%;
+	text-align: center;
+}
+.wechat-name p {
+	font-size:.55rem;
+}
+.phone-input {
+	position: absolute;
+	top:15.25rem;
+	width:100%;
+	text-align: center;
+}
+.text-phone {
+	width:8.15rem;
+	height:1.2rem;
+	border-radius: 0.8rem;
+	border:none;
+	text-align: center;
+}
+.sub-phone {
+	width:3.7rem;
+	height: 1.2rem;
+	background-color:#ffb500;
+	border:none;
+	border-radius: 0.8rem;
+	color:#57291c;
+	margin-top: .5rem;
+
+}
+.reg-entry {
+	position: absolute;
+	top:19rem;
+	text-align: center;
+	width:100%;
+	font-size:.55rem;
+	color:#fff7b1;
+	text-decoration: underline;
+}
+.tr-big {
+	position: absolute;
+	top:16rem;
+	text-align: center;
+	width:100%;
+	font-size:.65rem;
+	color:#fff7b1;
+	text-decoration: underline;
+}
+.flow-num {
+	position: absolute;
+	top:4.88rem;
+	width: 100%;
+	text-align: center;
+	font-size: 1.75rem;
+	color:#ab0900;
+	font-weight: bold;
+}
+.flow-hint {
+	font-size:0.65rem;
+	color:#ff4546;
+}
+.flow-more {
+	position: absolute;
+	top:15.45rem;
+	width:100%;
+	text-align: center;
+	font-size:.72rem;
+	color:#bd0000;
+}
+.act-again {
+	position: absolute;
+	top:21rem;
+	width: 100%;
+	text-align: center;
+	font-size: .72rem;
+}
+.flow-tip {
+	display: block;
+	height:1.3rem;
+	width: 9.65rem;
+	border-radius: 0.8rem;
+	text-align: center;
+	margin:0 auto;
+	background-color:#ffffcc;
+	line-height: 1.3rem;
+}
+.hhn-link {
+	display: inline-block;
+	height: 1.25rem;
+	line-height: 1.25rem;
+	width:4.7rem;
+	border-radius: 0.8rem;
+	background-color: #ffb500;
+	margin-top:0.35rem;
+	font-size:.65rem;
+}
+.hhn-enter {
+	display: inline-block;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	width:6rem;
+	border-radius: 0.8rem;
+	background-color: #ffb500;
+	font-size:.65rem;
+}
+.torule {
+	height: 2.5rem;
+	width: 2.5rem;
+	position: absolute;
+	top:0;
+	right:0;
+}
+.bg1 {
+	background-color: #ffffcc;
+}
+.toact {
+	position: absolute;
+	top:21.1rem;
+	width:100%;
+	text-align: center;
+}
+.toactbtn {
+	display: inline-block;
+	height:1.5rem;
+	width:9.35rem;
+	vertical-align: middle;
+}
+.pre-time {
+	position: absolute;
+	top:19rem;
+	font-size:.9rem;
+	color:#fff;
+	width:100%;
+	text-align: center;
+}
+.time-num {
+	color:#fefb00;
+}
+#checkPop {
+	position: absolute;
+	background-color:rgba(0,0,0,.6);
+	width:100%;
+	z-index: 1000;
+	display: none;
+}
+.checkPanel {
+	width: 11.25rem;
+	height: 5.35rem;
+	border-radius: 1rem;
+	position: relative;
+	top:8.4rem;
+	margin:0 auto;
+}
+.checkTitle {
+	height:1.25rem;
+	width:100%;
+	background-color:#fa4c29;
+	text-align: center;
+	color: #fff;
+	font-size:0.65rem;
+	line-height: 1.25rem;
+	border-top-right-radius: .5rem;
+	border-top-left-radius: .5rem;
+}
+.checkCtn {
+	height: 4.1rem;
+	background-color:#fff;
+	font-size:.65rem;
+	color:#b40f0d;
+	text-align: center;
+	border-bottom-left-radius: .5rem;
+	border-bottom-right-radius: .5rem;
+}
+.checkCtn p {
+	width:100%;
+	text-align: center;
+	padding-top: .8rem;
+}
+.checkBtn {
+	height:1.2rem;
+	width:4.7rem;
+	border-radius: 1rem;
+	background-color: #ffb500;
+	cursor: pointer;
+	line-height: 1.2rem;
+	text-align: center;
+	display: inline-block;
+	margin-top: .65rem;
+}
+.reg-btn {
+	display: inline-block;
+	height:1.25rem;
+	width:4.9rem;
+	background-color:#fff;
+	text-align: center;
+	color:#b71914;
+	line-height: 1.25rem;
+	border-radius:.8rem;
+	font-weight: bold;
+}
+@-webkit-keyframes shake {
+	0%, 100% {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+
+	10%, 30%, 50%, 70%, 90% {
+		-webkit-transform: translate3d(-10px, 0, 0);
+		transform: translate3d(-10px, 0, 0);
+	}
+
+	20%, 40%, 60%, 80% {
+		-webkit-transform: translate3d(10px, 0, 0);
+		transform: translate3d(10px, 0, 0);
+	}
+}
+
+@keyframes shake {
+	0%, 100% {
+		-webkit-transform: translate3d(0, 0, 0);
+		-ms-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+
+	10%, 30%, 50%, 70%, 90% {
+		-webkit-transform: translate3d(-10px, 0, 0);
+		-ms-transform: translate3d(-10px, 0, 0);
+		transform: translate3d(-10px, 0, 0);
+	}
+
+	20%, 40%, 60%, 80% {
+		-webkit-transform: translate3d(10px, 0, 0);
+		-ms-transform: translate3d(10px, 0, 0);
+		transform: translate3d(10px, 0, 0);
+	}
+}
+
+.phone-shake {
+	-webkit-animation-name: shake;
+	animation-name: shake;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	animation-iteration-count:infinite;
+	-webkit-animation-iteration-count:infinite;
+}

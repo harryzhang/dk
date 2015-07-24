@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.IManagerLoanProvidedDao">
+	
+	<sql id="Query_Column">
+         id ,prodId,minAge, maxAge,minIncome,ifpunch,job,minYearWork,workAddr,livAddr,status ,remark
+   </sql>
+   
+   <sql id="Where_Column">
+      <where >
+         <if test="ifpunch != null "> and ifpunch = #{ifpunch}</if>
+         <if test="status != null "> and status = #{status}</if>
+         <if test="prodId != null "> and prodId = #{prodId}</if>
+      </where>
+   </sql>
+   
+	<select id="queryLoanProvidedList" parameterType="map" resultType="loanProvidedDo">
+	   select 
+	    <include refid="Query_Column" />
+	    from t_loan_provided 
+	    <include refid="Where_Column" />
+	</select>
+	
+	<select id="queryLoanProvidedCount" parameterType="map" resultType="Integer">
+	   select  count(id)
+	    from t_loan_provided 
+	    <include refid="Where_Column" />
+	</select>
+	
+	<insert id="addLoanProvidedDo" parameterType="loanProvidedDo"
+		keyProperty="id" useGeneratedKeys="true" >
+		INSERT INTO
+		t_loan_provided
+		(prodId,minAge, maxAge,minIncome,ifpunch,job,minYearWork,workAddr,livAddr,status ,remark)
+		VALUES (
+		#{prodId},#{minAge}, #{maxAge}, #{minIncome}, #{ifpunch},
+		#{job},  #{minYearWork},#{workAddr}, #{livAddr}, #{status}, #{remark}
+		);
+	</insert>
+	
+	<select id="getProdById" parameterType="long" resultType="loanProvidedDo">
+	   select 
+	    <include refid="Query_Column" />
+	    from t_loan_provided
+	    where id = #{id}
+	</select>
+	
+	<update id="updateProv" parameterType="loanProvidedDo">
+		update t_loan_provided
+		set 	
+		<if test="id != null"> 
+			id = #{id},
+		</if>
+		<if test="prodId != null"> 
+			prodId = #{prodId},
+		</if>	 
+		<if test="minAge != null"> 
+			minAge = #{minAge},
+		</if>
+		<if test="maxAge != null"> 
+			maxAge = #{maxAge},
+		</if>
+		<if test="minIncome != null"> 
+			minIncome = #{minIncome},
+		</if>
+		<if test="maxLines != null"> 
+			maxLines = #{maxLines},
+		</if>
+		<if test="ifpunch != null"> 
+			ifpunch = #{ifpunch},
+		</if>
+		<if test="job != null"> 
+			job = #{job},
+		</if>
+		<if test="minYearWork != null"> 
+			minYearWork = #{minYearWork},
+		</if>
+		<if test="workAddr != null"> 
+			workAddr = #{workAddr},
+		</if>
+		<if test="livAddr != null"> 
+			livAddr = #{livAddr},
+		</if>
+		<if test="remark != null">  
+		    remark = #{remark},
+		</if>
+		<if test="status != null">
+			status = #{status}
+		</if>
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteProv" parameterType="map" >
+		<if test="ids.size() > 0"> 
+		 delete 
+	    from t_loan_provided
+	    where id in  
+            <foreach close=")" collection="ids" item="id" open="(" separator=",">
+				#{id}
+			</foreach>
+        </if>  
+	    
+	</delete>
+	
+	
+</mapper>

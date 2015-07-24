@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.trade.IInvestDao">
+	<resultMap type="investDo" id="investResultMap">
+		<result property="id" column="id" />
+		<result property="investAmount" column="investAmount" />
+		<result property="monthRate" column="monthRate" />
+		<result property="investor" column="investor" />
+		<result property="borrowId" column="borrowId" />
+
+		<result property="investTime" column="investTime" />
+		<result property="oriInvestor" column="oriInvestor" />
+		<result property="realAmount" column="realAmount" />
+		<result property="hasPI" column="hasPI" />
+		<result property="deadline" column="deadline" />
+
+		<result property="hasDeadline" column="hasDeadline" />
+		<result property="recivedPrincipal" column="recivedPrincipal" />
+		<result property="recievedInterest" column="recievedInterest" />
+		<result property="hasPrincipal" column="hasPrincipal" />
+		<result property="hasInterest" column="hasInterest" />
+
+		<result property="recivedFI" column="recivedFI" />
+		<result property="hasFI" column="hasFI" />
+		<result property="manageFee" column="manageFee" />
+		<result property="reward" column="reward" />
+		<result property="repayStatus" column="repayStatus" />
+
+		<result property="flag" column="flag" />
+		<result property="isAutoBid" column="isAutoBid" />
+		<result property="isDebt" column="isDebt" />
+		<result property="circulationInterest" column="circulationInterest" />
+		<result property="circulationForpayStatus" column="circulationForpayStatus" />
+
+		<result property="reason" column="reason" />
+		<result property="repayDate" column="repayDate" />
+		<result property="checkPrincipal" column="check_principal" />
+		<result property="checkInterest" column="check_interest" />
+		<result property="minInvestId" column="min_invest_id" />
+
+		<result property="maxInvestId" column="max_invest_id" />
+		<result property="adjustPrincipal" column="adjust_principal" />
+		<result property="isCancel" column="isCancel" />
+		<result property="cancelDate" column="cancelDate" />
+		<result property="distinguishDebt" column="distinguish_debt" />
+
+		<result property="investNumber" column="invest_number" />
+		<result property="trxId" column="trxId" />
+	</resultMap>
+
+	<select id="selectInvestSuccessRecordPage" parameterType="map"
+		resultType="java.util.Map">
+		SELECT u.username,b.publisher,
+		b.borrowStatus,
+		b.borrowTitle,
+		b.number,
+		b.annualRate,
+		b.deadline AS debtLimit,
+		b.hasDeadline AS hasDeadline,
+		(SELECT IFNULL(`ttt`.`repayPeriod`,'已还完') FROM `t_invest_repayment` `ttt`
+		WHERE ((`ttt`.`invest_id` = `act`.`id`) AND (`ttt`.`repayStatus` = 1))
+		GROUP BY `ttt`.`invest_id`) AS `repayPeriod`,
+		(TO_DAYS(NOW()) - TO_DAYS(IFNULL((SELECT MAX(CAST(`irr`.`repayDate` AS DATE)) FROM
+		`t_invest_repayment` `irr` WHERE ((`irr`.`invest_id` = `act`.`id`) AND
+		(`irr`.`repayStatus` = 2))),CAST(`act`.`investTime` AS DATE)))) AS
+		`num`,
+		act.investor,
+		act.borrowId,
+		act.investTime,
+		act.realAmount,
+		act.deadline,
+		act.isDebt,
+		act.repayStatus,
+		act.invest_number,
+		act.id as investId
+		FROM (SELECT inv.id AS investId
+		FROM t_invest inv
+		WHERE inv.investor = #{investor}
+		UNION
+		SELECT ad.investId
+		FROM t_assignment_debt ad
+		WHERE ad.auctionerId = #{investor} or ad.alienatorId = #{investor}
+		) invest
+		left OUTER join t_invest act on invest.investId = act.id
+		LEFT OUTER JOIN t_borrow b ON b.id = act.borrowId
+		LEFT OUTER JOIN t_user u ON b.publisher = u.id
+		WHERE act.invest_number is not null
+		and b.borrowStatus in (4,5)
+		<if test="number != null">
+			AND b.number= #{number}
+		</if>
+		<if test="publishTimeStart != null">  
+			  <![CDATA[
+				AND act.investTime > #{publishTimeStart}
+				]]>
+		</if>
+		<if test="publishTimeEnd != null"> 
+			   <![CDATA[ 
+				AND act.investTime < #{publishTimeEnd}
+				]]>
+		</if>
+		<if test="username != null">
+			AND u.username = #{username}
+		</if>
+		order by act.investTime desc
+
+	</select>
+	
+	<select id="queryInvestDetails" parameterType="long" resultType="map">
+		SELECT 
+		 u.username userName
+		,i.investAmount
+		,b.deadline
+		,i.borrowId
+		,i.investor userId
+		FROM t_invest i
+		LEFT JOIN t_borrow b ON b.id = i.borrowId
+		LEFT JOIN t_user u ON u.id = i.investor
+		WHERE i.borrowId = #{borrowId}
+	</select>
+
+	<select id="getById" parameterType="int" resultMap="investResultMap">
+		SELECT * FROM
+		t_invest WHERE id = #{id}
+	</select>
+
+	<select id="getDueinSum" parameterType="long" resultType="double">
+		SELECT
+		SUM(i.recivedPrincipal + i.recievedInterest - i.hasPrincipal -
+		i.hasInterest)
+		FROM t_invest i LEFT JOIN t_borrow b ON b.id =
+		i.borrowId
+		WHERE b.borrowStatus IN (4,5)
+		AND i.repayStatus IN (1,3)
+		AND
+		i.isDebt IN (1,3)
+		AND i.investor = #{userId}
+	</select>
+
+	<select id="queryByBorrowId" parameterType="long" resultMap="investResultMap">
+		SELECT * FROM t_invest
+		WHERE borrowId = #{borrowId}
+	</select>
+	
+	<select id="queryUserInvests" parameterType="map" resultType="map">
+		SELECT 
+		 i.investor userId
+		,IFNULL(ROUND(SUM(i.recivedPrincipal-i.hasPrincipal),2),0) AS dueinCapitalSum
+		,IFNULL(ROUND(SUM(i.recievedInterest-i.hasInterest),2),0) AS dueinAccrualSum
+		,IFNULL(ROUND(SUM(i.recivedPrincipal+i.recievedInterest-i.hasPrincipal-i.hasInterest),2),0) AS dueinSum
+		FROM t_invest i
+		WHERE i.investor IN
+		<foreach collection="userIdList" item="userId" open="(" close=")" separator=",">
+			#{userId}
+		</foreach>
+		GROUP BY i.investor
+	</select>
+	
+	<select id="queryByIds" parameterType="map" resultMap="investResultMap">
+		SELECT * FROM t_invest
+		WHERE id IN
+		<foreach collection="idList" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</select>
+
+	<update id="updateInvest" parameterType="investDo">
+		UPDATE t_invest
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="investAmount != null">
+				investAmount = #{investAmount},
+			</if>
+			<if test="monthRate != null">
+				monthRate = #{monthRate},
+			</if>
+			<if test="investor != null">
+				investor = #{investor},
+			</if>
+			<if test="borrowId != null">
+				borrowId = #{borrowId},
+			</if>
+			<if test="investTime != null">
+				investTime = #{investTime},
+			</if>
+			<if test="oriInvestor != null">
+				oriInvestor = #{oriInvestor},
+			</if>
+			<if test="realAmount != null">
+				realAmount = #{realAmount},
+			</if>
+			<if test="hasPI != null">
+				hasPI = #{hasPI},
+			</if>
+			<if test="deadline != null">
+				deadline = #{deadline},
+			</if>
+			<if test="hasDeadline != null">
+				hasDeadline = #{hasDeadline},
+			</if>
+			<if test="recivedPrincipal != null">
+				recivedPrincipal = #{recivedPrincipal},
+			</if>
+			<if test="recievedInterest != null">
+				recievedInterest = #{recievedInterest},
+			</if>
+			<if test="hasPrincipal != null">
+				hasPrincipal = #{hasPrincipal},
+			</if>
+			<if test="hasInterest != null">
+				hasInterest = #{hasInterest},
+			</if>
+			<if test="recivedFI != null">
+				recivedFI = #{recivedFI},
+			</if>
+			<if test="hasFI != null">
+				hasFI = #{hasFI},
+			</if>
+			<if test="manageFee != null">
+				manageFee = #{manageFee},
+			</if>
+			<if test="reward != null">
+				reward = #{reward},
+			</if>
+			<if test="repayStatus != null">
+				repayStatus = #{repayStatus},
+			</if>
+			<if test="flag != null">
+				flag = #{flag},
+			</if>
+			<if test="isAutoBid != null">
+				isAutoBid = #{isAutoBid},
+			</if>
+			<if test="isDebt != null">
+				isDebt = #{isDebt},
+			</if>
+			<if test="circulationInterest != null">
+				circulationInterest = #{circulationInterest},
+			</if>
+			<if test="circulationForpayStatus != null">
+				circulationForpayStatus = #{circulationForpayStatus},
+			</if>
+			<if test="reason != null">
+				reason = #{reason},
+			</if>
+			<if test="repayDate != null">
+				repayDate = #{repayDate},
+			</if>
+			<if test="checkPrincipal != null">
+				check_principal = #{checkPrincipal},
+			</if>
+			<if test="checkInterest != null">
+				check_interest = #{checkInterest},
+			</if>
+			<if test="minInvestId != null">
+				min_invest_id = #{minInvestId},
+			</if>
+			<if test="maxInvestId != null">
+				max_invest_id = #{maxInvestId},
+			</if>
+			<!--<if test="adjustPrincipal != null"> adjust_principal = #{adjustPrincipal}, 
+				</if> -->
+			<if test="isCancel != null">
+				isCancel = #{isCancel},
+			</if>
+			<if test="cancelDate != null">
+				cancelDate = #{cancelDate},
+			</if>
+			<if test="distinguishDebt != null">
+				distinguish_debt = #{distinguishDebt},
+			</if>
+			<if test="investNumber != null">
+				invest_number = #{investNumber},
+			</if>
+			<if test="trxId != null">
+				trxId = #{trxId},
+			</if>
+		</trim>
+		WHERE id = #{id}
+	</update>
+
+	<update id="updateHasAmount" parameterType="investDo">
+	   <![CDATA[
+		UPDATE t_invest
+		SET
+		hasPrincipal = hasPrincipal + #{hasPrincipal},
+		hasInterest = hasInterest + #{hasInterest},
+		hasFI = hasFI +	#{hasFI},
+		hasDeadline = hasDeadline + 1,
+		manageFee = manageFee + #{manageFee},
+		hasPI = hasPrincipal+hasInterest
+		WHERE id = #{id};
+		]]>
+	</update>
+
+	<!-- 正常还款 -->
+	<update id="updateRepayStatusByBorrowId" parameterType="long">
+	   <![CDATA[
+		UPDATE t_invest
+		SET repayStatus = 2
+		WHERE ROUND(recivedPrincipal + recievedInterest,2) = ROUND(hasPrincipal +
+		hasInterest,2) AND borrowId = #{borrowId}
+		]]>
+	</update>
+
+	<!-- 提前结清 -->
+	<update id="updateRepayStatusForPreSettle" parameterType="long">
+		UPDATE
+		t_invest
+		SET repayStatus = 2
+		WHERE borrowId = #{borrowId} and
+		repayStatus = 1
+	</update>
+
+	<insert id="addInvest" parameterType="investDo" keyProperty="id"
+		useGeneratedKeys="true">
+		insert into t_invest
+		(investTime,deadline,monthRate,investor,flag,sourceFrom) values
+		(#{investTime},#{deadline},#{monthRate},#{investor},#{flag},#{sourceFrom});
+	</insert>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM t_invest WHERE id = #{id}
+	</delete>
+
+    <select id="hasInvest" resultType="long" parameterType="long">
+        select count(1) from t_invest where investor=#{userId}
+    </select>
+</mapper>

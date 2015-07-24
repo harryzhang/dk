@@ -1,0 +1,129 @@
+form#userAddForm {
+	float: right;
+	margin: 10px;
+}
+
+.thumbnail {
+	display: block;
+	padding: 4px;
+	margin-bottom: 20px;
+	line-height: 1.428571429;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+.fileinput-button {
+	text-align: center;
+}
+
+.col-md-9 {
+	width: 10px;
+	margin: 15px 10px 10px 10px;
+}
+
+.form-group.last {
+	float: left;
+}
+
+.btn-file {
+	position: relative;
+	overflow: hidden;
+	vertical-align: middle;
+}
+
+.btn {
+	border-width: 0;
+	padding: 7px 14px;
+	font-size: 14px;
+	outline: none !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+	-webkit-border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+	border-radius: 0 !important;
+	text-shadow: none;
+}
+
+element.style {
+	
+}
+
+.fileinput .btn {
+	vertical-align: middle;
+}
+
+.btn.default {
+	color: #333333;
+	text-shadow: none;
+	background-color: #e5e5e5;
+}
+
+.btn-file {
+	position: relative;
+	overflow: hidden;
+	vertical-align: middle;
+}
+
+.btn {
+	border-width: 0;
+	padding: 7px 14px;
+	font-size: 14px;
+	outline: none !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+	-webkit-border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+	border-radius: 0 !important;
+	text-shadow: none;
+}
+
+.btn {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.428571429;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+.btn-file>input {
+	transform: translate(0, 0) scale(4);
+}
+
+input[type="file"] {
+	display: block;
+}
+
+input,button,select,textarea {
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+}
+
+.fileinput-exists {
+	font-size: 12px;
+	font-family: Tahoma, Verdana, 微软雅黑, 宋体;
+}
+.fileinput .thumbnail > img {
+/* max-height: 100%; */
+/* max-width: 100px; */
+width: 100px;
+height: 100px;
+}

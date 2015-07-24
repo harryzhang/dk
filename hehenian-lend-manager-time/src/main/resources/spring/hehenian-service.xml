@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"  
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/task 
+    http://www.springframework.org/schema/task/spring-task-3.0.xsd"> 
+
+	<context:annotation-config />
+	<context:annotation-config />
+	<context:component-scan base-package="com.hehenian.lend.manager.time.task" />
+	
+	<!-- 开启这个配置，spring才能识别@Scheduled注解   -->  
+    <task:annotation-driven scheduler="qbScheduler" mode="proxy"/>  
+    <task:scheduler id="qbScheduler" pool-size="10"/>  
+	
+	<!-- ================= properties file configuration start ============================== -->
+	<bean id="sysconfig"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>file:${catalina.home}/conf/hehenian.properties</value>
+			</list>
+		</property>
+  	</bean>
+  	
+  	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="properties" ref="sysconfig" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+    </bean> 
+
+	<bean id="serviceProxy" class="com.caucho.hessian.client.HessianProxyFactory">
+		<property name="connectTimeout" value="100000" />
+		<property name="readTimeout" value="100000" />
+		<property name="overloadEnabled" value="true" />
+	</bean>
+
+	 <bean id="commonService"
+		class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+		<property name="serviceUrl" value="${hehenian.service.url}/commonService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ICommonService" />
+		<property name="proxyFactory" ref="serviceProxy" />
+	</bean>
+	<!-- <bean id="settSchemeService"
+		class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+		<property name="serviceUrl" value="${hehenian.service.url}/settSchemeService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.system.ISettSchemeService" />
+		<property name="proxyFactory" ref="serviceProxy" />
+	</bean> -->
+	
+	<bean id="managerLoanService"
+		class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+		<property name="serviceUrl" value="${hehenian.service.url}/managerLoanService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.IManagerLoanService" />
+		<property name="proxyFactory" ref="serviceProxy" />
+	</bean>
+	
+	<bean id="managerLoanRepaymentService"
+		class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+		<property name="serviceUrl" value="${hehenian.service.url}/managerLoanRepaymentService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.IManagerLoanRepaymentService" />
+		<property name="proxyFactory" ref="serviceProxy" />
+	</bean>
+	
+	<bean id="loanLogService"
+		class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+		<property name="serviceUrl" value="${hehenian.service.url}/loanLogService" />
+		<property name="serviceInterface" value="com.hehenian.biz.common.loan.ILoanLogService" />
+		<property name="proxyFactory" ref="serviceProxy" />
+	</bean>
+
+</beans>

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanProtocolDao">
+	<resultMap type="loanProtocolDo" id="loanProtocolResultMap">
+		<result property="id" column="id" />
+		<result property="loanId" column="loanId" />
+		<result property="fileName" column="fileName" />
+		<result property="filePath" column="filePath" />
+		<result property="fileType" column="fileType" />
+		<result property="proType" column="proType" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="loanProtocolResultMap">
+		SELECT * 
+		  FROM t_loan_protocol WHERE id = #{id}
+	</select>
+
+	<select id="selectLoanProtocol" parameterType="Map" resultMap="loanProtocolResultMap">
+		SELECT * 
+		  FROM t_loan_protocol
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="id != null">  
+				AND id like #{id}
+			</if>
+			<if test="loanId != null">  
+				AND loanId like #{loanId}
+			</if>
+			<if test="fileName != null">  
+				AND fileName like #{fileName}
+			</if>
+			<if test="filePath != null">  
+				AND filePath like #{filePath}
+			</if>
+			<if test="fileType != null">  
+				AND fileType like #{fileType}
+			</if>
+			<if test="proType != null">  
+				AND proType like #{proType}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateLoanProtocolById" parameterType="loanProtocolDo">
+		UPDATE t_loan_protocol 
+		   SET 		<if test="loanId != null">  
+				loanId = #{loanId}
+		</if>		
+		<if test="fileName != null">  
+				,fileName = #{fileName}
+		</if>		
+		<if test="filePath != null">  
+				,filePath = #{filePath}
+		</if>		
+		<if test="fileType != null">  
+				,fileType = #{fileType}
+		</if>		
+		<if test="proType != null">  
+				,proType = #{proType}
+		</if>		
+
+		WHERE id = #{id} 
+	</update>	
+	
+	<insert id="addLoanProtocol" parameterType="loanProtocolDo" keyProperty="id"
+		useGeneratedKeys="true" >
+		INSERT INTO t_loan_protocol(		loanId
+		,fileName
+		,filePath
+		,fileType
+		,proType
+)
+		     VALUES (		#{loanId}
+		,#{fileName}
+		,#{filePath}
+		,#{fileType}
+		,#{proType}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM t_loan_protocol WHERE id = #{id}
+	</delete>
+	
+</mapper>
+

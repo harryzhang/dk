@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.component.bank.dao.IBankBingDao">
+	<resultMap type="bankBingDo" id="bankBingResultMap">
+		<result property="id" column="id" />
+		<result property="userId" column="userId" />
+		<result property="bankCode" column="bankCode" />
+		<result property="amount" column="amount" />
+		<result property="sendFlag" column="sendFlag" />
+		<result property="checkNumber" column="checkNumber" />
+		<result property="checkFlag" column="checkFlag" />
+		<result property="sendTime" column="sendTime" />
+		<result property="checkTime" column="checkTime" />
+		<result property="recordStatus" column="recordStatus" />
+		<result property="businessRecordId" column="businessRecordId" />
+	</resultMap>
+
+	<select id="getByUserId" parameterType="Long" resultMap="bankBingResultMap">
+		SELECT * 
+		  FROM td_bank_bing WHERE userId = #{userId}
+	</select>
+	
+	<select id="getLastBankBingByUserIdBankCode" parameterType="map" resultMap="bankBingResultMap">
+		SELECT * 
+		  FROM td_bank_bing WHERE userId = #{userId} and bankCode = #{bankCode} and recordStatus ='T' ORDER BY id DESC LIMIT 1 
+	</select>
+	
+	<select id="getById" parameterType="Long" resultMap="bankBingResultMap">
+		SELECT * 
+		  FROM td_bank_bing WHERE id = #{id}
+	</select>
+
+	<select id="selectBankBing" parameterType="Map" resultMap="bankBingResultMap">
+		SELECT * 
+		  FROM td_bank_bing
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="id != null">  
+				AND id like #{id}
+			</if>
+			<if test="userId != null">  
+				AND userId like #{userId}
+			</if>
+			<if test="bankCode != null">  
+				AND bankCode like #{bankCode}
+			</if>
+			<if test="amount != null">  
+				AND amount like #{amount}
+			</if>
+			<if test="sendFlag != null">  
+				AND sendFlag like #{sendFlag}
+			</if>
+			<if test="checkNumber != null">  
+				AND checkNumber like #{checkNumber}
+			</if>
+			<if test="checkFlag != null">  
+				AND checkFlag like #{checkFlag}
+			</if>
+			<if test="sendTime != null">  
+				AND sendTime like #{sendTime}
+			</if>
+			<if test="checkTime != null">  
+				AND checkTime like #{checkTime}
+			</if>
+			<if test="recordStatus != null">  
+				AND recordStatus like #{recordStatus}
+			</if>
+			<if test="businessRecordId != null">  
+				AND businessRecordId like #{businessRecordId}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateBankBingById" parameterType="bankBingDo">
+		UPDATE td_bank_bing 
+		   SET 		<if test="userId != null">  
+				userId = #{userId}
+		</if>		
+		<if test="bankCode != null">  
+				,bankCode = #{bankCode}
+		</if>		
+		<if test="amount != null">  
+				,amount = #{amount}
+		</if>		
+		<if test="sendFlag != null">  
+				,sendFlag = #{sendFlag}
+		</if>		
+		<if test="checkNumber != null">  
+				,checkNumber = #{checkNumber}
+		</if>		
+		<if test="checkFlag != null">  
+				,checkFlag = #{checkFlag}
+		</if>		
+		<if test="sendTime != null">  
+				,sendTime = #{sendTime}
+		</if>		
+		<if test="checkTime != null">  
+				,checkTime = #{checkTime}
+		</if>		
+		<if test="recordStatus != null">  
+				,recordStatus = #{recordStatus}
+		</if>		
+		<if test="businessRecordId != null">  
+				,businessRecordId = #{businessRecordId}
+		</if>		
+
+		WHERE id = #{id} 
+	</update>	
+	
+	<insert id="addBankBing" parameterType="bankBingDo" keyProperty="id"
+		useGeneratedKeys="true" >
+		INSERT INTO td_bank_bing(		userId
+		,bankCode
+		,amount
+		,sendFlag
+		,checkNumber
+		,checkFlag
+		,sendTime
+		,checkTime
+		,recordStatus
+		,businessRecordId
+)
+		     VALUES (		#{userId}
+		,#{bankCode}
+		,#{amount}
+		,#{sendFlag}
+		,#{checkNumber}
+		,#{checkFlag}
+		,#{sendTime}
+		,#{checkTime}
+		,#{recordStatus}
+		,#{businessRecordId}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM td_bank_bing WHERE id = #{id}
+	</delete>
+
+    <select id="countUserVerifyCard" parameterType="Long" resultType="Long">
+        SELECT count(distinct bankCode)
+        FROM td_bank_bing WHERE  userId=#{userId} and sendFlag='T' ;
+    </select>
+    <select id="getSucCardBingCount" parameterType="Map" resultType="Long">
+        SELECT count(1)
+        FROM td_bank_bing WHERE  bankCode=#{bankCode} and checkFlag='T' ;
+    </select>
+    <select id="getCardSendCount" parameterType="Map"  resultType="Long">
+        SELECT count(1)
+        FROM td_bank_bing WHERE  bankCode=#{bankCode} and sendflag='T' ;
+    </select>
+
+</mapper>
+

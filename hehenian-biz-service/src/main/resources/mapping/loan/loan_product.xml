@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.IManagerLoanProductDao">
+	
+	<sql id="Query_Column">
+         id ,name ,code, minLines, maxLines, loanIssue ,guarantee,mortgage,retaLock ,status ,publishCode,refeCode ,remark
+   </sql>
+   
+   <sql id="Where_Column">
+      <where >
+         <if test="code != null "> and code like '%${code}%'</if>
+         <if test="name != null "> and name like '%${name}%'</if>
+         <if test="status != null "> and status = #{status}</if>
+         <if test="guarantee != null "> and guarantee = #{guarantee}</if>
+         <if test="mortgage != null "> and mortgage = #{mortgage}</if>
+         <if test="retaLock != null "> and retaLock = #{retaLock}</if>
+      </where>
+   </sql>
+   <!-- 用于分页 -->
+	<select id="queryLoanProductPage" parameterType="map" resultType="loanProductDo">
+	   select 
+	    <include refid="Query_Column" />
+	    from t_loan_product 
+	    <include refid="Where_Column" />
+	</select>
+	<!-- 不需分页 -->
+	<select id="queryLoanProductList" parameterType="map" resultType="loanProductDo">
+	   select 
+	    <include refid="Query_Column" />
+	    from t_loan_product 
+	    <include refid="Where_Column" />
+	</select>
+	
+	<insert id="addLoanProductDo" parameterType="loanProductDo"
+		keyProperty="id" useGeneratedKeys="true" >
+		INSERT INTO
+		t_loan_product
+		(name ,code, minLines, maxLines, loanIssue ,guarantee,mortgage,retaLock ,status ,publishCode,refeCode ,remark)
+		VALUES (
+		#{name}, #{code}, #{minLines}, #{maxLines},
+		#{loanIssue},  #{guarantee},#{mortgage}, #{retaLock}, #{status},
+		 #{publishCode}, #{refeCode},  #{remark}
+		);
+	</insert>
+	
+	<select id="getProdById" parameterType="long" resultType="loanProductDo">
+	   select 
+	    <include refid="Query_Column" />
+	    from t_loan_product
+	    where id = #{id}
+	</select>
+	
+	<update id="updateProd" parameterType="loanProductDo">
+		update t_loan_product
+		set 	
+		<if test="id != null"> 
+			id = #{id},
+		</if>	   
+		<if test="name != null"> 
+			name = #{name},
+		</if>
+		<if test="code != null"> 
+			code = #{code},
+		</if>
+		<if test="minLines != null"> 
+			minLines = #{minLines},
+		</if>
+		<if test="maxLines != null"> 
+			maxLines = #{maxLines},
+		</if>
+		<if test="loanIssue != null"> 
+			loanIssue = #{loanIssue},
+		</if>
+		<if test="guarantee != null"> 
+			guarantee = #{guarantee},
+		</if>
+		<if test="mortgage != null"> 
+			mortgage = #{mortgage},
+		</if>
+		<if test="retaLock != null"> 
+			retaLock = #{retaLock},
+		</if>
+		<if test="publishCode != null"> 
+			publishCode = #{publishCode},
+		</if>
+		<if test="refeCode != null"> 
+			refeCode = #{refeCode},
+		</if>  
+		<if test="remark != null">  
+		    remark = #{remark},
+		</if>
+		<if test="status != null">
+			status = #{status}
+		</if>
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteByIds" parameterType="map" >
+		<if test="ids.size() > 0"> 
+		 delete 
+	    from t_loan_product
+	    where id in  
+            <foreach close=")" collection="ids" item="id" open="(" separator=",">
+				#{id}
+			</foreach>
+        </if>  
+	    
+	</delete>
+	
+	
+</mapper>

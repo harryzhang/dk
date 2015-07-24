@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="frontfinanceToolsapp" extends="app-default" namespace="/app">
+		<action name="frontfinanceTools" class="financeToolsActionapp" method="toolsCalculate">
+		</action>
+		
+		<action name="queryPhoneInfo" class="financeToolsActionapp" method="queryPhoneInfo">
+			
+		</action>	
+		
+		<action name="toolsCalculateDay" class="financeToolsActionapp" method="toolsCalculateDay">
+			
+		</action>
+		
+		<action name="queryIPInfo" class="financeToolsActionapp" method="queryIPInfo">
+			
+		</action>
+		
+		<action name="queryBorrowClause" class="clauseAction" method="queryBorrowClause">
+			
+		</action>
+		
+		<action name="incomeCalculate" class="financeToolsActionapp" method="incomeCalculate">
+			
+		</action>
+		
+		<action name="howTofinance" class="financeToolsActionapp" method="howToFinanceInit">
+		</action>	
+		
+			
+	</package>
+</struts>

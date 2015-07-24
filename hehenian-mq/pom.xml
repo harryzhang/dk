@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.hehenian</groupId>
+		<artifactId>hehenian-system</artifactId>
+		<version>1.0</version>
+	</parent>
+	<groupId>com.hehenian.mq</groupId>
+	<artifactId>hehenian-mq</artifactId>
+	<version>1.0</version>
+	<name>hehenian-mq</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+	   
+		<dependency>
+		  <groupId>org.zeromq</groupId>
+		  <artifactId>jeromq</artifactId>
+		  <version>0.3.4</version>
+		</dependency>
+	     
+	    <dependency>
+		  <groupId>org.apache.activemq</groupId>
+		  <artifactId>activemq-all</artifactId>
+		  <version>5.11.1</version>
+		</dependency> 
+	     
+	     <!-- 
+	    <dependency>
+			<groupId>org.zeromq</groupId>
+			<artifactId>jzmq</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		-->
+	</dependencies>
+</project>

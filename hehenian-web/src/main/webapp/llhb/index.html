@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>摇一摇抢流量红包大派送</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="yes" name="apple-touch-fullscreen">
+	<link type="text/css" rel="stylesheet" href="./css/llhb.css">
+	<script src="./js/llhb.js"></script>
+</head>
+<body>
+	<div class="page-entry getHeight">
+		<div class="act-num">
+			<p>累计共有<span>888</span>人参与</p>
+		</div>
+		<div class="wechat-pho">
+			<img src="./image/pho-exam.png">
+		</div>
+		<div class="wechat-name">
+			<p>微信昵称</p>
+		</div>
+		<div class="phone-input">
+			<form method="get" action="robflow.do">
+				<input type="number" class="text-phone" name="mobile" placeholder="请输入您的手机号码" id="mobile"><br />
+				<input type="submit" class="sub-phone" value="抢流量" id="grab" onclick="return check(this.form)">
+			</form>
+		</div>
+		<div class="reg-entry">
+			<a href="">
+				注册合和年，领取更大的流量红包
+			</a>
+		</div>
+		<div class="act-rules">
+			<p>
+				<a href="">
+					了解活动规则<br />
+					︿
+				</a>
+			</p>
+		</div>
+		<!--验证弹窗-->
+		<div id="checkPop">
+			<div class="checkPanel">
+				<div class="checkTitle">
+				<p>提示</p>
+				</div>
+				<div class="checkCtn">
+				<p>您输入的手机号有误，请重新输入</p>
+				<span class="checkBtn">确定</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var tcd = {
+			getid: function(id){
+				return document.getElementById(id);    
+			},
+			futureDate: Date.UTC(2015, 2, 24, 0),
+			obj: function(){
+				return {
+					sec: tcd.getid("sec"),
+					mini: tcd.getid("mini"),
+					hour: tcd.getid("hour"),
+					day: tcd.getid("day"),
+					month: tcd.getid("month"),
+					year: tcd.getid("year")
+				}
+			}
+		};
+		fnTimeCountDown(tcd.futureDate, tcd.obj());
+		var pw = document.getElementById('checkPop');
+		var cb = document.getElementsByClassName('checkBtn')[0];
+		cb.addEventListener('click',function(){
+			pw.style.display = "none";
+		})
+		function check(form) {
+			var phoneReg = /^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})$/;
+			var phoneNum = document.getElementById('mobile').value;
+			if (!phoneReg.test(phoneNum))
+			{
+				pw.style.display="block";
+				return false;
+			}
+			return true;
+		}
+		var popHeight = document.getElementById('checkPop');
+		var bch = document.body.clientHeight;
+		popHeight.style.height = bch + 50 + 'px';
+	</script>
+</body>
+</html>

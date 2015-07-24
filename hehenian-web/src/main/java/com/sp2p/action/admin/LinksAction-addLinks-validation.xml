@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="paramMap['companyName']">
+		<field-validator type="requiredstring">
+			<message>公司名称不能为空</message>
+		</field-validator>
+	</field>
+	
+	<field name="paramMap['companyImg']">
+		<field-validator type="requiredstring">
+			<message>图片地址不能为空</message>
+		</field-validator>
+	</field>
+	
+	<field name="paramMap['companyURL']">
+		<field-validator type="requiredstring">
+			<message>网站地址不能为空</message>
+		</field-validator>
+		<field-validator type="url">
+			<message>请输入正确的URL链接格式</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">200</param>
+			<message>网址不得大于${maxLength}个字符</message>
+		</field-validator>
+	</field>
+	<field name="paramMap['publishTime']">
+		<field-validator type="requiredstring">
+			<message>发布时间不能为空</message>
+		</field-validator>
+	</field>
+	
+</validators>

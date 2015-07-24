@@ -1,0 +1,648 @@
+.sch_pwrap .sect {
+	width: 980px;
+}
+.sch_pwrap .sect_against {
+	width: 1024px;
+}
+.sch_pwrap .sect_calendar {
+	width: 1170px;
+}
+.wctable_sch_title {
+	left: 0px; top: -5px; width: 13%; height: 60px; text-align: center; color: rgb(255, 255, 255); line-height: 60px; position: absolute; z-index: 2; background-color: rgb(206, 62, 78);
+}
+.wctable_sch_title h2 {
+	font-family: "MicroSoft YaHei",SimSun,sans-serif;
+}
+.wctable_sch_title h2 em {
+	font-family: Arial; font-size: 32px; font-weight: bold; margin-right: 4px; vertical-align: middle;
+}
+.wctable_sch_title h2 i {
+	font-family: "MicroSoft YaHei",SimSun,sans-serif; font-size: 18px; font-style: normal; margin-right: 4px; vertical-align: middle;
+}
+.wctable_sch_title h2 .zh {
+	font-size: 18px;
+}
+.wctable_sch_title h2 .en {
+	font-size: 20px;
+}
+.wctable_sch th {
+	height: 50px; color: rgb(224, 224, 224); background-color: rgb(19, 30, 37);
+}
+.wctable_sch td {
+	height: 40px; border-top-color: rgb(201, 195, 185); border-top-width: 1px; border-top-style: solid; background-color: rgb(228, 216, 194);
+}
+.wctable_sch .tr01 td {
+	height: 48px;
+}
+.wctable_sch .tb_col1 {
+	width: 10%; text-align: center; border-right-color: rgb(201, 195, 185); border-right-width: 1px; border-right-style: solid;
+}
+.wctable_sch .tb_col2 {
+	width: 25%;
+}
+.wctable_sch .tb_col3 {
+	width: 8%;
+}
+.wctable_sch .tb_col5 {
+	width: 14%;
+}
+.wctable_sch .tb_col6 {
+	width: 10%;
+}
+.wctable_sch .tb_col7 {
+	width: 8%;
+}
+.wctable_sch .tb_block {
+	background: 0px; width: 8px; border-top-color: transparent;
+}
+.wctable_sch tbody tr:hover td {
+	transition:background-color 0.2s ease-out; background-color: rgb(238, 227, 204); -webkit-transition: background-color .2s ease-out; -moz-transition: background-color .2s ease-out; -o-transition: background-color .2s ease-out;
+}
+.wctable_sch tbody tr:hover .tb_block {
+	transition:background-color 0.2s ease-out; background-color: rgb(206, 62, 78); -webkit-transition: background-color .2s ease-out; -moz-transition: background-color .2s ease-out; -o-transition: background-color .2s ease-out;
+}
+.wc_sch {
+	padding-left: 8px; position: relative;
+}
+.sch_red .wctable_sch_title {
+	background-color: rgb(206, 62, 78);
+}
+.sch_red .wctable_sch td {
+	background-color: rgb(228, 216, 194);
+}
+.sch_red .wctable_sch .tb_block {
+	background: 0px;
+}
+.sch_red .wctable_sch tbody tr:hover td {
+	background-color: rgb(238, 227, 204);
+}
+.sch_red .wctable_sch tbody tr:hover .tb_block {
+	background-color: rgb(206, 62, 78);
+}
+.sch_green .wctable_sch_title {
+	background-color: rgb(5, 138, 79);
+}
+.sch_green .wctable_sch td {
+	background-color: rgb(193, 216, 192);
+}
+.sch_green .wctable_sch .tb_block {
+	background: 0px;
+}
+.sch_green .wctable_sch tbody tr:hover td {
+	background-color: rgb(217, 239, 215);
+}
+.sch_green .wctable_sch tbody tr:hover .tb_block {
+	background-color: rgb(5, 138, 79);
+}
+.sch_blue .wctable_sch_title {
+	background-color: rgb(68, 169, 221);
+}
+.sch_blue .wctable_sch td {
+	background-color: rgb(196, 207, 215);
+}
+.sch_blue .wctable_sch .tb_block {
+	background: 0px;
+}
+.sch_blue .wctable_sch tbody tr:hover td {
+	background-color: rgb(219, 231, 238);
+}
+.sch_blue .wctable_sch tbody tr:hover .tb_block {
+	background-color: rgb(68, 169, 221);
+}
+.sch_yellow .wctable_sch_title {
+	background-color: rgb(234, 175, 17);
+}
+.sch_yellow .wctable_sch td {
+	background-color: rgb(220, 214, 174);
+}
+.sch_yellow .wctable_sch .tb_block {
+	background: 0px;
+}
+.sch_yellow .wctable_sch tbody tr:hover td {
+	background-color: rgb(243, 238, 196);
+}
+.sch_yellow .wctable_sch tbody tr:hover .tb_block {
+	background-color: rgb(234, 175, 17);
+}
+.sch_violet .wctable_sch_title {
+	background-color: rgb(89, 17, 234);
+}
+.sch_violet .wctable_sch td {
+	background-color: rgb(206, 201, 217);
+}
+.sch_violet .wctable_sch .tb_block {
+	background: 0px;
+}
+.sch_violet .wctable_sch tbody tr:hover td {
+	background-color: rgb(229, 224, 239);
+}
+.sch_violet .wctable_sch tbody tr:hover .tb_block {
+	background-color: rgb(89, 17, 234);
+}
+.sch_purple .wctable_sch_title {
+	background-color: rgb(111, 33, 130);
+}
+.sch_purple .wctable_sch td {
+	background-color: rgb(212, 211, 212);
+}
+.sch_purple .wctable_sch .tb_block {
+	background: 0px;
+}
+.sch_purple .wctable_sch tbody tr:hover td {
+	background-color: rgb(234, 234, 234);
+}
+.sch_purple .wctable_sch tbody tr:hover .tb_block {
+	background-color: rgb(111, 33, 130);
+}
+.sch_grass .wctable_sch_title {
+	background-color: rgb(138, 175, 37);
+}
+.sch_grass .wctable_sch td {
+	background-color: rgb(203, 212, 178);
+}
+.sch_grass .wctable_sch .tb_block {
+	background: 0px;
+}
+.sch_grass .wctable_sch tbody tr:hover td {
+	background-color: rgb(226, 235, 200);
+}
+.sch_grass .wctable_sch tbody tr:hover .tb_block {
+	background-color: rgb(138, 175, 37);
+}
+.sch_brown .wctable_sch_title {
+	background-color: rgb(131, 82, 24);
+}
+.sch_brown .wctable_sch td {
+	background-color: rgb(214, 209, 205);
+}
+.sch_brown .wctable_sch .tb_block {
+	background: 0px;
+}
+.sch_brown .wctable_sch tbody tr:hover td {
+	background-color: rgb(237, 232, 227);
+}
+.sch_brown .wctable_sch tbody tr:hover .tb_block {
+	background-color: rgb(131, 82, 24);
+}
+.mod_sch_group {
+	margin-top: 20px;
+}
+.mod_sch_calendar {
+	margin-top: 38px;
+}
+.sch_calendar_date {
+	height: 42px; text-align: center; line-height: 42px; overflow: hidden; margin-top: 40px;
+}
+.sch_calendar_date h2 {
+	color: rgb(255, 255, 255); font-size: 36px; text-shadow: 1px 1px 1px #999; -webkit-text-shadow: 1px 1px 1px #999; -moz-text-shadow: 1px 1px 1px #999;
+}
+.sch_calendar_date em {
+	font-family: Arial; font-weight: bold;
+}
+.wctable_sch_title2 {
+	padding: 1px 0px 24px 244px; overflow: hidden;
+}
+.wctable_sch_title2 .teamflag_c {
+	margin: 0px 10px 0px 0px; float: left; _display: inline;
+}
+.wctable_sch_title2 .team_name_zh {
+	color: rgb(255, 255, 255); font-size: 16px; font-weight: bold; margin-top: 10px;
+}
+.wctable_sch_title2 .team_name_zh a {
+	color: rgb(255, 255, 255);
+}
+.wctable_sch_title2 .team_name_zh a:visited {
+	color: rgb(255, 255, 255);
+}
+.wctable_sch_title2 .team_name_zh a:hover {
+	color: rgb(255, 255, 255);
+}
+.wctable_sch_title2 .team_name_en {
+	color: rgb(206, 62, 78); font-family: Arial; font-size: 14px; font-weight: bold;
+}
+.wctable_sch2 th {
+	height: 50px; color: rgb(248, 195, 0); background-color: rgba(0, 0, 0, 0.4);
+}
+.wctable_sch2 th a {
+	color: rgb(248, 195, 0);
+}
+.wctable_sch2 th a:visited {
+	color: rgb(248, 195, 0);
+}
+.wctable_sch2 th a:hover {
+	color: rgb(248, 195, 0);
+}
+.wctable_sch2 td {
+	height: 38px; color: rgb(217, 217, 217); border-top-color: rgb(102, 102, 102); border-top-width: 1px; border-top-style: solid; background-color: rgba(0, 0, 0, 0.4);
+}
+.wctable_sch2 td a {
+	color: rgb(217, 217, 217);
+}
+.wctable_sch2 td a:visited {
+	color: rgb(217, 217, 217);
+}
+.wctable_sch2 td a:hover {
+	color: rgb(217, 217, 217);
+}
+.wctable_sch2 .tr01 td {
+	border-top-color: currentColor; border-top-width: 0px; border-top-style: none;
+}
+.wctable_sch2 .tb_col1 {
+	width: 10%;
+}
+.wctable_sch2 .tb_col2 {
+	width: 25%;
+}
+.wctable_sch2 .tb_col3 {
+	width: 8%;
+}
+.wctable_sch2 .tb_col5 {
+	width: 14%;
+}
+.wctable_sch2 .tb_col6 {
+	width: 10%;
+}
+.wctable_sch2 .tb_col7 {
+	width: 8%;
+}
+.wctable_sch2 .tb_block {
+	background: 0px; width: 8px; border-top-color: transparent;
+}
+.wctable_sch2 tbody tr:hover td {
+	transition:background-color 0.2s ease-out; background-color: rgba(206, 62, 78, 0.4); -webkit-transition: background-color .2s ease-out; -moz-transition: background-color .2s ease-out; -o-transition: background-color .2s ease-out;
+}
+.wctable_sch2 tbody tr:hover .tb_block {
+	transition:background-color 0.2s ease-out; background-color: rgb(206, 62, 78); -webkit-transition: background-color .2s ease-out; -moz-transition: background-color .2s ease-out; -o-transition: background-color .2s ease-out;
+}
+.mod_sch_team {
+	margin-top: 30px;
+}
+.wc_sch2_7587 .wctable_sch2 tbody tr:hover td {
+	background-color: rgba(2, 161, 203, 0.4);
+}
+.wc_sch2_7587 .wctable_sch2 tbody tr:hover .tb_block {
+	background-color: rgb(2, 161, 203);
+}
+.wc_sch2_7587 .team_name_en {
+	color: rgb(2, 161, 203);
+}
+.wc_sch2_7589 .wctable_sch2 tbody tr:hover td {
+	background-color: rgba(0, 146, 63, 0.4);
+}
+.wc_sch2_7589 .wctable_sch2 tbody tr:hover .tb_block {
+	background-color: rgb(0, 146, 63);
+}
+.wc_sch2_7589 .team_name_en {
+	color: rgb(0, 146, 63);
+}
+.wc_sch2_7631 .wctable_sch2 tbody tr:hover td {
+	background-color: rgba(0, 166, 84, 0.4);
+}
+.wc_sch2_7631 .wctable_sch2 tbody tr:hover .tb_block {
+	background-color: rgb(0, 166, 84);
+}
+.wc_sch2_7631 .team_name_en {
+	color: rgb(0, 166, 84);
+}
+.wc_sch2_7625 .wctable_sch2 tbody tr:hover td {
+	background-color: rgba(254, 0, 0, 0.4);
+}
+.wc_sch2_7625 .wctable_sch2 tbody tr:hover .tb_block {
+	background-color: rgb(254, 0, 0);
+}
+.wc_sch2_7625 .team_name_en {
+	color: rgb(254, 0, 0);
+}
+.wc_sch2_7626 .wctable_sch2 tbody tr:hover td {
+	background-color: rgba(1, 38, 83, 0.4);
+}
+.wc_sch2_7626 .wctable_sch2 tbody tr:hover .tb_block {
+	background-color: rgb(1, 38, 83);
+}
+.wc_sch2_7626 .team_name_en {
+	color: rgb(1, 38, 83);
+}
+.wc_sch2_7632 .wctable_sch2 tbody tr:hover td {
+	background-color: rgba(254, 0, 0, 0.4);
+}
+.wc_sch2_7632 .wctable_sch2 tbody tr:hover .tb_block {
+	background-color: rgb(254, 0, 0);
+}
+.wc_sch2_7632 .team_name_en {
+	color: rgb(254, 0, 0);
+}
+.wc_sch2_7635 .wctable_sch2 tbody tr:hover td {
+	background-color: rgba(12, 103, 62, 0.4);
+}
+.wc_sch2_7635 .wctable_sch2 tbody tr:hover .tb_block {
+	background-color: rgb(12, 103, 62);
+}
+.wc_sch2_7635 .team_name_en {
+	color: rgb(12, 103, 62);
+}
+.wc_sch2_7639 .wctable_sch2 tbody tr:hover td {
+	background-color: rgba(219, 0, 13, 0.4);
+}
+.wc_sch2_7639 .wctable_sch2 tbody tr:hover .tb_block {
+	background-color: rgb(219, 0, 13);
+}
+.wc_sch2_7639 .team_name_en {
+	color: rgb(219, 0, 13);
+}
+.wc_sch2_7627 .wctable_sch2 tbody tr:hover td {
+	background-color: rgba(252, 207, 30, 0.4);
+}
+.wc_sch2_7627 .wctable_sch2 tbody tr:hover .tb_block {
+	background-color: rgb(252, 207, 30);
+}
+.wc_sch2_7627 .team_name_en {
+	color: rgb(252, 207, 30);
+}
+.wc_sch2_7613 .wctable_sch2 tbody tr:hover td {
+	background-color: rgba(254, 0, 0, 0.4);
+}
+.wc_sch2_7613 .wctable_sch2 tbody tr:hover .tb_block {
+	background-color: rgb(254, 0, 0);
+}
+.wc_sch2_7613 .team_name_en {
+	color: rgb(254, 0, 0);
+}
+.wc_sch2_7617 .wctable_sch2 tbody tr:hover td {
+	background-color: rgba(254, 0, 0, 0.4);
+}
+.wc_sch2_7617 .wctable_sch2 tbody tr:hover .tb_block {
+	background-color: rgb(254, 0, 0);
+}
+.wc_sch2_7617 .team_name_en {
+	color: rgb(254, 0, 0);
+}
+.mod_against {
+	background: url("../images/against_bg.png") no-repeat 0px 0px; height: 503px; color: rgb(93, 93, 93); position: relative;
+}
+.mod_against li {
+	text-align: center; overflow: hidden; position: absolute; cursor: pointer;
+}
+.mod_against a {
+	width: 100%; height: 100%; overflow: hidden; display: block; cursor: pointer;
+}
+.mod_against a:hover {
+	background: url("about:blank");
+}
+.mod_against a:hover .tx_floating {
+	transition:opacity 0.2s; opacity: 1; -webkit-transition: opacity .2s ease; -moz-transition: opacity .2s ease; -o-transition: opacity .2s ease;
+}
+.mod_against a {
+	text-decoration: none;
+}
+.mod_against a:visited {
+	text-decoration: none;
+}
+.mod_against a:hover {
+	text-decoration: none;
+}
+.mod_against a .tx {
+	color: rgb(93, 93, 93);
+}
+.mod_against a:visited .tx {
+	color: rgb(93, 93, 93);
+}
+.mod_against a:hover .tx {
+	color: rgb(93, 93, 93);
+}
+.mod_against a .tx_floating h3 {
+	color: rgb(255, 255, 255);
+}
+.mod_against a:visited .tx_floating h3 {
+	color: rgb(255, 255, 255);
+}
+.mod_against a:hover .tx_floating h3 {
+	color: rgb(255, 255, 255);
+}
+.mod_against a .tx_floating p {
+	color: rgb(243, 228, 72);
+}
+.mod_against a:visited .tx_floating p {
+	color: rgb(243, 228, 72);
+}
+.mod_against a:hover .tx_floating p {
+	color: rgb(243, 228, 72);
+}
+.mod_against .teaminfo {
+	vertical-align: middle; display: inline-block;
+}
+.mod_against .teamscore {
+	vertical-align: middle; display: inline-block;
+}
+.mod_against .teamscore em {
+	margin: 0px 2px; color: rgb(45, 45, 45); font-weight: bold; vertical-align: middle; display: inline-block;
+}
+.mod_against .matchinfo {
+	width: 100%; display: inline-block;
+}
+.mod_against .group_against em {
+	margin: 0px 4px; color: rgb(45, 45, 45); font-size: 22px; font-weight: bold; vertical-align: middle; display: inline-block;
+}
+.mod_against .tx {
+	width: 100%; height: 100%; display: table;
+}
+.mod_against .tx .tx_in {
+	vertical-align: middle; display: table-cell;
+}
+.mod_against .tx i {
+	height: 100%; vertical-align: middle; display: inline-block;
+}
+.mod_against .tx_floating {
+	border-radius: 3px; transition:opacity 0.2s ease-out; left: 0px; top: 0px; width: 100%; height: 100%; display: table; position: absolute; cursor: pointer; opacity: 0; background-color: rgba(0, 0, 0, 0.8); -moz-border-radius: 3px; -webkit-border-radius: 3px; -webkit-transition: opacity .2s ease-out; -moz-transition: opacity .2s ease-out; -o-transition: opacity .2s ease-out; -o-border-radius: 3px;
+}
+.mod_against .tx_floating .tx_in {
+	vertical-align: middle; display: table-cell;
+}
+.mod_against .tx_floating i {
+	width: 0px; height: 100%; vertical-align: middle; display: inline-block;
+}
+.mod_against .tx_floating h3 {
+	line-height: 1.6em;
+}
+.mod_against .tx_floating p {
+	line-height: 1.6em;
+}
+.mod_against .cell_ui01 {
+	border-radius: 3px; width: 138px; height: 85px; font-size: 12px; background-color: rgb(224, 224, 224); -moz-border-radius: 3px; -webkit-border-radius: 3px; -o-border-radius: 3px;
+}
+.mod_against .cell_ui01 a {
+	background-color: rgb(224, 224, 224);
+}
+.mod_against .cell_ui02 {
+	border-radius: 3px; width: 138px; height: 85px; font-size: 12px; background-color: rgb(189, 254, 163); -moz-border-radius: 3px; -webkit-border-radius: 3px; -o-border-radius: 3px;
+}
+.mod_against .cell_ui02 .teamscore em {
+	font-size: 14px;
+}
+.mod_against .cell_ui02 a {
+	background-color: rgb(189, 254, 163);
+}
+.mod_against .cell_ui03 {
+	border-radius: 3px; width: 177px; height: 109px; font-size: 12px; background-color: rgb(250, 241, 138); -moz-border-radius: 3px; -webkit-border-radius: 3px; -o-border-radius: 3px;
+}
+.mod_against .cell_ui03 h3 {
+	font-size: 14px;
+}
+.mod_against .cell_ui03 .tx_floating h3 {
+	line-height: 2em;
+}
+.mod_against .cell_ui03 .tx_floating p {
+	line-height: 2em;
+}
+.mod_against .cell_ui03 .teamscore {
+	margin: 0px 4px;
+}
+.mod_against .cell_ui03 .teamscore em {
+	font-size: 30px; font-weight: bold;
+}
+.mod_against .cell_ui03 .group_against em {
+	font-size: 28px;
+}
+.mod_against .cell_ui03 a {
+	background-color: rgb(250, 241, 138);
+}
+.mod_against .cell_ui04 {
+	border-radius: 3px; width: 177px; height: 109px; font-size: 12px; background-color: rgb(224, 224, 224); -moz-border-radius: 3px; -webkit-border-radius: 3px; -o-border-radius: 3px;
+}
+.mod_against .cell_ui04 h3 {
+	font-size: 14px;
+}
+.mod_against .cell_ui04 .tx_floating h3 {
+	line-height: 2em;
+}
+.mod_against .cell_ui04 .tx_floating p {
+	line-height: 2em;
+}
+.mod_against .cell_ui04 .teamscore {
+	margin: 0px 4px;
+}
+.mod_against .cell_ui04 .teamscore em {
+	font-size: 30px; font-weight: bold;
+}
+.mod_against .cell_ui04 .group_against em {
+	font-size: 28px;
+}
+.mod_against .cell_ui04 a {
+	background-color: rgb(224, 224, 224);
+}
+.mod_against .cell_11 {
+	left: 20px; top: 20px;
+}
+.mod_against .cell_12 {
+	left: 20px; top: 136px;
+}
+.mod_against .cell_13 {
+	left: 20px; top: 268px;
+}
+.mod_against .cell_14 {
+	left: 20px; top: 394px;
+}
+.mod_against .cell_21 {
+	left: 170px; top: 70px;
+}
+.mod_against .cell_22 {
+	left: 170px; top: 328px;
+}
+.mod_against .cell_31 {
+	left: 253px; top: 199px;
+}
+.mod_against .cell_41 {
+	left: 413px; top: 193px;
+}
+.mod_against .cell_42 {
+	left: 413px; top: 335px;
+}
+.mod_against .cell_51 {
+	top: 199px; right: 273px;
+}
+.mod_against .cell_61 {
+	top: 70px; right: 185px;
+}
+.mod_against .cell_62 {
+	top: 328px; right: 185px;
+}
+.mod_against .cell_71 {
+	top: 20px; right: 35px;
+}
+.mod_against .cell_72 {
+	top: 136px; right: 35px;
+}
+.mod_against .cell_73 {
+	top: 268px; right: 35px;
+}
+.mod_against .cell_74 {
+	top: 394px; right: 35px;
+}
+.sect_playoffs {
+	margin-top: 50px;
+}
+.sect_playoffs .col_lm {
+	margin-top: -25px;
+}
+.sect_playoffs .col_r {
+	width: 316px;
+}
+.mod_sch_playoffs {
+	margin-top: 25px;
+}
+.wc_points_slider {
+	position: relative;
+}
+.wc_points_slider .slider_body {
+	padding: 0px 8px; height: 1276px; overflow: hidden; position: relative;
+}
+.wc_points_slider .slider_lst {
+	margin-top: -20px;
+}
+.wc_points_slider .slider_item {
+	margin-top: -20px;
+}
+.wc_points_slider .slider_prev {
+	left: 50%; width: 100px; height: 21px; text-align: center; color: rgb(255, 255, 255); font-family: SimSun; font-size: 20px; font-weight: bold; margin-left: -50px; display: block; position: absolute; z-index: 2; cursor: pointer; background-color: rgb(206, 62, 78);
+}
+.wc_points_slider .slider_next {
+	left: 50%; width: 100px; height: 21px; text-align: center; color: rgb(255, 255, 255); font-family: SimSun; font-size: 20px; font-weight: bold; margin-left: -50px; display: block; position: absolute; z-index: 2; cursor: pointer; background-color: rgb(206, 62, 78);
+}
+.wc_points_slider .slider_prev:visited {
+	color: rgb(255, 255, 255); text-decoration: none;
+}
+.wc_points_slider .slider_next:visited {
+	color: rgb(255, 255, 255); text-decoration: none;
+}
+.wc_points_slider .slider_prev:hover {
+	color: rgb(255, 255, 255); text-decoration: none;
+}
+.wc_points_slider .slider_next:hover {
+	color: rgb(255, 255, 255); text-decoration: none;
+}
+.wc_points_slider .slider_prev span {
+	background: url("../images/wc_spirits.png") no-repeat 0px -82px; width: 26px; height: 21px; display: inline-block;
+}
+.wc_points_slider .slider_next span {
+	background: url("../images/wc_spirits.png") no-repeat 0px -82px; width: 26px; height: 21px; display: inline-block;
+}
+.wc_points_slider .slider_prev {
+	top: -10px;
+}
+.wc_points_slider .slider_prev span {
+	background-position: 0px -82px; transition:background-position 0.3s ease-out; -webkit-transition: background-position .3s ease-out; -moz-transition: background-position .3s ease-out; -o-transition: background-position .3s ease-out;
+}
+.wc_points_slider .slider_prev:hover {
+	transition:background-position 0.3s ease-out; -webkit-transition: background-position .3s ease-out; -moz-transition: background-position .3s ease-out; -o-transition: background-position .3s ease-out;
+}
+.wc_points_slider .slider_prev:hover span {
+	background-position: 0px -103px;
+}
+.wc_points_slider .slider_next {
+	bottom: -10px;
+}
+.wc_points_slider .slider_next span {
+	background-position: -49px -103px; transition:background-position 0.3s ease-out; -webkit-transition: background-position .3s ease-out; -moz-transition: background-position .3s ease-out; -o-transition: background-position .3s ease-out;
+}
+.wc_points_slider .slider_next:hover span {
+	background-position: -49px -82px; transition:background-position 0.3s ease-out; -webkit-transition: background-position .3s ease-out; -moz-transition: background-position .3s ease-out; -o-transition: background-position .3s ease-out;
+}

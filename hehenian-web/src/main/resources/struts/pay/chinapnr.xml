@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="chinapnrinfo" extends="pay-default" namespace="/">
+		<!-- 汇付天下充值 -->
+		<action name="chinapnrPayment" class="newRechargeAction" method="addRecharge">
+			<result name="input" type="redirectAction">frontChinaPnrUrl.do</result>
+			<result name="noLogin" type="redirectAction">login.do</result>
+            <result name="msg">/WEB-INF/jsp/message.jsp</result>
+		</action>
+		<!-- 前台用户注册 -->
+		<action name="userRegister" class="chinaPnrmentAction" method="userRegister">
+			<result name="input" type="redirectAction">frontChinaPnrUrl.do</result>
+			<result name="noLogin" type="redirectAction">login.do</result>
+		</action>
+	</package>
+	<!-- 返回值 -->
+	<package name="chinapnrbackinfo" extends="front-default" namespace="/">
+		<action name="frontChinaPnrUrl" class="chinaPnrmentAction" method="frontMerUrl">
+			<result name="success" type="redirectAction">index.do</result>
+		</action>
+		<action name="frontChinaPnrUrlBg" class="chinaPnrmentAction" method="frontChinaPnrUrlBg">
+			<result>/WEB-INF/page/admin/mer_recharge_index.jsp</result>
+		</action>
+		<action name="backgroundChinaPnrUrl" class="chinaPnrmentAction" method="backgroundMerUrl">
+		</action>
+	</package>
+</struts>
+
+

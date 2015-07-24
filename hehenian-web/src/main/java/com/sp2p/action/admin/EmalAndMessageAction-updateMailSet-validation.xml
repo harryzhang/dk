@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="paramMap['maildress']">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写邮箱地址</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">500</param>
+			<message>邮箱地址地址不能大于${maxLength}个字符</message>
+		</field-validator>
+	</field>
+		<field name="paramMap['password']">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写邮箱密码</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">20</param>
+			<param name="minLength">6</param>
+			<message>邮箱密码不能大于${maxLength}个字符,小于${minLength}</message>
+		</field-validator>
+	</field>
+		<field name="paramMap['sendEmail']">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写了发件人Email</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">500</param>
+			<message>邮箱地址地址不能大于${maxLength}个字符</message>
+		</field-validator>
+	</field>
+		<field name="paramMap['username']">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写了发件人昵称</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">20</param>
+			<message>发件人昵称不能大于${maxLength}个字符</message>
+		</field-validator>
+	</field>
+</validators>

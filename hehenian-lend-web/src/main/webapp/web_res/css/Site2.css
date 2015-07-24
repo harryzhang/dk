@@ -1,0 +1,53 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body{ font-size:14px;font-family:'Merriweather',"Microsoft YaHei","Lucida Sans Unicode","Myriad Pro","Hiragino Sans GB","Heiti SC",Verdana,simsun; color:#666666;}
+
+body,p,li,ul,h1,h2,h3,table,td,th,dl,dt,dd,img{ font-weight:normal; margin:0; padding:0; list-style:none; border:0}
+
+.ibaner{ float: right; width:459px; height:295px;  overflow:hidden; position:relative}
+.ibaner li{ float:left; width:459px; float:left}
+#scroll{ width:459px; overflow:hidden; height:295px}
+.scroll li{ float:left}
+.control{ position:absolute; right:8px; bottom:8px}
+.control a{ display:inline-block; cursor:pointer; padding:2px; color:#333; text-align:center; line-height:12px; width:12px; margin:0 3px; height:12px; background:#fff;  opactiy:0.99;filter:alpha(opacity=99);}
+.control a:hover{ background:#ee00000; color:#fff}
+.control .cur{ background:#ee0000;color:#fff}
+
+.ui-footer-links li {
+	min-width: 75px;
+	height: 24px;
+	line-height: 24px;
+	margin-right: 10px
+}
+.ui-footer-links .icons {
+	margin-top: 10px
+}
+.ui-footer-links .icons li {
+	height: 30px;
+	line-height: 30px
+}
+.ui-footer-phone-number {
+	font-size: 20px
+}
+.ui-footer-img-link {
+	display: block;
+	margin-right: 5px;
+	height: 32px;
+	font-size: 0;
+	line-height: 0;
+	background: url(../img/sns.png) no-repeat 0 0
+}
+.ui-footer-img-link.weibo {
+	width: 107px;
+	background-position: 0 0
+}
+.ui-footer-img-link.weibo:hover {
+	background-position: -112px 0px
+}
+.ui-footer-img-link.we-chat {
+	width: 112px;
+	background-position: 0px -30px
+}
+.ui-footer-img-link.we-chat:hover {
+	background-position: -114px -30px
+}

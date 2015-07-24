@@ -1,0 +1,279 @@
+@charset "utf-8"; 
+/* CSS Document */
+* { margin: 0px; padding: 0px; border: 0; outline: 0; }
+table{border-collapse:collapse;border-spacing:0}
+dl,dt,dd,ul,ol,li{list-style:none}
+hr {margin: 0;padding: 0;border: 0;color: #CDCDCD;background-color: #CDCDCD;height: 1px}
+a { text-decoration:none; color:#333; }
+a:hover { text-decoration:underline; }
+h1, h2, h3, h4, h5, h6 { font-weight:bold; font-size:12px; }
+.cle { clear:both; }
+/*以上为CSS通用样式*/
+
+body{ margin:0 auto; padding:0; background:url(../images/topNav_bg01.jpg) repeat-x; font-family:Arial, Helvetica, "宋体", "微软雅黑"; font-size:12px; color:#333; line-height:24px;}
+
+.wrap{ width:980px; margin:0 auto; padding:0; }
+
+/*顶部状态栏*/	
+.topNav{ width:980px; height:24px; margin-top:2px; line-height:24px; color:#666; }
+.topNav a{ color:#666; }
+.topNav a:hover{ color:#eb6100; }
+
+.topNav_login{ float:left; width:540px; display:inline; }
+.topNav_loginWelcome{ float:left; }
+.topNav_loginBtn{ float:left; width:75px; background:url(../images/index_btn.gif) 0px 2px no-repeat;  padding-left:15px; margin-left:10px; }
+.topNav_loginMessage{ float:left; padding-left:10px; }
+.topNav_loginMessage span{ color:#eb6100; }
+.topNav_shop{ float:left; width:90px; background:url(../images/index_icon.gif) 0px 2px no-repeat;  padding-left:20px; }
+.topNav_shop span{ color:#eb6100; }
+.topNav_test{ float:left;  }
+.topNav_test ul{ float:left; }
+.topNav_test ul li{ float:left; padding-right:25px; }
+
+.topNav_weibo{ float:right; width:60px; background:url(../images/index_btn.gif) -100px 2px; 2px no-repeat; padding-left:30px; }
+
+
+/*顶部专题导航*/
+.specialNav{ width:980px; height:62px; margin-top:15px; margin-bottom:10px; }
+.specialNav_logo{ float:left; width:150px; height:62px; margin:0px 20px 0px 20px; _display:inline; }
+.specialNav_main{ float:left; height:62px; width:780px; margin-left:10px; _display:inline; background:#f5f5f5;}
+.specialNav_main ul{ float:left; }
+.specialNav_main ul li{ float:left; height:62px; padding-right:3px; text-align:center; }
+.specialNav_main ul li a{ float:left; display:block; width:81px; height:62px; color:#666; }
+.specialNav_main ul li a:hover{ float:left; display:block; background:url(../images/index_icon.gif) 0px -150px no-repeat; color:#eb6100; text-decoration:none; cursor:pointer; }
+.specialNav_main ul li a.active{ float:left; display:block; background:url(../images/index_icon.gif) 0px -150px no-repeat; color:#eb6100; text-decoration:none; cursor:pointer;}
+.specialNav_main ul li img{ float:left; width:50px; height:35px; margin:6px auto auto 15px;}
+.specialNav_main ul li span{ float:left; width:81px; height:24px; line-height:24px; }
+.specialNav_tel{ float:right; width:250px; height:62px;}
+
+/*顶部主导航*/
+.mainNav{ width:980px; height:31px; background:url(../images/index_btn.gif) 0px -29px no-repeat; }
+.mianNav_list{ float:left; width:730px; height:31px;}
+.mianNav_list ul{ float:left; padding-left:19px; }
+.mianNav_list ul li{ float:left; width:85px; padding-left:1px; padding-right:1px; display:inline; text-align:center; line-height:32px;}
+.mianNav_list ul li a{ display:block; height:31px; width:80px; color:#f0f0f0; font-weight:bolder;  }
+.mianNav_list ul li a:hover{ display:block; width:80px; height:31px; color:#fff; font-weight:bolder; text-decoration:none; background:url(../images/index_btn.gif) -901px -70px no-repeat;}
+.mianNav_list ul li a.active{ display:block; width:80px; height:31px; color:#fff; font-weight:bolder; text-decoration:none; background:url(../images/index_btn.gif) -901px -70px no-repeat;}
+
+.mainNav_center{ float:left; width:245px; height:29px; padding-left:5px;}
+.mainNav_centerBg01{ float:left; width:100px; height:29px; margin-left:10px; background:url(../images/index_title.gif) 0px 6px no-repeat; display:block; line-height:29px; _display:inline; }
+.mainNav_centerBg02{ float:left; width:100px; height:29px; margin-left:10px; background:url(../images/index_title.gif) 0px -24px no-repeat; display:block; line-height:29px; _display:inline; }
+.mainNav_center a{ float:left; display:block; }
+
+.mainSearch{ float:right; width:215px; height:27px; line-height:27px; padding-left:35px; background:url(../images/index_btn.gif) -250px 0px no-repeat; overflow:hidden; display:block; }
+.mainSearch_txt{ float:left; width:155px; height:20px; line-height:20px; margin-top:3px; font-size:12px; color:#666; background:none; }
+.mainSearch_btn{ float:left; width:55px; padding-left:5px; text-align:center; }
+.mainSearch_btn a{ color:#f0f0f0; font-size:14px; }
+.mainSearch_btn a:hover{ text-decoration:none; }
+/*以上为通用顶部*/
+
+
+/*底部快速链接*/
+.bottomNav{ width:980px; height:198px; margin:0 auto; background:#f9f9f9; border-top:2px solid #eb6100; margin-top:20px;}
+.bottomNav ul{ float:left; width:880px; padding:10px 50px 0px 50px; }
+.bottomNav ul li{ float:left; width:220px; }
+.bottomNav ul li img{ float:left; width:70px; }
+.bottomNav ul li ul{ float:left; width:150px; margin:0px; padding:0px 0px 0px 0px; }
+.bottomNav ul li ul li{ float:left; width:150px; line-height:24px; }
+.bottomNav_title{ color:#444; font-size:16px; font-weight:bolder; line-height:24px; padding-bottom:5px;}
+.bottomNav a{ color:#666 }
+.bottomNav a:hover{ color:#eb6100; }
+
+/*底部版权信息*/
+.footer{ width:980px; text-align:center; margin:0 auto; color:#666; }
+.footer_nav{ width:980px; margin-top:20px; }
+.footer_nav a{ color:#666; padding:0px 10px 0px 10px;}
+.footer_nav a:hover{ color:#eb6100; }
+.footer_main{ width:980px; margin-top:10px; margin-bottom:30px; padding-top:10px; border-top:1px solid #dedede; }
+/*以上为通用底部*/
+
+/*带方点的新闻列表1-适用于 左中右 结构-右侧*/
+.commonList{ width:218px; }
+.commonList ul{ width:218px; }
+.commonList ul li{ width:205px; padding-left:13px; height:24px; line-height:24px; background:url(../images/index_icon.gif) 0px -78px no-repeat; overflow:hidden; }
+
+/*带方点的新闻列表2-适用于 左中右 结构-中部左*/
+.commonList_left{ float:left; width:230px; }
+.commonList_left ul{ width:230px; }
+.commonList_left ul li{ width:217px; padding-left:13px; height:24px; line-height:24px; background:url(../images/index_icon.gif) 0px -78px no-repeat; overflow:hidden; }
+
+/*带方点的新闻列表3-适用于 左长右短 结构-中部左与右*/
+.commonList_left2{ float:left;}
+.commonList_left2 ul{}
+.commonList_left2 ul li{ width:317px; padding-left:13px; height:24px; line-height:24px; background:url(../images/index_icon.gif) 0px -78px no-repeat; overflow:hidden; }
+
+/*带方点的新闻列表2-适用于 左中右 结构-中部右*/
+.commonList_right{ float:right; width:230px; }
+.commonList_right ul{ width:230px; }
+.commonList_right ul li{ width:217px; padding-left:13px; height:24px; line-height:24px; background:url(../images/index_icon.gif) 0px -78px no-repeat; overflow:hidden; }
+
+/*带图片的视频列表1-适用于 左长右短 结构-右侧*/
+.commonList2{ width:218px; }
+.commonList2 ul{ width:218px; }
+.commonList2 ul li{ width:218px; height:82px; padding-top:10px; padding-bottom:10px; border-bottom:1px dotted #ccc; }
+.commonList2 ul li h1{ font-size:12px;float:right; width:85px;overflow:hidden; font-weight:bolder; color:#333; line-height:18px;}
+.commonList2 ul li h2{ font-size:12px;float:right; width:85px; overflow:hidden;font-weight:normal; color:#878787; line-height:18px;}
+.commonList2_pic{ float:left; width:124px; height:80px; border:1px solid #ccc; margin-right:5px; }
+.commonList2_pic img{ width:120px; height:76px; border:2px solid #fff;}
+
+/*带英文标题和橙色条 盒子1-适用于 左中右 结构-左侧*/
+.boxLeft{ width:188px; border:1px solid #dedede; }
+.boxLeft_title{ width:188px; height:22px; padding-top:5px; text-align:center; line-height:22px; border-bottom:3px solid #eb6100; }
+.boxLeft_title span{ color:#eb6100; font-size:12px; font-weight:bolder;  }
+.boxLeft_title a{ color:#444; font-weight:bolder; font-size:14px;}
+.boxLeft_title a:hover{ text-decoration:none; }
+.boxLeft_main{ padding:15px 9px 15px 9px; border-top:1px solid #dedede; }
+
+/*普通渐变 盒子2-适用于 左中右 结构-中部*/
+.boxCenter{ width:518px; border:1px solid #dedede; }
+.boxCenter_title{ width:488px; height:26px; padding-left:15px; padding-right:15px; line-height:26px; background:url(../images/box_bg01.jpg) repeat-x; }
+.boxCenter_title h1{ float:left; color:#333; font-size:14px; font-weight:bolder; }
+.boxCenter_more{ float:right; width:40px; background:url(../images/index_icon.gif) 33px -51px no-repeat; }
+.boxCenter_main{ width:488px; padding:15px; }
+
+/*普通渐变 盒子3-适用于 左中右 结构-右侧*/
+.boxRight{ width:248px; border:1px solid #dedede; }
+.boxRight_title{ width:218px; height:26px; padding-left:15px; padding-right:15px; line-height:26px; background:url(../images/box_bg01.jpg) repeat-x;  }
+.boxRight_title h1{ float:left; color:#333; font-size:14px; font-weight:bolder; }
+.boxRight_more{ float:right; width:40px; background:url(../images/index_icon.gif) 33px -51px no-repeat;}
+.boxRight_more a{ color:#666;}
+.boxRight_main{ width:218px; padding:15px; overflow:hidden; }
+
+/*带英文和橙色条 盒子4-适用于 左长右短 结构-左侧*/
+.mainLeft_box{ float:left; width:718px; border:1px solid #dedede; }
+.mainLeft_box_title{ width:718px; height:27px; border-bottom:3px solid #eb6100; }
+.mainLeft_box_title h1{ float:left; width:160px; height:22px; padding-top:5px; padding-left:10px; text-align:left; line-height:22px; font-size:14px;}
+.mainLeft_box_title span{ color:#eb6100; font-size:12px; font-weight:bolder;  }
+.mainLeft_box_title a{ color:#444; font-weight:bolder; font-size:14px;}
+.mainLeft_box_title a:hover{ text-decoration:none; }
+.mainLeft_more{ float:right; margin-right:10px; padding-top:2px; width:40px; background:url(../images/index_icon.gif) 33px -50px no-repeat;}
+.mainLeft_more a{ color:#666;  font-size:12px; font-weight:normal; line-height:24px;}
+.mainLeft_box_main{ padding:15px 9px 15px 9px; border-top:1px solid #dedede; }
+
+/*带英文和橙色条 盒子5-适用于 左短右长 结构-右侧*/
+.mainRight_box{ float:left; width:778px; border:1px solid #dedede; }
+.mainRight_box_title{ width:778px; height:27px; border-bottom:3px solid #eb6100; }
+.mainRight_box_title h1{ float:left; width:160px; height:22px; padding-top:5px; padding-left:10px; text-align:left; line-height:22px; font-size:14px;}
+.mainRight_box_title span{ color:#eb6100; font-size:12px; font-weight:bolder;  }
+.mainRight_box_title a{ color:#444; font-weight:bolder; font-size:14px;}
+.mainRight_box_title a:hover{ text-decoration:none; }
+.mainRight_more{ float:right; margin-right:10px; padding-top:2px; width:40px; background:url(../images/index_icon.gif) 33px -50px no-repeat;}
+.mainRight_more a{ color:#666;  font-size:12px; font-weight:normal; line-height:24px;}
+.mainRight_box_main{ padding:15px 9px 15px 9px; border-top:1px solid #dedede; }
+
+/*栏目专题页课程中心表格&各新闻底部相关课程*/
+.courseTable{ float:left; width:700px; border:1px solid #e5b27f; border-bottom:none; margin-bottom:10px; _margin-bottom:5px; *margin-top:10px; }
+.courseTable_h1{ float:left; font-size:14px; height:26px; line-height:26px; color:#eb6100; font-weight:bolder; padding-left:10px; }
+.courseTable_h2{ text-align:center; font-size:12px; height:26px; line-height:26px; color:#333; font-weight:normal; background:url(../images/box_bg01.jpg) repeat-x; border-top:1px solid #e5b27f; border-bottom:1px solid #e5b27f; }
+.courseTable_kcmc{ color:#333; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f; text-align:center; font-size:12px; }
+.courseTable_xq{ width:53px; background:url(../images/index_btn.gif) -238px -156px no-repeat;  border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f; font-size:12px;  }
+.courseTable_xq a{ float:left; display:block; width:53px; color:#333; text-decoration:none; background:url(../images/index_icon.gif) 50px -52px no-repeat; padding-left:5px;  }
+.courseTable_ks{ color:#333; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f; text-align:center; font-size:12px; }
+.courseTable_yj{  color:#878787; text-decoration:line-through; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f;  font-size:12px;}
+.courseTable_yhj{ color:#cc3300; font-weight:bolder; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f;  font-size:12px;}
+.courseTable_st{ background:url(../images/index_icon.gif) 30px -112px no-repeat; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f;  font-size:12px;}
+.courseTable_st a{ width:36px; height:24px; display:block;}
+.courseTable_gm{ background:url(../images/index_btn.gif) -238px -126px no-repeat; border-bottom:1px solid #e5b27f;  font-size:12px;}
+.courseTable_gm a{ color:#fff; text-decoration:none;}
+
+/*课程中心主页表格*/
+.courseTable2{ float:left; width:750px; border:1px solid #e5b27f; border-bottom:none; margin-bottom:10px; }
+.courseTable2_h1{ float:left; width:740px; font-size:14px; line-height:26px;}
+.courseTable2_h1 h1{ float:left; width:120px; font-size:14px; height:26px; line-height:26px; text-align:center; color:#fff; background:#eb6100; font-weight:bolder; padding-left:10px;}
+.courseTable2_h2{ text-align:center; font-size:12px; line-height:26px; color:#333; font-weight:normal; background:url(../images/box_bg01.jpg) repeat-x; border-top:1px solid #e5b27f; border-bottom:1px solid #e5b27f; }
+.courseTable2_kcmc{ color:#333; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f; text-align:center; font-size:12px; }
+.courseTable2_ks{ color:#333; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f; text-align:center; font-size:12px; }
+.courseTable2_xq{ width:53px; background:url(../images/index_btn.gif) -238px -156px no-repeat;  border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f; font-size:12px;  }
+.courseTable2_xq a{ float:left; display:block; width:53px; color:#333; text-decoration:none; background:url(../images/index_icon.gif) 50px -52px no-repeat; padding-left:5px;  }
+.courseTable2_yj{  color:#878787; text-decoration:line-through; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f;  font-size:12px;}
+.courseTable2_yhj{ color:#cc3300; font-weight:bolder; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f;  font-size:12px;}
+.courseTable2_st{ background:url(../images/index_icon.gif) 30px -112px no-repeat; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f;  font-size:12px;}
+.courseTable2_st a{ width:36px; height:24px; display:block;}
+.courseTable2_gm{ background:url(../images/index_btn.gif) -238px -126px no-repeat; border-bottom:1px solid #e5b27f; font-size:12px;}
+.courseTable2_gm a{ color:#fff; text-decoration:none;}
+
+/*课程中心表格 中的二级TAB选项*/
+.courseTable2_smallTab{ float:left; width:600px; }
+.courseTable2_smallTab ul{ float:left;}
+.courseTable2_smallTab ul li{ float:left; height:26px; padding-left:10px; font-size:12px; }
+.courseTable2_smallTab ul li.normal{ float:left; height:26px; color:#666; display:block; padding:0px 10px; line-height:26px; text-align:center; cursor:pointer;}
+.courseTable2_smallTab ul li.active{ float:left; height:26px; color:#eb6100; display:block; padding:0px 10px;  line-height:26px; font-weight:bolder; text-align:center; cursor:pointer;}
+
+/*课程中心 购买详细页 表格*/
+.courseTable3{ float:left;  border:1px solid #e5b27f; border-bottom:none; margin-bottom:10px; }
+.courseTable3 .h2{ text-align:center; font-size:12px; line-height:26px; color:#333; font-weight:normal; background:url(../images/box_bg01.jpg) repeat-x; border-bottom:1px solid #e5b27f; }
+.courseTable3 .kcmc{ color:#333; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f; text-align:center; font-size:12px; }
+.courseTable3 .ks{ color:#333; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f; text-align:center; font-size:12px; }
+.courseTable3 .xq{  width:53px; background:url(../images/index_btn.gif) -238px -156px no-repeat;  border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f; font-size:12px;}
+.courseTable3 .xq a{ float:left; display:block; width:53px; color:#333; text-decoration:none; background:url(../images/index_icon.gif) 50px -52px no-repeat; padding-left:5px;  }
+.courseTable3 .yj{  color:#878787; text-decoration:line-through; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f;  font-size:12px;}
+.courseTable3 .yhj{ color:#cc3300; font-weight:bolder; border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f;  font-size:12px;}
+.courseTable3 .st_on{ border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f; }
+.courseTable3 .st_on a{ color:#393; }
+.courseTable3 .st_off{  border-bottom:1px solid #e5b27f; border-right:1px solid #e5b27f;}
+.courseTable3 .st_off a{ color:#999; }
+.courseTable3 .gm{ background:url(../images/index_btn.gif) -238px -126px no-repeat; border-bottom:1px solid #e5b27f; }
+.courseTable3 .gm a{ color:#fff; text-decoration:none;}
+
+/* v_show style 师资阵容图片横向滑动 */
+.v_show { position:relative; float:left; width:718px; border:1px solid #dedede; }
+.v_show .title { width:718px; height:27px; border-bottom:3px solid #eb6100; }
+.v_show .title h2 { float:left; width:595px; height:22px; padding-top:5px; padding-left:10px; text-align:left; line-height:22px; font-size:14px;}
+.v_show .title h2 b{ color:#eb6100; font-size:12px; font-weight:bolder;}
+.v_show .title .change_btn { float:left;  }
+.v_show .title .change_btn .prev { position:absolute; left:20px; top:75px;  width:22px; height:61px; background:url(../images/vpicLeft.jpg); z-index:998;  cursor:pointer;}
+.v_show .title .change_btn .next { position:absolute; left:675px; top:75px; width:22px; height:61px; background:url(../images/vpicRight.jpg); z-index:998; cursor:pointer;}
+.v_show .content { position:relative; width:600px; height:150px; margin:5px 59px 5px 59px;  overflow:hidden;  }
+.v_show .content_list { position:absolute; width:2500px;top:0px; left:0px; z-index:996;  }
+.v_show .content ul {float:left; }
+.v_show .content ul li { float:left; margin:10px 8px 0px 8px; background:url(images/v_bg.gif) no-repeat; }
+.v_show .content ul li a { display:block; width:96px;  padding:4px; overflow:hidden; }
+.v_show .content ul li a:hover{ padding:3px; border:1px solid #dedede; background:#f9f9f9; color:#eb6100; }
+.v_show .content ul li img { width:96px; height:96px; }
+.v_show .content ul li h4 { float:left; width:96px; height:18px; overflow:hidden; margin-top:12px; text-align:center; font-weight:normal; }
+
+/* 播放器  */
+.player{ float:left; width:718px; height:421px; }
+.player .main{ float:left; width:718px; height:380px; background:#222; color:#999; font-size:12px; text-align:center; line-height:380px; }
+
+.player .control{ position:relative; float:left; width:718px; height:40px; border-top:1px solid #dedede;  background:url(../images/player/player_control_bg01.png) no-repeat; }
+.player .control .stopBtn{ position:absolute; left:9px; top:-90px; width:70px; height:70px; background:url(../images/player/player_main_stopBtn.png) no-repeat; }
+.player .control .stopBtn:hover{ position:absolute; left:9px; top:-90px; width:70px; height:70px; background:url(../images/player/player_main_playBtn.png) no-repeat; }
+
+.player .control .playerline{ float:left; margin-left:9px; margin-top:5px; display:block; width:700px; height:10px; background:url(../images/player/player_control_playLine01.png) no-repeat; }
+.player .control .playerlineOver{ position:absolute; left:9px; top:5px; width:300px; height:10px; background:url(../images/player/player_control_playLine02.png) no-repeat; }
+.player .control .playerline_btn{ position:absolute; left:300px; top:0px; width:16px; height:16px; background:url(../images/player/player_control_btnPress01.png) 0px -1px no-repeat; }
+.player .control .playerline_btn:hover{ position:absolute; left:300px; top:0px; width:16px; height:16px; background:url(../images/player/player_control_btnPress02.png) 0px -1px no-repeat; cursor:pointer;  }
+
+.player .control .btn{ float:left; width:700px; height:20px; padding-left:9px; padding-top:2px; }
+.player .control .btn_play{ float:left; width:60px; height:20px; background:url(../images/player/player_control_playBtn01.png) no-repeat;}
+.player .control .btn_play:hover{ float:left; width:60px; height:20px; background:url(../images/player/player_control_playBtn02.png) no-repeat; cursor:pointer;}
+.player .control .btn_stop{ float:left; width:60px; height:20px; background:url(../images/player/player_control_stopBtn01.png) no-repeat;}
+.player .control .btn_stop:hover{ float:left; width:60px; height:20px; background:url(../images/player/player_control_stopBtn02.png) no-repeat; cursor:pointer;}
+.player .control .time{ float:left; width:200px; height:20px; padding-left:20px; line-height:20px; color:#666; font-size:12px; font-family:Arial, Helvetica, "宋体", "微软雅黑";}
+
+.player .control .volume{ position:relative; float:left; width:100px; height:20px; margin-left:280px; background:url(../images/player/player_control_volumeLine01.png) 30px -0px no-repeat;}
+.player .control .volumeOn{ display:block; width:20px; height:20px; background:url(../images/player/player_control_volumeOn.png) no-repeat; }
+.player .control .volumeOff{ display:block; width:20px; height:20px; background:url(../images/player/player_control_volumeOff.png) no-repeat; }
+.player .control .volumeLine{ position:absolute; left:32px; top:0px; width:54px; height:20px; background:url(../images/player/player_control_volumeLine02.png) no-repeat;}
+.player .control .volumeLine_btn{ position:absolute; display:block; left:40px; top:0px; width:20px; height:20px; background:url(../images/player/player_control_btnPress01.png) no-repeat;}
+.player .control .volumeLine_btn:hover{ position:absolute; display:block; left:40px; top:0px; width:20px; height:20px; background:url(../images/player/player_control_btnPress02.png) no-repeat;}
+
+.player .control .fullScreen{ float:left; display:block; width:20px; height:20px; margin-left:10px; background:url(../images/player/player_control_fullScreen.png) no-repeat;}
+.player .control .fullScreen a{ display:block; width:20px; height:20px;}
+
+/* 名师讲堂teacher主页banner切换 CSS  */
+.albumSlider-h { position:relative; width:718px; border:1px solid #ccc; background:#f0f0f0; margin:0 auto; }
+.albumSlider-h .fullview{ position:relative; width:718px; height:300px; }
+.albumSlider-h .fullview img { width:718px; height:300px; position:absolute; top:0; left:0; }
+.albumSlider-h .slider{ width:auto; height:76px;margin-top:10px; padding-left:20px;}
+.albumSlider-h .imglistwrap{ float:left; display:inline; height:69px;width:580px; overflow:hidden; position:relative;}
+.albumSlider-h .imglist{ position: relative; width:9000px;}
+.albumSlider-h li{ float:left; margin:0 10px;}
+.albumSlider-h li img{ width:120px;height:60px; }
+.albumSlider-h a{ width:120px;height:60px; display:block; outline:none; border:2px solid #ccc; }
+.albumSlider-h li a:hover,
+.albumSlider-h li.current a{ border:2px solid #eb6100; }
+.albumSlider-h .button { float:left; display:inline; height:60px;width:40px;margin:0 5px; }
+.albumSlider-h .movebackward { background:url(../images/teacher_banner_btn01.gif) no-repeat; cursor:pointer;}
+.albumSlider-h .moveforward { background:url(../images/teacher_banner_btn02.gif) no-repeat; cursor:pointer;}

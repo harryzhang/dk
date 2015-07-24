@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<title>成功</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="MobileOptimized" content="320" />
+<link href="../../../../app_res/css/elend/eLoan.css?v=1" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<header>
+		<h1 class="tong-tit">我的通知</h1>
+		<span class="tong-eve">编辑</span>
+	</header>
+	<section>
+		<article class="tong-list db_f new">
+			<div class="bf1">
+				<h4>您申请的E贷款120000元已放款成功，敬请查收。</h4>
+				<time>2015.07.05 11:00</time>
+				<p>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉
+				巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</p>
+			</div>
+			<div class="tong-sel">
+				<span></span>
+			</div>
+		</article>
+		<article class="tong-list db_f">
+			<div class="bf1">
+				<h4>您申请的E贷款120000元已放款成功，敬请查收。</h4>
+				<time>2015.07.05 11:00</time>
+				<p>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴</p>
+			</div>
+			<div class="tong-sel">
+				<span></span>
+			</div>
+		</article>
+	</section>
+	<footer>
+		<div class="tong-btn db_f bs">
+			<div class="bf1 p1"><span id="delete" style="border:1px solid #894c8d; background:#fff; color:#894c8d" class="apply">删除</span></div>
+			<div class="bf1 p1"><span id="cancel" class="apply">取消</span></div>
+		</div>
+	</footer>
+	<script src="../../../../app_res/js/libs/zepto.js"></script>
+	<script>
+	$(function(){
+		$(".tong-eve").bind('touchend', function(){
+			var that = $(this);
+			if(that.hasClass("all")){
+				$(".tong-sel span").addClass("checked");
+			} else {
+				$(".tong-sel").show();
+				that.addClass('all').text('全选');
+				$(".tong-btn").css("height",'auto');
+			}
+		});
+
+		$(".tong-sel span").live('touchend', function(){
+			var that = $(this);
+			if(that.hasClass("checked")){
+				that.removeClass("checked");
+			} else {
+				that.addClass("checked");
+			}
+		});
+
+		$("#cancel").bind('touchend', function(){
+			 window.history.go(-1);
+		});
+
+		$("#delete").bind('touchend', function(){
+			$(".checked").parent().parent().remove();
+		});
+	})
+	</script>
+</body>
+</html>

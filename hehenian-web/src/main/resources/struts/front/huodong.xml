@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<package name="huodong" extends="defaults" namespace="/">
+	<interceptors>
+		<interceptor name="frontUserSessionInterceptor" class="com.sp2p.system.interceptor.FrontUserSeesionInterceptor" />
+	</interceptors>
+
+	<action name="huodong"  class="activityAction" method="luckDrawIndex">
+	<result name="success">/WEB-INF/page/front/huodong.jsp</result>
+	</action>
+	<action name="luckdraw"  class="activityAction" method="luckDraw">
+	 <interceptor-ref name="frontUserSessionInterceptor"></interceptor-ref>
+			 <interceptor-ref name="defaultStack" />
+	</action>
+	<action name="sign"  class="activityAction" method="sign">
+	 <interceptor-ref name="frontUserSessionInterceptor"></interceptor-ref>
+			 <interceptor-ref name="defaultStack" />
+	</action>
+	<action name="my-activity-records"  class="activityAction" method="myActivityRecords">
+	 <interceptor-ref name="frontUserSessionInterceptor"></interceptor-ref>
+			 <interceptor-ref name="defaultStack" />
+			 <result>/WEB-INF/page/front/huodong-records.jsp</result>
+	</action>
+
+    <action name="sjm-draw"  class="activityAction" method="sjmDraw">
+
+    </action>
+    <action name="activity-userinfo"  class="activityAction" method="userInfo">
+
+    </action>
+
+    <action name="activity-recores"  class="activityAction" method="activityRecores">
+
+    </action>
+    <action name="my-activity-record-list"  class="activityAction" method="myActivityRecordList">
+
+    </action>
+
+    <action name="weixin-sjm" class="activityAction" method="sjmIndex">
+        <result type="chain">bindLogining</result>
+
+    </action>
+    <action name="bindLogining" class="newUserAction" method="bindLogining">
+        <result name="reg">/WEB-INF/page/weixin/bind-hhn.jsp</result>
+        <result type="redirect">/sjm/index.jsp</result>
+    </action>
+
+    <action name="sjm-reg" class="newUserAction" method="regInit">
+        <result>/WEB-INF/page/weixin/register.jsp</result>
+    </action>
+
+    <action name="sjm-register" class="newUserAction" method="register">
+        <result type="redirect">/sjm/index.jsp</result>
+        <result name="register">/WEB-INF/page/weixin/register.jsp</result>
+        <result name="input">/WEB-INF/page/weixin/register.jsp</result>
+    </action>
+
+    <action name="sjm-weixinAuth" class="activityAction" method="weixinAuth">
+        <result type="redirect">weixin-sjm.do?wxToken=${wenxinToken}</result>
+    </action>
+</package>
+</struts>

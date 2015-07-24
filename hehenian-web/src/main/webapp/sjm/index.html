@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0076)http://file.seeyouyima.com/game/mao/index.htm?from=timeline&isappinstalled=0 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>围住财神爷</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <style>
+        body {
+            text-align: center;
+            background: #000000;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            height: 100%;
+        }
+
+        html {
+            -ms-touch-action: none; /* Direct all pointer events to JavaScript code. */
+        }
+
+        .sbgshow {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            color: #fff;
+            font-size: 30px;
+            line-height: 1.7em;
+            background: rgba(0,0,0,0.85);
+        }
+
+            .sbgshow .arron {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                width: 100px;
+                height: 100px;
+                background: url(http://file.seeyouyima.com/game/mao/resource/assets/arron.png) no-repeat;
+                background-size: 100px 100px;
+            }
+
+            .sbgshow p {
+                padding-top: 78px;
+            }
+
+        .sbg {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            color: #fff;
+            font-size: 26px;
+            line-height: 1.7em;
+            background: rgba(0,0,0,0.85);
+        }
+
+            .sbg .arron {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                width: 100px;
+                height: 100px;
+                background: url(http://file.seeyouyima.com/game/mao/resource/assets/arron.png) no-repeat;
+                background-size: 100px 100px;
+            }
+
+            .sbg p {
+                padding-top: 78px;
+            }
+
+        #download {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 45px;
+            font-size: 20px;
+            color: white;
+            background: rgba(0,0,0,0.5);
+            overflow: hidden;
+            zoom: 1;
+            z-index: 9999;
+        }
+
+		#RunTopic {
+			text-align:center;
+			display: block;
+		}
+
+		#RunTopic span {
+			display: block;
+			text-align:center;
+		}
+
+        #download button {
+            -webkit-appearance: none;
+            border: none;
+            background: #da095c;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -o-border-radius: 5px;
+            border-radius: 5px;
+            height: 35px;
+            width: 110px;
+            text-align: center;
+            line-height: 35px;
+            color: white;
+            font-size: 16px;
+            float: right;
+            margin-right: 2.5%;
+            margin-top: 10px;
+        }
+
+        a{
+            -webkit-touch-callout: none;
+            -webkit-appearance: none;
+            display: block;
+            color: #6c6155;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body style="padding: 0px; border: 0px; margin: 0px;">
+  <!--
+    <a id="download">
+		<span id="RunTopic">
+			<span>1.我是写就看见看见</span>
+			<span>2.健康就是看到就发生地方</span>
+			<span>3.每日赚赚钱神器</span>
+		</span>
+    </a>
+-->
+    <div style="display: inline-block; width: 100%; height: 100%; margin: 0 auto; background: black; position: relative;" id="gameDiv">
+        <canvas id="gameCanvas" width="480" height="800" style="width: 480px; height: 800px; background-color: rgb(0, 0, 0);"></canvas>
+    </div>
+    <div id="sbg" class="sbg">
+        <div class="arron"></div>
+        <p id="msg">
+            请点击右上角<br>
+            点击【分享到朋友圈】<br>
+        </p>
+    </div>
+	
+    <script>        
+		var document_class = "GameApp";
+		function GetRequest() {
+			var url = location.search; //获取url中"?"符后的字串
+			var theRequest = new Object();
+			if (url.indexOf("?") != -1) {
+				var str = url.substr(1);
+				strs = str.split("&");
+				for(var i = 0; i < strs.length; i ++) {
+				 theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+				}
+			}
+			return theRequest;
+		}
+	</script><!--这部分内容在编译时会被替换，要修改文档类，请到工程目录下的egretProperties.json内编辑。-->
+
+ <script language="javascript" type="text/javascript" src="static/js/resource_loader.js?ver=255"></script>
+<script src="static/js/egret_loader.js"></script>
+<script src="static/js/game-min-0722.js?233"></script>
+<script>
+    var mebtnopenurl = '';
+    window.shareData = {
+        "imgUrl": "static/images/shenjingcat.png",
+        "timeLineLink": "http://mrz.isaonian.com/shenjingmao/mao.htm",
+        "tTitle": "围住财神爷-根本停不下来，玩过之后我整个人都精神了！",
+        "tContent": "在9×9范围内的格子中，使用色块围住白色财神爷。"
+    };
+
+	function test()
+	{
+		$j("#RunTopic").find("span:first").appendTo($j("#RunTopic"));
+		setTimeout("test()", 1000);
+	}
+    function showme() {
+        window.location.href = "http://mp.weixin.qq.com/s?__biz=MjM5NjExNzA0MQ==&mid=200076719&idx=1&sn=304ac9484d57a90945ba494884e2c2e1#rd";
+    }
+    function dp_share(n, m) { //通知好友会调用这个方法
+        if (m == 0) {
+            document.title = window.shareData.tContent = "围住财神爷-根本停不下来，玩过之后我整个人都精神了！"
+        }
+        if (m == 1) {
+            document.title = window.shareData.tContent = "我用了" + n + "步围住了财神爷！！！击败" + (100 - n) + "%的人，财神爷给你发奖励：2元"
+        }
+        if (m == 2) {
+            document.title = window.shareData.tContent = "你没有围住财神爷！！！"
+        }
+        document.getElementById("sbg").className = "sbgshow";
+        window.setTimeout(hiddenMe, 5000);
+    }
+
+    function hiddenMe() {
+        document.getElementById("sbg").className = "sbg";
+    }
+    egret_h5.startGame();
+    $j(document).ready(function () {
+        if (/Android|Windows Phone|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+            //
+        } else {
+            $j(".aliForPc").show();
+        }
+    });
+</script>
+
+
+</body></html>

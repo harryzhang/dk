@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="query_example" extends="admin-default" namespace="/admin">
+		<action name="queryExample" class="queryExamplelAction" method="getData">
+			<result name="success">/WEB-INF/jsp/system/account_total_money_detail.jsp</result>
+		</action>
+		
+		<action name="exportAccountMsg" class="queryExamplelAction" method="exportAccountMsg">
+			<result name="success">/WEB-INF/jsp/system/account_total_money_detail.jsp</result>
+		</action>
+		
+		<action name="kpiList" class="queryExamplelAction" method="getKPI">
+			<result name="success">/WEB-INF/jsp/system/kpi_detail.jsp</result>
+		</action>
+		
+		<action name="kpiBb" class="queryExamplelAction" method="kpiContinueStatus">
+			<result name="success">/WEB-INF/jsp/system/kpiBb_detail.jsp</result>
+		</action>
+		
+		<action name="exportKpiList" class="queryExamplelAction" method="exportKpiList">
+			<result name="success">/WEB-INF/jsp/system/kpi_detail.jsp</result>
+		</action>
+		
+		<action name="exportKpi" class="queryExamplelAction" method="exportKpiData">
+			<result name="success">/WEB-INF/jsp/system/kpiBb_detail.jsp</result>
+		</action>
+	</package>
+</struts>

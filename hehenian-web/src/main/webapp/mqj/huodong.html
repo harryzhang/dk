@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>活动</title>
+<style type="text/css">
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+</style>
+</head>
+
+<body>
+
+<div style=" width:1046px; height:788px; background:url(mail.jpg); padding-top:450px;">
+<div style="width:100%; padding-left:30px;"><span id="djs" style=" font-size:22px; font-weight:bold; color:#bc5043"></span>
+<script type="text/javascript">
+function show_djs(){
+var djs = document.getElementById("djs");
+var e_Day = new Date("9 May 2014"); //也可以是: 月/日/年
+var e_Msg = "活动开始";
+var today = new Date();
+var a = (e_Day.getMonth()+1);
+if(a<10){a="0"+a};
+var a1 = e_Day.getDate();
+if(a1<10){a1="0"+a1};
+var b = (today.getMonth()+1);
+if(b<10){b="0"+b};
+var b1 = today.getDate();
+if(b1<10){b1="0"+b1};
+var c = e_Day.getYear()+""+a+""+a1;
+var d = today.getYear()+""+b+""+b1;
+if(c<d){djs.innerHTML="活动已经开始";return false;}
+else if(c==d){djs.innerHTML="今天是"+e_Msg;return false;}
+var timeold = (e_Day.getTime() - today.getTime());
+var secondsold = Math.floor(timeold/1000);
+var e_daysold = timeold/(24*60*60*1000);
+var daysold = Math.floor(e_daysold);
+var e_hrsold = (e_daysold - daysold) * 24;
+var hrsold = Math.floor(e_hrsold);
+var e_minsold = (e_hrsold - hrsold) * 60;
+var minsold = Math.floor((e_hrsold - hrsold) * 60);
+var seconds = Math.floor((e_minsold - minsold) * 60);
+var mm = Math.floor((timeold % 1000)/100);
+djs.innerHTML = "距" + e_Msg + "还有" + daysold + "天" + hrsold + "小时" + minsold + "分" + seconds + "." + mm + "秒";
+setTimeout("show_djs()",100);
+}
+show_djs();
+</script>
+</div>
+<div style="width:100%; padding-top:20px; padding-left:30px;"><a href="http://hehenian.com/huodong.jsp" target="_blank"><img src="yy.jpg"  border="0"/></a></div>
+</div>
+
+
+
+</body>
+</html>

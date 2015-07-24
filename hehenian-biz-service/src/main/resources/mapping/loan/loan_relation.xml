@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanRelationDao">
+<select id="getRelationByIds" parameterType="string" resultType="loanRelationDo">
+		SELECT
+		* FROM t_loan_relation
+		WHERE loanId = #{loanId}
+		ORDER BY createTime DESC
+		LIMIT
+		1;
+	</select>
+
+	<insert id="addLoanRelation" parameterType="loanRelationDo"
+		keyProperty="ralationId" useGeneratedKeys="true">
+		INSERT INTO
+			t_loan_relation( loanId,loanPersonId,ralationName,relationship,mobile,relationType,createTime,updateTime)
+		VALUES (#{loanId}, #{loanPersonId}, #{ralationName}, #{relationship},
+			#{mobile},#{relationType},NOW(),NOW());
+	</insert>
+
+	<update id="updateLoanRelation" parameterType="loanRelationDo">
+		UPDATE t_loan_relation
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="loanId != null">
+				loanId = #{loanId},
+			</if>
+			<if test="loanPersonId != null">
+				loanPersonId = #{loanPersonId},
+			</if>
+			<if test="ralationName != null">
+				ralationName = #{ralationName},
+			</if>
+			<if test="relationship != null">
+				relationship = #{relationship},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="relationType!=null">
+			    relationType=#{relationType},
+			 </if>
+			updateTime = NOW(),
+		</trim>
+		WHERE ralationId = #{ralationId};
+	</update>
+	
+	<delete id="deleteByLoanId" parameterType="Long">
+		delete from t_loan_relation where loanId = #{loanId}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.component.repayment.dao.ILoanCheckResultDao">
+	<resultMap type="loanCheckResultDo" id="loanCheckResultResultMap">
+		<result property="loanId" column="loan_id" />
+		<result property="id" column="id" />
+		<result property="itemCheckId" column="item_check_id" />
+		<result property="status" column="status" />
+		<result property="checkResult" column="check_result" />
+		<result property="createTime" column="createTime" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="loanCheckResultResultMap">
+		SELECT * 
+		  FROM t_loan_check_result WHERE id = #{id}
+	</select>
+
+	<select id="selectLoanCheckResult" parameterType="Map" resultMap="loanCheckResultResultMap">
+		SELECT * 
+		  FROM t_loan_check_result
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="loanId != null">  
+				AND loan_id like #{loanId}
+			</if>
+			<if test="id != null">  
+				AND id like #{id}
+			</if>
+			<if test="itemCheckId != null">  
+				AND item_check_id like #{itemCheckId}
+			</if>
+			<if test="status != null">  
+				AND status like #{status}
+			</if>
+			<if test="checkResult != null">  
+				AND check_result like #{checkResult}
+			</if>
+			<if test="createTime != null">  
+				AND createTime like #{createTime}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateLoanCheckResultById" parameterType="loanCheckResultDo">
+		UPDATE t_loan_check_result 
+		   SET 		<if test="loanId != null">  
+				loan_id = #{loanId}
+		</if>		
+		<if test="itemCheckId != null">  
+				,item_check_id = #{itemCheckId}
+		</if>		
+		<if test="status != null">  
+				,status = #{status}
+		</if>		
+		<if test="checkResult != null">  
+				,check_result = #{checkResult}
+		</if>		
+		<if test="createTime != null">  
+				,createTime = #{createTime}
+		</if>		
+
+		WHERE id = #{id} and version =  #{version}
+	</update>	
+	
+	<insert id="addLoanCheckResult" parameterType="loanCheckResultDo" keyProperty="id"
+		useGeneratedKeys="true" >
+		INSERT INTO t_loan_check_result(		loan_id
+		,item_check_id
+		,status
+		,check_result
+		,createTime
+)
+		     VALUES (		#{loanId}
+		,#{itemCheckId}
+		,#{status}
+		,#{checkResult}
+		,#{createTime}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM t_loan_check_result WHERE id = #{id}
+	</delete>
+	
+</mapper>
+

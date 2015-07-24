@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="paramMap['amount']">
+	    <field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写投资金额</message>
+		</field-validator>
+		<field-validator type="double">
+		    <param name="minInclusive">0.01</param>
+			<message>无效投标金额,请投入至少${minInclusive}元</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">30</param>
+			<message>投标金额长度不得大于${maxLength}个字符</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="regex">
+				<![CDATA[
+					^(([1-9][0-9]*([.][0-9]{1,2})?)|(0[.][0-9]{1,2})|(0))$
+				]]>
+			</param>
+			<message>投标金额格式不正确</message>
+		</field-validator>
+	</field>
+</validators>

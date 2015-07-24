@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="mypayment" extends="login-default" namespace="/">
+	    
+		<!-- 充值提现 -->
+		<action name="mypaymentInit" class="frontpayAction" method="mypaymentInit">
+			<result name="success" >/WEB-INF/page/front/payment-index.jsp</result>
+		</action>
+		
+		
+		
+		<action name="queryMySuccessBorrowList" class="frontpayAction" method="queryMySuccessBorrowList">
+			<result name="success" >/WEB-INF/page/front/borrow-success-index.jsp</result>
+		</action>
+		<!-- 导出成功借款，正在还款的借款 excle -->
+	    <action name="exportSuccessBorrow" class="frontpayAction" method="exportSuccessBorrow">
+			
+		</action>
+		
+		<!-- 导出还款明细账excle -->
+	    <action name="exportrepayment" class="frontpayAction" method="exportrepayment">
+			
+		</action>
+		
+	
+		
+		<action name="queryMyPayingBorrowList" class="frontpayAction" method="queryMyPayingBorrowList">
+			<result name="success" >/WEB-INF/page/front/borrow-success-paying-index.jsp</result>
+		</action>
+		
+		<action name="queryPayingDetails" class="frontpayAction" method="queryPayingDetails">
+			<result name="success" >/WEB-INF/page/front/borrow-success-paying-detail.jsp</result>
+		</action>
+		
+		
+		<action name="queryAllDetails" class="frontpayAction" method="queryAllDetails">
+			<result name="success" >/WEB-INF/page/front/borrow-success-all-details-index.jsp</result>
+		</action>
+		
+		<action name="queryBorrowInvestorInfo" class="frontpayAction" method="queryBorrowInvestorInfo">
+			<result name="success" >/WEB-INF/page/front/borrow-invest-index.jsp</result>
+		</action>
+				
+		<action name="queryPayoffList" class="frontpayAction" method="queryMyPayoffBorrowList">
+			<result name="success" >/WEB-INF/page/front/borrow-payoff-index.jsp</result>
+		</action>
+		
+		<action name="queryMyPayData" class="frontpayAction" method="queryMyPayData">
+			<result name="success" >/WEB-INF/page/front/borrow-pay-index-hhn.jsp</result>
+		</action>
+		
+		<action name="submitPay" class="frontpayAction" method="submitPay">
+		</action>
+		
+		<action name="doNormalRepayTest" class="FrontSubmpayAction" method="doNormalRepayTest">
+		  <result name="success" >/WEB-INF/page/front/MyJsp.jsp</result>
+		</action>
+		
+	</package>
+</struts>

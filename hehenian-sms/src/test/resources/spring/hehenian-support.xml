@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.hehenian.biz.common" />
+	<context:component-scan base-package="com.hehenian.biz.service" />
+	<context:component-scan base-package="com.hehenian.biz.component" />
+	<context:component-scan base-package="com.hehenian.biz.facade" />
+
+	<!-- ================The data source configuration start =========================== -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:mysql://${db.host}:3306/${db.dbname}?characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;noAccessToProcedureBodies=true" />
+		<property name="user" value="${db.user}" />
+		<property name="password" value="${db.pwd}" />
+		<property name="initialPoolSize" value="1" />
+		<property name="maxPoolSize" value="50" />
+		<property name="minPoolSize" value="1" />
+		<property name="acquireIncrement" value="3" />
+		<property name="idleConnectionTestPeriod" value="180" />
+		<property name="maxIdleTime" value="180" />
+		<property name="autoCommitOnClose" value="false" />
+		<property name="preferredTestQuery" value="select 1" />
+		<property name="testConnectionOnCheckout" value="false" />
+		<property name="testConnectionOnCheckin" value="true" />
+		<property name="acquireRetryAttempts" value="30" />
+		<property name="acquireRetryDelay" value="1000" />
+		<property name="breakAfterAcquireFailure" value="false" />
+		<property name="checkoutTimeout" value="30000" />
+		<property name="automaticTestTable" value="test_c3p0" />
+		<property name="maxStatements" value="0" />
+		<property name="maxStatementsPerConnection" value="0" />
+		<property name="numHelperThreads" value="3" />
+		<property name="propertyCycle" value="300" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mapping/configuration.xml"></property>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- ================The data source configuration end ============================== -->
+
+
+	<!-- =======================The email configuration start ================================= -->
+	<bean id="freeMarkerConfigurer"
+		class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactory">
+		<property name="templateLoaderPath" value="classpath:template;classpath:notifytemplate" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">1800</prop><!-- Refresh template cycle in seconds -->
+				<prop key="default_encoding">UTF-8</prop><!-- Template coding -->
+				<prop key="locale">zh_CN</prop><!-- Localization settings -->
+			</props>
+		</property>
+	</bean>
+
+	<!-- Task execution framework to asynchronously send a message -->
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="5" />
+		<property name="maxPoolSize" value="10" />
+		<property name="WaitForTasksToCompleteOnShutdown" value="true" />
+	</bean>
+	
+	<!-- Mail services-related settings -->
+	<bean id="mailNotifyService"
+		class="com.hehenian.biz.service.notify.impl.MailNotifyServiceImpl">
+		<property name="mailSender">
+			<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
+				<property name="host" value="${email.host}" />
+				<property name="port" value="25" />
+				<property name="username" value="${email.user}" />
+				<property name="password" value="${email.pwd}" />
+				<property name="javaMailProperties">
+					<props>
+						<prop key="mail.smtp.auth">true</prop>
+						<prop key="mail.smtp.timeout">25000</prop>
+						<!-- <prop key="mail.smtp.starttls.enable">true</prop> -->
+					</props>
+				</property>
+			</bean>
+		</property>
+		<property name="freeMarkerConfigurer" ref="freeMarkerConfigurer" />
+		<property name="taskExecutor" ref="taskExecutor"></property>
+	</bean>
+
+	<!-- =======================The email configuration end =================================== -->
+
+
+	<!-- ================= Declarative transaction configuration start ======================= -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:advice id="methodAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="merge*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="put*" propagation="REQUIRED" />
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="count*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="query*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="list*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="interceptorPointCuts"
+			expression="execution(* com.hehenian.biz.component..*.*(..))" />
+		<aop:advisor advice-ref="methodAdvice" pointcut-ref="interceptorPointCuts" />
+	</aop:config>
+	<!-- ================= Declarative transaction configuration end ======================= -->
+
+	<!-- ================= Log Service configuration ======================= -->
+	<!-- 
+	<aop:config>
+		<aop:aspect ref="logService">
+			<aop:pointcut id="logServicePointcuts"
+				expression="execution(* com.hehenian.biz.service..*.*(..))" />
+			<aop:around pointcut-ref="logServicePointcuts" method="around" />
+		</aop:aspect>
+	</aop:config>
+	 -->
+	<!-- ================= Resource file configuration start ============================== -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>resourcebundle/message</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- ================= properties file configuration start ============================== -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>file:${catalina.home}/conf/hehenian.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+	
+	<!-- 
+
+	<bean id="chinaPnrConfig" class="com.hehenian.biz.facade.account.chinapnr.ChinaPnrConfig">
+		<property name="version" value="${chinapnr.version}" />
+		<property name="gateway" value="${chinapnr.gateway}" />
+		<property name="merCustId" value="${chinapnr.merCustId}" />
+		<property name="merId" value="${chinapnr.merId}" />
+		<property name="retHost" value="${chinapnr.hhnHost}" />
+		<property name="retUrl" value="${chinapnr.retUrl}" />
+		<property name="bgRetUrl" value="${chinapnr.bgRetUrl}" />
+		<property name="merKeyFile" value="${chinapnr.merKeyFile}" />
+		<property name="feeAccount" value="${chinapnr.feeAccount}" />
+		<property name="consFeeAccount" value="${chinapnr.consFeeAccount}" />
+		<property name="compAccount" value="${chinapnr.compAccount}" />
+		<property name="compCustId" value="${chinapnr.compCustId}" />
+		<property name="coloAccount" value="${chinapnr.coloAccount}" />
+		<property name="consFeeCustId" value="${chinapnr.consFeeCustId}" />
+		<property name="feeCustId" value="${chinapnr.feeCustId}" />
+		<property name="fxAccount" value="${chinapnr.fxAccount}" />
+	</bean>
+
+   -->
+ 
+ <!-- 
+	<bean id="activityConfig"
+		class="com.hehenian.biz.common.activity.dataobject.ActivityConfig">
+		<property name="colorServiceURL" value="${activity.colorServiceURL}" />
+		<property name="hehenianServiceURL" value="${activity.hehenianServiceURL}" />
+		
+		<property name="orderSuccessURL" value="${activity.orderSuccessURL}" />
+		<property name="paySyntonyURL" value="${activity.paySyntonyURL}" />
+		<property name="colorSignSecret" value="${activity.colorlife.secret}" />
+		<property name="colorKey" value="${activity.colorlife.key}" />
+		<property name="hehenianKey" value="${activity.hehenian.key}" />
+	</bean>
+	
+	 
+	<bean id="exportConfig" class="com.hehenian.biz.common.excel.util.DirConfig">
+		<property name="publishTemplateFile" value="${template.publish.fileName}" />
+		<property name="publishExportDir" value="${export.publish.filePath}" />
+		<property name="repayTemplateFile" value="${template.repay.fileName}" />
+		<property name="repayExportDir" value="${export.repay.filePath}" />
+	</bean>
+
+-->
+
+</beans>

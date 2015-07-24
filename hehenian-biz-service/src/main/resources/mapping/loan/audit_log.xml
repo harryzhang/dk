@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.IAuditLogDao">
+
+	<select id="getAuditLogById" parameterType="Long" resultType="auditLogDo">
+		SELECT
+		* FROM t_audit_log
+		WHERE auditId = #{auditId}
+	</select>
+
+
+	<insert id="addAuditLog" parameterType="loanDo" keyProperty="auidtId"
+		useGeneratedKeys="true">
+		INSERT INTO
+		t_audit_log
+		(auidtId,loanId ,auditUser,auditUserId,auditTime,preStatus,afterStatus,reason,remark)
+		VALUES (#{auidtId},#{loanId}, #{auditUser}
+		,#{auditUserId},NOW(),#{preStatus},
+		#{afterStatus},
+		#{reason},
+		#{remark});
+	</insert>
+
+   <select id="queryAuditLogByLoanId" parameterType="Long" resultType="auditLogDo">
+      select * from t_audit_log 
+      where loanId=#{loanId}
+   </select>
+   
+   <select id="getOneAuditLogByLoanId" parameterType="Long" resultType="auditLogDo">
+       select * from t_audit_log 
+       where loanId=#{loanId}
+       order by auditTime desc limit 1
+   </select>
+</mapper>

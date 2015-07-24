@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.component.notify.sms.dao.INotifyLoanDao">
+
+	<select id="selectNotify" parameterType="loanNotifyDo" resultType="loanNotifyDo">
+		SELECT
+		    message_id as messageId,  message, sender, recievers, subject, send_flag as sendFlag,
+		    message_type as messageType, is_validate  as validate, create_time as createTime, 
+		    update_time as updateTime, business_type as businessType
+		FROM
+		    t_notify
+		WHERE
+			message_type = 'LOANNOTICE' AND is_validate = 'T' 
+		<if test="messageId != null">
+			AND message_id like #{messageId}
+		</if>
+		<if test="message != null">
+			AND message like #{message}
+		</if>
+		<if test="sender != null">
+			AND sender like #{sender}
+		</if>
+		<if test="recievers != null">
+			AND recievers like #{recievers}
+		</if>
+		<if test="subject != null">
+			AND subject like #{subject}
+		</if>
+		<if test="sendFlag != null">
+			AND send_flag like #{sendFlag}
+		</if>
+		<if test="businessType != null">
+			AND business_type like #{businessType}
+		</if>
+		ORDER BY  update_time DESC
+	</select>
+
+	<insert id="addMessage" parameterType="loanNotifyDo" keyProperty="messageId" useGeneratedKeys="true">
+		INSERT INTO
+		t_notify(message, sender, recievers, subject, send_flag,message_type, is_validate,business_type,create_time,update_time)
+		VALUES(#{message},#{sender},#{recievers},#{subject},#{sendFlag},'LOANNOTICE','T',#{businessType},NOW(),NOW());
+	</insert>
+
+	<update id="updateMessage" parameterType="loanNotifyDo">
+		UPDATE t_notify
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="message != null">
+				 message = #{message},
+			</if>
+			<if test="sender != null">
+				 sender = #{sender},
+			</if>
+			<if test="recievers != null">
+				 recievers = #{recievers},
+			</if>
+			<if test="subject != null">
+				 subject = #{subject},
+			</if>
+			<if test="sendFlag != null">
+				 send_flag = #{sendFlag},
+			</if>
+			<if test="businessType != null">
+				 business_type = #{businessType},
+			</if>
+			<if test="validate != null">
+				 is_validate = #{validate},
+			</if>
+			update_time = NOW(),
+		</trim>
+		WHERE message_type = 'LOANNOTICE' AND message_id = #{messageId};
+	</update>
+
+</mapper>

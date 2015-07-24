@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.trade.IParameterLogDao">
+
+    <select id="queryParameterLogs" parameterType="map" resultType="parameterLogDo">
+        SELECT * FROM t_parameter_log
+        <where>
+            <if test="tradeType != null">
+                WHERE tradeType = #{tradeType}
+            </if>
+            <if test="ordId != null">
+                WHERE ordId = #{ordId}
+            </if>
+            <if test="beginOrdDate != null">
+                WHERE ordDate = #{beginOrdDate}
+            </if>
+            <if test="endOrdDate != null">
+                WHERE ordDate = #{endOrdDate}
+            </if>
+            <if test="trxId != null">
+                WHERE trxId = #{trxId}
+            </if>
+            <if test="parameterType != null">
+                WHERE parameterType = #{parameterType}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addParameterLog" parameterType="parameterLogDo">
+        INSERT INTO t_parameter_log
+            (parameterLogId, tradeType, ordId, ordDate, trxId, other, parameterType, createTime)
+        VALUES (#{parameterLogId}, #{tradeType}, #{ordId}, #{ordDate}, #{trxId}, #{other}, #{parameterType}, NOW());
+    </insert>
+
+</mapper>

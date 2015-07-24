@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.loan.ILoanCheckedDao">
+	<resultMap type="loanCheckedDo" id="loanCheckedResultMap">
+		<result property="id" column="id" />
+		<result property="loanId" column="loanId" />
+		<result property="opinion" column="opinion" />
+		<result property="loanAmount" column="loanAmount" />
+		<result property="checkResult" column="checkResult" />
+		<result property="checkUser" column="checkUser" />
+		<result property="checkDate" column="checkDate" />
+		<result property="checkType" column="checkType" />
+	</resultMap>
+	
+	
+	<!-- liminglong0529  -->
+	<select id="getByLoanIdAndChecked" parameterType="map" resultMap="loanCheckedResultMap">
+		SELECT * 
+		  FROM t_loan_checked WHERE 1 = 1
+		  <if test="loanId != null">
+		   		and loanId = #{loanId}
+		  </if>
+		  <if test="checkType != null">
+		  		and checkType = #{checkType}
+		  </if>
+	</select>
+	
+	<select id="getById" parameterType="Long" resultMap="loanCheckedResultMap">
+		SELECT * 
+		  FROM t_loan_checked WHERE id = #{id}
+	</select>
+
+	<select id="selectLoanChecked" parameterType="Map" resultMap="loanCheckedResultMap">
+		SELECT * 
+		  FROM t_loan_checked
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="id != null">  
+				AND id like #{id}
+			</if>
+			<if test="loanId != null">  
+				AND loanId like #{loanId}
+			</if>
+			<if test="opinion != null">  
+				AND opinion like #{opinion}
+			</if>
+			<if test="loanAmount != null">  
+				AND loanAmount like #{loanAmount}
+			</if>
+			<if test="checkResult != null">  
+				AND checkResult like #{checkResult}
+			</if>
+			<if test="checkUser != null">  
+				AND checkUser like #{checkUser}
+			</if>
+			<if test="checkDate != null">  
+				AND checkDate like #{checkDate}
+			</if>
+			<if test="checkType != null">  
+				AND checkType like #{checkType}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<update id="updateLoanCheckedById" parameterType="loanCheckedDo">
+		UPDATE t_loan_checked 
+		   SET 		<if test="loanId != null">  
+				loanId = #{loanId}
+		</if>		
+		<if test="opinion != null">  
+				,opinion = #{opinion}
+		</if>		
+		<if test="loanAmount != null">  
+				,loanAmount = #{loanAmount}
+		</if>		
+		<if test="checkResult != null">  
+				,checkResult = #{checkResult}
+		</if>		
+		<if test="checkUser != null">  
+				,checkUser = #{checkUser}
+		</if>		
+		<if test="checkDate != null">  
+				,checkDate = #{checkDate}
+		</if>		
+		<if test="checkType != null">  
+				,checkType = #{checkType}
+		</if>		
+
+		WHERE id = #{id} 
+	</update>	
+	
+	<insert id="addLoanChecked" parameterType="loanCheckedDo" keyProperty="id"
+		useGeneratedKeys="true" >
+		INSERT INTO t_loan_checked(		loanId
+		,opinion
+		,loanAmount
+		,checkResult
+		,checkUser
+		,checkDate
+		,checkType
+)
+		     VALUES (		#{loanId}
+		,#{opinion}
+		,#{loanAmount}
+		,#{checkResult}
+		,#{checkUser}
+		,#{checkDate}
+		,#{checkType}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM t_loan_checked WHERE id = #{id}
+	</delete>
+	
+</mapper>
+

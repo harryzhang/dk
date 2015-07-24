@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<package name="cellphonexml" extends="injectionInterceptor-0" namespace="/">
+            <!-- 用户点击跳转到手机注册页面 -->
+			<action name="cellPhoneinit" class="cellPhoneAction"
+			method="cellPhoneinit">
+			<result>
+				/WEB-INF/page/front/phone-reg-index.jsp
+			</result>
+		</action>
+		<action name="cellPhonereginit" class="cellPhoneAction"
+			method="cellPhonereginit">
+			<result>
+				/WEB-INF/page/front/phone-reg-info.jsp
+			</result>
+		</action>
+		<action name="cellPhoneregsinit" class="cellPhoneAction"
+			method="cellPhoneregsinit">
+		</action>
+				<action name="cellreginfo" class="cellPhoneAction"
+			method="cellreginfo">
+		</action>
+		<!-- 手机忘记密码 -->
+		<action name="cellphoneforgetinit" class="cellPhoneAction" method="cellphoneforgetinit">
+			<result>
+				/WEB-INF/page/front/phone-fogetpassword-info.jsp
+			</result>
+		</action>
+		<action name="cellphoneforgetinfo" class="cellPhoneAction" method="cellphoneforgetinfo">
+		</action>
+		
+		
+		<!-- 发送手机短信 -->
+		<action name="sendSMS" class="userAction" method="SendSMS">
+		</action>
+			<!-- 清空session中的短信验证码 -->
+		<action name="removecellCode" class="userAction" method="removeSessionCode">
+		</action>
+		
+</package>
+</struts>

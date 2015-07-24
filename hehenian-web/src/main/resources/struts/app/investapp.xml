@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="investapp" extends="app-default" namespace="/app">
+		<action name="queryInvestList" class="investAppAction" method="queryInvestList">
+		</action>
+		
+		<action name="queryBorrowDetail" class="investAppAction" method="queryBorrowDetail">
+		</action>
+		
+		<action name="focusOnBorrow" class="investAppAction" method="focusOnBorrow">
+		</action>
+		
+		<action name="focusOnUser" class="investAppAction" method="focusOnUser">
+		</action>
+		
+		<action name="addInvest" class="investAppAction" method="addInvest">
+		</action>
+		
+		<action name="queryBorrowerInfo" class="investAppAction" method="queryBorrowerInfo">
+		</action>
+		
+		<action name="queryBorrowAuthList" class="investAppAction" method="queryBorrowAuthList">
+		</action>
+		
+		<action name="queryRepayRecord" class="investAppAction" method="queryRepayRecord">
+		</action>
+		
+		<action name="queryInvestRecord" class="investAppAction" method="queryInvestRecord">
+		</action>
+		
+		<action name="queryBorrowInfo" class="investAppAction" method="queryBorrowInfo">
+		</action>
+		
+	</package>
+</struts>

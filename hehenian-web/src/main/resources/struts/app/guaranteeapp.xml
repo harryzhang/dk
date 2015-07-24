@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+     <package name="guarantapp" extends="app-default" namespace="/app">
+        <action name="guaranteeaindex" class="guaranteeAppAction" method="guaranteeaindexMethod">
+		</action>
+		
+		 <action name="userMeg" class="guaranteeAppAction" method="userMegMethod">
+		</action>
+		<!-- 查看用户的信用详情 -->
+		<action name="userCridit" class="guaranteeAppAction" method="userCriditMethod">
+		</action>
+		<!-- 合和年在线认证 -->
+		<action name="userrrjc" class="guaranteeAppAction" method="userRenRenMethod">
+		</action>
+		<!-- 合和年在线用户的好友列表 -->
+		<action name="userFrends" class="guaranteeAppAction" method="queryUserFriendList">
+		</action>
+		
+	    <!-- 合和年在线用户的好友列表 -->
+		<action name="deleteuserFrend" class="guaranteeAppAction" method="deleteUserFriend">
+		</action>
+		<!-- 显示用户的借款列表 -->
+		<action name="myBorrowList" class="guaranteeAppAction" method="queryUserBorrowLists">
+		</action>
+		<!-- 显示个人的投资记录 -->
+		<action name="queryBorrowRecode" class="guaranteeAppAction" method="queryMyborrowRecorde">
+		</action>
+		<!-- 查询用户的动态记录 -->
+		<action name="queryUserRecoreIndex" class="guaranteeAppAction" method="queryUserRecore">
+		</action>
+		<!-- 查询用户好友的动态记录 -->
+		<action name="queryfrendrecoredIndex" class="guaranteeAppAction" method="queryfrendsRecore">
+		</action>
+		
+     </package>
+     
+</struts>

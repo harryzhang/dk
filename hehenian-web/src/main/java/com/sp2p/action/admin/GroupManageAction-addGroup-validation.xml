@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="paramMap.groupName">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>用户组名称不能为空</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">2</param>
+			<message>用户组名称长度不得小于${minLength}个字符</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">50</param>
+			<message>用户组名称长度不得大于${maxLength}个字符</message>
+		</field-validator>
+	</field>
+	
+</validators>

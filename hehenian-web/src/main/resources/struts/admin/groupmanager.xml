@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="groupManage" extends="admin-default" namespace="/admin">
+		
+		<action name="queryGroupInit" class="groupManageAction" method="queryGroupInit">
+			<result name="success">/WEB-INF/page/admin/groupuser_index.jsp</result>
+        </action>
+      
+        <action name="queryGroupInfo" class="groupManageAction" method="queryGroupInfo">
+			<result name="success">/WEB-INF/page/admin/groupuser_index_info.jsp</result>
+        </action>
+        
+        <action name="deleteGroup" class="groupManageAction" method="deleteGroup">
+			<result name="success">/WEB-INF/page/admin/groupuser_index.jsp</result>
+        </action>
+        
+        <!-- add by houli 更新用户组信息 -->
+        <action name="modifyGroupInit" class="groupManageAction" method="modifyGroupInit">
+			<result name="success">/WEB-INF/page/admin/groupuser_modify.jsp</result>
+        </action>
+        
+        <action name="modifyGroup" class="groupManageAction" method="modifyGroup">
+			<result name="success" type="redirect">queryGroupInit.do</result>
+			<result name="input">/WEB-INF/page/admin/groupuser_modify.jsp</result>
+        </action>
+        
+        <!-- end -->
+        
+        <action name="addGroupInit" class="groupManageAction" method="addGroupInit">
+			<result name="success">/WEB-INF/page/admin/groupuser_add.jsp</result>
+        </action>
+        <action name="addGroup" class="groupManageAction" method="addGroup">
+			<result name="success">/WEB-INF/page/admin/groupuser_index.jsp</result>
+			<result name="input">/WEB-INF/page/admin/groupuser_add.jsp</result>
+        </action>
+        
+         <action name="queryUserIdByUserName" class="groupManageAction" method="queryUserIdByUserName">
+        </action>
+        
+        <action name="queryGroupUserInfo" class="groupManageAction" method="queryGroupUserInfo">
+			<result name="success">/WEB-INF/page/admin/groupuser_update_index_info.jsp</result>
+        </action>
+        
+         <action name="queryGroupUserInit" class="groupManageAction" method="queryGroupUserInit">
+			<result name="success">/WEB-INF/page/admin/groupuser_update_index.jsp</result>
+        </action>
+        <action name="updateGroupInit" class="groupManageAction" method="updateGroupInit">
+			<result name="success">/WEB-INF/page/admin/groupuser_update.jsp</result>
+        </action>
+         <action name="addGroupUsers" class="groupManageAction" method="addGroupUsers">
+        </action>
+        
+        <action name="queryDrawCashManagerInit" class="groupManageAction" method="queryDrawCashManagerInit">
+        <result name="success">/WEB-INF/page/admin/userdrawcash_manager_index.jsp</result>
+        </action>
+        
+        <action name="queryDrawCashManagerInfo" class="groupManageAction" method="queryDrawCashManagerInfo">
+        	<result name="success">/WEB-INF/page/admin/userdrawcash_manager_index_info.jsp</result>
+        </action>
+        
+        <action name="updateUserCashStatus" class="groupManageAction" method="updateUserCashStatus">
+        	<result name="success">/WEB-INF/page/admin/userdrawcash_manager_index.jsp</result>
+        </action>
+        
+        <action name="queryGroupUsersInfo" class="groupManageAction" method="queryGroupUsersInfo">
+        	<result name="success">/WEB-INF/page/admin/groupuser_query_index_info.jsp</result>
+        </action>
+        
+        <action name="queryGroupUsersInit" class="groupManageAction" method="queryGroupUsersInit">
+        	<result name="success">/WEB-INF/page/admin/groupuser_query_index.jsp</result>
+        </action>
+        
+         <action name="queryGroupMemberInfo" class="groupManageAction" method="queryGroupMemberInfo">
+        	<result name="success">/WEB-INF/page/admin/groupmenber_index_info.jsp</result>
+        </action>
+        
+        <action name="queryGroupMemberInit" class="groupManageAction" method="queryGroupMemberInit">
+        	<result name="success">/WEB-INF/page/admin/groupmenber_index.jsp</result>
+        </action>
+        <action name="deleteGroupUser" class="groupManageAction" method="deleteGroupUser">
+        	<result name="success">/WEB-INF/page/admin/groupuser_query_index.jsp</result>
+        </action>
+         <action name="deleteGroupMemberUser" class="groupManageAction" method="deleteGroupMemberUser">
+        	<result name="success">/WEB-INF/page/admin/groupmenber_index.jsp</result>
+        </action>
+         <action name="exportUserMember" class="groupManageAction" method="exportUserMember">
+         </action>
+          <action name="sendGroupEmail" class="groupManageAction" method="sendGroupEmail">
+         </action>
+          <action name="sendGroupMessage" class="groupManageAction" method="sendGroupMessage">
+         </action>
+         
+         <action name="sendGroupMessageInit" class="groupManageAction" method="sendGroupMessageInit">
+         <result name="success">/WEB-INF/page/admin/groupusermsg_send.jsp</result>
+         </action>
+         
+         <action name="sendGroupEmailInit" class="groupManageAction" method="sendGroupEmailInit">
+          <result name="success">/WEB-INF/page/admin/groupuseremail_send.jsp</result>
+         </action>
+        
+	</package>
+</struts>

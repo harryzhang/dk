@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="noticeStyle" extends="admin-default" namespace="/admin">
+	
+		<action name="queryNoticeStyleAllInit" class="shoveApproveNoticeStyleAction" method="queryNoticeStyleAllInit">
+			<result name="success" >/WEB-INF/page/admin/shove_approve_notice_style_index.jsp</result>
+		</action>
+		
+		<action name="queryNoticeStyleAllList" class="shoveApproveNoticeStyleAction" method="queryNoticeStyleAllList">
+			<result name="success" >/WEB-INF/page/admin/shove_approve_notice_style_info.jsp</result>
+		</action>
+		
+		<action name="updateNoticeStyleInit" class="shoveApproveNoticeStyleAction" method="updateNoticeStyleInit">
+			<result name="success" >/WEB-INF/page/admin/update_shove_approve_style.jsp</result>
+		</action>
+		
+		<action name="updateNoticeStyleAllinfo" class="shoveApproveNoticeStyleAction" method="updateNoticeStyleAllinfo">
+			<result name="success" >/WEB-INF/page/admin/shove_approve_notice_style_index.jsp</result>
+		</action>
+		<!-- 管理 -->
+		<action name="queryNoticeTemplateAllInit" class="shoveApproveNoticeStyleAction" method="queryNoticeTemplateAllInit">
+			<result name="success" >/WEB-INF/page/admin/shove_approve_notice_template_index.jsp</result>
+		</action>
+		
+		<action name="queryNoticeTemplateAllList" class="shoveApproveNoticeStyleAction" method="queryNoticeTemplateAllList">
+			<result name="success" >/WEB-INF/page/admin/shove_approve_notice_template_info.jsp</result>
+		</action>
+		
+		<action name="updateNoticeTemplateInit" class="shoveApproveNoticeStyleAction" method="updateNoticeTemplateInit">
+			<result name="success" >/WEB-INF/page/admin/update_approve_template.jsp</result>
+		</action>
+		<action name="updateNoticeTemplateInfo" class="shoveApproveNoticeStyleAction" method="updateNoticeTemplateInfo">
+			<result name="success" >/WEB-INF/page/admin/shove_approve_notice_template_index.jsp</result>
+		</action>
+		
+		
+	</package>
+</struts>

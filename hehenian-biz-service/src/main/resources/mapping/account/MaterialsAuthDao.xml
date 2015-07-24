@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.account.IMaterialsAuthDao">
+	
+	<update id="update" parameterType="MaterialsAuth">
+		update t_materialsauth
+		<set>
+			<if test="auditStatus != null and auditStatus != 0">
+				auditStatus = #{auditStatus},
+			</if>
+			<if test="authTime != null">
+				authTime = #{authTime},
+			</if>
+			<if test="passTime != null">
+				passTime = #{passTime}
+			</if>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+
+	<update id="updateByUserId" parameterType="MaterialsAuth">
+		update t_materialsauth
+		<set>
+			<if test="auditStatus != null and auditStatus != 0">
+				auditStatus = #{auditStatus},
+			</if>
+			<if test="authTime != null">
+				authTime = #{authTime},
+			</if>
+			<if test="passTime != null">
+				passTime = #{passTime}
+			</if>
+		</set>
+		<where>
+			userId = #{userId}
+		</where>
+	</update>
+	
+</mapper>

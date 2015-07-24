@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.colorlife.ColorLifeBuyInfoDao">
+	
+	<cache />
+	
+	<resultMap type="java.util.Map" id="CorolLifeBuyInfo">
+		<id property="orderId" column="order_id"/>
+		<result property="buyProduct.id" column="product_id"/>
+		<result property="realName" column="real_name"/>
+		<result property="username" column="username"/>
+		<result property="userId" column="user_id"/>
+		<result property="buyMoney" column="buy_money"/>
+		<result property="buyDate" column="buy_time"/>
+		<result property="status" column="status"/>
+		<result property="verifier.id" column="verifier"/>
+		<result property="insertTime" column="insert_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="username" column="username"/>
+		<result property="productName" column="product_name"/>
+		<result property="moneyScope" column="money_scope"/>
+		<result property="productPeriod" column="period"/>
+		<result property="rate" column="rate" javaType="int"/>
+		<result property="statusLabel" column="status_label"/>
+		<result property="verifierName" column="verifier_name"/>
+		<result property="agreementFileName" column="agreementFileName"/>
+		<result property="rate" column="rate"/>
+		<result property="thethirdusername" column="thethirdusername"/>
+	</resultMap>
+	
+	<select id="listBuyInfo" resultMap="CorolLifeBuyInfo" parameterType="java.util.Map" useCache="false">
+		select 
+			cl.order_id,
+			cl.product_id,
+			cl.real_name,
+			u.username username,
+			cl.user_id,
+			cl.buy_money,
+			cl.buy_time,
+			cl.status,
+			cl.verifier,
+			cl.insert_time,
+			cl.update_time,
+	      	p.product_name,
+	      	p.money_scope,
+	      	p.rate * 100 rate,
+      		p.period,
+	      	u.username,
+      		a.userName verifier_name,
+			case status 
+			when 1 then '未支付'
+			when 2 then '购买成功' 
+			when 3 then '购买失败' 
+			end as status_label,
+      		t.thethirdusername
+		from 
+			t_color_life_buy_info cl 
+      	left join td_product_rate p on cl.product_id = p.product_rate_id
+      	left join t_user u on cl.user_id = u.id	
+      	left join t_admin a on cl.verifier = a.id
+      	left join t_user_thirdparty t on cl.user_id = t.userId
+      	<where>
+      		<if test="status != null and status != 0">
+      			and cl.status = #{status}
+      		</if>
+      		<if test="beginDate != null and beginDate!=''">
+	            <![CDATA[ and cl.buy_time >= #{beginDate} ]]>
+	        </if>
+	        <if test="endDate != null and endDate != ''">
+	            <![CDATA[ and cl.buy_time <= date_add(date_format(#{endDate},'%Y-%m-%d'),interval 1 day) ]]>
+	        </if>
+      		<if test="user_id != null and user_id != null">
+      			and cl.user_id = #{user_id}
+      		</if>
+      		<if test="productPeriod != null and productPeriod != '' and productPeriod != '0'">
+      			and period = #{productPeriod}
+      		</if>
+      	</where>
+      	order by cl.insert_time desc 
+        <if test="pageNum != null and pageSize != null">
+     		limit #{pageNum}, #{pageSize}
+     	</if>
+	</select>
+	
+	<select id="countBuyInfo" resultType="long" parameterType="java.util.Map" useCache="false">
+		select 
+			count(*)
+		from 
+			t_color_life_buy_info cl 
+		left join td_product_rate p on cl.product_id = p.product_rate_id
+      	<where>
+      		<if test="status != null and status != 0">
+      			and cl.status = #{status}
+      		</if>
+      		<if test="beginDate != null and beginDate!=''">
+	            <![CDATA[ and cl.buy_time >= #{beginDate} ]]>
+	        </if>
+	        <if test="endDate != null and endDate != ''">
+	            <![CDATA[ and cl.buy_time <= date_add(date_format(#{endDate},'%Y-%m-%d'),interval 1 day) ]]>
+	        </if>
+      		<if test="user_id != null and user_id != null">
+      			and cl.user_id = #{user_id}
+      		</if>
+      		<if test="productPeriod != null and productPeriod != '' and productPeriod != '0'">
+      			and p.period = #{productPeriod}
+      		</if>
+      	</where>
+	</select>
+	
+	
+	<select id="weblistBuyInfo" resultMap="CorolLifeBuyInfo" parameterType="java.util.Map" useCache="false">
+		select 
+			cl.order_id,
+			cl.product_id,
+			cl.real_name,
+			cl.user_id,
+			cl.buy_money,
+			cl.buy_time,
+			cl.status,
+			cl.insert_time,
+			cl.update_time,
+	      	p.product_name,
+	      	p.money_scope,
+      		p.period,
+      		p.rate,
+      		c.agreementFileName
+		from 
+			t_color_life_buy_info cl 
+      	inner join td_product_rate p on cl.product_id = p.product_rate_id
+      	left join td_fund_trade_agreement c on cl.user_id=c.userId and cl.order_id=c.tradeId and c.agreementType=3 
+      	<where>
+      		<if test="user_id != null">
+      			and cl.user_id = #{user_id}
+      		</if>
+      		<if test="status != null">
+      			and cl.status = #{status}
+      		</if>
+      	</where>
+      	order by cl.buy_time desc
+	</select>
+	
+	<select id="findById" parameterType="long" resultMap="CorolLifeBuyInfo">
+		select 
+			cl.order_id,
+			cl.product_id,
+			cl.real_name,
+			cl.user_id,
+			cl.buy_money,
+			cl.buy_time,
+			cl.status,
+			cl.verifier,
+			cl.insert_time,
+			cl.update_time,
+	      	p.product_name,
+	      	p.money_scope,
+      		p.period,
+      		p.rate,
+	      	u.username,
+      		a.userName verifier_name,
+			case status 
+			when 1 then '审核状态'
+			when 2 then '购买成功' 
+			when 3 then '购买失败' 
+			end as status_label 
+		from 
+			t_color_life_buy_info cl 
+      	left join td_product_rate p on cl.product_id = p.product_rate_id
+      	left join t_user u on cl.user_id = u.id
+      	left join t_admin a on cl.verifier = a.id
+      	<where>
+      		cl.order_id = #{orderId}
+      	</where>
+	</select>
+	
+	<insert id="saveBuyInfo" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="order_id">
+		insert into 
+			t_color_life_buy_info
+			(
+				product_id,
+				real_name,
+				user_id,
+				buy_money,
+				buy_time,
+				status,
+				verifier,
+				insert_time,
+				update_time
+			)
+			values
+			(
+				#{product_id}, 
+				#{real_name, jdbcType=VARCHAR}, 
+				#{user_id}, 
+				#{buy_money}, 
+				#{buy_time}, 
+				#{status},
+				#{verifier}, 
+				#{insert_time}, 
+				#{update_time}
+			)
+	</insert>
+	
+	<update id="updateBuyInfo" parameterType="string">
+		update t_color_life_buy_info
+		<set>
+			<if test="status != null and status != 0">
+				status = #{status},
+			</if>
+			<if test="verifier != null">
+				verifier = #{verifier},
+			</if>
+			update_time = now()
+		</set>
+		where order_id = #{orderId} and status = 1
+	</update>
+	
+	<update id="updateStatus" parameterType="string">
+		update t_color_life_buy_info
+		<set>
+			<if test="status != null and status != 0">
+				status = #{status}
+			</if>
+		</set>
+		where order_id = #{orderId}
+	</update>
+	
+	<!-- 投资金额 -->
+    <select id="queryInvestment" parameterType="int" resultType="java.math.BigDecimal">
+        <![CDATA[
+        select IFNULL(SUM(IFNULL(a.buy_money,0)),0)
+          from t_color_life_buy_info a
+        where a.user_id = #{user_id}
+          and a.status <> '3'
+        ]]>
+    </select>
+    <!-- 已收收益 -->
+     <select id="queryInterest" parameterType="int" resultType="java.math.BigDecimal">
+     <![CDATA[
+      select TRUNCATE(IFNULL(SUM(a.buy_money*b.rate*b.period /12),0),2)
+        from t_color_life_buy_info a,td_product_rate b
+       where a.product_id = b.product_rate_id
+         and a.status = '2' 
+         and (update_time  + interval 6 month) <= now()
+         and a.user_id = #{user_id} 
+      ]]>
+    </select>
+    <!-- 待收收益 -->
+    <select id="queryInterested" parameterType="int" resultType="java.math.BigDecimal">
+     <![CDATA[
+      select TRUNCATE(IFNULL(SUM(a.buy_money*b.rate*b.period /12),0),2)
+        from t_color_life_buy_info a,td_product_rate b
+       where a.product_id = b.product_rate_id
+         and a.status = '2' 
+         and (update_time  + interval 6 month) > now()
+         and a.user_id = #{user_id} 
+      ]]>
+    </select>
+</mapper>

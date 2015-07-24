@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="financeapp" extends="app-default" namespace="/app">
+		<action name="finance" class="myFinanceAction"
+			method="financeList">
+		</action>
+		
+		<action name="financeLastestList" class="myFinanceAction"
+			method="financeLastestList">
+		</action>
+		<action name="investRank" class="myFinanceAction"
+			method="investRank">
+		</action>
+		<action name="index" class="myFinanceAction"
+			method="index">
+		</action>
+		<action name="financeDetail" class="myFinanceAction"
+			method="financeDetail">
+		</action>
+		<action name="queryDebtBorrowDetail" class="myFinanceAction"
+			method="queryDebtBorrowDetail">
+		</action>
+		
+		<action name="financeAudit" class="myFinanceAction"
+			method="financeAudit">
+		</action>
+		<action name="financeRepay" class="myFinanceAction"
+			method="financeRepay">
+		</action>
+		<action name="financeCollection" class="myFinanceAction"
+			method="financeCollection">
+		</action>
+		<action name="borrowmessage" class="myFinanceAction"
+			method="borrowMSGInit">
+		</action>
+		<action name="financetool" class="myFinanceAction" method="financeToolInit">
+		</action>
+		
+<!-- 	    <action name="financeInvestInit" class="myFinanceAction" method="financeInvestInit"> -->
+<!-- 		</action> -->
+		<action name="financeInvestLoad" class="myFinanceAction" method="financeInvestLoad">
+		</action>
+		<action name="financeInvest" class="myFinanceAction" method="financeInvest">
+		</action>
+		<action name="addBorrowMSG" class="myFinanceAction"
+			method="addBorrowMSG">
+		</action>
+		<action name="focusonBorrow" class="myFinanceAction" method="focusOnBorrow"/>
+		<action name="focusonUser" class="myFinanceAction" method="focusOnUser"/>
+	    <action name="mailInit" class="myFinanceAction"
+			method="mailInit">
+		</action>
+		<action name="mailAdd" class="myFinanceAction"
+			method="mailAdd">
+		</action>
+		<action name="reportInit" class="myFinanceAction"
+			method="reportInit">
+		</action>
+		<action name="reportAdd" class="myFinanceAction"
+			method="reportAdd">
+		</action>
+		<action name="showImg" class="myFinanceAction" method="showImg">
+		</action>
+	</package>
+</struts>

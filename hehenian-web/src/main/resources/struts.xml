@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<include file="com/shove/web/security/injection_interceptor.xml" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.locale" value="zh_CN" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<constant name="struts.multipart.saveDir" value="uploadtmp" />
+	<constant name="struts.multipart.maxSize" value="524288000" />
+	<constant name="struts.custom.i18n.resources" value="system" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.action.extension" value="do" />
+	<constant name="struts.ui.theme" value="simple" />
+	
+	<!-- 通用查询 -->
+	<include file="hehenian/controller/query_example.xml" />
+	<!-- 借款申请 -->
+	<include file="hehenian/controller/loan_info.xml" />
+	<!-- 交易  -->
+	<include file="hehenian/controller/trade.xml" />
+	<!-- 活动  -->
+	<include file="hehenian/controller/activity.xml" />
+	<!-- 报表 -->
+	<include file="hehenian/controller/report.xml" />
+	<!-- 个人中心 -->
+	<include file="hehenian/controller/myHome.xml" />
+    <!-- 账户 -->
+	<include file="hehenian/controller/account.xml" />
+    <!-- 公共 -->
+	<include file="hehenian/controller/common.xml" />
+	<!-- 系统属性  -->
+	<include file="hehenian/controller/system.xml" />
+	
+	<!-- 公开的接口  -->
+	<include file="hehenian/controller/open.xml" />
+
+	<include file="struts/front/hfpay.xml" />
+	<include file="struts/front/longRegister.xml" />
+	<include file="struts/front/myFinance.xml" />
+	<include file="struts/app/myfinanceapp.xml" />
+	<include file="struts/app/uploadfileapp.xml" />
+	<include file="struts/app/assignmentdebtapp.xml" />
+	<include file="struts/app/myPaymentapp.xml" />
+	<include file="struts/front/callcenter.xml" />
+	<include file="struts/app/callcenterapp.xml" />
+	<include file="struts/app/feedbackapp.xml" />
+	<include file="struts/front/financeTools.xml" />
+	<include file="struts/app/financeToolsapp.xml" />
+	<include file="struts/front/capitalEnsure.xml" />
+	<include file="struts/front/myBorrow.xml" />
+	<include file="struts/front/myHome.xml" />
+	<include file="struts/app/myHomeapp.xml" />
+	<include file="struts/front/homePage.xml" />
+	<include file="struts/front/creditorTransfer.xml" />
+	<include file="struts/front/download.xml" />
+	<include file="struts/front/message.xml" />
+	<include file="struts/front/frontMyInformation.xml" />
+	<include file="struts/app/myInformationapp.xml" />
+	<include file="struts/front/news.xml" />
+	<include file="struts/app/newsapp.xml" />
+	<include file="struts/front/friendManager.xml" />
+	<include file="struts/app/friendManagerapp.xml" />
+	<include file="struts/front/recharge.xml" />
+	<include file="struts/front/pay.xml" />
+	<include file="struts/app/payapp.xml" />
+	<include file="struts/front/userIntegral.xml" />
+	<include file="struts/app/userIntegralapp.xml" />
+	<include file="struts/front/myPayment.xml" />
+	<include file="struts/front/story.xml" />
+	<include file="struts/app/storyapp.xml" />
+	<include file="struts/front/assignmentdebt.xml" />
+	<include file="struts/front/homedebt.xml" />
+	<include file="struts/app/homedebtapp.xml" />
+	<include file="struts/front/shiping.xml" />
+	<!-- 手机注册 -->
+	<include file="struts/front/cellphone.xml" />
+	<include file="struts/front/questionnaire.xml" />
+	<include file="struts/admin/rechargebank.xml" />
+	<include file="struts/admin/admin.xml" />
+	<include file="struts/admin/financial.xml" />
+	<include file="struts/admin/FIManager.xml" />
+	<include file="struts/admin/user.xml" />
+	<include file="struts/admin/download.xml" />
+	<include file="struts/admin/borrowManage.xml" />
+	<include file="struts/admin/automaticBid.xml" />
+	<include file="struts/admin/help.xml" />
+	<include file="struts/admin/links.xml" />
+	<include file="struts/admin/helpCategory.xml" />
+	<include file="struts/admin/usercheck.xml" />
+	<include file="struts/admin/team.xml" />
+	<include file="struts/admin/news.xml" />
+	<include file="struts/admin/message.xml" />
+	<include file="struts/admin/mediaReport.xml" />
+	<include file="struts/admin/afterCreditManage.xml" />
+	<include file="struts/admin/userverify.xml"></include>
+	<include file="struts/admin/costManager.xml"></include>
+	<include file="struts/admin/closeNetWork.xml"></include>
+	<include file="struts/front/guarantee.xml" />
+	<include file="struts/app/guaranteeapp.xml" />
+	<include file="struts/front/approve.xml" />
+	<include file="struts/admin/emalAndmessage.xml" />
+	<include file="struts/admin/successStory.xml" />
+	<include file="struts/admin/referralBonuses.xml" />
+	<include file="struts/admin/bankOfUser.xml" />
+	<include file="struts/admin/agreement.xml" />
+	<include file="struts/admin/sms.xml" />
+	<include file="struts/admin/mail.xml" />
+	<include file="struts/front/mediaReport.xml" />
+	<include file="struts/app/mediaReportapp.xml" />
+	<include file="struts/front/links.xml" />
+	<include file="struts/app/linksapp.xml" />
+	<include file="struts/front/bevip.xml" />
+	<include file="struts/admin/usermanage.xml" />
+	<include file="struts/admin/statisManage.xml" />
+	<include file="struts/admin/role.xml" />
+	<include file="struts/admin/blacklist.xml" />
+	<include file="struts/admin/report.xml" />
+	<include file="struts/admin/advertisement.xml" />
+	<include file="struts/admin/debtManage.xml" />
+	<include file="struts/admin/sendSMS.xml" />
+	<include file="struts/admin/lockuser.xml" />
+	<include file="struts/admin/groupCaptain.xml" />
+
+	<include file="struts/admin/groupmanager.xml" />
+	<include file="struts/admin/unactivated.xml" />
+
+	<include file="struts/admin/fundrecord.xml" />
+	<include file="struts/admin/shortMassege.xml" />
+	<include file="struts/admin/riskManage.xml" />
+	<include file="struts/admin/economy.xml" />
+	<include file="struts/admin/relation.xml" />
+	<include file="struts/admin/kefus.xml" />
+	<include file="struts/admin/award.xml" />
+	<include file="struts/admin/sendmsg.xml" />
+	<include file="struts/admin/shipingadmin.xml" />
+	<include file="struts/admin/platformCost.xml" />
+	<include file="struts/admin/shipingadmin.xml" />
+	<include file="struts/admin/artileManage.xml" />
+	<include file="struts/admin/questionnaires.xml" />
+	<!-- 用户评论管理 -->
+	<include file="struts/admin/userReview.xml" />
+	<include file="struts/admin/questione.xml" />
+	<!-- 债权管理 -->
+	<include file="struts/admin/assignmentDebt.xml" />
+	<include file="struts/admin/score.xml" />
+	<include file="struts/admin/siteInformation.xml" />
+	<!-- 还款方式 -->
+	<include file="struts/admin/shoveBorrowStyle.xml" />
+	<include file="struts/admin/shoveBorrowType.xml" />
+	<include file="struts/admin/shoveBorrowAmountType.xml" />
+	<include file="struts/admin/shoveApproveNoticeStyle.xml" />
+	<include file="struts/admin/seoConfig.xml" />
+	<include file="struts/admin/accountPayment.xml" />
+	<include file="struts/pay/ipay.xml" />
+	<include file="struts/pay/gopay.xml" />
+	<include file="struts/pay/chinapnr.xml" />
+
+	<include file="struts/admin/operationLog.xml" />
+	<include file="struts/admin/mer.xml" />
+	<include file="struts/front/wyf.xml" />
+	
+	<include file="struts/front/recommandReward.xml" />
+	
+	<include file="hehenian/controller/clift.xml" />
+
+	<include file="com/shove/web/security/injection_interceptor.xml" />
+	
+	<package name="defaults" extends="injectionInterceptor-0">
+		<interceptors>
+			<interceptor name="closeNetWorkInterceptor" class="com.sp2p.system.interceptor.CloseNetWorkInterceptor" />
+			<interceptor-stack name="closeStack">
+				<interceptor-ref name="closeNetWorkInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="closeStack" />
+        <global-results>
+            <result name="e-webapp-msg" type="redirect">/webapp/e-webapp-msg.do</result>
+        </global-results>
+
+	</package>
+
+	<package name="common" extends="struts-default" namespace="/admin">
+		<!-- 验证码 -->
+		<action name="imageCode" class="commonAction" method="imageCode">
+		</action>
+		<action name="userInit" class="frontUserAction" method="userInit">
+			<result name="success">
+				/WEB-INF/page/usercenter/default.jsp
+			</result>
+		</action>
+
+		<action name="adminLogin" class="adminAction" method="adminLogin">
+			<result name="input">/WEB-INF/page/admin/frame/login.jsp</result>
+			<result name="success" type="redirect">default.do</result>
+		</action>
+		<action name="login">
+			<result>/WEB-INF/page/admin/frame/login.jsp</result>
+		</action>
+	</package>
+	<package name="login-default" extends="struts-default">
+		<interceptors>
+			<interceptor name="closeNetWorkInterceptor" class="com.sp2p.system.interceptor.CloseNetWorkInterceptor" />
+			<interceptor name="frontUserSessionInterceptor" class="com.sp2p.system.interceptor.FrontUserSeesionInterceptor" />
+			<interceptor name="frontPageJumpInterceptor" class="com.sp2p.system.interceptor.FrontPageJumpInterceptor" />
+			<interceptor name="virtualUserInterceptor" class="com.sp2p.system.interceptor.VirtualUserInterceptor" />
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="closeNetWorkInterceptor" />
+				<interceptor-ref name="frontUserSessionInterceptor" />
+				<interceptor-ref name="frontPageJumpInterceptor" />
+				<interceptor-ref name="virtualUserInterceptor">
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="loginStack" />
+		<global-results>
+			<result name="network">/weihui.jsp</result>
+			<result name="noLogin">/WEB-INF/page/front/login.jsp</result>
+			<result name="pagejump" type="redirect">userCenterMsg.do</result>
+			<result name="frontpagejump" type="redirect">message.do</result>
+			<result name="virtual" type="redirect">noPermission.do</result>
+			<result name="regiscode">/weihui.jsp</result>
+            <result name="e-webapp-msg" type="redirect">/webapp/e-webapp-msg.do</result>
+		</global-results>
+	</package>
+	<package name="pay-default" extends="struts-default">
+		<interceptors>
+			<interceptor name="frontUserSessionInterceptor" class="com.sp2p.system.interceptor.FrontUserSeesionInterceptor" />
+			<interceptor name="frontPageJumpInterceptor" class="com.sp2p.system.interceptor.FrontPageJumpInterceptor" />
+			<interceptor-stack name="payStack">
+				<interceptor-ref name="frontUserSessionInterceptor" />
+				<interceptor-ref name="frontPageJumpInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="payStack" />
+		<global-results>
+			<result name="noLogin">/WEB-INF/page/front/login.jsp</result>
+			<result name="pagejump" type="redirect">userCenterMsg.do</result>
+			<result name="frontpagejump" type="redirect">message.do</result>
+			<result name="virtual" type="redirect">noPermission.do</result>
+		</global-results>
+		<action name="userInit" class="frontUserAction" method="userInit">
+			<result name="success">/WEB-INF/page/usercenter/default.jsp</result>
+		</action>
+	</package>
+
+	<package name="front-default" extends="struts-default">
+		<interceptors>
+			<interceptor name="frontPageJumpInterceptor" class="com.sp2p.system.interceptor.FrontPageJumpInterceptor" />
+			<interceptor-stack name="frontStack">
+				<interceptor-ref name="frontPageJumpInterceptor" />
+				<interceptor-ref name="defaultStack" />
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                    <param name="validateAnnotatedMethodOnly">true</param>
+                </interceptor-ref>
+			</interceptor-stack>
+
+		</interceptors>
+		<default-interceptor-ref name="frontStack" />
+		<global-results>
+			<result name="frontpagejump">/WEB-INF/page/msg.jsp</result>
+		</global-results>
+		<action name="message" class="commonAction" method="message">
+			<result>/WEB-INF/page/message.jsp</result>
+			<result name="colorlifeapp">/WEB-INF/page/mobile/message.jsp</result>
+			<result name="colorlifeweb">/WEB-INF/page/cf/message.jsp</result>
+			<result name="appcomm">/WEB-INF/page/appcomm/message.jsp</result>
+			<!--<result name="colorlife_wyf_app" type="redirect">/wyf/index.do</result>
+			<result name="colorlife_wyf_web" type="redirect">/wyf/index.do</result>-->
+            <result name="colorlife_wyf_app" >/WEB-INF/page/message.jsp</result>
+            <result name="colorlife_wyf_web" >/WEB-INF/page/message.jsp</result>
+		</action>
+	</package>
+
+
+	<package name="admin-default" extends="injectionInterceptor-1">
+		<interceptors>
+			<interceptor name="AdminSessionInterceptor" class="com.sp2p.system.interceptor.AdminSessionInterceptor" />
+			<interceptor name="AdminRightsInterceptor" class="com.sp2p.system.interceptor.AdminRightsInterceptor" />
+			<interceptor-stack name="adminStack">
+			 	<interceptor-ref name="injectionInterceptorStack" />
+				<interceptor-ref name="AdminSessionInterceptor" />
+				<interceptor-ref name="AdminRightsInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="adminStack" />
+		<global-results>
+			<result name="noLogin">
+				<!--/WEB-INF/page/error.jsp -->
+				/WEB-INF/page/admin/frame/login.jsp
+			</result>
+			<result name="noPermission">/WEB-INF/page/admin/no_primission.jsp</result>
+			<result name="pagejump" type="redirect">adminMessage.do</result>
+		</global-results>
+
+		<action name="adminMessage">
+			<result>/WEB-INF/page/admin/frame/message.jsp</result>
+		</action>
+	</package>
+
+	<package name="admin" extends="admin-default" namespace="/admin">
+		<action name="default">
+			<result>/WEB-INF/page/admin/frame/default.jsp</result>
+		</action>
+
+		<action name="main">
+			<result>/WEB-INF/page/admin/frame/main.jsp</result>
+		</action>
+
+		<action name="menu">
+			<result name="success">/WEB-INF/page/admin/frame/menu.jsp</result>
+		</action>
+
+		<action name="top">
+			<result>/WEB-INF/page/admin/frame/top.jsp</result>
+		</action>
+	</package>
+
+	<package name="common2" extends="struts-default" namespace="/admin">
+		<action name="login">
+			<result>/WEB-INF/page/admin/frame/login.jsp</result>
+		</action>
+		<action name="kindEditorUpload" class="kindEditorAction" method="fileUpload"></action>
+		<action name="kindEditorManager" class="kindEditorAction" method="fileManager"></action>
+		<action name="uploadFileAction" class="uploadCommonentsAction" method="onloadFileUpload">
+			<result name="smallcomponent">/WEB-INF/page/uploadFile.jsp</result>
+			<result name="input">/WEB-INF/page/upload_error.jsp</result>
+		</action>
+		<action name="uploadFiles" class="uploadCommonentsAction" method="uploadFiles">
+			<result name="input">/WEB-INF/page/upload_error.jsp</result>
+			<result name="success">/WEB-INF/page/uploadFile.jsp</result>
+		</action>
+		<!-- <action name="infoList" class="indexAction" method="infoList"> </action> -->
+		<!-- 管理员登陆 -->
+		<action name="adminLogin" class="adminAction" method="adminLogin">
+			<result name="input">/WEB-INF/page/admin/frame/login.jsp</result>
+			<result name="success" type="redirect">default.do</result>
+		</action>
+
+	</package>
+	<package name="ai" extends="admin-default" namespace="/admin">
+		<!-- 菜单 -->
+		<action name="showsubmenu" class="showSubMenuAction" method="showsubmenu">
+			<result name="success">/WEB-INF/page/admin/frame/menu.jsp</result>
+		</action>
+		<!-- 模块搜寻 -->
+		<action name="modesearch" class="showSubMenuAction" method="modesearch">
+			<result>/WEB-INF/page/admin/frame/menu.jsp</result>
+		</action>
+	</package>
+
+	<!-- app接口 -->
+	<include file="struts/app/userapp.xml" />
+	<include file="struts/app/personapp.xml" />
+	<include file="struts/app/workapp.xml" />
+	<include file="struts/app/homeapp.xml" />
+	<include file="struts/app/investapp.xml" />
+	<include file="struts/app/rechargewithdrawapp.xml" />
+	<include file="struts/app/messageapp.xml" />
+	<include file="struts/app/borrowapp.xml" />
+	<include file="struts/app/bevipapp.xml" />
+	
+	<include file="struts/wap/myFinance.xml" />
+	<include file="struts/wap/myHome.xml" />
+	
+	<include file="struts/front/sjb.xml" />
+	
+	<include file="struts/cf/cf.xml" />
+	<include file="struts/appcomm/appcomm.xml" />
+	<include file="struts/loan/loan.xml" />
+<include file="struts/front/huodong.xml" />
+	<package name="app-default" extends="struts-default">
+		<interceptors>
+			<interceptor name="appInterceptor" class="com.sp2p.system.interceptor.AppInterceptor" />
+
+			<interceptor-stack name="appStack">
+				<interceptor-ref name="appInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="appStack" />
+
+	</package>
+
+	<!-- 404错误导向页面 -->
+	<package name="default" extends="struts-default">
+		<default-action-ref name="notFound" />
+		<action name="notFound">
+			<result>/error/404.jsp</result>
+		</action>
+	</package>
+</struts>
+
+

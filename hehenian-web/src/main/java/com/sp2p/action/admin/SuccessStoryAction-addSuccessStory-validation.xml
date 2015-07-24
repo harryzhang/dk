@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="paramMap['title']">
+		<field-validator type="requiredstring">
+			<message>公告标题不能为空</message>
+		</field-validator>
+	</field>
+	
+	<field name="paramMap['publisher']">
+		<field-validator type="requiredstring">
+			<message>发布人不能为空</message>
+		</field-validator>
+	</field>
+	<field name="paramMap['content']">
+		<field-validator type="requiredstring">
+			<message>内容不能为空</message>
+		</field-validator>
+	</field>
+
+	<field name="paramMap['sort']">
+		<field-validator type="requiredstring">
+			<message>序号不能为空</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="regex">
+				<![CDATA[
+   	 				^([1-9]\d{0,7})$
+   	 			]]>
+			</param>
+			<message>格式不正确,序号长度必须是1到8位的数字</message>
+	</field-validator>
+	</field>
+	
+	<field name="paramMap['browseNum']">
+		<field-validator type="requiredstring">
+			<message>浏览次数不能为空</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="regex">
+				<![CDATA[
+   	 				^([0-9]\d{0,7})$
+   	 			]]>
+			</param>
+			<message>格式不正确,浏览次数长度必须是1到8位的数字</message>
+	</field-validator>
+	</field>
+	
+	<field name="paramMap['imgPath']">
+		<field-validator type="requiredstring">
+			<message>请上传图片</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">100</param>
+			<message>图片路径不得大于${maxLength}个字符</message>
+		</field-validator>
+	</field>
+	
+	
+	
+	
+</validators>

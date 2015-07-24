@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.account.IPhoneVerifyDao">
+	<resultMap type="phoneVerifyDo" id="phoneVerifyResultMap">
+		<result property="id" column="id" />
+		<result property="userId" column="userId" />
+		<result property="mobilePhone" column="mobilePhone" />
+		<result property="createTime" column="createTime" />
+		<result property="status" column="status" />
+	</resultMap>
+
+	<insert id="savePhoneVerify" parameterType="phoneVerifyDo">
+        insert into t_phone_verify (userId, mobilePhone, status, createTime, type, source, verifyTime)
+        values (#{userId},#{mobilePhone},#{status},now(), #{type, jdbcType=INTEGER}, #{source, jdbcType=INTEGER}, now());
+	</insert>
+
+    <select id="findPhoneVerify" parameterType="Map" resultMap="phoneVerifyResultMap">
+        select * from  t_phone_verify where userId=#{userId} and status=1 and type = 1;
+    </select>
+
+    <select id="findPhoneVerifyByPhone" parameterType="Map" resultMap="phoneVerifyResultMap">
+        select * from  t_phone_verify where mobilePhone=#{mobilePhone} and status=1 and type = 1 limit 1;
+    </select>
+
+    <update id="updatePhoneVerifyStatus" parameterType="phoneVerifyDo">
+        update t_phone_verify set status=#{status} where userId=#{userId} and mobilePhone=#{mobilePhone};
+    </update>
+
+    <update id="disablePhoneVerify" parameterType="Map">
+        update t_phone_verify set  status=2  where userId=#{userId} and status=1  and (type = 1 or type is null)
+    </update>
+
+    <update id="disableEmailVerify" parameterType="Map">
+        update t_phone_verify set status = 2 where userId = #{userId} and status = 1 and (type = 2 or type is null)
+    </update>
+</mapper>

@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.hehenian.biz.dal.trade.IRepaymentDao">
+	<resultMap type="repaymentDo" id="repaymentResultMap">
+		<result property="id" column="id" />
+		<result property="repayDate" column="repayDate" />
+		<result property="realRepayDate" column="realRepayDate" />
+		<result property="repayPeriod" column="repayPeriod" />
+		<result property="hasPi" column="hasPI" />
+		<result property="stillPrincipal" column="stillPrincipal" />
+		<result property="stillInterest" column="stillInterest" />
+		<result property="hasFi" column="hasFI" />
+		<result property="consultFee" column="consultFee" />
+		<result property="lateFi" column="lateFI" />
+		<result property="lateDay" column="lateDay" />
+		<result property="repayStatus" column="repayStatus" />
+		<result property="borrowId" column="borrowId" />
+		<result property="isLate" column="isLate" />
+		<result property="isWebRepay" column="isWebRepay" />
+		<result property="investorForpayFi" column="investorForpayFI" />
+		<result property="investorHaspayFi" column="investorHaspayFI" />
+		<result property="principalBalance" column="principalBalance" />
+		<result property="interestBalance" column="interestBalance" />
+		<result property="version" column="version" />
+		<result property="executeTime" column="executeTime" />
+		<result property="identify" column="identify" />
+		<result property="repayFee" column="repayFee" />
+	</resultMap>
+
+	<select id="getById" parameterType="Long" resultMap="repaymentResultMap">
+		SELECT * 
+		  FROM t_repayment WHERE id = #{id}
+	</select>
+	
+	<select id="queryUserRepayments" parameterType="map" resultType="map">
+		SELECT 
+		 b.publisher userId
+		,SUM(IFNULL((r.stillPrincipal+r.stillInterest-r.hasPI+r.lateFI-r.hasFI),0)) AS forRePaySum
+		FROM t_repayment r
+		LEFT JOIN t_borrow b ON r.borrowId = b.id 
+		WHERE r.repayStatus = 1 
+		AND b.publisher IN
+		<foreach collection="userIdList" item="userId" open="(" close=")" separator=",">
+			#{userId}
+		</foreach>
+		GROUP BY b.publisher
+	</select>
+	
+	<!-- 查询还款列表 -->
+	<select id="selectRepaymentPage" parameterType="java.util.Map" resultType="java.util.Map">		
+		
+		SELECT `b`.`borrowStatus` AS `borrowStatus`,
+		       `b`.`id` AS `borrowId`,
+		       `r`.`id` AS `repaymentId`,
+		       `r`.`repayStatus` AS `repayStatus`,
+		       `b`.`number` AS `number`,
+		       `u`.`id` AS `userId`,
+		       `u`.`username` AS `username`,
+		       `tp`.`realName` AS `realName`,
+		       `b`.`borrowTitle` AS `borrowTitle`,
+		       `b`.`borrowAmount` AS `borrowAmount`,
+		       `r`.`repayPeriod` AS `repayPeriod`,
+		       `b`.`annualRate` AS `annualRate`,
+		       ((((`r`.`stillInterest` + `r`.`lateFI`) + `r`.`stillPrincipal`) + `r`.`consultFee`) + `r`.`repayFee`) AS `stillAmount`,
+		       `b`.`hasDeadline` AS `hasDeadline`,
+		       `r`.`stillInterest` AS `stillInterest`,
+		       `u`.`usrCustId` AS `usrCustId`,
+		       `b`.`auditTime` AS `fisrtDate`,
+			(SELECT MAX(`tt2`.`repayDate`) FROM `t_repayment` `tt2` WHERE (`tt2`.`borrowId` = `b`.`id`)) AS `lastDate`,
+			(SELECT SUM(`tt3`.`hasFI`) FROM `t_repayment` `tt3` WHERE (`tt3`.`borrowId` = `b`.`id`)) AS `hasFI`,
+			IFNULL((SELECT MIN(`tt4`.`repayDate`) FROM `t_repayment` `tt4` WHERE ((`tt4`.`borrowId` = `b`.`id`) AND (`tt4`.`repayStatus` = 1))),'--') AS `nextDate`,
+			IFNULL((SELECT MAX(`tt5`.`repayDate`) FROM `t_repayment` `tt5` WHERE ((`tt5`.`borrowId` = `b`.`id`) AND (`tt5`.`repayStatus` = 2))),CAST(`b`.`auditTime` AS DATE)) AS `preDate`,
+		        `r`.`principalBalance` AS `principalBalance`,
+		        (`r`.`consultFee` + `r`.`repayFee`) AS `fee`        
+		   FROM (((`t_borrow` `b` LEFT JOIN `t_repayment` `r` ON(((`b`.`id` = `r`.`borrowId`) AND (`r`.`repayStatus` = 1)))) 
+		        LEFT JOIN `t_user` `u` ON((`u`.`id` = `b`.`publisher`))) 
+		        LEFT JOIN `t_person` `tp` ON((`tp`.`userId` = `b`.`publisher`))) 
+		        
+		   WHERE  `b`.borrowStatus in (4,5)
+		        <if test="username != null">  
+		         AND `u`.username LIKE   CONCAT('%',#{username},'%')
+		         
+		        </if>
+		        <if test="realName != null">  
+		         AND `tp`.realName LIKE  CONCAT('%',#{realName},'%')
+		        </if>
+		        <if test="number != null">  
+		         AND `b`.number LIKE   CONCAT('%',#{number},'%')
+		        </if>		       
+		         <if test="repayDate != null">  
+		         AND `r`.repayDate = #{repayDate}
+		         </if>
+		   GROUP BY `b`.`id` 
+		   ORDER BY b.borrowStatus , r.repayDate
+		 
+	</select>
+	
+	<select id="selectPreRepayTotalAmountByBorrowId" parameterType="java.util.Map" resultMap="repaymentResultMap">
+		<![CDATA[			
+			SELECT 
+			       repay.borrowId AS borrowId,
+			       MIN(repay.repayDate) AS repayDate,
+			       SUM(IF(repay.id<=#{currentRepayId}, repay.repayFee,0)) AS repayFee,
+			       SUM(IF(repay.id<=#{currentRepayId}, repay.consultFee ,0)) AS consultFee,
+			       SUM(IF(repay.id<=#{currentRepayId}, repay.stillInterest ,0)) AS stillInterest,
+			       SUM(repay.stillPrincipal) AS stillPrincipal,
+			       SUM(repay.lateFI) AS lateFI			       
+			FROM   t_repayment repay 
+			WHERE  repay.borrowId = #{borrowId}
+			  AND repay.repayStatus = 1			
+		]]>
+	</select>
+	
+	
+	<select id="selectCurrentPeriod" parameterType="long" resultMap="repaymentResultMap">
+		<![CDATA[
+			SELECT  * 
+			  FROM t_repayment  
+			 WHERE borrowId = #{borrowId}   AND repayDate >= DATE(NOW()) AND repayStatus = 1
+			 ORDER BY id
+			 LIMIT 1
+		]]>		  
+	</select>
+	
+	<select id="selectLastPeriod" parameterType="long" resultMap="repaymentResultMap">	
+		<![CDATA[	  
+		  SELECT * FROM t_repayment where id =( SELECT MAX(id) FROM t_repayment WHERE borrowId = #{borrowId} )
+		   ]]>
+	</select>
+	
+	<select id="selectThirdPeriod" parameterType="long" resultMap="repaymentResultMap">	
+		<![CDATA[	  
+		  SELECT  * 
+		    FROM t_repayment  
+		   WHERE borrowId = #{borrowId}  AND repayPeriod LIKE '3/%'
+		   ]]>
+	</select>
+	
+	<select id="selectOverDueRepayList" parameterType="Map" resultMap="repaymentResultMap">
+		<![CDATA[
+		   SELECT  r.*
+			FROM t_repayment r
+			  INNER JOIN (SELECT MIN(id) AS id
+			              FROM t_repayment
+			              WHERE repayDate < #{currentDate} AND repayStatus = 1
+			              GROUP BY borrowId) late_repay ON late_repay. id = r.id
+    
+		]]>
+	</select>
+	
+	<select id="selectRepayment" parameterType="Map" resultMap="repaymentResultMap">
+		SELECT * 
+		  FROM t_repayment
+		  <trim prefix="WHERE" prefixOverrides="AND |OR "> 
+			<if test="id != null">  
+				AND id like #{id}
+			</if>
+			<if test="repayDate != null">  
+				AND repayDate like #{repayDate}
+			</if>
+			<if test="realRepayDate != null">  
+				AND realRepayDate like #{realRepayDate}
+			</if>
+			<if test="repayPeriod != null">  
+				AND repayPeriod like #{repayPeriod}
+			</if>
+			<if test="hasPi != null">  
+				AND hasPI like #{hasPi}
+			</if>
+			<if test="stillPrincipal != null">  
+				AND stillPrincipal like #{stillPrincipal}
+			</if>
+			<if test="stillInterest != null">  
+				AND stillInterest like #{stillInterest}
+			</if>
+			<if test="hasFi != null">  
+				AND hasFI like #{hasFi}
+			</if>
+			<if test="consultFee != null">  
+				AND consultFee like #{consultFee}
+			</if>
+			<if test="lateFi != null">  
+				AND lateFI like #{lateFi}
+			</if>
+			<if test="lateDay != null">  
+				AND lateDay like #{lateDay}
+			</if>
+			<if test="repayStatus != null">  
+				AND repayStatus like #{repayStatus}
+			</if>
+			<if test="borrowId != null">  
+				AND borrowId like #{borrowId}
+			</if>
+			<if test="isLate != null">  
+				AND isLate like #{isLate}
+			</if>
+			<if test="isWebRepay != null">  
+				AND isWebRepay like #{isWebRepay}
+			</if>
+			<if test="investorForpayFi != null">  
+				AND investorForpayFI like #{investorForpayFi}
+			</if>
+			<if test="investorHaspayFi != null">  
+				AND investorHaspayFI like #{investorHaspayFi}
+			</if>
+			<if test="principalBalance != null">  
+				AND principalBalance like #{principalBalance}
+			</if>
+			<if test="interestBalance != null">  
+				AND interestBalance like #{interestBalance}
+			</if>
+			<if test="version != null">  
+				AND version like #{version}
+			</if>
+			<if test="executeTime != null">  
+				AND executeTime like #{executeTime}
+			</if>
+			<if test="identify != null">  
+				AND identify like #{identify}
+			</if>
+			<if test="repayFee != null">  
+				AND repayFee like #{repayFee}
+			</if>
+         </trim> 
+
+	</select>
+	
+	<select id="getByBorrowIdAndRepayPeriod" parameterType="map" resultMap="repaymentResultMap">
+		SELECT * FROM t_repayment
+		WHERE borrowId = #{borrowId}
+		AND repayPeriod = #{repayPeriod}
+		LIMIT 1;
+	</select>
+	
+	<update id="updateRepaymentById" parameterType="repaymentDo">
+		UPDATE t_repayment 
+	   <trim prefix="SET" prefixOverrides=",">
+		<if test="repayDate != null">
+			repayDate = #{repayDate}
+		</if>
+		<if test="realRepayDate != null">
+		,realRepayDate = #{realRepayDate}
+		</if>
+		<if test="repayPeriod != null">
+		,repayPeriod = #{repayPeriod}
+		</if>
+		<if test="hasPi != null">
+		,hasPI = #{hasPi}
+		</if>
+		<if test="stillPrincipal != null">
+		,stillPrincipal = #{stillPrincipal}
+		</if>
+		<if test="stillInterest != null">
+		,stillInterest = #{stillInterest}
+		</if>
+		<if test="hasFi != null">
+		,hasFI = #{hasFi}
+		</if>
+		<if test="consultFee != null">
+		,consultFee = #{consultFee}
+		</if>
+		<if test="lateFi != null">
+		,lateFI = #{lateFi}
+		</if>
+		<if test="lateDay != null">
+		,lateDay = #{lateDay}
+		</if>
+		<if test="repayStatus != null">
+		,repayStatus = #{repayStatus}
+		</if>
+		<if test="borrowId != null">
+		,borrowId = #{borrowId}
+		</if>
+		<if test="isLate != null">
+		,isLate = #{isLate}
+		</if>
+		<if test="isWebRepay != null">
+		,isWebRepay = #{isWebRepay}
+		</if>
+		<if test="investorForpayFi != null">
+		,investorForpayFI = #{investorForpayFi}
+		</if>
+		<if test="investorHaspayFi != null">
+		,investorHaspayFI = #{investorHaspayFi}
+		</if>
+		<if test="principalBalance != null">
+		,principalBalance = #{principalBalance}
+		</if>
+		<if test="interestBalance != null">
+		,interestBalance = #{interestBalance}
+		</if>
+		<if test="version != null">
+		,version = #{version}
+		</if>
+		<if test="executeTime != null">
+		,executeTime = #{executeTime}
+		</if>
+		<if test="identify != null">
+		,identify = #{identify}
+		</if>
+		<if test="repayFee != null">
+		,repayFee = #{repayFee}
+		</if>
+		</trim>
+		WHERE id = #{id}
+	</update>	
+	
+	<!-- 控制并发 设置状态和版本  状态为3表示处理中 -->
+	<update id="upRepaymentVersionById" parameterType="Map">
+		update t_repayment
+		   set version = #{newVersion},
+		   repayStatus = #{status}
+		 where id = #{repaymentId} and version = #{oldVersion} and repayStatus = 1
+	</update>
+	
+	<update id="unLockById" parameterType="Map">
+		update t_repayment
+		   set version = #{newVersion},
+		   repayStatus = 1
+		 where id = #{repaymentId} and version = #{oldVersion} and repayStatus = 3
+	</update>
+	
+	<update id="updateRepaymentHasAmountById" parameterType="repaymentDo">
+		UPDATE t_repayment 
+		SET hasPI = hasPI+  #{hasPi}, 
+		    hasFI = hasFI + #{hasFi} 
+		WHERE id = #{id} 
+	</update>
+	
+	<update id="updateRepaymentStatusByPreRepay" parameterType="Map">
+	   <![CDATA[
+		UPDATE t_repayment 
+		   SET hasPI = IF(id<=#{currentRepayId}, (stillPrincipal + stillInterest), stillPrincipal),
+		       repayStatus	=	2,	
+		       realRepayDate	=	NOW(),	
+		       hasFI = lateFI,
+		       executeTime =  NOW()   
+		WHERE  borrowId = #{borrowId} and repayStatus in (1,3)
+		]]>
+	</update>
+	
+	<update id="updateIsWebRepayById" parameterType="Map">
+        UPDATE  t_repayment SET isWebRepay  =   2   WHERE   id  = #{repaymentId} and version = #{version}
+	</update>
+	
+	
+	<insert id="addRepayment" parameterType="repaymentDo" keyProperty="id"
+		useGeneratedKeys="true">
+		INSERT INTO t_repayment(repayDate
+		,realRepayDate
+		,repayPeriod
+		,hasPI
+		,stillPrincipal
+		,stillInterest
+		,hasFI
+		,consultFee
+		,lateFI
+		,lateDay
+		,repayStatus
+		,borrowId
+		,isLate
+		,isWebRepay
+		,investorForpayFI
+		,investorHaspayFI
+		,principalBalance
+		,interestBalance
+		,version
+		,executeTime
+		,identify
+		,repayFee)
+ VALUES (#{repayDate}
+		,#{realRepayDate}
+		,#{repayPeriod}
+		,#{hasPi}
+		,#{stillPrincipal}
+		,#{stillInterest}
+		,#{hasFi}
+		,#{consultFee}
+		,#{lateFi}
+		,#{lateDay}
+		,#{repayStatus}
+		,#{borrowId}
+		,#{isLate}
+		,#{isWebRepay}
+		,#{investorForpayFi}
+		,#{investorHaspayFi}
+		,#{principalBalance}
+		,#{interestBalance}
+		,#{version}
+		,#{executeTime}
+		,#{identify}
+		,#{repayFee}
+);
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long" >
+		DELETE FROM t_repayment WHERE id = #{id}
+	</delete>
+	
+</mapper>

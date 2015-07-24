@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<package name="bevip" extends="login-default" namespace="/">
+<!--  
+		<action name="queryPersonworkmsg" class="validateAction"
+			method="queryWork">
+			<result name="success">
+				/WEB-INF/page/admin/ususer_workInf_admin.jsp
+			</result>
+		</action>
+-->
+	 <action name="bevip" class="beVipAction"
+			method="bevip">
+			<result name="success">
+				/WEB-INF/page/front/bevip-index.jsp
+			</result>
+	 </action>
+     <!-- 更新vip状态和扣费 -->
+	 <action name="updateUserVip" class="beVipAction"
+			method="updateUserVip">
+			<result name="success">
+			</result>
+	 </action>
+	<!-- 即时验证身份证有效性 --> 
+ <action name="isIDNO" class="beVipAction"
+			method="isIDNO">
+</action>
+	 
+    
+		
+		
+</package>
+</struts>

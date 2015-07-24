@@ -1,0 +1,160 @@
+@charset "utf-8";
+/* 代码整理：懒人之家 www.lanrenzhijia.com */
+@media all {
+.container{ width:1140px;}
+.featherlight {
+	display: none;
+	position:fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 9999;
+	height: 100%;
+	text-align: center;
+	cursor: pointer;
+	/* background: #333;
+	background: rgba(0, 0, 0, 0.8); */
+}
+.featherlight .featherlight-close {
+	position: absolute;
+	z-index: 9999;
+	right: 0px;
+	top: 0px;
+	line-height: 25px;
+	width: 25px;
+	cursor: pointer;
+	text-decoration: none;
+	text-align: center;
+	font: Arial bold;
+	background: #fff;
+	color: #000;
+}
+.featherlight:before {
+	content: '';
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+	margin-right: -0.25em;
+}
+.featherlight .featherlight-content {
+	text-align: left;
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	padding: 2%;
+	width: 60%;
+	max-height: 95%;
+	overflow: auto;
+	background: #fff;
+	cursor: auto;
+}
+.featherlight .featherlight-inner {
+	display: block;
+}
+.featherlight-iframe .featherlight-content {
+	min-height: 60%;
+}
+.featherlight iframe {
+	border: none;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+}
+.featherlight .featherlight-image {
+	width: 100%;
+}
+}
+ @media all {
+.lightbox {
+	display: none;
+}
+.fl-page h1, .fl-page h3, .fl-page h4 {
+	font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	font-weight: 100;
+	letter-spacing: 1px;
+}
+.fl-page h1 {
+	font-size: 110px;
+	margin-bottom: 0.5em;
+}
+.fl-page h1 i {
+	font-style: normal;
+	color: #ddd;
+}
+.fl-page h1 span {
+	font-size: 30px;
+	color: #333;
+}
+.fl-page h3 {
+	text-align: right;
+}
+.fl-page h3 {
+	font-size: 15px;
+}
+.fl-page h4 {
+	font-size: 2em;
+}
+.fl-page .jumbotron {
+	margin-top: 2em;
+}
+.fl-page .doc {
+	margin: 2em 0;
+}
+.fl-page .btn-download {
+	float: right;
+}
+.fl-page .btn-default {
+	vertical-align: bottom;
+}
+.fl-page .btn-lg span {
+	font-size: 0.7em;
+}
+.fl-page .footer {
+	margin-top: 3em;
+	color: #aaa;
+	font-size: 0.9em;
+}
+.fl-page .footer a {
+	color: #999;
+	text-decoration: none;
+	margin-right: 0.75em;
+}
+.fl-page .github {
+	margin: 2em 0;
+}
+.fl-page .github a {
+	vertical-align: top;
+}
+.fl-page .marketing a {
+	color: #999;
+}
+/* override default feather style... */
+				.fixwidth {
+	/* background: rgba(256, 256, 256, 0.8); */
+}
+.fixwidth .featherlight-content {
+	width: 500px;
+	padding: 25px;
+	color: #fff;
+	background: #666;
+}
+.fixwidth .featherlight-close {
+	color: #fff;
+	background: #333;
+}
+}
+ @media(max-width: 768px) {
+ .fl-page h1 span {
+display: block;
+}
+ .fl-page .btn-download {
+float: none;
+margin-bottom: 1em;
+}
+}
+/* 代码整理：懒人之家 www.lanrenzhijia.com */

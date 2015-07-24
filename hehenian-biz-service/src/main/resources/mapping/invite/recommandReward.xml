@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.invite.IRecommandRewardDao">
+	<resultMap type="rewardDo" id="rewardResultMap">
+		<result property="id" column="id" />
+		<result property="referee_id" column="referee_id" />
+		<result property="referee_name" column="referee_name" />
+		<result property="user_id" column="user_id" />
+		<result property="user_name" column="user_name" />
+		<result property="user_identity" column="user_identity" />
+		
+		<result property="trade_id" column="trade_id" />
+		<result property="trade_time" column="trade_time" />
+		<result property="trade_amount" column="trade_amount" />
+		<result property="invest_period" column="invest_period" />
+
+		<result property="reward_amount" column="reward_amount" />
+		<result property="status" column="status" />
+	</resultMap>
+	
+	<select id="listRecommandReward" parameterType="map" resultType="rewardDo">
+		SELECT * FROM t_reward_record
+		WHERE referee_id = #{userId}
+		AND trade_time BETWEEN #{startDate} AND #{endDate} order by trade_id desc 
+		
+	</select>
+
+	<insert id="insertRecommandReward" parameterType="rewardDo"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		t_reward_record (referee_id,
+		referee_name,
+		user_id, user_name, user_identity,
+		trade_id, trade_time, trade_amount,
+		invest_period, reward_amount,
+		status)
+		VALUES(#{referee_id},#{referee_name},#{user_id},#{user_name},#{user_identity},#{trade_id},NOW(),#{trade_amount},#{invest_period}
+		,#{reward_amount},#{status});
+	</insert>
+	
+	<select id="getSumRewardAmount" parameterType="map" resultType="rewardDo">
+		SELECT round(sum(reward_amount),2) as reward_amount,round(sum(trade_amount),2) as trade_amount FROM t_reward_record
+		WHERE referee_id = #{userId}
+		<if test="startDate != null and endDate !=null">
+                AND trade_time BETWEEN #{startDate} AND #{endDate}
+		</if>
+		
+	</select>
+
+	<select id="getRewardNum" parameterType="map" resultType="long">
+		select count(t.user_id) from (select distinct user_id From t_reward_record 
+		WHERE referee_id = #{userId}
+		<if test="startDate != null and endDate !=null">
+                AND trade_time BETWEEN #{startDate} AND #{endDate}
+		</if>
+		) t
+	</select>
+	
+	<select id="getReferGroupReward" parameterType="map" resultType="Double">
+		select sum(reward_amount) from t_reward_record 
+		WHERE referee_id = #{referee} and user_id=#{userId}
+	</select>
+	
+	
+</mapper>

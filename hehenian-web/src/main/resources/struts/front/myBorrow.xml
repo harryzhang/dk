@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+     <package name="borrow" extends="injectionInterceptor-0" namespace="/">
+        <action name="borrow" class="frontMyBorrowAction" method="borrowInit">
+			<result name="success">/WEB-INF/page/front/borrow-index.jsp</result>
+		</action>
+    </package>
+	<package name="borrowAction" extends="login-default" namespace="/">
+		<action name="addBorrowInit" class="frontMyBorrowAction" method="addBorrowInit">
+			<result name="success">/WEB-INF/page/front/borrow-addhhn.jsp</result>
+			<result name="seconds">/WEB-INF/page/front/borrow-seconds-add.jsp</result>
+			<result name="borrowinit">/WEB-INF/page/front/borrow-index.jsp</result>
+			<result name="borrowtype">/WEB-INF/page/front/borrow-type.jsp</result>
+		    <result name="flow">/WEB-INF/page/front/borrow-circulation-add.jsp</result>
+		    <result name="querBaseData" type="chain">
+		       <!-- add by houli   -->
+			   <param name="from">${from}</param>
+			   <param name="btype">${btype}</param>
+		       <param name="adminUser">/</param>
+			   <param name="actionName">querBaseData</param>
+		    </result>
+		    <result name="querWorkData" type="chain">
+		       <!-- add by houli   -->
+			   <param name="from">${from}</param>
+			   <param name="btype">${btype}</param>
+		       <param name="adminUser">/</param>
+			   <param name="actionName">querWorkData</param>
+		    </result>
+		    <result name="quervipData" type="chain">
+		       <!-- add by houli   -->
+			   <param name="from">${from}</param>
+			   <param name="btype">${btype}</param>
+		       <param name="adminUser">/</param>
+			   <param name="actionName">quervipData</param>
+		    </result>
+		    <result name="userPassData" type="chain">
+		       <!-- add by houli   -->
+			   <param name="from">${from}</param>
+			   <param name="btype">${btype}</param>
+		       <param name="adminUser">/</param>
+			   <param name="actionName">userPassData</param>
+		    </result>
+		</action>
+		
+		<!-- houli start-->
+		<action name="borrowTypeNet" class="frontMyBorrowAction" method="borrowTypeNet">
+			<result name="success">/WEB-INF/page/front/borrow-add.jsp</result>
+		</action>
+		<action name="borrowGeneral" class="frontMyBorrowAction" method="borrowGeneral">
+			<result name="success">/WEB-INF/page/front/borrow-add.jsp</result>
+		</action>
+		<action name="borrowFieldVisit" class="frontMyBorrowAction" method="borrowFieldVisit">
+			<result name="success">/WEB-INF/page/front/borrow-add.jsp</result>
+		</action>
+		<action name="borrowGuarantee" class="frontMyBorrowAction" method="borrowGuarantee">
+			<result name="success">/WEB-INF/page/front/borrow-add.jsp</result>
+		</action>
+		<action name="borrowTypeSeconds" class="frontMyBorrowAction" method="borrowTypeSeconds">
+			<result name="seconds">/WEB-INF/page/front/borrow-seconds-add.jsp</result>
+		</action>
+		<action name="borrowOther" class="frontMyBorrowAction" method="borrowOther">
+			<result name="borrowtype">/WEB-INF/page/front/borrow-type.jsp</result>
+		</action>
+		<!-- end -->
+		
+		<action name="creditingInit" class="frontMyBorrowAction" method="creditingInit">
+			<result name="success">/WEB-INF/page/front/crediting-add.jsp</result>
+			<result name="querBaseData" type="chain">
+		       <param name="adminUser">/</param>
+			   <param name="actionName">querBaseData</param>
+		    </result>
+		    <result name="querWorkData" type="chain">
+		       <param name="adminUser">/</param>
+			   <param name="actionName">querWorkData</param>
+		    </result>
+		    <result name="quervipData" type="chain">
+		       <param name="adminUser">/</param>
+			  <param name="actionName">quervipData</param>
+		    </result>
+		    <result name="userPassData" type="chain">
+		       <param name="adminUser">/</param>
+			   <param name="actionName">userPassData</param>
+		    </result>
+		</action>
+		<action name="addBorrow" class="frontMyBorrowAction" method="addBorrow">
+		    <result name="success" type="redirectAction">finance.do</result>
+		    <result name="input">/WEB-INF/page/front/borrow-addhhn.jsp</result>
+		    <result name="fail" type="redirect">/fail.jsp</result>
+		    <result name="nologin" type="redirect">/index.jsp</result>
+		</action>
+		<action name="addBorrowSeconds" class="frontMyBorrowAction" method="addBorrowSeconds">
+		    <result name="success" type="redirectAction">finance.do</result>
+		    <result name="input">/WEB-INF/page/front/borrow-seconds-add.jsp</result>
+		    <result name="fail" type="redirect">/fail.jsp</result>
+		    <result name="nologin" type="redirect">/index.jsp</result>
+		</action>
+		<action name="addCrediting" class="frontMyBorrowAction" method="addCrediting">
+		    <result name="success" type="chain">
+		       <param name="borrow">/</param>
+			   <param name="actionName">creditingInit</param>
+		    </result>
+		    <result name="input">/WEB-INF/page/front/crediting-add.jsp</result>
+		    <result name="borrowinit">/WEB-INF/page/front/borrow-index.jsp</result>
+		    <result name="fail">/fail.jsp</result>
+		    <result name="nologin" type="redirect">/index.jsp</result>
+		</action>
+		<!-- 关注的借款 -->
+		
+		<action name="borrowConcernList" class="frontMyBorrowAction" method="borrowConcernList">
+			<result name="success">/WEB-INF/page/front/borrow-concern-index.jsp</result>
+		</action>
+		<action name="delBorrowConcern" class="frontMyBorrowAction" method="delBorrowConcern">
+			<result name="success" type="chain">
+		       <param name="borrowAction">/</param>
+			   <param name="actionName">finance</param>
+		    </result>
+		</action>
+		<action name="addCirculationBorrow" class="frontMyBorrowAction" method="addCirculationBorrow">
+		    <result name="success" type="redirectAction">
+			   <param name="actionName">finance</param>
+		    </result>
+		    <result name="input">/WEB-INF/page/front/borrow-circulation-add.jsp</result>
+		    <result name="fail" type="redirect">/fail.jsp</result>
+		    <result name="nologin" type="redirect">/index.jsp</result>
+		</action>
+     </package>
+</struts>

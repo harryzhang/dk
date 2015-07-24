@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator 1.0.3//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<validators>
+
+    <!-- 字段校验 -->
+    <!--<field name="id">
+        <field-validator type="required" short-circuit="true">
+            <message>ID必填的</message>
+        </field-validator>
+        <field-validator type="int">
+            <param name="min">20</param>
+            <param name="max">50</param>
+            <message>ID必须在 ${min} 到 ${max} 之间</message>
+        </field-validator>
+    </field>-->
+    <field name="userName">
+        <field-validator type="requiredstring" short-circuit="true">
+            <message>必须填写用户名</message>
+        </field-validator>
+        <field-validator type="regex">
+            <param name="regex"><![CDATA[(^[a-zA-Z_]\w{4,20}$)]]></param>
+            <message>用户名不合法</message>
+        </field-validator>
+
+    </field>
+    <field name="pwd">
+        <field-validator type="requiredstring" short-circuit="true">
+            <message>密码是必填的</message>
+        </field-validator>
+    </field>
+    <field name="confirmPassword">
+        <field-validator type="fieldexpression">
+            <param name="expression"><![CDATA[confirmPassword.equals(pwd)]]></param>
+            <message>两次密码输入不一致！</message>
+        </field-validator>
+    </field>
+    <field name="mobilePhone">
+        <field-validator type="requiredstring" short-circuit="true">
+            <message>手机号码是必填的</message>
+        </field-validator>
+        <field-validator type="regex">
+            <param name="regex"><![CDATA[(^0{0,1}(13[0-9]|15[0-9]|18[0-9]|14[0-9]|17[0-9])[0-9]{8}$)]]></param>
+            <message>手机号码不合法</message>
+        </field-validator>
+    </field>
+    <!-- 非字段校验 -->
+   <!-- <validator type="fieldexpression">
+        <param name="fieldName"></param>
+        <param name="fieldName">pwd</param>
+        <param name="fieldName">confirmPassword</param>
+        <param name="expression"><![CDATA[pwd==confirmPassword]]></param>&lt;!&ndash; OGNL表达式 &ndash;&gt;
+        <message>确认密码和密码输入不一致</message>
+    </validator>-->
+
+    <!--<field name="score">
+        <field-validator type="double">
+            <param name="minInclusive">0.0</param>
+            <param name="maxInclusive">100.0</param>
+            <message>成绩必须在${minInclusive}和${maxInclusive}之间</message>
+        </field-validator>
+    </field>
+    <field name="email" >
+        <field-validator type="regex">
+            <param name="expression"><![CDATA[(^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@([A-Za-z0-9-])+((\.com)|(\.cn)|(\.net)|(\.org)|(\.info)|(\.edu)|(\.mil)|(\.gov)|(\.biz)|(\.ws)|(\.us)|(\.tv)|(\.cc)|(\.aero)|(\.arpa)|(\.coop)|(\.int)|(\.jobs)|(\.museum)|(\.name)|(\.pro)|(\.travel)|(\.nato)|(\..{2,3})|(\..{2,3}\..{2,3}))$)]]></param>
+            <message>邮箱不合法</message>
+        </field-validator>
+    </field>
+
+    <field name="registed_date">
+        <field-validator type="date">
+            <param name="min">1970-01-01</param>
+            <param name="max">2019-01-01</param>
+            <message>注册日期不合法</message>
+        </field-validator>
+    </field>-->
+</validators>

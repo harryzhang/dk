@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.IManagerLoanDictDtlDao">
+
+   <sql id="Query_Column">
+       id,dictId,code,name,status,remark
+   </sql>
+   <sql id="Where_Column">
+      <where >
+      <if test="dictId!=null "> and dictId=#{dictId}</if>
+         <if test="code != null "> and code = #{code}</if>
+         <if test="name != null "> and name like '%${name}%'</if>
+         <if test="status != null "> and status = #{status}</if>
+      </where>
+   </sql>
+   <!-- 用于分页 -->
+	<select id="queryListPage" parameterType="map" resultType="loanDictDtlDo">
+	   select 
+	    <include refid="Query_Column" />
+	    from t_loan_dict_dtl
+	    <include refid="Where_Column" />
+	</select>
+	
+	<!-- 不需分页 -->
+	<select id="queryList" parameterType="map" resultType="loanDictDtlDo">
+	   select 
+	    <include refid="Query_Column" />
+	    from t_loan_dict_dtl
+	    <include refid="Where_Column" />
+	</select>
+	
+	<insert id="addLoanDictDtlDo" parameterType="loanDictDtlDo"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		t_loan_dict_dtl
+		(dictId,code,name,status,remark)
+		VALUES (#{dictId},#{code}, #{name}, #{status}, #{remark});
+	</insert>
+	
+	
+</mapper>

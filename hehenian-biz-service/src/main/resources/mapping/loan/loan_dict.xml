@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.loan.IManagerLoanDictDao">
+
+   <sql id="Query_Column">
+       id,code,name,status,remark,createUserId,updateUserId,createTime,updateTime
+   </sql>
+   <sql id="Where_Column">
+      <where >
+         <if test="code != null "> and code = #{code}</if>
+         <if test="name != null "> and name like '%${name}%'</if>
+         <if test="status != null "> and status = #{status}</if>
+      </where>
+   </sql>
+   <!-- 用于分页 -->
+	<select id="queryListPage" parameterType="map" resultType="loanDictDo">
+	   select 
+	    <include refid="Query_Column" />
+	    from t_loan_dict
+	    <include refid="Where_Column" />
+	</select>
+	<!-- 不需分页 -->
+	<select id="queryList" parameterType="map" resultType="loanDictDo">
+	   select 
+	    <include refid="Query_Column" />
+	    from t_loan_dict
+	    <include refid="Where_Column" />
+	</select>
+	
+	<select id="getDictById" parameterType="long" resultType="loanDictDo">
+	   select 
+	    <include refid="Query_Column" />
+	    from t_loan_dict
+	    where id = #{dictId}
+	</select>
+	
+	<update id="updateDict" parameterType="loanDictDo">
+		update t_loan_dict
+		set 		   
+		<if test="name != null"> 
+			name = #{name},
+		</if>
+		
+		<if test="status != null">
+			status = #{status},
+		</if>
+		  
+		<if test="remark != null">  
+		    remark = #{remark},
+		</if>
+		<if test="createUserId != null">
+		    createUserId = #{createUserId},
+		 </if>
+		 updateTime  = now()
+		where id = #{id}
+	</update>
+	
+	
+	<insert id="addLoanDictDo" parameterType="loanDictDo"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		t_loan_dict
+		(code,name,status,remark,createUserId,updateUserId,createTime,updateTime)
+		VALUES (#{code}, #{name}, #{status}, #{remark},
+		#{createUserId},
+		#{updateUserId}, NOW(),NOW());
+	</insert>
+	
+	<delete id="deleteDict" parameterType="long" >
+	   delete 
+	    from t_loan_dict
+	    where id = #{dictId}
+	</delete>
+	
+	
+</mapper>

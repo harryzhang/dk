@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="referralBonuses" extends="admin-default" namespace="/admin">
+	
+	  <action name="referralBonusesList" class="referralBonusesAction" method="queryReferralBonusesList">			
+         <result name="success">/WEB-INF/page/admin/jkcpcs_friendpayment.jsp</result>
+      </action>
+        
+        
+        <action name="updateReferralBonuses" class="referralBonusesAction" method="updateReferralBonuses">	
+           
+        </action>
+
+	</package>
+</struts>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.dal.trade.IAuctionDebtDao">
+	<resultMap type="auctionDebtDo" id="auctionDebtResultMap">
+		<result property="id" column="id" />
+		<result property="userId" column="userId" />
+		<result property="debtId" column="debtId" />
+		<result property="auctionTime" column="auctionTime" />
+		<result property="auctionPrice" column="auctionPrice" />
+		<result property="autiontimes" column="autiontimes" />
+		<result property="auctionStatus" column="auctionStatus" />
+	</resultMap>
+
+	<select id="getById" parameterType="long" resultMap="auctionDebtResultMap">
+		SELECT *
+		FROM t_auction_debt
+		WHERE id = #{id}
+	</select>
+	
+	<select id="queryByIds" parameterType="map" resultMap="auctionDebtResultMap">
+		SELECT *
+		FROM t_auction_debt
+		WHERE id IN
+		<foreach collection="idList" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</select>
+
+	<select id="getByDebtId" parameterType="long" resultMap="auctionDebtResultMap">
+		SELECT *
+		FROM t_auction_debt
+		WHERE debtId = #{debtId}
+		AND auctionStatus =
+		'SUCCESS'
+		LIMIT 1;
+	</select>
+
+	<insert id="addAuctionDebt" parameterType="auctionDebtDo">
+		INSERT INTO
+		t_auction_debt(id,userId,debtId,auctionTime,auctionPrice,autiontimes,auctionStatus)
+		VALUES(#{id},#{userId},#{debtId},NOW(),#{auctionPrice},#{autiontimes},#{auctionStatus});
+	</insert>
+
+	<update id="updateAuctionDebt" parameterType="auctionDebtDo">
+		UPDATE t_auction_debt
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="auctionPrice != null">
+				auctionPrice = #{auctionPrice},
+			</if>
+			<if test="auctionStatus != null">
+				auctionStatus = #{auctionStatus},
+			</if>
+		</trim>
+		WHERE id = #{id}
+	</update>
+
+	<update id="updateAuctionStatus" parameterType="map">
+		UPDATE
+		t_auction_debt SET auctionStatus = #{targetStatus} WHERE id = #{id}
+		AND auctionStatus = #{sourceStatus}
+	</update>
+</mapper>

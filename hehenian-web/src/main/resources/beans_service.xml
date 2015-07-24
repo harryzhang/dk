@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	<bean id="selectedService" class="com.sp2p.service.SelectedService">
+		<property name="selectedDao" ref="selectedDao"></property>
+		<property name="sendMessageService" ref="sendMessageService"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+	<bean id="userService" class="com.sp2p.service.UserService">
+		<property name="userDao" ref="userDao"></property>
+		<property name="relationDao" ref="relationDao"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="sendmsgService" ref="sendmsgService"></property>
+		<property name="beVipDao" ref="beVipDao"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+		<property name="myHomeInfoSettingDao" ref="myHomeInfoSettingDao"></property>
+		<property name="shoveBorrowAmountTypeDao" ref="shoveBorrowAmountTypeDao"></property>
+		<property name="personDao" ref="personDao"></property>
+		<property name="workAuthDao" ref="workAuthDao"></property>
+		<property name="bankCardDao" ref="bankCardDao"></property>
+		<property name="borrowDao" ref="borrowDao"></property>
+		<property name="platformCostDao" ref="platformCostDao"></property>
+	</bean>
+	<bean id="financeService" class="com.sp2p.service.FinanceService">
+		<property name="financeDao" ref="financeDao"></property>
+		<property name="awardService" ref="awardService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+		<property name="repayMentDao" ref="repayMentDao"></property>
+		<property name="investDao" ref="investDao"></property>
+		<property name="borrowDao" ref="borrowDao"></property>
+		<property name="chinaPnRInterfaceService" ref="chinaPnRInterfaceService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="jobTaskDao" ref="jobTaskDao"></property>
+	</bean>
+
+	<!-- 客服中心管理，帮助中心和客服的管理 -->
+	<bean id="helpAndServicerService" class="com.sp2p.service.HelpAndServicerService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="kefusDao" ref="kefusDao"></property>
+		<property name="callCenterDao" ref="callCenterDao"></property>
+		<property name="categoryDao" ref="categoryDao"></property>
+	</bean>
+
+	<!-- 媒体报道和网站公告管理 -->
+	<bean id="newsAndMediaReportService" class="com.sp2p.service.NewsAndMediaReportService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="newsDao" ref="newsDao"></property>
+		<property name="mediaReportDao" ref="mediaReportDao" />
+	</bean>
+
+	<!-- 宣传管理模块 :包括团队管理、成功故事、信息管理、友情链接、后台协议、条款编辑 -->
+	<bean id="publicModelService" class="com.sp2p.service.PublicModelService">
+		<property name="teamDao" ref="teamDao" />
+		<property name="messageDao" ref="messageDao" />
+		<property name="linksDao" ref="linksDao"></property>
+		<property name="agreementDao" ref="agreementDao" />
+		<property name="successStoryDao" ref="successStoryDao" />
+		<property name="clauseDao" ref="clauseDao"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+	<!-- 成为理财人 -->
+	<bean id="becomeFinanceService" class="com.sp2p.service.BecomeToFinanceService">
+		<property name="becomeFinanceDao" ref="becomeFinanceDao"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+	<!-- 我要理财-工具箱 -->
+	<bean id="financeToolsService" class="com.sp2p.service.FinanceToolsService">
+		<property name="phoneInfoDao" ref="phoneInfoDao"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+	<!-- 我的帐户个人设置 -->
+	<bean id="homeInfoSettingService" class="com.sp2p.service.HomeInfoSettingService">
+		<property name="myHomeInfoSettingDao" ref="myHomeInfoSettingDao"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="fundRecordDao" ref="fundRecordDao"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+	<!-- 我的帐户 充值提现 -->
+	<bean id="rechargeService" class="com.sp2p.service.RechargeService">
+		<property name="rechargeDao" ref="rechargeDao"></property>
+		<property name="fiManageDao" ref="fiManageDao"></property>
+		<property name="accountUsersDao" ref="accountUsersDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="fundRecordDao" ref="fundRecordDao"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+		<property name="rechargeDetailDao" ref="rechargeDetailDao"></property>
+		<property name="financeDao" ref="financeDao"></property>
+	</bean>
+
+	<!-- 我的帐户 还款管理 -->
+	<bean id="frontpayService" class="com.sp2p.service.FrontMyPaymentService">
+		<property name="frontpayDao" ref="frontpayDao"></property>
+		<property name="financeDao" ref="financeDao"></property>
+		<property name="awardService" ref="awardService"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="assignmentDebtService" ref="assignmentDebtService"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="investDao" ref="investDao"></property>
+		<property name="borrowDao" ref="borrowDao"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+	<bean id="capitalEnsureService" class="com.sp2p.service.CapitalEnsureService">
+		<property name="capitalEnsureDao" ref="capitalEnsureDao"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+
+	<bean id="borrowService" class="com.sp2p.service.BorrowService">
+		<property name="borrowDao" ref="borrowDao"></property>
+		<property name="rechargeDao" ref="rechargeDao"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="borrowManageService" ref="borrowManageService"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="accountUsersDao" ref="accountUsersDao"></property>
+		<property name="fundRecordDao" ref="fundRecordDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+	</bean>
+
+	<!-- 任务执行器 -->
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="10" />
+		<property name="maxPoolSize" value="30" />
+	</bean>
+	<!-- 获取application里面邮件设置的参数 <bean id="getAppliactionService" class="com.sp2p.service.GetAppliactionService"> </bean> -->
+	<!-- 发送邮件 -->
+	<bean id="sendMailService" class="com.sp2p.service.SendMailService">
+		<property name="taskExecutor" ref="taskExecutor" />
+		<!-- <property name="getMailMsgOnUpService" ref="getMailMsgOnUpService" /> -->
+	</bean>
+	<!-- 地区下下拉框 -->
+	<bean id="regionService" class="com.sp2p.service.RegionService">
+		<property name="regionDao" ref="regionDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+	<!-- 下载资料列表 -->
+	<bean id="downloadService" class="com.sp2p.service.DownloadService">
+		<property name="downloadDao" ref="downloadDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+	<!-- 后台用户基本认证 -->
+
+	<bean id="validateService" class="com.sp2p.service.ValidateService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="vidateDao" ref="vidateDao"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="sendmsgService" ref="sendmsgService"></property>
+		<property name="countWorkStatusDao" ref="countWorkStatusDao"></property>
+		<property name="beVipDao" ref="beVipDao"></property>
+	</bean>
+
+	<!-- 后台借款管理 -->
+	<bean id="borrowManageService" class="com.sp2p.service.admin.BorrowManageService">
+		<property name="borrowManageDao" ref="borrowManageDao"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="awardService" ref="awardService"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="investDao" ref="investDao"></property>
+		<property name="accountUsersDao" ref="accountUsersDao"></property>
+		<property name="repamentDao" ref="repamentDao"></property>
+		<property name="borrowDao" ref="borrowDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="fundRecordDao" ref="fundRecordDao"></property>
+		<property name="repaymentRecordDao" ref="repaymentRecordDao"></property>
+		<property name="adminDao" ref="adminDao"></property>
+		<property name="platformCostService" ref="platformCostService"></property>
+		<property name="noticeTaskDao" ref="noticeTaskDao"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+		<property name="borrowService" ref="borrowService"></property>
+		<property name="shoveBorrowTypeService" ref="shoveBorrowTypeService"></property>
+		<property name="chinaPnRInterfaceService" ref="chinaPnRInterfaceService"></property>
+	</bean>
+
+
+
+
+	<!-- 用户管理 -->
+	<bean id="adminService" class="com.sp2p.service.admin.AdminService" parent="baseService">
+		<property name="adminDao" ref="adminDao" />
+		<property name="relationDao" ref="relationDao" />
+	</bean>
+	<!-- 角色管理 -->
+	<bean id="roleService" class="com.sp2p.service.admin.RoleService" parent="baseService">
+		<property name="roleDao" ref="roleDao" />
+		<property name="roleRightsDao" ref="roleRightsDao" />
+	</bean>
+	<!-- 角色权限管理 -->
+	<bean id="roleRightsService" class="com.sp2p.service.admin.RoleRightsService" parent="baseService">
+		<property name="roleRightsDao" ref="roleRightsDao" />
+	</bean>
+	<!-- 权限管理 -->
+	<bean id="rightsService" class="com.sp2p.service.admin.RightsService" parent="baseService">
+		<property name="rightsDao" ref="rightsDao" />
+	</bean>
+
+	<bean id="myHomeService" class="com.sp2p.service.MyHomeService">
+		<property name="myHomeDao" ref="myHomeDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="userDao" ref="userDao" />
+		<property name="operationLogDao" ref="operationLogDao" />
+	</bean>
+
+	<!-- 贷后管理 -->
+	<bean id="afterCreditManageService" class="com.sp2p.service.admin.AfterCreditManageService">
+		<property name="afterCreditManageDao" ref="afterCreditManageDao" />
+		<property name="frontpayDao" ref="frontpayDao" />
+		<property name="awardService" ref="awardService" />
+		<property name="selectedService" ref="selectedService" />
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="investDao" ref="investDao"></property>
+		<property name="assignmentDebtService" ref="assignmentDebtService"></property>
+		<property name="borrowDao" ref="borrowDao"></property>
+
+	</bean>
+
+	<bean id="guaranteeService" class="com.sp2p.service.GuaranteeService">
+		<property name="guaranteeDao" ref="guaranteeDao" />
+		<property name="userDao" ref="userDao" />
+		<property name="operationLogDao" ref="operationLogDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+	<bean id="recommendUserService" class="com.sp2p.service.RecommendUserService">
+		<property name="recommendUserDao" ref="recommendUserDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+	<!-- 前台个人认证 -->
+	<bean id="approveService" class="com.sp2p.service.ApproveService">
+		<property name="approveDao" ref="approveDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+	<!-- 奖励 -->
+	<bean id="awardMoneyService" class="com.sp2p.service.AwardMoneyService">
+		<property name="awardMoneyDao" ref="awardMoneyDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="rechargeDao" ref="rechargeDao"></property>
+		<property name="jobTaskDao" ref="jobTaskDao"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="fundRecordDao" ref="fundRecordDao"></property>
+
+	</bean>
+
+	<!-- 费用设置 -->
+	<bean id="costManagerService" class="com.sp2p.service.CostManagerService">
+		<property name="costManagerDao" ref="costManagerDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+
+	<!--后台网站关闭 -->
+	<bean id="closeNetWorkService" class="com.sp2p.service.admin.CloseNetWorkService">
+		<property name="closeNetWorkDao" ref="closeNetWorkDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+	<!-- 邮件-短信 -->
+	<bean id="emalAndMessageService" class="com.sp2p.service.admin.EmalAndMessageService">
+		<property name="emalAndMessageDao" ref="emalAndMessageDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+
+	<!--后台好友奖励设置 -->
+	<bean id="referralBonusesService" class="com.sp2p.service.admin.ReferralBonusesService">
+		<property name="referralBonusesDao" ref="referralBonusesDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+	<!--后台短信接口 -->
+	<bean id="sMSInterfaceService" class="com.sp2p.service.admin.SMSInterfaceService">
+		<property name="sMSInterfaceDao" ref="sMSInterfaceDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+	<!-- 后台用户管理 - 用户基本信息管理 -->
+	<bean id="userManageServic" class="com.sp2p.service.admin.UserManageServic">
+		<property name="userManageDao" ref="userManageDao" />
+		<property name="userIntegralDao" ref="userIntegralDao"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+	<!--后台站内信设置 -->
+	<bean id="mailBoxManagerService" class="com.sp2p.service.admin.MailBoxManagerService">
+		<property name="mailBoxManagerDao" ref="mailBoxManagerDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+	<!--统计管理 -->
+	<bean id="statisManageService" class="com.sp2p.service.admin.StatisManageService">
+		<property name="statisManageDao" ref="statisManageDao"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+	<!--举报管理 -->
+	<bean id="reportService" class="com.sp2p.service.admin.ReportService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="reportDao" ref="reportDao"></property>
+	</bean>
+
+
+	<!--用户组管理 -->
+	<bean id="groupService" class="com.sp2p.service.admin.GroupService">
+		<property name="groupDao" ref="groupDao"></property>
+		<property name="groupUserDao" ref="groupUserDao"></property>
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+	<!--短信发送 -->
+	<bean id="sendSMSService" class="com.sp2p.service.admin.SendSMSService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="sendSMSDao" ref="sendSMSDao"></property>
+	</bean>
+
+
+	<!--角色关系 -->
+	<bean id="relationService" class="com.sp2p.service.admin.RelationService">
+		<property name="relationDao" ref="relationDao"></property>
+	</bean>
+
+	<!-- 任务处理 -->
+	<bean id="jobTaskService" class="com.sp2p.task.JobTaskService">
+		<property name="jobTaskDao" ref="jobTaskDao"></property>
+		<property name="financeDao" ref="financeDao"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="userIntegralService" ref="userIntegralService"></property>
+		<property name="accountUsersDao" ref="accountUsersDao"></property>
+		<property name="borrowManageDao" ref="borrowManageDao"></property>
+		<property name="investDao" ref="investDao"></property>
+		<property name="borrowDao" ref="borrowDao"></property>
+		<property name="frontpayDao" ref="frontpayDao"></property>
+		<property name="fundRecordDao" ref="fundRecordDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="repayMentDao" ref="repayMentDao"></property>
+		<property name="assignmentDebtService" ref="assignmentDebtService"></property>
+		<property name="shortMassegeDao" ref="shortMassegeDao"></property>
+		<property name="shortMaseegeService" ref="shortMaseegeService"></property>
+		<property name="financeService" ref="financeService"></property>
+		<property name="chinaPnRInterfaceService" ref="chinaPnRInterfaceService"></property>
+
+	</bean>
+
+	<!--债权转让 -->
+	<bean id="assignmentDebtService" class="com.sp2p.service.AssignmentDebtService">
+		<property name="assignmentDebtDao" ref="assignmentDebtDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="auctionDebtDao" ref="auctionDebtDao"></property>
+		<property name="riskManageDao" ref="riskManageDao"></property>
+		<property name="fundRecordDao" ref="fundRecordDao"></property>
+		<property name="investDao" ref="investDao"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="financeDao" ref="financeDao"></property>
+		<property name="costManagerDao" ref="costManagerDao"></property>
+		<property name="awardService" ref="awardService"></property>
+		<property name="accountUsersDao" ref="accountUsersDao"></property>
+		<property name="borrowManageDao" ref="borrowManageDao"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+		<property name="adminDao" ref="adminDao"></property>
+	</bean>
+
+	<!--奖励计算 -->
+	<bean id="awardService" class="com.sp2p.service.AwardService">
+		<property name="awardDetailDao" ref="awardDetailDao"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="relationDao" ref="relationDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="awardDao" ref="awardDao"></property>
+		<property name="awardLevel4Dao" ref="awardLevel4Dao"></property>
+	</bean>
+	<!--竞拍债权 -->
+	<bean id="auctionDebtService" class="com.sp2p.service.AuctionDebtService">
+		<property name="auctionDebtDao" ref="auctionDebtDao"></property>
+		<property name="assignmentDebtDao" ref="assignmentDebtDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="financeDao" ref="financeDao"></property>
+		<property name="fundRecordDao" ref="fundRecordDao"></property>
+		<property name="accountUsersDao" ref="accountUsersDao"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+		<property name="assignmentDebtService" ref="assignmentDebtService"></property>
+	</bean>
+
+	<!-- 发送通知 -->
+	<bean id="sendMessageService" class="com.sp2p.service.SendMessageService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="searchBasicDao" ref="searchBasicDao"></property>
+		<property name="taskExecutor" ref="taskExecutor" />
+		<property name="accountUsersDao" ref="accountUsersDao" />
+		<property name="sMsService" ref="sMSInterfaceService" />
+		<property name="fundRecordDao" ref="fundRecordDao" />
+	</bean>
+
+	<!-- 审核管理模块发送通知 -->
+	<bean id="sendmsgService" class="com.sp2p.service.admin.SendmsgService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="sendmsgDao" ref="sendmsgDao"></property>
+	</bean>
+
+
+	<!--视频认证 -->
+	<bean id="showShipinService" class="com.sp2p.service.ShowShipinService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="showShipinDao" ref="showShipinDao"></property>
+	</bean>
+	<!--后台视频认证 -->
+	<bean id="showShipinAdminService" class="com.sp2p.service.admin.ShowShipinAdminService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="showShipinAdminDao" ref="showShipinAdminDao"></property>
+		<property name="validateService" ref="validateService"></property>
+	</bean>
+
+	<bean id="userAdminService" class="com.sp2p.service.admin.UserAdminService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="userAdminDao" ref="userAdminDao"></property>
+	</bean>
+	<!-- 验证身份证 -->
+	<bean id="iDCardValidateService" class="com.sp2p.service.IDCardValidateService">
+	</bean>
+	<bean id="countWorkStatusService" class="com.sp2p.service.admin.CountWorkStatusService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="countWorkStatusDao" ref="countWorkStatusDao"></property>
+	</bean>
+	<!-- 成为vip -->
+	<bean id="beVipService" class="com.sp2p.service.BeVipService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="beVipDao" ref="beVipDao"></property>
+		<property name="sendmsgService" ref="sendmsgService"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+		<property name="selectedService" ref="selectedService"></property>
+
+	</bean>
+
+	<!-- 资料认证 -->
+	<bean id="dataApproveService" class="com.sp2p.service.DataApproveService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="dataApproveDao" ref="dataApproveDao"></property>
+	</bean>
+	<bean id="userIntegralService" class="com.sp2p.service.UserIntegralService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="userIntegralDao" ref="userIntegralDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+		<property name="userManageDao" ref="userManageDao" />
+
+	</bean>
+	<!-- 用户未激活 -->
+	<bean id="unactivatedService" class="com.sp2p.service.admin.UnactivatedService">
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+	<!-- 发邮件 -->
+	<bean id="mailSendService" class="com.sp2p.service.MailSendService">
+		<property name="getMailMsgOnUpService" ref="getMailMsgOnUpService"></property>
+	</bean>
+	<bean id="getMailMsgOnUpService" class="com.sp2p.service.admin.GetMailMsgOnUpService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="getMailMsgOnUpDao" ref="getMailMsgOnUpDao"></property>
+	</bean>
+
+	<bean id="siteInformationService" class="com.sp2p.service.SiteInformationService">
+		<property name="siteInformationDao" ref="siteInformationDao"></property>
+	</bean>
+	<!-- 同步论坛 -->
+	<bean id="bbsRegisterService" class="com.sp2p.service.BBSRegisterService">
+		<property name="taskExecutor" ref="taskExecutor"></property>
+	</bean>
+	<!-- 平台收费标准 -->
+	<bean id="platformCostService" class="com.sp2p.service.admin.PlatformCostService">
+		<property name="platformCostDao" ref="platformCostDao"></property>
+	</bean>
+	<!-- 团队长(经纪人)奖励提成统计 -->
+	<bean id="awardDetailService" class="com.sp2p.service.admin.AwardDetailService">
+		<property name="awardDetailDao" ref="awardDetailDao"></property>
+	</bean>
+
+	<!-- 还款方式 -->
+	<bean id="shoveBorrowStyleService" class="com.sp2p.service.admin.ShoveBorrowStyleService">
+		<property name="shoveBorrowStyleDao" ref="shoveBorrowStyleDao"></property>
+		<property name="shoveBorrowTypeDao" ref="shoveBorrowTypeDao"></property>
+	</bean>
+	<!-- 标种类型 -->
+	<bean id="shoveBorrowTypeService" class="com.sp2p.service.admin.ShoveBorrowTypeService">
+		<property name="shoveBorrowTypeDao" ref="shoveBorrowTypeDao"></property>
+		<property name="shoveBorrowTypeLogDao" ref="shoveBorrowTypeLogDao"></property>
+	</bean>
+	<!-- 自动投标 -->
+	<bean id="automaticBidService" class="com.sp2p.service.admin.AutomaticBidService">
+		<property name="automaticBidDao" ref="automaticBidDao"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+	</bean>
+	<!-- 额度类型 -->
+	<bean id="shoveBorrowAmountTypeService" class="com.sp2p.service.admin.ShoveBorrowAmountTypeService">
+		<property name="shoveBorrowAmountTypeDao" ref="shoveBorrowAmountTypeDao"></property>
+	</bean>
+	<!-- 提醒方式 -->
+	<bean id="shoveApproveNoticeStyleService" class="com.sp2p.service.admin.ShoveApproveNoticeStyleService">
+		<property name="shoveApproveNoticeStyleDao" ref="shoveApproveNoticeStyleDao"></property>
+	</bean>
+	<!-- 提醒记录 -->
+	<bean id="shoveApproveNoticeTemplateService" class="com.sp2p.service.admin.ShoveApproveNoticeTemplateService">
+		<property name="shoveApproveNoticeTemplateDao" ref="shoveApproveNoticeTemplateDao"></property>
+	</bean>
+
+	<bean id="rechargeDetailService" class="com.sp2p.service.RechargeDetailService">
+		<property name="rechargeDetailDao" ref="rechargeDetailDao"></property>
+		<property name="fundRecordDao" ref="fundRecordDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="financeDao" ref="financeDao"></property>
+		<property name="rechargeDao" ref="rechargeDao"></property>
+	</bean>
+	<!-- 支付方式 -->
+	<bean id="accountPaymentService" class="com.sp2p.service.admin.AccountPaymentService">
+		<property name="accountPaymentDao" ref="accountPaymentDao"></property>
+	</bean>
+	<!--后台网站SEO设置 -->
+	<bean id="SEOConfigService" class="com.sp2p.service.admin.SEOConfigService">
+		<property name="SEOConfigDao" ref="SEOConfigDao" />
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+	<!-- SEO设置初始化 -->
+	<bean id="getSEOConfigOnUpService" class="com.sp2p.service.admin.GetSEOConfigOnUpService">
+		<property name="getSEOConfigOnUpDao" ref="getSEOConfigOnUpDao" />
+	</bean>
+	<!-- 文章管理 -->
+	<bean id="articleManageService" class="com.sp2p.service.admin.ArticleManageService">
+		<property name="articleManageDao" ref="articleManageDao" />
+	</bean>
+	<!-- 手机注册 -->
+	<bean id="cellPhoneService" class="com.sp2p.service.CellPhoneService">
+		<property name="personDao" ref="personDao"></property>
+		<property name="relationDao" ref="relationDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="shoveBorrowAmountTypeDao" ref="shoveBorrowAmountTypeDao"></property>
+	</bean>
+
+	<!-- 意见反馈 -->
+	<bean id="feedbackService" class="com.sp2p.service.FeedbackService">
+		<property name="feedbackDao" ref="feedbackDao"></property>
+	</bean>
+	<!-- 资金记录 -->
+	<bean id="fundrecordService" class="com.sp2p.service.FundrecordService">
+		<property name="fundRecordDao" ref="fundRecordDao"></property>
+	</bean>
+	<!-- 系统日志 -->
+	<bean id="operationLogService" class="com.sp2p.service.OperationLogService">
+		<property name="operationLogDao" ref="operationLogDao"></property>
+	</bean>
+	<!-- 后台财务管理，银行卡管理，风险保障金 -->
+	<bean id="fundManagementService" class="com.sp2p.service.admin.FundManagementService">
+		<property name="fiManageDao" ref="fiManageDao"></property>
+		<property name="fundRecordDao" ref="fundRecordDao"></property>
+		<property name="accountUsersDao" ref="accountUsersDao"></property>
+		<property name="selectedService" ref="selectedService"></property>
+		<property name="userBankDao" ref="userBankDao"></property>
+		<property name="riskManageDao" ref="riskManageDao"></property>
+		<property name="accountPaymentDao" ref="accountPaymentDao"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+		<property name="myHomeInfoSettingDao" ref="myHomeInfoSettingDao"></property>
+	</bean>
+
+	<!-- 线下充值银行编辑 -->
+	<bean id="rechargebankService" class="com.sp2p.service.admin.RechargebankService">
+		<property name="RechargebankDao" ref="RechargebankDao"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+	<!-- 经济人提成 -->
+	<bean id="agentcommissionService" class="com.sp2p.service.AgentcommissionService">
+		<property name="connectionManager" ref="connectionManager"></property>
+		<property name="awardMonthDao" ref="awardMonthDao"></property>
+	</bean>
+	<!-- 团队长/经纪人月结 -->
+	<bean id="awardMonthService" class="com.sp2p.service.AwardMonthService">
+		<property name="awardMonthDao" ref="awardMonthDao"></property>
+		<property name="connectionManager" ref="connectionManager"></property>
+	</bean>
+
+	<!-- 用户评论管理 -->
+	<bean id="userReviewService" class="com.sp2p.service.admin.UserReviewService">
+		<property name="userReviewDao" ref="userReviewDao"></property>
+	</bean>
+
+	<!-- 债权管理 -->
+	<bean id="assignmentService" class="com.sp2p.service.admin.AssignmentDebtService">
+		<property name="assignmentDao" ref="assignmentDao"></property>
+		<property name="selectedService" ref="selectedService"></property>
+	</bean>
+	<!-- 短消息 -->
+	<bean id="shortMaseegeService" class="com.sp2p.service.admin.ShortMaseegeService">
+		<property name="userManageServic" ref="userManageServic" />
+		<property name="sMSInterfaceService" ref="sMSInterfaceService" />
+		<property name="adminService" ref="adminService" />
+		<property name="sendMailService" ref="sendMailService" />
+		<property name="homeInfoSettingService" ref="homeInfoSettingService" />
+		<property name="shortMassegeDao" ref="shortMassegeDao" />
+		<property name="userService" ref="userService" />
+	</bean>
+	<!-- 调查问卷 -->
+	<bean id="questionnaireService" class="com.sp2p.service.QuestionnaireService">
+		<property name="questionnaireDao" ref="questionnaireDao" />
+	</bean>
+	<!-- 调查问卷统计 -->
+	<bean id="questionService" class="com.sp2p.service.QuestionService">
+		<property name="questionDao" ref="questionDao" />
+	</bean>
+
+	<!-- 彩生活数据导入 -->
+	<bean id="colorLifeService" class="com.sp2p.service.admin.ColorLifeService">
+		<property name="colorLifeDao" ref="colorLifeDao" />
+	</bean>
+	<bean id="scoreService" class="com.sp2p.service.admin.ScoreService">
+		<property name="scoreDao" ref="scoreDao" />
+	</bean>
+	<!-- 汇付天下 -->
+	<bean id="chinaPnRInterfaceService" class="com.sp2p.service.ChinaPnRInterfaceService">
+		<property name="chinaPnrDao" ref="chinaPnrDao"></property>
+		<property name="awardService" ref="awardService"></property>
+		<property name="borrowDao" ref="borrowDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="adminDao" ref="adminDao"></property>
+		<property name="operationLogDao" ref="operationLogDao"></property>
+		<property name="repamentDao" ref="repamentDao"></property>
+		<property name="rechargeDetailDao" ref="rechargeDetailDao"></property>
+		<property name="borrowManageService" ref="borrowManageService"></property>
+	</bean>
+	<!-- 商户管理 -->
+	<bean id="merService" class="com.sp2p.service.admin.merService">
+		<property name="merDao" ref="merDao"></property>
+		<property name="adminDao" ref="adminDao"></property>
+		<property name="fiManageDao" ref="fiManageDao"></property>
+	</bean>
+	<bean id="activityService" class="com.sp2p.service.ActivityService">
+	</bean>
+</beans>

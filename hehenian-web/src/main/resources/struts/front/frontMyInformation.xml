@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MyInformation" extends="login-default" namespace="/">
+
+		<action name="owerInformationInit" class="FrontMyInformation" method="queryBaseData">
+			<result name="success"> /WEB-INF/page/front/wdzh-user-detail-info.jsp </result>
+		</action>
+
+		<action name="registerChinaHHN" class="FrontMyInformation" method="registerChinaHHN">
+			<result name="success"> /WEB-INF/page/front/wdzh-user-chinapnr.jsp </result>
+		</action>
+		
+		<!-- 彩生活导入数据 -->
+		<action name="importFromBeautyLife" class="FrontMyInformation" method="importFromBeautyLife">
+		</action>
+
+		<action name="addInformationDetail" class="FrontMyInformation" method="updateUserBaseData">
+		</action>
+
+		<action name="addWorkDetail" class="FrontMyInformation" method="updateUserWorkData">
+		</action>
+
+		<action name="queryWorkInit" class="FrontMyInformation" method="queryWorkInit">
+			<result name="success">/WEB-INF/page/front/wdzh-gzrz-index.jsp</result>
+		</action>
+
+		<action name="queryBasicInit" class="FrontMyInformation" method="queryBasicInit">
+			<result name="success">/WEB-INF/page/front/user_basicinfo.jsp</result>
+		</action>
+
+		<action name="updatexgmm" class="FrontMyInformation" method="updatexgmm">
+			<result name="success">/WEB-INF/page/front/wdzh-xgmm-index.jsp</result>
+		</action>
+		<action name="boundcellphone" class="FrontMyInformation" method="updatexgmm">
+			<result name="success">/WEB-INF/page/front/wdzh-sjbd-index.jsp</result>
+		</action>
+		<action name="szform" class="FrontMyInformation" method="updatexgmm">
+			<result name="success">/WEB-INF/page/front/inform_set.jsp</result>
+		</action>
+		<action name="yhbound" class="FrontMyInformation" method="updatexgmm">
+			<result name="success">/WEB-INF/page/front/wdzh-yhbg-index.jsp</result>
+		</action>
+
+		<!-- 添安全问题 -->
+		<action name="addQuestion" class="FrontMyInformation" method="addQuestion">
+		</action>
+
+		<!-- 修改全问题 -->
+		<action name="updateQuestion" class="FrontMyInformation" method="updateQuestion">
+		</action>
+		
+		<!-- 查询邮箱是否已经设置 -->
+		<action name="queryEmail" class="FrontMyInformation" method="queryEmail">
+		</action>
+		
+		<!-- 添加邮箱 -->
+		<action name="addEmail" class="FrontMyInformation" method="updateEmail">
+		</action>
+		
+		<!-- 修改邮箱 -->
+		<action name="updateEmail" class="FrontMyInformation" method="updateEmail">
+		</action>
+		
+		<!-- 邮箱管理 left menu -->
+		<action name="emailManagerInit" class="homeInfoSettingAction" method="emailManagerInit">
+			<result name="success"> /WEB-INF/page/front/wdzh-yxbd-index.jsp </result>
+		</action>
+		<!-- 邮箱管理 left menu -->
+		<action name="SendUserEmailSet" class="homeInfoSettingAction" method="SendUserEmailSet">
+		</action>
+
+		<action name="inviteFriend" class="FrontMyInformation" method="inviteFriend">
+			<result name="success">/WEB-INF/page/front/wdzh-invite-friend-index.jsp</result>
+		</action>
+
+		<action name="smsInvite" class="FrontMyInformation" method="smsInvite"></action>
+
+		<action name="showImage" class="FrontMyInformation" method="showImage"></action>
+		
+	</package>
+</struts>

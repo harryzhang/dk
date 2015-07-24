@@ -1,0 +1,8 @@
+.tab{width: auto; background-color: #FFF; padding: 10px;} 
+.tab table{width:100%;border:none;}
+.tab td{height:25px;}
+.right{text-align:right;}
+.left{text-align:left;}
+.leftp200{text-align:left;padding-left:200px;}
+.t_on{background-color: #CC0000;cursor:pointer;text-align:center;}
+.t_out{background-color: #8594A9;cursor:pointer;text-align:center;}

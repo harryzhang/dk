@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+    	http://www.springframework.org/schema/context 
+    	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- <bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="placeholderPrefix" value="${" />
+		<property name="locations">
+			<list>
+				<value>file:${catalina.home}/conf/hehenian.properties</value>
+				<value>file:${catalina.home}/conf/hehenian-dqlc-config.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean> -->
+	
+	<bean id="sysconfig"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>file:${catalina.home}/conf/hehenian.properties</value>
+				<value>file:${catalina.home}/conf/hehenian-dqlc-config.properties</value>
+			</list>
+		</property>
+  	</bean>
+  	
+  	
+  	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="properties" ref="sysconfig" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+    </bean> 
+	
+	 
+    <context:component-scan base-package="com.hehenian.manager.modules,com.hehenian.manager.springsecurity,com.hehenian.manager.actions"/>
+</beans>

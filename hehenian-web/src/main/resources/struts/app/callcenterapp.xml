@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="callcenterapp" extends="app-default" namespace="/app">
+		<action name="callcenter" class="callCenterAppAction"
+			method="callCenterInit">
+		</action>
+		
+		<action name="callcenterList" class="callCenterAppAction" method="queryCallCenterInit">
+		</action>
+		
+		<action name="callkfs" class="callCenterAppAction" method="callKfsInit">
+		</action>
+		
+		<action name="callcenterAnswer" class="callCenterAppAction" method="queryCallCenterAnswer">
+		</action>
+	</package>
+</struts>

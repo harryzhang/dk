@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="frontDownload" extends="injectionInterceptor-0" namespace="/">
+		<!-- 下载资料列表 -->
+		<action name="frontDownloadlist" class="frontDownloadAction" method="frontQueryDownlaodList">
+			<result name="success">/WEB-INF/page/front/download_info_list.jsp</result>
+        </action>
+        <!-- 前台初始化下载资料列表 -->
+        <action name="download" class="frontDownloadAction" method="frontQueryDownloadInit">
+			<result name="success">/WEB-INF/page/front/download_index.jsp</result>
+        </action>
+
+        
+        <!--根据Id获取下载资料详情 -->
+        <action name="frontDownloadDetail" class="frontDownloadAction" method="frontQueryDownloadById">
+            <result name="success">/WEB-INF/page/front/download_info.jsp</result>
+        </action>
+        
+        <!--下载指定Id的资料 -->
+        <action name="downloads" class="frontDownloadAction" method="downloads">
+           <result name="success">/WEB-INF/page/front/download_index.jsp</result>
+		   <result name="login" type="redirect">login.do</result>
+		    <result name="fail">/WEB-INF/page/front/download_index.jsp</result>
+        </action>
+        
+
+
+
+	</package>
+</struts>

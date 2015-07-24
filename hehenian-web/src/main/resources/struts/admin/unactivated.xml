@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="unactivated" extends="admin-default"
+	
+		namespace="/admin">
+<!-- 用户未激活 -->
+	
+<!-- 
+		<action name="queryPersonworkmsg" class="validateAction"
+			method="queryWork">
+			<result name="success">
+				/WEB-INF/page/admin/ususer_workInf_admin.jsp
+			</result>
+		</action>
+   -->     
+		<!-- 查询未激活的初始化  -->
+		<action name="unactivatedindex" class="unactivatedAction"
+			method="unactivatedindex">
+			<result name="success">
+				/WEB-INF/page/admin/user-unactivated-index.jsp
+			</result>
+		</action>
+			<!-- 查询未激活的详细列表 -->
+		<action name="unactivatedinfo" class="unactivatedAction"
+				method="unactivatedinfo">
+				<result name="success">
+					/WEB-INF/page/admin/user-unactivated-list.jsp
+				</result>
+		</action>
+		<action name="updateActicate" class="unactivatedAction"
+				method="updateUserActivate">
+				<result name="success">
+						/WEB-INF/page/admin/user-unactivated-index.jsp
+				</result>
+		</action>
+	
+			<!-- 根据id查询未激活用户的详细信息 -->
+			<action name="unactivetedUserDetail" class="unactivatedAction" method="unactivetedUserDetail">
+				<result>/WEB-INF/page/admin/user-unactivated-detail.jsp</result>
+			</action>
+			
+			<!-- 预授信资料导入 初始化-->
+			<action name="importPreliminaryCreditInit" class="colorLifeInfoAction">
+				<result>/WEB-INF/page/admin/user_unactivared_import_detail.jsp</result>
+			</action>
+			<!-- 预授信资料导入 -->
+			<action name="importInfo" class="colorLifeInfoAction" method="importInfo">
+				<result name="input">/WEB-INF/page/admin/user_unactivared_import_detail.jsp</result>
+				<result>/WEB-INF/page/admin/user_unactivared_import_detail.jsp</result>
+			</action>
+			
+			<!-- 彩生活订购记录查询列表 -->
+			<action name="listColorLifeBuyInfo" class="colorLifeInfoAction" method="listColorLifeBuyInfo">
+				<result>/WEB-INF/page/admin/colorLifeBuyRecordList.jsp</result>
+			</action>
+			<!-- 彩生活订购记录初始化 -->
+			<action name="listColorLifeBuyInfoInit" class="colorLifeInfoAction" method="listColorLifeBuyInfoInit">
+				<result>/WEB-INF/page/admin/colorLifeBuyRecordListIndex.jsp</result>
+			</action>
+			
+			<!-- 彩生活审核记录查询列表 -->
+			<action name="listColorLifeVerifierInfo" class="colorLifeInfoAction" method="listColorLifeVerifierInfo">
+				<result>/WEB-INF/page/admin/colorLifeBuyVerifierList.jsp</result>
+			</action>
+			<!-- 彩生活审核记录查询列表初始化 -->
+			<action name="listColorLifeVerifierInfoInit" class="colorLifeInfoAction" method="listColorLifeVerifierInfoInit">
+				<result>/WEB-INF/page/admin/colorLifeBuyVerifierListIndex.jsp</result>
+			</action>
+			
+			<action name="colorLifeVerifier" class="colorLifeInfoAction" method="colorLifeVerifier">
+				<result name="success" type="redirect">listColorLifeVerifierInfoInit.do</result>
+			</action>
+			<!-- 已审核列表 -->
+			<action name="listColorLifeCheckedInfo" class="colorLifeInfoAction" method="listColorLifeCheckedInfo">
+				<result>/WEB-INF/page/admin/colorLifeBuyCheckedList.jsp</result>
+			</action>
+			<!-- 已审核初始化 -->
+			<action name="listColorLifeCheckedInfoInit" class="colorLifeInfoAction" method="listColorLifeCheckedInfoInit">
+				<result>/WEB-INF/page/admin/colorLifeBuyCheckedListIndex.jsp</result>
+			</action>
+			
+			<action name="exportExcelBuyInfo" class="colorLifeInfoAction" method="exportExcelBuyInfo">
+			</action>
+		</package>
+</struts>

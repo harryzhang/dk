@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.component.fund.dao.IFundDao">
+	<resultMap type="fundDo" id="fundResultMap">
+		<result property="fundCode" column="fundCode" />
+		<result property="fundName" column="fundName" />
+		<result property="remark" column="remark" />
+		<result property="validate" column="validate" />
+	</resultMap>
+
+	<select id="getById" parameterType="String" resultMap="fundResultMap">
+		SELECT *
+		FROM t_fund WHERE fundCode = #{fundCode}
+	</select>
+
+	<select id="selectFund" parameterType="Map" resultMap="fundResultMap">
+		SELECT *
+		FROM t_fund
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="fundCode != null">
+				AND fundCode like #{fundCode}
+			</if>
+			<if test="fundName != null">
+				AND fundName like #{fundName}
+			</if>
+			<if test="remark != null">
+				AND remark like #{remark}
+			</if>
+			<if test="validate != null">
+				AND validate like #{validate}
+			</if>
+		</trim>
+
+	</select>
+
+	<update id="updateFundById" parameterType="fundDo">
+		UPDATE t_fund
+		SET
+		<if test="fundName != null">
+			fundName = #{fundName}
+		</if>
+		<if test="remark != null">
+			,remark = #{remark}
+		</if>
+		<if test="validate != null">
+			,validate = #{validate}
+		</if>
+
+		WHERE fundCode = #{fundCode}
+	</update>
+
+	<insert id="addFund" parameterType="fundDo">
+		INSERT INTO t_fund(
+		fundName
+		,remark
+		,validate
+		)
+		VALUES ( #{fundName}
+		,#{remark}
+		,#{validate}
+		);
+	</insert>
+
+	<delete id="deleteById" parameterType="String">
+		DELETE FROM
+		t_fund WHERE fundCode = #{fundCode}
+	</delete>
+
+</mapper>
+

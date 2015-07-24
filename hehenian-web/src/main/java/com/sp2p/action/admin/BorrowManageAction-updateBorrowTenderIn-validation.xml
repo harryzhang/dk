@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="paramMap['auditOpinion']">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>
+			<message>请填写风控意见</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">500</param>
+			<message>风控意见不得大于${maxLength}个字符</message>
+		</field-validator>
+	</field>
+</validators>

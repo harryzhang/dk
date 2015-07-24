@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="merManager" extends="admin-default" namespace="/admin">
+	
+		<!-- 子账户充值 -->
+		<action name="merRechargeInit" class="merAction" method="merRechargeInit">
+			<result>/WEB-INF/page/admin/mer_recharge_index.jsp</result>
+		</action>
+		<action name="merRecharge" class="merAction" method="merRecharge">
+		</action>
+		<!-- 子账户充值记录 -->
+		<action name="queryMerRechargeList" class="merAction" method="queryMerRechargeList">
+			<result>/WEB-INF/page/admin/mer_recharge_list.jsp</result>
+		</action>
+
+		<!--子账户转账-->
+		<action name="merRechargeIndex" class="merAction" method="merRechargeIndex">
+			<result>/WEB-INF/page/admin/mer_transfer_index.jsp</result>
+		</action>
+		<action name="merRechargeTransfer" class="merAction" method="merRechargeTransfer">
+		</action>
+
+		<!-- 取现对账 -->
+		<action name="merCashCheck" class="merAction" method="merCashCheck">
+			<result>/WEB-INF/page/admin/mer_cash_check.jsp</result>
+		</action>
+		<action name="merCashCheckList" class="merAction" method="merCashCheckList">
+			<result>/WEB-INF/page/admin/mer_cash_check_list.jsp</result>
+		</action>
+		
+		<!--交易状态查询初始化-->
+		<action name="queryTransStatusIndex" class="merAction" method="queryTransStatusIndex">
+			<result>/WEB-INF/page/admin/mer_queryTranStatus_list_index.jsp</result>
+		</action>
+		
+		<!--查询订单号初始化-->
+		<action name="queryTransStatusListIndex" class="merAction" method="queryTransStatusListIndex">
+			<result>/WEB-INF/page/admin/mer_queryTranStatus_list.jsp</result>
+		</action>
+		
+		<!--查询订单号列表-->
+		<action name="queryOrdidList" class="merAction" method="queryOrdidList">
+			<result>/WEB-INF/page/admin/mer_queryTranStatus_list.jsp</result>
+		</action>
+		
+		<!--交易状态查询-->
+		<action name="queryTransStatus" class="merAction" method="queryTransStatus">
+		</action>
+		
+		<!-- 充值对账 -->
+		<action name="merRechargeCheck" class="merAction" method="merRechargeCheck">
+			<result>/WEB-INF/page/admin/mer_save_check.jsp</result>
+		</action>
+		<action name="merRechargeCheckList" class="merAction" method="merRechargeCheckList">
+			<result>/WEB-INF/page/admin/mer_save_check_list.jsp</result>
+		</action>
+		
+		<!-- 投标对账 -->
+		<action name="merInvestCheck" class="merAction" method="merInvestCheck">
+			<result>/WEB-INF/page/admin/mer_invest_check.jsp</result>
+		</action>
+		<action name="merInvestCheckList" class="merAction" method="merInvestCheckList">
+			<result>/WEB-INF/page/admin/mer_invest_check_list.jsp</result>
+		</action>
+		
+		<!-- 商户扣款对账 -->
+		<action name="merBackCheck" class="merAction" method="merBackCheck">
+			<result>/WEB-INF/page/admin/mer_back_check.jsp</result>
+		</action>
+		<action name="merBackCheckList" class="merAction" method="merBackCheckList">
+			<result>/WEB-INF/page/admin/mer_back_check_list.jsp</result>
+		</action>
+		
+		<!-- 子账户取现 -->
+		<action name="cfbMerCashInit" class="merAction" method="cfbMerCashInit">
+			<result>/WEB-INF/page/admin/mer_cfbMerCash_index.jsp</result>
+		</action>
+		<action name="cfbMerCash" class="merAction" method="cfbMerCash">
+		</action>
+		<!-- 子账户取现记录 -->
+		<action name="queryCfbMerCashList" class="merAction" method="queryCfbMerCashList">
+			<result>/WEB-INF/page/admin/mer_cfbMerCash_list.jsp</result>
+		</action>
+		
+		<!-- 企业注册开户 -->
+		<action name="companyRegInit" class="merAction" method="companyRegInit">
+			<result>/WEB-INF/page/admin/mer_company_reg.jsp</result>
+		</action>
+		<action name="companyReg" class="merAction" method="companyReg">
+		</action>
+		<action name="queryCompany" class="merAction" method="queryCompany">
+		</action>
+		<!-- 导出交易状态 -->
+		<action name="exportTransStatus" class="merAction" method="exportTransStatus"></action>
+		
+		<!-- 企业信息 -->
+		<action name="companyInfo" class="merAction" method="companyInfo">
+			<result>/WEB-INF/page/admin/mer_company_info.jsp</result>
+		</action>
+		<!-- 企业绑卡 -->
+		<action name="bindCard" class="merAction" method="bindCard">
+		</action>
+		<!-- 企业充值 -->
+		<action name="comRecharge" class="merAction" method="comRecharge">
+		</action>
+		<!-- 企业提现 -->
+		<action name="comWithdraw" class="merAction" method="comWithdraw">
+		</action>
+	</package>
+</struts>

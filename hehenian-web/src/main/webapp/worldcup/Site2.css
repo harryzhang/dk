@@ -1,0 +1,96 @@
+body {
+	color: rgb(102, 102, 102); font-family: "Merriweather","Microsoft YaHei","Lucida Sans Unicode","Myriad Pro","Hiragino Sans GB","Heiti SC",Verdana,simsun; font-size: 14px;
+}
+body {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+p {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+li {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+ul {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+h1 {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+h2 {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+h3 {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+table {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+td {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+th {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+dl {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+dt {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+dd {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+img {
+	list-style: none; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; font-weight: normal;
+}
+.ibaner {
+	width: 459px; height: 295px; overflow: hidden; float: right; position: relative;
+}
+.ibaner li {
+	width: 459px; float: left;
+}
+#scroll {
+	width: 459px; height: 295px; overflow: hidden;
+}
+.scroll li {
+	float: left;
+}
+.control {
+	right: 8px; bottom: 8px; position: absolute;
+}
+.control a {
+	background: rgb(255, 255, 255); margin: 0px 3px; padding: 2px; width: 12px; height: 12px; text-align: center; color: rgb(51, 51, 51); line-height: 12px; display: inline-block; cursor: pointer; opactiy: 0.99;
+}
+.control a:hover {
+	color: rgb(255, 255, 255);
+}
+.control .cur {
+	background: rgb(238, 0, 0); color: rgb(255, 255, 255);
+}
+.ui-footer-links li {
+	height: 24px; line-height: 24px; margin-right: 10px; min-width: 75px;
+}
+.ui-footer-links .icons {
+	margin-top: 10px;
+}
+.ui-footer-links .icons li {
+	height: 30px; line-height: 30px;
+}
+.ui-footer-phone-number {
+	font-size: 20px;
+}
+.ui-footer-img-link {
+	background: url("../images/new/sns.png") no-repeat 0px 0px; height: 32px; line-height: 0; font-size: 0px; margin-right: 5px; display: block;
+}
+.weibo.ui-footer-img-link {
+	background-position: 0px 0px; width: 107px;
+}
+.weibo.ui-footer-img-link:hover {
+	background-position: -112px 0px;
+}
+.we-chat.ui-footer-img-link {
+	background-position: 0px -30px; width: 112px;
+}
+.we-chat.ui-footer-img-link:hover {
+	background-position: -114px -30px;
+}

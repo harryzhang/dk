@@ -1,0 +1,243 @@
+.main-cont{margin:25px auto;}
+.border{border:1px solid #dedede;}
+.border-bottom-dashed{border-bottom:1px dashed #dedede;}
+.border-bottom{border-bottom:1px solid #dedede;}
+.border-right{border-right:1px solid #dedede;}
+.border-right-dashed{border-right:1px dashed #dedede;}
+.btn{letter-spacing:0.1em;}
+.btn-width140{height:40px; font-size:16px;width:140px;}
+.btn-width120{height:40px; font-size:16px;width:120px;}
+.main-cont .main-list{
+  padding:15px 40px 15px 78px;
+  background:#fcfcfc;
+  position:relative;
+}
+.main-list .hotIco{
+  background:url(../images/hot.png) left top no-repeat;
+  position:absolute;
+  width:78px;
+  height:78px;
+  top:-3px;
+  left:-3px;
+}
+.main-list .fullIco{
+    background:url(../images/over1.png) left top no-repeat;
+}
+
+.main-list ul li,.replayInfo li{
+  line-height:28px;
+  height:28px;
+}
+.main-list ul.loanInfo{
+    width:220px;
+    min-width:220px;
+}
+.main-list .lead{
+   margin-bottom:12px;
+   color:#F60;
+}
+.main-list .progress-bg{
+    width:190px;
+    height:11px;
+    background:url(../images/pic_all.png) no-repeat left -58px;
+    position:relative;
+}
+.main-list .progress{
+    background:url(../images/pic_all.png) no-repeat left -68px;
+    position:absolute;
+    height:10px;
+    width:190px;
+}
+.loanPro .btnWrap{height:40px;line-height:40px;}
+.loanPro .btn{height:40px;font-size:16px;}
+/*右侧*/
+.main-right .personCenter-btn{
+    background: #ff9b4c;
+    text-align:center;
+}
+.main-right .personCenter-btn a{
+    color:#fff;
+    display:block;
+    text-decoration:none;
+    font-weight:normal;
+    letter-spacing:0.1em;
+}
+.main-right .personCenter-btn a:hover{
+    background: #ff9041;
+}
+.main-right .right-nav li{
+
+  border-bottom:1px dashed #e8e8e8;
+}
+.main-right .right-nav li a{
+    color: #4e4d93;
+    text-decoration:none;
+    height:32px;
+    line-height:32px;
+    padding-left:35px;
+    background:url(../images/min_lxing.png) 10px center no-repeat;
+    letter-spacing:0.2em;
+    display:block;
+}
+.main-right .right-nav li a:hover{
+    font-weight:bold;
+    background:url(../images/min_lxing.png) 10px center no-repeat #f0f0f0;
+}
+.main-right .r-block{
+    padding-bottom:10px;
+    padding-top:10px;
+    letter-spacing:0.1em;
+}
+/*--投资详情--*/
+.main-cont .invest-info{
+    margin:35px 65px 25px 85px;
+}
+.replayInfo li{
+    padding-left:25px;
+}
+.replayInfo li.moneyIco{
+    background:url(../images/money.gif) no-repeat left center;
+}
+.replayInfo li.rateIco{
+    background:url(../images/trendIco.gif) no-repeat left center;
+}
+.replayInfo li.deadlineIco{
+    background:url(../images/fileIco.gif) no-repeat left center;
+}
+
+.invest-info .input-area label,.invest-info .input-area input{
+    display:inline;
+    float:left;
+}
+.invest-info .input-area label{
+    line-height:40px;
+    height:40px;
+    margin-right:8px;
+}
+.input-area .input-width200{
+    height:32px;line-height:32px;
+    width:200px;
+    font-size:24px;
+    font-weight:bold;
+}
+.invest-info .input-area input.noFloat{
+    float:none;
+}
+.investInfo-list-wrap{
+    padding:30px 40px;
+}
+.investInfo-list-wrap h2.lead{
+    margin-left:-20px;
+}
+.investInfo-list-wrap .pad20{
+    background:#fff;
+}
+.investInfo-list-wrap .leadIco{
+    background:url(../images/neir.png) no-repeat left center;
+}
+
+.investInfo-list-wrap .investInfo-table{
+  width:100%;
+  background:#fff;
+  border-collapse: collapse;
+
+}
+.investInfo-list-wrap .investInfo-table td,.investInfo-list-wrap .investInfo-table th{
+    text-align:center;
+    padding:5px;
+    border:1px solid #e8e8e8;
+}
+.investInfo-list-wrap .investInfo-table th{
+    background:#d9edf7;
+}
+.investInfo-list li{
+   height:28px;line-height:28px;
+   width:50%;
+   float:left;
+}
+.success-ico{
+    background:url(../images/neiye2_44.jpg) no-repeat center center;
+}
+/*---个人信息列表---*/
+.rectangle-colours{
+  background:#fff;
+}
+.rectangle-colours h3{
+  background:#a5d8ed;
+  height:30px;
+  line-height:30px;
+  letter-spacing:0.1em;
+}
+.rectangle-colours h3,.rectangle-colours p{
+    text-align:center;
+}
+.rectangle-colours p{
+    height:100px;
+    line-height:100px;
+}
+.nav-bar-tab li{
+    float:left;
+    display:inline;
+    margin-right:10px;
+    height:40px;
+    line-height:40px;
+    width:120px;
+    text-align:center;
+    margin-bottom:-1px;
+}
+.nav-bar-tab li a{
+    display:block;
+
+    text-decoration:none;
+    letter-spacing:0.1em;
+    font-size:16px;
+    background:#a674b0;
+    color:#ffffff;
+}
+.nav-bar-tab li a.bgf8{
+    background: #f8f8f8;
+    color:#666666;
+    border-bottom:none;
+}
+.nav-bar-tab li a:hover{
+    background: #7d5487;
+}
+.nav-bar-tab li a.bgf8:hover{
+    background: #f8f8f8;
+    cursor:text;
+}
+.faq-list li{
+   margin-bottom:10px;
+   padding-bottom:10px;
+   border-bottom:1px dashed #e8e8e8;
+   margin-left:20px;
+   line-height:26px;
+   list-style-type: decimal;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

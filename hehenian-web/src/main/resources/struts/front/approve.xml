@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<package name="approve" extends="login-default" namespace="/">
+<!--  
+		<action name="queryPersonworkmsg" class="validateAction"
+			method="queryWork">
+			<result name="success">
+				/WEB-INF/page/admin/ususer_workInf_admin.jsp
+			</result>
+		</action>
+-->
+       <!-- 输入交易密码输入页面 -->
+		<action name="querytraninput" class="approveAction" method="forgetTradepassword">
+			 <result>/WEB-INF/page/usercenter/user_tranpasswordinput.jsp</result>
+		</action>
+		<!-- 更新交易密码 -->
+		<action name="updatetranpassword" class="approveAction" method="updateTradepasswordM">
+		</action>
+	 
+	 <!-- 
+	 
+	 <action name="changePassword" class="frontLongRegisterAction" method="changePasswordfor">
+	    <result>/WEB-INF/page/usercenter/user_change_password.jsp</result>
+	    <result name="index">/WEB-INF/page/usercenter/user_mima.jsp</result>
+	 </action>
+	 
+	  -->
+	 <!-- 点击邮箱跳转到修改页面 -->
+	 <action name="changeTrancePassword" class="approveAction" method="udpateTrancePassword">
+	    <result>/WEB-INF/page/usercenter/user_changeTrancepassword.jsp</result>
+	    <result name="index">/WEB-INF/page/usercenter/user_tranpasswordinput.jsp</result>
+	 </action>
+	 
+	 
+	 <action name="updateTrancePassword" class="approveAction" method="updateTrancePasswordfor">
+	 </action>
+		
+		
+		
+</package>
+</struts>

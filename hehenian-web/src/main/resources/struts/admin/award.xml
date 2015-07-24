@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="award" extends="admin-default" namespace="/admin">
+	
+		<action name="queryAwardLevel23Init" class="awardAction" method="queryAwardLevel23Init">
+			<result name="success" >/WEB-INF/page/admin/award_index.jsp</result>
+		</action>
+	
+		<action name="queryAwardLevel24Init" class="awardAction" method="queryAwardLevel24Init">
+			<result name="success" >/WEB-INF/page/admin/award_index.jsp</result>
+		</action>
+		
+		<action name="queryAwardLevel2Info" class="awardAction" method="queryAwardLevel2Info" >
+			<result name="success" >/WEB-INF/page/admin/award_index_info.jsp</result>
+		</action>
+	
+		<action name="queryAwardLevel23mxType1Init" class="awardAction" method="queryAwardLevel23mxType1Init">
+			<result name="success" >/WEB-INF/page/admin/award_mxType_index.jsp</result>
+		</action>
+	
+		<action name="queryAwardLevel23mxType2Init" class="awardAction" method="queryAwardLevel23mxType2Init">
+			<result name="success" >/WEB-INF/page/admin/award_mxType_index.jsp</result>
+		</action>
+	
+		<action name="queryAwardLevel24mxType1Init" class="awardAction" method="queryAwardLevel24mxType1Init">
+			<result name="success" >/WEB-INF/page/admin/award_mxType_index.jsp</result>
+		</action>
+	
+		<action name="queryAwardLevel24mxType2Init" class="awardAction" method="queryAwardLevel24mxType2Init">
+			<result name="success" >/WEB-INF/page/admin/award_mxType_index.jsp</result>
+		</action>
+	
+		<action name="queryAwardLevel2mxTypeInfo" class="awardAction" method="queryAwardLevel2mxTypeInfo" >
+			<result name="success" >/WEB-INF/page/admin/award_mxType_index_info.jsp</result>
+		</action>
+	
+		<action name="queryIoRInit" class="awardAction" method="queryIoRInit">
+			<result name="success" >/WEB-INF/page/admin/ior_index.jsp</result>
+		</action>
+	
+		<action name="queryIoRInfo" class="awardAction" method="queryIoRInfo" >
+			<result name="success" >/WEB-INF/page/admin/ior_index_info.jsp</result>
+		</action>
+	
+		<action name="queryAwardLevel1Init" class="awardAction" method="queryAwardLevel1Init">
+			<result name="success" >/WEB-INF/page/admin/award_level1_index.jsp</result>
+		</action>
+	
+		<action name="queryAwardLevel1Info" class="awardAction" method="queryAwardLevel1Info" >
+			<result name="success" >/WEB-INF/page/admin/award_level1_index_info.jsp</result>
+		</action>
+		
+		<action name="queryAwardTinit" class="awardAction" method="queryAwardTinit" >
+			<result name="success" >/WEB-INF/page/admin/award_level1_load.jsp</result>
+		</action>
+		
+		<action name="queryAwardT" class="awardAction" method="queryAwardT" >
+			<result name="success" >/WEB-INF/page/admin/award_level1_load_info.jsp</result>
+		</action>
+		
+		<action name="queryLeve2AwardInit" class="awardAction" method="queryLeve2AwardInit">
+			<result name="success" >/WEB-INF/page/admin/level1_level2_award_index.jsp</result>
+		</action>
+	
+		<action name="queryLeve2SumCount" class="awardAction" method="queryLeve2SumCount" >
+			<result name="success" >/WEB-INF/page/admin/award_level2_load_info.jsp</result>
+		</action>
+		
+		<action name="queryLeve2SumInit" class="awardAction" method="queryLeve2SumInit">
+			<result name="success" >/WEB-INF/page/admin/award_level2_load.jsp</result>
+		</action>
+		<action name="queryAwardList" class="awardAction" method="queryAwardList">
+			<result name="success" >/WEB-INF/page/admin/level1_level2_award_index_info.jsp</result>
+		</action>
+		
+		<action name="queryAwardDetailInfo" class="awardAction" method="queryAwardDetailInfo">
+			<result name="success" >/WEB-INF/page/admin/economy_awardDetail_index_info.jsp</result>
+		</action>
+		<action name="queryAwardDetailInit" class="awardAction" method="queryAwardDetailInit">
+			<result name="success" >/WEB-INF/page/admin/economy_awardDetail_index.jsp</result>
+		</action>
+	
+		<action name="queryLeve2AwardInfo" class="awardAction" method="queryLeve2AwardInfo" >
+			<result name="success" >/WEB-INF/page/admin/level1_level2_award_index_info.jsp</result>
+		</action>
+		
+		<action name="queryLevel1level3Init" class="awardAction" method="queryLevel1level3Init" >
+			<result name="success" >/WEB-INF/page/admin/level1_level2_34_index.jsp</result>
+		</action>
+	
+		<action name="queryLevel1level4Init" class="awardAction" method="queryLevel1level4Init">
+			<result name="success" >/WEB-INF/page/admin/level1_level2_34_index.jsp</result>
+		</action>
+	
+		<action name="queryLevel1level4Info" class="awardAction" method="queryLevel1level4Info" >
+			<result name="success" >/WEB-INF/page/admin/level1_level2_34_index_info.jsp</result>
+		</action>
+		<action name="queryLeve1AwardInit" class="awardAction" method="queryLeve1AwardInit">
+			<result name="success" >/WEB-INF/page/admin/award_level2_index.jsp</result>
+		</action>
+		
+		<action name="queryLeve1AwardInfo" class="awardAction" method="queryLeve1AwardInfo">
+			<result name="success" >/WEB-INF/page/admin/award_level2_index_info.jsp</result>
+		</action>
+		
+		<!-- 提成结算统计 -->
+		<action name="queryAllLevel1Init" class="awardAction" method="queryAllLevel1Init">
+			<result name="success" >/WEB-INF/page/admin/award_calculate_index.jsp</result>
+		    <result name="forwardTo" type="redirect" >queryAwardDetailByUserIdInit.do?userId=${uid}</result>
+		</action>
+		<action name="queryAllLevel1Info" class="awardAction" method="queryAllLevel1Info" >
+			<result name="success" >/WEB-INF/page/admin/award_calculate_index_info.jsp</result>
+		</action>
+		
+		<action name="addAwardDetailInit" class="awardAction" method="addAwardDetailInit">
+			<result name="success" >/WEB-INF/page/admin/award_calculate_topay.jsp</result>
+		</action>
+	
+		<action name="addAwardDetail" class="awardAction" method="addAwardDetail" >
+		</action>
+		
+		<action name="queryAwardDetailByUserIdInit" class="awardAction" method="queryAwardDetailByUserIdInit" >
+		  <result name="success" >/WEB-INF/page/admin/award_calculate_detail_index.jsp</result>
+		</action>
+		
+		<action name="queryAwardDetailByUserId" class="awardAction" method="queryAwardDetailByUserId" >
+		  <result name="success" >/WEB-INF/page/admin/award_calculate_detail_index_info.jsp</result>
+		</action>
+		
+		<action name="queryAllLevel2Init" class="awardAction" method="queryAllLevel2Init">
+			<result name="success" >/WEB-INF/page/admin/award_calculate_level2_index.jsp</result>
+		</action>
+	
+		<action name="queryAllLevel2Info" class="awardAction" method="queryAllLevel2Info" >
+			<result name="success" >/WEB-INF/page/admin/award_calculate_level2_index_info.jsp</result>
+		</action>
+		<action name="awardSettlement" class="awardAction" method="awardSettlement">
+			<result name="success" >/WEB-INF/page/admin/award_statement_info.jsp</result>
+		</action>
+		<action name="awardSettlementInit" class="awardAction" method="awardSettlementInit" >
+		<result name="success" >/WEB-INF/page/admin/award_statement.jsp</result>
+		</action>
+		<action name="addEconomyAwardDetail" class="awardAction" method="addEconomyAwardDetail" >
+		</action>
+		<!--  
+		<action name="queryAllLevel1Init" class="awardAction" method="queryAllLevel1Init">
+			<result name="success" >/WEB-INF/page/admin/award_calculate_index.jsp</result>
+		    <result name="forwardTo" type="redirect" >queryAwardDetailByUserIdInit.do?userId=${uid}</result>
+		</action>
+	
+		<action name="queryAllLevel1Info" class="awardAction" method="queryAllLevel1Info" >
+			<result name="success" >/WEB-INF/page/admin/award_calculate_index_info.jsp</result>
+		</action>
+		
+		<action name="addAwardDetailInit" class="awardAction" method="addAwardDetailInit">
+			<result name="success" >/WEB-INF/page/admin/award_calculate_topay.jsp</result>
+		</action>
+	
+		<action name="addAwardDetail" class="awardAction" method="addAwardDetail" >
+		</action>
+		
+		<action name="queryAwardDetailByUserIdInit" class="awardAction" method="queryAwardDetailByUserIdInit" >
+		  <result name="success" >/WEB-INF/page/admin/award_calculate_detail_index.jsp</result>
+		</action>
+		
+		<action name="queryAwardDetailByUserId" class="awardAction" method="queryAwardDetailByUserId" >
+		  <result name="success" >/WEB-INF/page/admin/award_calculate_detail_index_info.jsp</result>
+		</action>
+		
+		<action name="queryAllLevel2Init" class="awardAction" method="queryAllLevel2Init">
+			<result name="success" >/WEB-INF/page/admin/award_calculate_level2_index.jsp</result>
+		</action>
+	
+		<action name="queryAllLevel2Info" class="awardAction" method="queryAllLevel2Info" >
+			<result name="success" >/WEB-INF/page/admin/award_calculate_level2_index_info.jsp</result>
+		</action>-->
+		
+		<!--  团队长按月查看月流量 并能结算初始化 -->
+			<action name="quereyGroupCloseMoneyInit" class="awardMonthAction" method="quereyGroupCloseMoneyInit">
+			<result name="success" >/WEB-INF/page/admin/award_level1_month_index.jsp</result>
+		</action>
+		<!--  团队长按月查看月流量 并能结算 -->
+			<action name="quereyGroupCloseMoneyInfo" class="awardMonthAction" method="quereyGroupCloseMoneyInfo">
+			<result name="success" >/WEB-INF/page/admin/award_level1_month_index_info.jsp</result>
+		</action>
+		<!--   经济人按月查看月流量 并能结算初始化 -->
+			<action name="quereyAgentCloseMoneyInit" class="awardMonthAction" method="quereyAgentCloseMoneyInit">
+			<result name="success" >/WEB-INF/page/admin/award_month_index.jsp</result>
+		</action>
+		<!--   经济人按月查看月流量 并能结算 -->
+			<action name="quereyAgentCloseMoneyInfo" class="awardMonthAction" method="quereyAgentCloseMoneyInfo">
+			<result name="success" >/WEB-INF/page/admin/award_month_index_info.jsp</result>
+		</action>
+		
+			<!--   结算 -->
+			<action name="updateMoneyInfo" class="awardMonthAction" method="updateMoneyInfo">
+		</action>
+	</package>
+</struts>

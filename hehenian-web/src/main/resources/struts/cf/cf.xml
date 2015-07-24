@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="cf-myhome" extends="defaults" namespace="/cf">
+	<interceptors>
+			<interceptor name="frontUserSessionInterceptor" class="com.sp2p.system.interceptor.FrontUserSeesionInterceptor" />
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="frontUserSessionInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="loginStack" />
+		<global-results>
+			<result name="noLogin"  type="redirect">http://passport.colourlife.com/site/login</result>
+		</global-results>
+	
+		<action name="index" class="cfAction" method="cfWeb" >
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result type="chain">cf-colourlife-web</result>
+		</action>
+		<action name="cf-colourlife-web" class="frontLongRegisterAction" method="colourlife" >
+		<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result type="chain">cf-finance</result>
+			<result name="fail">/fail.jsp</result>
+			<result name="colourlife-bind-hhn">/WEB-INF/page/cf/colourlife-bind-hhn.jsp</result>
+			<!--<result name="register">/WEB-INF/page/cf/zhuce.jsp</result>-->
+			<result name="msg">/WEB-INF/page/cf/message1.jsp</result>
+		</action>
+		<action name="cf-bind-hhnuser" class="frontLongRegisterAction" method="colourlifeBindHhnUser">
+		<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="chain">cf-finance</result>
+			<result name="nologin">/index.jsp</result>
+		</action>
+		
+		<action name="cf-userinfo" class="frontMyHomeAction" method="homeInit" >
+			<result name="success"> /WEB-INF/page/cf/user.jsp </result>
+		</action>
+        <!--PM-->
+        <action name="pmindex">
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">/WEB-INF/page/pm/index.jsp</result>
+        </action>
+		
+		<action name="cf-investrecord" class="frontMyHomeAction" method="investSuccessedRecord">
+			<result name="success">/WEB-INF/page/cf/invest-record.jsp</result>
+		</action>
+		
+		<!-- 债权转让的功能 -->
+		<action name="cancelApplyDebt" class="homeDebtAction" method="cancelApplyDebt">
+			<result name="success" type="redirectAction">
+				cf-userinfo.do
+			</result>
+		</action>
+		
+		<!-- 已发布的债权 -->
+		<action name="queryFrontAllDebt" class="frontDebtAction" method="queryFrontAllDebt">
+			<result name="success">
+				/WEB-INF/page/cf/creditor-index.jsp
+			</result>
+		</action>
+		
+		<action name="queryDebtDetailHHN" class="frontDebtAction" method="queryDebtDetailHHN">
+			<result name="success">
+				/WEB-INF/page/cf/creditor-detail.jsp
+			</result>
+		</action>
+		
+		<action name="queryDebtBorrowDetail" class="frontMyFinanceAction" method="queryDebtBorrowDetail">
+			<result name="success">
+				/WEB-INF/page/cf/debt-borrow-detail.jsp
+			</result>
+			<result name="cicuration">
+				/WEB-INF/page/cf/debt-circulation-detail.jsp
+			</result>
+			<result name="404" >
+				/error/404.jsp
+			</result>
+		</action>
+		
+		<action name="cf-recharge" class="rechargeAction" method="rechargeInit">
+			<result name="success">/WEB-INF/page/cf/recharge.jsp</result>
+		</action>
+		
+			<action name="cf-cash" class="rechargeAction" method="withdrawLoad">
+			<result name="success">/WEB-INF/page/cf/tx.jsp</result>
+		</action>
+		
+		<action name="cf-owerInformationInit" class="FrontMyInformation" method="queryBaseData">
+			<result name="success"> /WEB-INF/page/cf/user-info.jsp </result>
+		</action>
+		<action name="cf-wszl" class="FrontMyInformation" method="queryBaseData">
+			<result name="success"> /WEB-INF/page/cf/user-info.jsp </result>
+		</action>
+
+<action name="cf-finance" class="frontMyFinanceAction" method="financeList">
+			<result name="success">
+				/WEB-INF/page/cf/index.jsp
+			</result>
+			
+		</action>
+		
+		<action name="cf-financeDetail" class="frontMyFinanceAction" method="financeDetail">
+			<result name="success">
+				/WEB-INF/page/cf/finance.jsp
+			</result>
+		</action>
+		
+		<action name="cf-bjbz" class="cfAction" method="bjbz">
+			<result name="success">
+				/WEB-INF/page/cf/bjbz.jsp
+			</result>
+		</action>
+		<action name="cf-faq" class="cfAction" method="faq">
+			<result name="success">
+				/WEB-INF/page/cf/faq.jsp
+			</result>
+		</action>
+		<action name="cf-czzy" class="cfAction" method="czzy">
+			<result name="success">
+				/WEB-INF/page/cf/czzy.jsp
+			</result>
+		</action>
+		
+		<action name="automaticbid"  class="frontMyHomeAction" method="automaticBidInit">
+		<result name="success">/WEB-INF/page/cf/automaticbid.jsp</result>
+		</action>
+		
+		<action name="heartbeat"  class="cfAction" method="heartbeat"></action>
+		<action name="xxxxcolourlifexxxx" class="colourLifeAction" method="index" >
+		<interceptor-ref name="defaultStack"></interceptor-ref>
+		<result>/WEB-INF/page/cf/colorlife.jsp</result>
+		</action>
+		
+		<action name="huodong"  class="cfAction" method="faq">
+		<result name="success">/WEB-INF/page/cf/huodong.jsp</result>
+		</action>
+	</package>
+</struts>

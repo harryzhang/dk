@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hehenian.biz.dal.trade.IInvestRepaymentDao">
+	<resultMap type="investRepaymentDo" id="investRepaymentResultMap">
+		<result property="id" column="id" />
+		<result property="repayId" column="repayId" />
+		<result property="repayPeriod" column="repayPeriod" />
+		<result property="repayDate" column="repayDate" />
+		<result property="realRepayDate" column="realRepayDate" />
+		<result property="recivedPrincipal" column="recivedPrincipal" />
+		<result property="recivedInterest" column="recivedInterest" />
+		<result property="hasPrincipal" column="hasPrincipal" />
+		<result property="hasInterest" column="hasInterest" />
+		<result property="interestOwner" column="interestOwner" />
+		<result property="recivedFi" column="recivedFI" />
+		<result property="isLate" column="isLate" />
+		<result property="lateDay" column="lateDay" />
+		<result property="isWebRepay" column="isWebRepay" />
+		<result property="principalBalance" column="principalBalance" />
+		<result property="interestBalance" column="interestBalance" />
+		<result property="investId" column="invest_id" />
+		<result property="owner" column="owner" />
+		<result property="ownerlist" column="ownerlist" />
+		<result property="repayStatus" column="repayStatus" />
+		<result property="imanageFee" column="iManageFee" />
+		<result property="imanageFeeRate" column="iManageFeeRate" />
+		<result property="isDebt" column="isDebt" />
+		<result property="borrowId" column="borrow_id" />
+		<result property="circulationForpayStatus" column="circulationForpayStatus" />
+		<result property="parentId" column="parentId" />
+	</resultMap>
+	
+	<!-- 成功投资查询 -->
+	<select id="getInvestSuccessAmount" parameterType="map" resultType="java.util.Map">
+		SELECT
+		   `invr`.`invest_id`            AS `invest_id` ,
+		  ROUND(SUM(`invr`.`recivedPrincipal`),2) AS `recivedPrincipal`,
+		  ROUND(SUM((`invr`.`hasInterest` + `invr`.`hasPrincipal`)),2) AS `hasPI`,
+		  ROUND(SUM(IF(repayStatus = 1 , invr.recivedPrincipal+invr.recivedInterest,0)),2) AS `notPI`,
+		  `invr`.`owner`        AS `investor`,
+		  ROUND(SUM((`invr`.`recivedPrincipal` - `invr`.`hasPrincipal`)),2) AS `whbj`,
+		  ROUND(SUM((`invr`.`recivedPrincipal` - `invr`.`hasPrincipal`)),2) AS `blanceP` 
+		FROM `t_invest_repayment` `invr`      
+		    
+		WHERE (`invr`.`repayStatus` IN(1,2))
+		      and invr.invest_id in  
+		      <foreach collection="investIdList" item="investId" index="index"
+	             open="(" close=")" separator=",">
+	             #{investId}
+	         </foreach>     
+		 GROUP BY  `invr`.`invest_id` ,`invr`.`owner` 
+	</select>
+	<!-- 成功投资查询总额 -->
+	<select id="getInvestSuccessAmountByUserId" parameterType="long" resultType="java.util.Map">
+		SELECT		  
+		  ROUND(SUM(`invr`.`recivedPrincipal`),2) AS `realAmount`,
+		  ROUND(SUM((`invr`.`hasInterest` + `invr`.`hasPrincipal`)),2) AS `hasGetAmount`,
+		  ROUND(SUM(IF(repayStatus = 1 , invr.recivedPrincipal+invr.recivedInterest,0)),2) AS `notPI`,
+		  ROUND(SUM(invr.recivedPrincipal+invr.recivedInterest),2) AS `shouldGetAmount` ,
+		  ROUND(SUM(IF(repayStatus = 2 , invr.recivedPrincipal,0)),2) AS `hasPrincipal`,
+		  ROUND(SUM(`invr`.`recivedInterest`),2) AS `recivedInterest`
+		FROM `t_invest_repayment` `invr`
+		WHERE (`invr`.`repayStatus` IN(1,2))
+		      and invr.owner = #{userId} 
+	</select>
+
+	<select id="getById" parameterType="long" resultMap="investRepaymentResultMap">
+		SELECT *
+		FROM
+		t_invest_repayment WHERE id = #{id}
+	</select>
+	
+	<select id="queryByInvestIdAndOwner" parameterType="map" resultMap="investRepaymentResultMap">
+		SELECT * FROM t_invest_repayment ir
+		WHERE ir.invest_id = #{investId}
+		AND ir.owner = #{owner}
+		AND ir.repayStatus = 1
+	</select>
+
+	<!-- 正常还款 -->
+	<select id="selectInvestInfoByRepayId" parameterType="long" resultMap="investRepaymentResultMap">		
+		SELECT invest_repay.*
+		FROM t_invest_repayment invest_repay
+		WHERE invest_repay.repayId = #{id} and invest_repay.repayStatus=1
+	</select>
+	
+	<!-- 提前结清 加了一个状态 3 处理过程中的 -->
+	<select id="selectPreRepayByBorrowId" parameterType="java.util.Map" resultMap="investRepaymentResultMap">
+		<![CDATA[			
+			SELECT ir.id,
+				   ir.repayId,
+				   ir.repayDate,
+				   ir.repayPeriod,
+				   ir.borrow_id,
+				   ir.owner,
+				   ir.invest_id,
+				   ir.isWebRepay,
+				   IF(ir.repayId<=#{currentRepayId}, ir.recivedInterest,0) AS recivedInterest,
+				   ir.recivedPrincipal,
+				   ir.recivedFI,
+				   ir.iManageFee,
+				   ir.iManageFeeRate
+			FROM  t_invest_repayment  ir
+				  LEFT OUTER JOIN t_repayment repay ON ir.borrow_id = repay.borrowId AND ir.repayId = repay.id
+			WHERE ir.borrow_id = #{borrowId}
+				  AND repay.repayStatus in (1,3) AND ir.repayStatus=1 			
+			
+		]]>
+	</select>	
+	<!-- 代偿 -->
+	<select id="selectCompInvestByRepayId"  parameterType="long" resultMap="investRepaymentResultMap">
+		SELECT invest_repay.*
+		FROM t_invest_repayment invest_repay
+		WHERE invest_repay.repayId = #{id} and invest_repay.repayStatus=1  and invest_repay.isWebRepay =1
+	</select>
+
+	<select id="selectInvestRepayment" parameterType="Map"
+		resultMap="investRepaymentResultMap">
+		SELECT *
+		FROM t_invest_repayment
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != null">
+				AND id like #{id}
+			</if>
+			<if test="repayId != null">
+				AND repayId like #{repayId}
+			</if>
+			<if test="repayPeriod != null">
+				AND repayPeriod like #{repayPeriod}
+			</if>
+			<if test="repayDate != null">
+				AND repayDate like #{repayDate}
+			</if>
+			<if test="realRepayDate != null">
+				AND realRepayDate like #{realRepayDate}
+			</if>
+			<if test="recivedPrincipal != null">
+				AND recivedPrincipal like #{recivedPrincipal}
+			</if>
+			<if test="recivedInterest != null">
+				AND recivedInterest like #{recivedInterest}
+			</if>
+			<if test="hasPrincipal != null">
+				AND hasPrincipal like #{hasPrincipal}
+			</if>
+			<if test="hasInterest != null">
+				AND hasInterest like #{hasInterest}
+			</if>
+			<if test="interestOwner != null">
+				AND interestOwner like #{interestOwner}
+			</if>
+			<if test="recivedFi != null">
+				AND recivedFI like #{recivedFi}
+			</if>
+			<if test="isLate != null">
+				AND isLate like #{isLate}
+			</if>
+			<if test="lateDay != null">
+				AND lateDay like #{lateDay}
+			</if>
+			<if test="isWebRepay != null">
+				AND isWebRepay like #{isWebRepay}
+			</if>
+			<if test="principalBalance != null">
+				AND principalBalance like #{principalBalance}
+			</if>
+			<if test="interestBalance != null">
+				AND interestBalance like #{interestBalance}
+			</if>
+			<if test="investId != null">
+				AND invest_id like #{investId}
+			</if>
+			<if test="owner != null">
+				AND owner like #{owner}
+			</if>
+			<if test="ownerlist != null">
+				AND ownerlist like #{ownerlist}
+			</if>
+			<if test="repayStatus != null">
+				AND repayStatus like #{repayStatus}
+			</if>
+			<if test="imanageFee != null">
+				AND iManageFee like #{imanageFee}
+			</if>
+			<if test="imanageFeeRate != null">
+				AND iManageFeeRate like #{imanageFeeRate}
+			</if>
+			<if test="isDebt != null">
+				AND isDebt like #{isDebt}
+			</if>
+			<if test="borrowId != null">
+				AND borrow_id like #{borrowId}
+			</if>
+			<if test="circulationForpayStatus != null">
+				AND circulationForpayStatus like
+				#{circulationForpayStatus}
+			</if>
+		</trim>
+
+	</select>
+	
+	
+	<select id="selectOverDueInvestRepayList" parameterType="Map"	resultMap="investRepaymentResultMap">
+		<![CDATA[
+			SELECT *
+			FROM t_invest_repayment
+			WHERE  repayDate  < #{currentDate}
+			  AND repayStatus = 1 and isWebRepay = 1
+		  ]]>
+	</select>
+	
+
+	<select id="queryNoRepayRecordsRecently" parameterType="map"
+		resultMap="investRepaymentResultMap">
+		SELECT r.* FROM t_invest_repayment r
+		WHERE r.OWNER = #{userId}
+		AND r.repayStatus =
+		#{repayStatus}
+		AND r.repayDate BETWEEN #{beginDate} AND #{endDate}
+		ORDER BY r.repayDate,r.realRepayDate
+	</select>
+
+	<select id="getTotalRecivedInterest" parameterType="map"
+		resultType="double">
+		SELECT SUM(recivedInterest) FROM t_invest_repayment r
+		LEFT
+		JOIN t_invest i ON r.invest_id = i.id
+		WHERE i.investor = #{userId}
+		AND
+		r.repayStatus = #{repayStatus}
+	</select>
+
+	<select id="queryByUserIdAndRepayDate" parameterType="map"
+		resultMap="investRepaymentResultMap">
+		<![CDATA[
+		SELECT r.* FROM t_invest_repayment r
+		WHERE  r.OWNER = #{userId}
+		AND r.repayStatus != 4
+		AND ((r.realRepayDate IS NULL AND r.repayDate BETWEEN #{beginDate} AND #{endDate})
+			OR r.realRepayDate BETWEEN #{beginDate} AND #{endDate})
+		AND r.invest_id NOT IN(SELECT investId FROM t_assignment_debt d
+		WHERE d.auctionerId = #{userId}
+		AND auctionEndTime >= #{today})
+		ORDER BY r.repayDate,r.realRepayDate
+		]]>
+	</select>
+
+	<select id="getTotalRecived" parameterType="map" resultType="java.util.Map">
+		SELECT SUM(recivedPrincipal) as recivedPrincipal ,
+		SUM(recivedInterest) as recivedInterest,
+		SUM(iManageFee) as iManageFee,
+		SUM(recivedFI) as recivedFI ,
+		isWebRepay
+		FROM t_invest_repayment
+		WHERE
+		invest_id = #{investId} AND repayId = #{repaymentId} AND repayStatus = 1;
+	</select>
+	
+	<select id="getRecivedPrincipal" parameterType="long" resultType="double">
+		SELECT SUM(recivedPrincipal) FROM t_invest_repayment
+		WHERE OWNER = #{userId}
+		AND repayStatus = 1
+	</select>
+	
+	<select id="getNoRepayRecordRecently" parameterType="map" resultMap="investRepaymentResultMap">
+		SELECT * FROM t_invest_repayment
+		WHERE invest_id = #{investId}
+		AND owner = #{userId}
+		AND repayStatus = 1
+		ORDER BY repayDate ASC
+		LIMIT 1;
+	</select>
+	
+	<select id="queryByIds" parameterType="map" resultMap="investRepaymentResultMap">
+		SELECT * FROM t_invest_repayment
+		WHERE id IN
+		<foreach collection="idList" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</select>
+
+	<update id="updateInvestRepaymentById" parameterType="investRepaymentDo">
+		UPDATE
+		t_invest_repayment
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="repayId != null">
+				repayId = #{repayId},
+			</if>
+			<if test="repayPeriod != null">
+				repayPeriod = #{repayPeriod},
+			</if>
+			<if test="repayDate != null">
+				repayDate = #{repayDate},
+			</if>
+			<if test="realRepayDate != null">
+				realRepayDate = #{realRepayDate},
+			</if>
+			
+			<if test="recivedPrincipal != null">
+				recivedPrincipal = #{recivedPrincipal},
+			</if>
+			<if test="recivedInterest != null">
+				recivedInterest = #{recivedInterest},
+			</if>
+			<if test="hasPrincipal != null">
+				hasPrincipal = #{hasPrincipal},
+			</if>
+			
+			<if test="hasInterest != null">
+				hasInterest = #{hasInterest},
+			</if>
+			<if test="interestOwner != null">
+				interestOwner = #{interestOwner},
+			</if>
+			<if test="recivedFi != null">
+				recivedFI = #{recivedFi},
+			</if>
+			
+			<if test="isLate != null">
+				isLate = #{isLate},
+			</if>
+			<if test="lateDay != null">
+				lateDay = #{lateDay},
+			</if>
+			<if test="isWebRepay != null">
+				isWebRepay = #{isWebRepay},
+			</if>
+			
+			<if test="principalBalance != null">
+				principalBalance = #{principalBalance},
+			</if>
+			<if test="interestBalance != null">
+				interestBalance = #{interestBalance},
+			</if>
+			<if test="investId != null">
+				invest_id = #{investId},
+			</if>
+			
+			<if test="owner != null">
+				owner = #{owner},
+			</if>
+			<if test="ownerlist != null">
+				ownerlist = #{ownerlist},
+			</if>
+			<if test="repayStatus != null">
+				repayStatus = #{repayStatus},
+			</if>
+			
+			<if test="imanageFee != null">
+				iManageFee = #{imanageFee},
+			</if>
+			<if test="imanageFeeRate != null">
+				iManageFeeRate = #{imanageFeeRate},
+			</if>
+			<if test="isDebt != null">
+				isDebt = #{isDebt},
+			</if>
+			
+			<if test="borrowId != null">
+				borrow_id = #{borrowId},
+			</if>
+			<if test="circulationForpayStatus != null">
+				circulationForpayStatus = #{circulationForpayStatus},
+			</if>
+			<if test="parentId != null">
+				parentId = #{parentId},
+			</if>
+		</trim>
+		WHERE id = #{id}
+	</update>
+
+	<update id="updateRecievedAmount"   parameterType="investRepaymentDo">
+	   <![CDATA[
+		UPDATE t_invest_repayment
+		SET hasPrincipal = #{recivedPrincipal},
+		hasInterest = #{recivedInterest},
+		realRepayDate = now(),
+		interestOwner =
+		#{interestOwner},
+		ownerlist = CONCAT(ownerlist,',',#{interestOwner}),
+		isWebRepay = #{isWebRepay},
+		repayStatus = 2,
+		recivedFI = #{recivedFi}
+		WHERE id = #{id} and repayStatus = 1
+		]]>
+	</update>
+	
+	<update id="updateRepayStatusByPreRepay"   parameterType="investRepaymentDo">
+	   <![CDATA[
+		UPDATE t_invest_repayment
+		SET hasPrincipal = #{recivedPrincipal},
+		hasInterest = IF(repayId<=#{repayId},#{recivedInterest},0),
+		realRepayDate = NOW(),
+		interestOwner = #{interestOwner},
+		ownerlist = CONCAT(ownerlist,',',#{interestOwner}),
+		repayStatus = 2
+		WHERE id=#{id}
+		]]>
+	</update>
+	
+	<!-- 
+	<update id="updateWebPayRecordStatus" parameterType="long">
+		update t_invest_repayment
+		set    repayStatus = 1
+		where  repayId = #{repayId} and repayStatus = 3   
+	</update>	
+	 -->
+	 
+	<update id="updateRepayStatus" parameterType="map">
+		UPDATE t_invest_repayment 
+		SET repayStatus = #{repayStatus} ,isDebt = #{isDebt}
+		WHERE id = #{id}
+	</update>
+	
+	<insert id="addWebPayRecord" parameterType="long">
+		insert into t_invest_repayment(
+		    repayId,
+		    repayPeriod,
+		    repayDate,
+		    recivedPrincipal,
+		    recivedInterest,
+		    hasPrincipal,
+		    hasInterest,
+		    interestOwner,
+		    recivedFI,
+		    isLate,
+		    lateDay,
+		    isWebRepay,
+		    principalBalance,
+		    interestBalance,
+		    invest_id,
+		    owner,
+		    ownerlist,
+		    repayStatus,
+		    iManageFee,
+		    iManageFeeRate,
+		    isDebt,
+		    borrow_id,
+		    circulationForpayStatus,
+		    parentId)
+		SELECT
+		    repayId,
+		    repayPeriod,
+		    repayDate,
+		    recivedPrincipal,
+		    recivedInterest,
+		    hasPrincipal,
+		    hasInterest,
+		    interestOwner,
+		    recivedFI,
+		    isLate,
+		    lateDay,
+		    '2' as isWebRepay,
+		    principalBalance,
+		    interestBalance,
+		    invest_id,
+		    #{userId} as owner,
+		    CONCAT(ownerlist ,',',#{userId})as ownerlist,
+		    1 as repayStatus,
+		    iManageFee,
+		    iManageFeeRate,
+		    isDebt,
+		    borrow_id,
+		    circulationForpayStatus,
+		    id
+		FROM
+		    t_invest_repayment
+		where id  = #{oldId} and repayStatus =1    
+	</insert>
+
+	<insert id="addInvestRepayment" parameterType="investRepaymentDo"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		t_invest_repayment(
+		repayId
+		,repayPeriod
+		,repayDate
+		,realRepayDate
+		,recivedPrincipal
+		,recivedInterest
+		,hasPrincipal
+		,hasInterest
+		,interestOwner
+		,recivedFI
+		,isLate
+		,lateDay
+		,isWebRepay
+		,principalBalance
+		,interestBalance
+		,invest_id
+		,owner
+		,ownerlist
+		,repayStatus
+		,iManageFee
+		,iManageFeeRate
+		,isDebt
+		,borrow_id
+		,circulationForpayStatus
+		,parentId)
+		VALUES ( #{repayId}
+		,#{repayPeriod}
+		,#{repayDate}
+		,#{realRepayDate}
+		,#{recivedPrincipal}
+		,#{recivedInterest}
+		,#{hasPrincipal}
+		,#{hasInterest}
+		,#{interestOwner}
+		,#{recivedFi}
+		,#{isLate}
+		,#{lateDay}
+		,#{isWebRepay}
+		,#{principalBalance}
+		,#{interestBalance}
+		,#{investId}
+		,#{owner}
+		,#{ownerlist}
+		,#{repayStatus}
+		,#{imanageFee}
+		,#{imanageFeeRate}
+		,#{isDebt}
+		,#{borrowId}
+		,#{circulationForpayStatus}
+		,#{parentId});
+	</insert>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM
+		t_invest_repayment WHERE id = #{id}
+	</delete>
+
+</mapper>
+

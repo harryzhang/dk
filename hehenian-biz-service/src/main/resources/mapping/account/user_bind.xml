@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hehenian.biz.dal.account.IUserBindDao">
+	<resultMap type="userBindDo" id="userBindResultMap">
+		<result property="id" column="id" />
+		<result property="userId" column="userId" />
+		<result property="partnerUserId" column="partnerUserId" />
+		<result property="partnerId" column="partnerId" />
+		<result property="createTime" column="createTime" />
+		<result property="status" column="status" />
+	</resultMap>
+
+	<insert id="saveUserBind" parameterType="userBindDo">
+        insert into t_user_bind (userId, partnerUserId, partnerId, createTime)
+        values (#{userId},#{partnerUserId},#{partnerId},#{createTime});
+	</insert>
+
+    <select id="findUserBindByPartner" parameterType="Map" resultMap="userBindResultMap">
+        select * from  t_user_bind where partnerId=#{partnerId} and partnerUserId=#{partnerUserId};
+    </select>
+
+    <select id="findUserBindByUser" parameterType="Map" resultMap="userBindResultMap">
+        select * from  t_user_bind where partnerId=#{partnerId} and userId=#{userId};
+    </select>
+</mapper>

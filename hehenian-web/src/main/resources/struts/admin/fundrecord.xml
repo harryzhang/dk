@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="fundrecord" extends="admin-default" namespace="/admin">
+		
+		              
+		<action name="querybugetInit" class="fundrecordAction" method="querybugetInit">
+			<result name="success">/WEB-INF/page/admin/fundrecord-index.jsp</result>
+		</action>
+		<!-- 收支明细 -->
+		<action name="querybugetList" class="fundrecordAction" method="querybugetList">
+			<result name="success">/WEB-INF/page/admin/fundrecord-list.jsp</result>
+		</action>
+		
+	</package>
+</struts>

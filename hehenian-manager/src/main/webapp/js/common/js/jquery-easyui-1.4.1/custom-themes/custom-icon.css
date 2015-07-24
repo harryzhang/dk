@@ -1,0 +1,94 @@
+/******************************************************************************
+ * @author liminglong
+ * @Description：增加此文件中图标时请在页头添加对应注释，方便他人使用
+ *
+ * 导出EXCEL：icon-excel
+ * 查询2：icon-query
+ * 解锁：icon-unlock
+ * 重置：icon-reset
+ * 代码：icon-page_code
+ * 通知公告：icon-blog
+ * 附件：icon-attach
+ * 未读：icon-new
+ * 未读动画：icon-new-gif
+ * 信封：icon-envelope
+ * 停止：icon-stop
+ *
+ *
+ *****************************************************************************/
+cus-i{
+  padding: 8px;
+  margin:1px;
+  /*border-radius: 6px;
+  border: 1px rgba(0,0,0,.4) solid;
+  box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);*/
+}
+.icon-excel{
+	background:url('icons/excel.png') no-repeat center center;
+}
+.icon-query{
+	background:url('icons/intro.png') no-repeat center center;
+}
+.icon-road{
+	background:url('icons/road.png') no-repeat center center;
+}
+.icon-crossing{
+	background:url('icons/crossing.png') no-repeat center center;
+}
+.icon-roadseg{
+	background:url('icons/roadseg.png') no-repeat center center;
+}
+.icon-epolice{
+	background:url('icons/epolice.png') no-repeat center center;
+}
+.icon-videomonitor{
+	background:url('icons/video.png') no-repeat center center;
+}
+.icon-bayonet{
+	background:url('icons/kakou.png') no-repeat center center;
+}
+.icon-signal{
+	background:url('icons/signal.png') no-repeat center center;
+}
+.icon-guidance{
+	background:url('icons/guidance.png') no-repeat center center;
+}
+.icon-signage{
+	background:url('icons/signage.png') no-repeat center center;
+}
+
+
+/* 解锁 */
+.icon-unlock{
+	background:url('icons/lock_unlock.png') no-repeat center center;
+}
+.icon-reset{
+	background:url('icons/set.png') no-repeat center center;
+}
+
+.icon-page_code{
+	background:url('icons/page_code.png') no-repeat center center;
+}
+
+.icon-map{
+	background:url('icons/map.png') no-repeat center center;
+}
+
+.icon-blog{
+	background:url('icons/blog.png') no-repeat center center;
+}
+.icon-attach{
+	background:url('icons/attach_2.png') no-repeat center center;
+}
+.icon-new{
+	background:url('icons/new.png') no-repeat center center;
+}
+.icon-new-gif{
+	background:url('icons/new.gif') no-repeat center center;
+}
+.icon-envelope{
+	background:url('icons/envelope.png') no-repeat center center;
+}
+.icon-stop{
+	background:url('icons/stop.png') no-repeat center center;
+}

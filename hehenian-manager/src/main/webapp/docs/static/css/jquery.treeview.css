@@ -1,0 +1,9 @@
+/*leftmenu*/
+#menuControl {padding:10px 0 0 5px; font-weight:bold; margin-left:-5px;}
+#menuControl a {cursor:pointer; margin:0 0px 0 6px; }
+.filetree li{ padding:0px; }
+.folder{border:1px solid #91af94;margin:5px;display:block; _display: inline-block; _width:100px;_margin:3px 0px 3px 5px;cursor:pointer;padding: 2px 0 2px 35px;}
+.filetree span.folder { background: url(http://imagescrm.zhenai.com/images/jquery.treeview/folder.gif) 10px 3px no-repeat #cce8cf;  }
+.filetree li.expandable span.folder { background: url(http://imagescrm.zhenai.com/images/jquery.treeview/folder-closed.gif) 10px 3px no-repeat #cce8cf;}
+.filetree span.file{background: url(http://imagescrm.zhenai.com/images/jquery.treeview/file.gif) 15px 3px no-repeat;padding:2px 0 2px 35px;display:inline-block;}
+
